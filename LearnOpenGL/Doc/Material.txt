@@ -1,0 +1,38 @@
+LP{n} f1, f2, f3
+
+The above shows the fomrmat for a Material file.
+L : the type of light
+	1 : DirLight
+	2 : PointLight
+	3 : SpotLight
+	4 : Marerial
+
+P : the light property
+	0 : Position
+	1 : Direction
+	2 : Ambient
+	3 : Diffuse
+	4 : Specular
+	5 : Constant / Shininess(Material)
+	6 : Linear
+	7 : CutOff
+	8 : OuterCutOff
+	9 : Shininess
+
+n : nth light (Currently only used on PointLights)
+
+
+Summary :
+
+	Light Prop Type {
+		0 : Position      (PointLight, maybe SpotLight in the future)
+		1 : Direction     (DirLight, maybe SpotLight in the future)
+		2 : Ambient       (DirLight, PointLight, SpotLight)
+		3 : Diffuse       (DirLight, PointLight, SpotLight)
+		4 : Specular      (DirLight, PointLight, SpotLight)
+		5 : Constant / Shininess     (PointLight, SpotLight, Material)
+		6 : Linear        (PointLight, SpotLight)
+		7 : Quadratic     (PointLight, SpotLight)
+		8 : Cut Off       (SpotLight)
+		9 : Outer Cut Off (SpotLight)
+	}

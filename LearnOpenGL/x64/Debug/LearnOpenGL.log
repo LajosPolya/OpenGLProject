@@ -1,0 +1,48 @@
+﻿LearnOpenGL.obj : error LNK2019: unresolved external symbol glewInit referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwInit referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwTerminate referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwWindowHint referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwCreateWindow referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwWindowShouldClose referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwSetWindowShouldClose referenced in function "void __cdecl key_callback(struct GLFWwindow *,int,int,int,int)" (?key_callback@@YAXPEAUGLFWwindow@@HHHH@Z)
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwGetFramebufferSize referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwPollEvents referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwSetInputMode referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwSetKeyCallback referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwSetCursorPosCallback referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwSetScrollCallback referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwGetTime referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwMakeContextCurrent referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol glfwSwapBuffers referenced in function main
+LearnOpenGL.obj : error LNK2019: unresolved external symbol SOIL_load_image referenced in function "unsigned int __cdecl LoadTexture(char *,unsigned char)" (?LoadTexture@@YAIPEADE@Z)
+LearnOpenGL.obj : error LNK2019: unresolved external symbol SOIL_free_image_data referenced in function "unsigned int __cdecl LoadTexture(char *,unsigned char)" (?LoadTexture@@YAIPEADE@Z)
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewActiveTexture
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewBindBuffer
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewBufferData
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewDeleteBuffers
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewGenBuffers
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewAttachShader
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewCompileShader
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewCreateProgram
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewCreateShader
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewDeleteShader
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewEnableVertexAttribArray
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewGetProgramInfoLog
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewGetProgramiv
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewGetShaderInfoLog
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewGetShaderiv
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewGetUniformLocation
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewLinkProgram
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewShaderSource
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewUniform1f
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewUniform1i
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewUniform3f
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewUniformMatrix4fv
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewUseProgram
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewVertexAttribPointer
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewGenerateMipmap
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewBindVertexArray
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewDeleteVertexArrays
+LearnOpenGL.obj : error LNK2001: unresolved external symbol __glewGenVertexArrays
+LearnOpenGL.obj : error LNK2001: unresolved external symbol glewExperimental
+C:\Users\Lajos Polya\Documents\Visual Studio 2015\Projects\LearnOpenGL\x64\Debug\LearnOpenGL.exe : fatal error LNK1120: 47 unresolved externals
