@@ -118,9 +118,6 @@
     <Text Include="Doc\Material.txt">
       <Filter>Doc</Filter>
     </Text>
-    <Text Include="Transform\CrateTransform.txt">
-      <Filter>Transform</Filter>
-    </Text>
     <Text Include="Material\crateMaterial.txt">
       <Filter>Material</Filter>
     </Text>
@@ -134,6 +131,9 @@
       <Filter>Mesh</Filter>
     </Text>
     <Text Include="Transform\window.txt">
+      <Filter>Transform</Filter>
+    </Text>
+    <Text Include="Transform\crate.txt">
       <Filter>Transform</Filter>
     </Text>
   </ItemGroup>

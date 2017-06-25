@@ -210,14 +210,14 @@ int main()
 	Mesh testingMesh("Mesh/crate.txt", testVectorTexture, ourShader);
 	Material testingMaterial("Material/crateMaterial.txt", ourShader);
 
-	Transform testingTransform("Transform/crateTransform.txt", NULL);
+	Transform testingTransform("Transform/crate.txt", NULL);
 
 	/* Calcualte Projection Here */
 	glm::mat4 projection = glm::perspective(camera.Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-	GameObject testingGameObject("vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", "Transform/crateTransform.txt", &camera, projection);
+	GameObject testingGameObject("vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", "Transform/crate.txt", &camera, projection);
 	/* I think the grass Transform.z is 0.5 so it can be rotated properly on the y-axis (so it doesn't rotate along a corner */
 	GameObject grassGameObject("alphaVertex.txt", "alphaFrag.txt", "grass.png", NULL, "Mesh/grass.txt", NULL, "Transform/grass.txt", &camera, projection);
-	/* "vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", Transform/crateTransform.txt */
+	/* "vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", Transform/crate.txt */
 	GameObject windowGameObject("alphaVertex.txt", "blendFrag.txt", "blending_transparent_window.png", NULL, "Mesh/window.txt", NULL, "Transform/window.txt", &camera, projection);
 	// Set Window Shader Texture
 
