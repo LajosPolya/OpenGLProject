@@ -89,6 +89,10 @@ void Transform::refreshModel() {
 	this->model = glm::mat4();
 }
 
+void Transform::setScale() {
+	this->model = glm::scale(model, this->Scale);
+}
+
 void Transform::Draw() {
 	/* This resets to the original values from file */
 	this->newRotation = this->Rotation;

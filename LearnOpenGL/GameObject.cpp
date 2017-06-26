@@ -27,6 +27,7 @@ void GameObject::Draw() {
 	this->transform->refreshModel();
 	this->transform->setRotation();
 	this->transform->setPosition();
+	this->transform->setScale();
 	this->transform->Draw();
 
 	this->renderer->Render();

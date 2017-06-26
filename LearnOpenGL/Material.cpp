@@ -211,10 +211,17 @@ Material::Material() {
 				if (token[0] == '1') { // Directional Light
 					getMeshProperties(&this->dirLight, context, token[1]);
 
+					if (pointLights.size() != 0 && this->havePushedLastPointLight == false) {
+						pointLights.push_back(pointLight);
+						this->havePushedLastPointLight = true;
+					}
+
 				}
 				else if (token[0] == '2') { // Point Light
 					if (token[2] != prevPointLight) {
-						pointLights.push_back(pointLight);
+						if (prevPointLight != ' ' || pointLights.size() != 0) {
+							pointLights.push_back(pointLight);
+						}
 						prevPointLight = token[2];
 						pointLight = {};
 					}
@@ -222,9 +229,19 @@ Material::Material() {
 				}
 				else if (token[0] == '3') { // Spot Light
 					getMeshProperties(&this->spotLight, context, token[1]);
+
+					if (pointLights.size() != 0 && this->havePushedLastPointLight == false) {
+						pointLights.push_back(pointLight);
+						this->havePushedLastPointLight = true;
+					}
 				}
 				else if (token[0] == '4') {
 					getMeshProperties(&this->material, context, token[1]);
+
+					if (pointLights.size() != 0 && this->havePushedLastPointLight == false) {
+						pointLights.push_back(pointLight);
+						this->havePushedLastPointLight = true;
+					}
 				}
 			}
 		}

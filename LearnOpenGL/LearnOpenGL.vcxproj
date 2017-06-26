@@ -150,10 +150,15 @@
     <Text Include="Material\crateMaterial.txt" />
     <Text Include="Mesh\crate.txt" />
     <Text Include="Mesh\grass.txt" />
+    <Text Include="Mesh\lightBox.txt" />
     <Text Include="Mesh\window.txt" />
     <Text Include="singleColourFrag.txt" />
     <Text Include="Transform\crate.txt" />
     <Text Include="Transform\grass.txt" />
+    <Text Include="Transform\lightBox1.txt" />
+    <Text Include="Transform\lightBox2.txt" />
+    <Text Include="Transform\lightBox3.txt" />
+    <Text Include="Transform\lightBox4.txt" />
     <Text Include="Transform\window.txt" />
     <Text Include="vertex.txt" />
   </ItemGroup>

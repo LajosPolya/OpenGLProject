@@ -48,6 +48,7 @@ private:
 
 	DirLight dirLight;
 	SpotLight spotLight;
+	GLboolean havePushedLastPointLight = false;
 	std::vector<PointLight> pointLights;
 	MaterialProp material;
 	void readLightingFile(GLchar* filename);

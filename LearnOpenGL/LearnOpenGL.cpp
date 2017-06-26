@@ -28,9 +28,6 @@
 
 #define WORLD_LENGTH 10
 
-// Drawing Functions
-void DrawLights(Shader * shader, GLuint * VAO, glm::vec3 positions[], glm::mat4 * view, glm::mat4 * projection);
-
 // Function prototypes
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void do_movement();
@@ -105,8 +102,6 @@ int main()
 	Shader ourShader = Shader("vertex.txt", "fragment.txt");
 	Shader lampShader = Shader("lampVertex.txt", "lampFragment.txt");
 	Shader stencilShader = Shader("vertex.txt", "singleColourFrag.txt");
-	Shader grassShader = Shader("alphaVertex.txt", "alphaFrag.txt");
-
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	GLfloat vertices[] = {
@@ -162,10 +157,10 @@ int main()
 	}
 
 	glm::vec3 pointLightPositions[] = {
+		glm::vec3(0.0f,  0.0f, -3.0f),
 		glm::vec3(10.0f, 1.0f, 10.0f),
 		glm::vec3(50.0f, -3.0f, 50.0f),
-		glm::vec3(-4.0f,  2.0f, 100.0f),
-		glm::vec3(0.0f,  0.0f, -3.0f)
+		glm::vec3(-4.0f,  2.0f, 100.0f)
 	};
 
 	GLuint VBO, VAO;
@@ -219,7 +214,10 @@ int main()
 	GameObject grassGameObject("alphaVertex.txt", "alphaFrag.txt", "grass.png", NULL, "Mesh/grass.txt", NULL, "Transform/grass.txt", &camera, projection);
 	/* "vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", Transform/crate.txt */
 	GameObject windowGameObject("alphaVertex.txt", "blendFrag.txt", "blending_transparent_window.png", NULL, "Mesh/window.txt", NULL, "Transform/window.txt", &camera, projection);
-	// Set Window Shader Texture
+	GameObject lightBox1("lampVertex.txt", "lampFragment.txt", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox1.txt", &camera, projection);
+	GameObject lightBox2("lampVertex.txt", "lampFragment.txt", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox2.txt", &camera, projection);
+	GameObject lightBox3("lampVertex.txt", "lampFragment.txt", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox3.txt", &camera, projection);
+	GameObject lightBox4("lampVertex.txt", "lampFragment.txt", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox4.txt", &camera, projection);
 
 	// Set Texture Units
 	ourShader.Use();
@@ -334,8 +332,10 @@ int main()
 
 		glBindVertexArray(0);
 
-		DrawLights(&lampShader, &lightVAO, pointLightPositions, &view, &projection);
-
+		lightBox1.Draw();
+		lightBox2.Draw();
+		lightBox3.Draw();
+		lightBox4.Draw();
 
 		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 		glStencilMask(0x00);
@@ -421,29 +421,4 @@ void mouse_callback(GLFWwindow * window, double xpos, double ypos) {
 
 void scroll_callback(GLFWwindow * window, double xoffset, double yoffset) {
 	camera.ProcessMouseScroll(yoffset);
-}
-
-void DrawLights(Shader * shader, GLuint * VAO, glm::vec3 positions[], glm::mat4 * view, glm::mat4 * projection) {
-	
-	GLuint modelLoc, viewLoc, projectionLoc;
-	glm::mat4 model;
-
-	shader->Use();
-
-	modelLoc = glGetUniformLocation(shader->Program, "model");
-
-	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(*view));
-	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(*projection));
-
-	glBindVertexArray(*VAO);
-	for (GLuint i = 0; i < 4; i++)
-	{
-		model = glm::mat4();
-		model = glm::translate(model, positions[i]);
-		model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-	}
-
-	glBindVertexArray(0);
 }

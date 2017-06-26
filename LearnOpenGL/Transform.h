@@ -39,6 +39,8 @@ public:
 	void setYRotation(GLfloat radians);
 	void setRotation(glm::vec3 rotation);
 
+	void setScale();
+
 	glm::mat4 getModel();
 
 	void refreshModel();
