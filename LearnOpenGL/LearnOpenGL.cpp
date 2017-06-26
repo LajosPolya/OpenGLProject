@@ -77,7 +77,7 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Locks Mouse into Screen
-	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -156,13 +156,6 @@ int main()
 		}
 	}
 
-	glm::vec3 pointLightPositions[] = {
-		glm::vec3(0.0f,  0.0f, -3.0f),
-		glm::vec3(10.0f, 1.0f, 10.0f),
-		glm::vec3(50.0f, -3.0f, 50.0f),
-		glm::vec3(-4.0f,  2.0f, 100.0f)
-	};
-
 	GLuint VBO, VAO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -180,16 +173,6 @@ int main()
 	glEnableVertexAttribArray(2);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
 	glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
-
-	GLuint lightVAO;
-	glGenVertexArrays(1, &lightVAO);
-	glBindVertexArray(lightVAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
 
 	// Textures
 	// Diffuse Map
