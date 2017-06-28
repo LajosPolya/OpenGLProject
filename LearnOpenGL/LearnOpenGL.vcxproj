@@ -140,19 +140,19 @@
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="alphaFrag.txt" />
-    <Text Include="alphaVertex.txt" />
-    <Text Include="blendFrag.txt" />
+    <Text Include="alpha.frag" />
+    <Text Include="alpha.vert" />
+    <Text Include="blend.frag" />
     <Text Include="Doc\Material.txt" />
-    <Text Include="fragment.txt" />
-    <Text Include="lampFragment.txt" />
-    <Text Include="lampVertex.txt" />
+    <Text Include="fragment.frag" />
+    <Text Include="lamp.frag" />
+    <Text Include="lamp.vert" />
     <Text Include="Material\crateMaterial.txt" />
     <Text Include="Mesh\crate.txt" />
     <Text Include="Mesh\grass.txt" />
     <Text Include="Mesh\lightBox.txt" />
     <Text Include="Mesh\window.txt" />
-    <Text Include="singleColourFrag.txt" />
+    <Text Include="singleColour.frag" />
     <Text Include="Transform\crate.txt" />
     <Text Include="Transform\grass.txt" />
     <Text Include="Transform\lightBox1.txt" />
@@ -160,7 +160,7 @@
     <Text Include="Transform\lightBox3.txt" />
     <Text Include="Transform\lightBox4.txt" />
     <Text Include="Transform\window.txt" />
-    <Text Include="vertex.txt" />
+    <Text Include="vertex.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="awesomeface.png" />

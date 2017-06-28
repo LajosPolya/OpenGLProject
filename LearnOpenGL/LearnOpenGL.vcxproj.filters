@@ -88,30 +88,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="vertex.txt">
-      <Filter>Shaders</Filter>
-    </Text>
-    <Text Include="fragment.txt">
-      <Filter>Shaders</Filter>
-    </Text>
-    <Text Include="lampVertex.txt">
-      <Filter>Shaders</Filter>
-    </Text>
-    <Text Include="lampFragment.txt">
-      <Filter>Shaders</Filter>
-    </Text>
-    <Text Include="singleColourFrag.txt">
-      <Filter>Shaders</Filter>
-    </Text>
-    <Text Include="alphaFrag.txt">
-      <Filter>Shaders</Filter>
-    </Text>
-    <Text Include="alphaVertex.txt">
-      <Filter>Shaders</Filter>
-    </Text>
-    <Text Include="blendFrag.txt">
-      <Filter>Shaders</Filter>
-    </Text>
     <Text Include="Mesh\crate.txt">
       <Filter>Mesh</Filter>
     </Text>
@@ -150,6 +126,30 @@
     </Text>
     <Text Include="Transform\lightBox4.txt">
       <Filter>Transform</Filter>
+    </Text>
+    <Text Include="singleColour.frag">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="vertex.vert">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="lamp.vert">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="lamp.frag">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="fragment.frag">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="alpha.frag">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="alpha.vert">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="blend.frag">
+      <Filter>Shaders</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
