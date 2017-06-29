@@ -7,6 +7,15 @@
 
 #include "LightTypes.h"
 
+/* 
+ * Each PointLight should have an ID (which corresponds to its intdex in the std::vector<PointLight> pointLights;) 
+ * This way a GameObject can access any light in the scene
+ *
+ * You can also have a HashMap who's key is the Position of the PointLight and the index
+ * is the Entry of the PointLight thus a PointLight can be accessed by Position in O(2) time
+ *
+*/
+
 class Material {
 public:
 

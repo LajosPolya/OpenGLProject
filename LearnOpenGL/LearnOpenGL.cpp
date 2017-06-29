@@ -17,6 +17,7 @@
 #include "Texture.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "LightsContainer.h"
 
 // Windows
 #include <Windows.h>
@@ -77,7 +78,7 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Locks Mouse into Screen
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	///glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -200,6 +201,11 @@ int main()
 	GameObject lightBox2("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox2.txt", &camera, projection);
 	GameObject lightBox3("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox3.txt", &camera, projection);
 	GameObject lightBox4("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox4.txt", &camera, projection);
+
+	LightsContainer worldLights("Material/crateMaterial.txt");
+	LightsContainer worldLights1("Material/crateMaterial.txt");
+	LightsContainer worldLights2("Material/crateMaterial.txt");
+	LightsContainer worldLights3("Material/crateMaterial.txt");
 
 	// Set Texture Units
 	ourShader.Use();
