@@ -1,0 +1,2 @@
+If a GameObject is redrawn in a difference Position (crates, or grass objects) then data should not be sent to the Shader a second time.
+Each GameObject should have a unique Id which is checked before data is sent to the Shader to improve performance.

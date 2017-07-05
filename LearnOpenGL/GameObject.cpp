@@ -2,7 +2,7 @@
 
 #include "GameObject.h"
 
-GameObject::GameObject(GLchar* vertexShader, GLchar* fragmentShader, GLchar* diffuseMapLoc, GLchar* specularMapLoc, GLchar* meshLoc, GLchar* materialLoc, GLchar* transformLoc, Camera * camera, glm::mat4 projection) {
+GameObject::GameObject(GLchar* vertexShader, GLchar* fragmentShader, GLchar* diffuseMapLoc, GLchar* specularMapLoc, GLchar* meshLoc, GLchar* materialLoc, GLchar* transformLoc, GLchar* lightsLoc,  Camera * camera, glm::mat4 projection) {
 	this->shader = new Shader(vertexShader, fragmentShader);
 	this->diffuseMap = new Texture(diffuseMapLoc, true);
 	this->diffuseMap->name = "material.diffuse";
@@ -16,6 +16,8 @@ GameObject::GameObject(GLchar* vertexShader, GLchar* fragmentShader, GLchar* dif
 	this->transform = new Transform(transformLoc, this);
 	this->camera = camera;
 	this->projection = projection;
+	
+	this->lightsContainer = new LightsContainer(lightsLoc);
 
 	this->shader->Use();
 
@@ -29,6 +31,8 @@ void GameObject::Draw() {
 	this->transform->setPosition();
 	this->transform->setScale();
 	this->transform->Draw();
+
+	this->lightsContainer->sendDatatoShader(*this->shader);
 
 	this->renderer->Render();
 	this->mesh->Draw(*(this->shader));
@@ -54,4 +58,9 @@ Texture * GameObject::getDiffuseMap()
 Texture * GameObject::getSpecularMap()
 {
 	return this->specularMap;
+}
+
+LightsContainer * GameObject::getLightsContainer()
+{
+	return this->lightsContainer;
 }

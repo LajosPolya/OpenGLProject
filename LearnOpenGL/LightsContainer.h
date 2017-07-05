@@ -11,6 +11,8 @@ public:
 	LightsContainer(GLchar* lightsLocation);
 	~LightsContainer();
 
+	void sendDatatoShader(Shader shader);
+
 private:
 	GLboolean havePushedLastPointLight = false;
 	void readLightingFile(GLchar* filename);

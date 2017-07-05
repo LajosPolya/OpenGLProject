@@ -157,6 +157,9 @@
     <Text Include="blend.frag">
       <Filter>Shaders</Filter>
     </Text>
+    <Text Include="Doc\FutureIdeas.txt">
+      <Filter>Doc</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="wall.jpg">

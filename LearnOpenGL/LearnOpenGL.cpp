@@ -27,7 +27,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define WORLD_LENGTH 10
+#define WORLD_LENGTH 5
 
 // Function prototypes
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -78,7 +78,7 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Locks Mouse into Screen
-	///glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -93,61 +93,8 @@ int main()
 	// OpenGL Options
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-	glEnable(GL_STENCIL_TEST);
-	glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	// Build and compile our shader program
-	Shader ourShader = Shader("vertex.vert", "fragment.frag");
-	Shader stencilShader = Shader("vertex.vert", "singleColour.frag");
-
-	// Set up vertex data (and buffer(s)) and attribute pointers
-	GLfloat vertices[] = {
-		// Positions           // Normals           // Texture Coords
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
-	};
 
 	glm::vec3 cubePositions[WORLD_LENGTH][WORLD_LENGTH];
 	for (GLuint i = 0; i < WORLD_LENGTH; i++) {
@@ -155,65 +102,18 @@ int main()
 			cubePositions[i][j] = glm::vec3((GLfloat)i, (GLfloat)-5, (GLfloat)j);
 		}
 	}
-
-	GLuint VBO, VAO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
-	glBindVertexArray(VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(2);
-	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
-	glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
-
-	// Textures
-	// Diffuse Map
-	Texture diffuseMap("container2.png", true);
-	// Specular Map
-	Texture specularMap("container2_specular.png", true);
-
-	std::vector<Texture> testVectorTexture;
-	Texture testTexture;
-	testTexture.id = diffuseMap.getTextureID();
-	testTexture.name = "material.diffuse";
-	testVectorTexture.push_back(testTexture);
-	Mesh testingMesh("Mesh/crate.txt", testVectorTexture, ourShader);
-	Material testingMaterial("Material/crateMaterial.txt", ourShader);
-
-	Transform testingTransform("Transform/crate.txt", NULL);
-
+	
 	/* Calcualte Projection Here */
 	glm::mat4 projection = glm::perspective(camera.Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-	GameObject testingGameObject("vertex.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", "Transform/crate.txt", &camera, projection);
+	GameObject testingGameObject("vertex.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", "Transform/crate.txt", "Material/crateMaterial.txt", &camera, projection);
 	/* I think the grass Transform.z is 0.5 so it can be rotated properly on the y-axis (so it doesn't rotate along a corner */
-	GameObject grassGameObject("alpha.vert", "alpha.frag", "grass.png", NULL, "Mesh/grass.txt", NULL, "Transform/grass.txt", &camera, projection);
+	GameObject grassGameObject("alpha.vert", "alpha.frag", "grass.png", NULL, "Mesh/grass.txt", NULL, "Transform/grass.txt", "Material/crateMaterial.txt", &camera, projection);
 	/* "vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", Transform/crate.txt */
-	GameObject windowGameObject("alpha.vert", "blend.frag", "blending_transparent_window.png", NULL, "Mesh/window.txt", NULL, "Transform/window.txt", &camera, projection);
-	GameObject lightBox1("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox1.txt", &camera, projection);
-	GameObject lightBox2("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox2.txt", &camera, projection);
-	GameObject lightBox3("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox3.txt", &camera, projection);
-	GameObject lightBox4("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox4.txt", &camera, projection);
-
-	LightsContainer worldLights("Material/crateMaterial.txt");
-	LightsContainer worldLights1("Material/crateMaterial.txt");
-	LightsContainer worldLights2("Material/crateMaterial.txt");
-	LightsContainer worldLights3("Material/crateMaterial.txt");
-
-	// Set Texture Units
-	ourShader.Use();
-
-	// The Zero here can be GL_TEXTURE0
-	// and One here can be GL_TEXTURE0 + 1
-	glUniform1i(glGetUniformLocation(ourShader.Program, "material.diffuse"), 0);
-	glUniform1i(glGetUniformLocation(ourShader.Program, "material.specular"), 1);
+	GameObject windowGameObject("alpha.vert", "blend.frag", "blending_transparent_window.png", NULL, "Mesh/window.txt", NULL, "Transform/window.txt", "Material/crateMaterial.txt", &camera, projection);
+	GameObject lightBox1("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox1.txt", "Material/crateMaterial.txt", &camera, projection);
+	GameObject lightBox2("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox2.txt", "Material/crateMaterial.txt", &camera, projection);
+	GameObject lightBox3("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox3.txt", "Material/crateMaterial.txt", &camera, projection);
+	GameObject lightBox4("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox4.txt", "Material/crateMaterial.txt", &camera, projection);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -227,66 +127,17 @@ int main()
 
 		// Clear the colorbuffer
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// Draw Objects Normally and Fill Stencil Buffer
-		glStencilFunc(GL_ALWAYS, 1, 0xFF);
-		glStencilMask(0xFF);
-
-		// Use the Shader
-		ourShader.Use();
-		glUniform3f(glGetUniformLocation(ourShader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
-
-		/* Gram-Schmidt Method
-		   Also involves the Projection Matrix but that calculation shouldn't be 
-		   done every frame thus it's at the beginning of the game loop
-		*/
-		glm::mat4 view;
-		view = camera.GetViewMatrix();
-		glm::mat4 model;
-
-		GLuint modelLoc = glGetUniformLocation(ourShader.Program, "model");
-		GLuint viewLoc = glGetUniformLocation(ourShader.Program, "view");
-		GLuint projectionLoc = glGetUniformLocation(ourShader.Program, "projection");
-
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection)); // The projection matrix rarely changes so it can be left outside the loop
-
-		// Bind Diffuse Map
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, diffuseMap.getTextureID());
-
-		// Bind Specular Map
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, specularMap.getTextureID());
-
-		glBindVertexArray(VAO);
 		for (GLuint i = 0; i < WORLD_LENGTH; i++) {
 			for (GLuint j = 0; j < WORLD_LENGTH; j++) {
-				model = glm::mat4();
-				model = glm::translate(model, cubePositions[i][j]);
-				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-				glDrawArrays(GL_TRIANGLES, 0, 36);
+				testingGameObject.getTransform()->setPosition(cubePositions[i][j]);
+				testingGameObject.Draw();
 			}
 		}
 
 		glBindVertexArray(0);
 
-		/* I think first everything needs to be rendered and then, only rerender the objects which need to have a border
-		   This is why the lights need to be rendered before the rerendering process */
-		ourShader.Use();
-
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(0.0f, -4.0f, 0.5f) + glm::vec3(0.0f, 2.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-		// Set material properties
-		glUniform1f(glGetUniformLocation(ourShader.Program, "material.shininess"), 32.0f);
-		glUniform3f(glGetUniformLocation(ourShader.Program, "spotLight.position"), camera.Position.x, camera.Position.y, camera.Position.z);
-		glUniform3f(glGetUniformLocation(ourShader.Program, "spotLight.direction"), camera.Front.x, camera.Front.y, camera.Front.z);
-		testingMesh.Draw(ourShader);
 
 		testingGameObject.Draw();
 
@@ -325,35 +176,12 @@ int main()
 		lightBox3.Draw();
 		lightBox4.Draw();
 
-		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-		glStencilMask(0x00);
-		glDisable(GL_DEPTH_TEST);
-		stencilShader.Use();
-
-		glBindVertexArray(VAO);
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-		for (GLuint i = 0; i < WORLD_LENGTH; i++) {
-			for (GLuint j = 0; j < WORLD_LENGTH; j++) {
-				model = glm::mat4();
-				model = glm::translate(model, cubePositions[i][j]);
-				model = glm::scale(model, glm::vec3(1.1, 1.1, 1.1));
-				glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-				glDrawArrays(GL_TRIANGLES, 0, 36);
-			}
-		}
-
-		glBindVertexArray(0);
-
-		glStencilMask(0xFF);
 		glEnable(GL_DEPTH_TEST);
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
 	}
-	// Properly de-allocate all resources once they've outlived their purpose
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
+
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
 	return 0;

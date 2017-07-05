@@ -60,7 +60,7 @@ void Transform::readFile(GLchar* filename) {
 }
 
 void Transform::setPosition() {
-	this->model = glm::translate(this->model, this->Position);
+	this->model = glm::translate(this->model, this->newPosition);
 }
 
 void Transform::setPosition(glm::vec3 pos) {

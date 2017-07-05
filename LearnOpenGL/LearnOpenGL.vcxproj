@@ -145,6 +145,7 @@
     <Text Include="alpha.frag" />
     <Text Include="alpha.vert" />
     <Text Include="blend.frag" />
+    <Text Include="Doc\FutureIdeas.txt" />
     <Text Include="Doc\Material.txt" />
     <Text Include="fragment.frag" />
     <Text Include="lamp.frag" />

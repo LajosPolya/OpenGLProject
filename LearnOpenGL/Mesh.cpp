@@ -8,7 +8,7 @@ Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader)
 	GLint vertexProp_BitMap = this->readVertexFile(vertexLocation);
 	this->textures = textures;
 
-	for (GLuint i = 0; i < vertices.size(); i++) {
+	/*for (GLuint i = 0; i < vertices.size(); i++) {
 		std::cout << vertices[i].Position.x << " ";
 		std::cout << vertices[i].Position.y << " ";
 		std::cout << vertices[i].Position.z << " ";
@@ -22,7 +22,7 @@ Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader)
 		std::cout << std::endl;
 	}
 
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 
 	this->setupMesh(vertexProp_BitMap);
 }
@@ -130,15 +130,15 @@ GLint Mesh::readVertexFile(GLchar* filename) {
 		std::getline(file, line);
 		if (line[POSITION] != NULL && line[POSITION] == '1') {
 			vertexProp_BitMap = vertexProp_BitMap | POSITION_BITMAP; // 00000001
-																		//std::cout << position << std::endl;
+			//std::cout << position << std::endl;
 		}
 		if (line[NORMAL] != NULL && line[NORMAL] == '1') {
 			vertexProp_BitMap = vertexProp_BitMap | NORMAL_BITMAP; // 00000010
-																	//std::cout << normal << std::endl;
+			//std::cout << normal << std::endl;
 		}
 		if (line[TEXT_COORDS] != NULL && line[TEXT_COORDS] == '1') {
 			vertexProp_BitMap = vertexProp_BitMap | TEXTURE_COORDS_BITMAP; // 00000100
-																			//std::cout << textCoords << std::endl;
+			//std::cout << textCoords << std::endl;
 		}
 
 		// Get each vertex

@@ -15,31 +15,6 @@ Material::Material(GLchar* materialLocation, Shader shader) {
 /* DirLight, SpotLight and PointLights were initialized in this->readLightingFile() */
 void Material::sendDataToShader(Shader shader) {
 	shader.Use();
-	// Directional light
-	glUniform3f(glGetUniformLocation(shader.Program, "dirLight.direction"), dirLight.direction.x, dirLight.direction.y, dirLight.direction.z);
-	glUniform3f(glGetUniformLocation(shader.Program, "dirLight.ambient"), dirLight.ambient.x, dirLight.ambient.y, dirLight.ambient.z);
-	glUniform3f(glGetUniformLocation(shader.Program, "dirLight.diffuse"), dirLight.diffuse.x, dirLight.diffuse.y, dirLight.diffuse.z);
-	glUniform3f(glGetUniformLocation(shader.Program, "dirLight.specular"), dirLight.specular.x, dirLight.specular.y, dirLight.specular.z);
-
-	for (GLuint i = 0; i < pointLights.size(); i++) {
-		glUniform3f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].position").c_str()), pointLights[i].position.x, pointLights[i].position.y, pointLights[i].position.z);
-		glUniform3f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].ambient").c_str()), pointLights[i].ambient.x, pointLights[i].ambient.y, pointLights[i].ambient.z);
-		glUniform3f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].diffuse").c_str()), pointLights[i].diffuse.x, pointLights[i].diffuse.y, pointLights[i].diffuse.z);
-		glUniform3f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].specular").c_str()), pointLights[i].specular.x, pointLights[i].specular.y, pointLights[i].specular.z);
-		glUniform1f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].constant").c_str()), pointLights[i].constant);
-		glUniform1f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].linear").c_str()), pointLights[i].linear);
-		glUniform1f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].quadratic").c_str()), pointLights[i].quadratic);
-	}
-
-	glUniform3f(glGetUniformLocation(shader.Program, "spotLight.ambient"), spotLight.ambient.x, spotLight.ambient.y, spotLight.ambient.z);
-	glUniform3f(glGetUniformLocation(shader.Program, "spotLight.diffuse"), spotLight.diffuse.x, spotLight.diffuse.y, spotLight.diffuse.z);
-	glUniform3f(glGetUniformLocation(shader.Program, "spotLight.specular"), spotLight.specular.x, spotLight.specular.y, spotLight.specular.z);
-	glUniform1f(glGetUniformLocation(shader.Program, "spotLight.constant"), spotLight.constant);
-	glUniform1f(glGetUniformLocation(shader.Program, "spotLight.linear"), spotLight.linear);
-	glUniform1f(glGetUniformLocation(shader.Program, "spotLight.quadratic"), spotLight.quadratic);
-	glUniform1f(glGetUniformLocation(shader.Program, "spotLight.cutOff"), glm::cos(glm::radians(spotLight.cutOff)));
-	glUniform1f(glGetUniformLocation(shader.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(spotLight.outerCutOff)));
-
 	glUniform1f(glGetUniformLocation(shader.Program, "material.shininess"), material.shininess);
 }
 
@@ -83,7 +58,7 @@ void Material::getMeshProperties(DirLight * dirLight, GLchar* context, GLchar li
 		dirLight->specular = prop;
 	}
 
-	std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
+	// std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 }
 
 void Material::getMeshProperties(SpotLight * spotLight, GLchar* context, GLchar lightPropType) {
@@ -100,43 +75,43 @@ void Material::getMeshProperties(SpotLight * spotLight, GLchar* context, GLchar 
 
 	if (lightPropType == '0') {
 		spotLight->position = prop;
-		std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
+		// std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 	}
 	else if (lightPropType == '1') {
 		spotLight->direction = prop;
-		std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
+		// std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 	}
 	else if (lightPropType == '2') {
 		spotLight->ambient = prop;
-		std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
+		// std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 	}
 	else if (lightPropType == '3') {
 		spotLight->diffuse = prop;
-		std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
+		// std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 	}
 	else if (lightPropType == '4') {
 		spotLight->specular = prop;
-		std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
+		// std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 	}
 	else if (lightPropType == '5') {
 		spotLight->constant = prop[0];
-		std::cout << prop.x << std::endl;
+		// std::cout << prop.x << std::endl;
 	}
 	else if (lightPropType == '6') {
 		spotLight->linear = prop[0];
-		std::cout << prop.x << std::endl;
+		// std::cout << prop.x << std::endl;
 	}
 	else if (lightPropType == '7') {
 		spotLight->quadratic = prop[0];
-		std::cout << prop.x << std::endl;
+		// std::cout << prop.x << std::endl;
 	}
 	else if (lightPropType == '8') {
 		spotLight->cutOff = prop[0];
-		std::cout << prop.x << std::endl;
+		// std::cout << prop.x << std::endl;
 	}
 	else if (lightPropType == '9') {
 		spotLight->outerCutOff = prop[0];
-		std::cout << prop.x << std::endl;
+		// std::cout << prop.x << std::endl;
 	}
 }
 

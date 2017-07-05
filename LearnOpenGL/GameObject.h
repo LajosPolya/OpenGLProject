@@ -18,6 +18,7 @@
 #include "Texture.h"
 #include "Transform.h"
 #include "Renderer.h"
+#include "LightsContainer.h"
 
 // GLM
 #include <glm/glm.hpp>
@@ -28,7 +29,7 @@
 class GameObject {
 public:
 
-	GameObject(GLchar* vertexShader, GLchar* fragmentShader, GLchar* diffuseMapLoc, GLchar* specularMapLoc, GLchar* meshLoc, GLchar* materialLoc, GLchar* transformLoc, Camera * camera, glm::mat4 projection);
+	GameObject(GLchar* vertexShader, GLchar* fragmentShader, GLchar* diffuseMapLoc, GLchar* specularMapLoc, GLchar* meshLoc, GLchar* materialLoc, GLchar* transformLoc, GLchar* lightsLoc, Camera * camera, glm::mat4 projection);
 	
 	void Draw();
 
@@ -40,6 +41,8 @@ public:
 
 	Texture* getDiffuseMap();
 	Texture* getSpecularMap();
+
+	LightsContainer* getLightsContainer();
 
 private:
 	Mesh* mesh;
@@ -56,6 +59,8 @@ private:
 	Transform* transform;
 
 	Renderer* renderer;
+
+	LightsContainer* lightsContainer;
 
 	glm::mat4 projection;
 
