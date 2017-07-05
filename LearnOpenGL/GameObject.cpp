@@ -24,6 +24,48 @@ GameObject::GameObject(GLchar* vertexShader, GLchar* fragmentShader, GLchar* dif
 	this->renderer = new Renderer(this, this->projection);
 }
 
+GameObject::GameObject(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
+{
+	this->shader = new Shader(vertexShader, fragmentShader);
+	this->diffuseMap = new Texture(diffuseMapLoc, true);
+	this->specularMap = new Texture(NULL, true);
+	std::vector<Texture> textures;
+	textures.push_back(*(this->diffuseMap));
+	textures.push_back(*(this->specularMap));
+	this->mesh = new Mesh(meshLoc, textures, *(this->shader));
+	this->material = new Material(NULL, *(this->shader));
+	this->transform = new Transform(transformLoc, this);
+	this->camera = camera;
+	this->projection = projection;
+
+	this->lightsContainer = new LightsContainer(NULL);
+
+	this->shader->Use();
+
+	this->renderer = new Renderer(this, this->projection);
+}
+
+GameObject::GameObject(GLchar * vertexShader, GLchar * fragmentShader, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
+{
+	this->shader = new Shader(vertexShader, fragmentShader);
+	this->diffuseMap = new Texture(NULL, true);
+	this->specularMap = new Texture(NULL, true);
+	std::vector<Texture> textures;
+	textures.push_back(*(this->diffuseMap));
+	textures.push_back(*(this->specularMap));
+	this->mesh = new Mesh(meshLoc, textures, *(this->shader));
+	this->material = new Material(NULL, *(this->shader));
+	this->transform = new Transform(transformLoc, this);
+	this->camera = camera;
+	this->projection = projection;
+
+	this->lightsContainer = new LightsContainer(NULL);
+
+	this->shader->Use();
+
+	this->renderer = new Renderer(this, this->projection);
+}
+
 void GameObject::Draw() {
 
 	this->transform->refreshModel();

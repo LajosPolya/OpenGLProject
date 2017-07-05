@@ -107,13 +107,13 @@ int main()
 	glm::mat4 projection = glm::perspective(camera.Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 	GameObject testingGameObject("vertex.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", "Transform/crate.txt", "Material/crateMaterial.txt", &camera, projection);
 	/* I think the grass Transform.z is 0.5 so it can be rotated properly on the y-axis (so it doesn't rotate along a corner */
-	GameObject grassGameObject("alpha.vert", "alpha.frag", "grass.png", NULL, "Mesh/grass.txt", NULL, "Transform/grass.txt", "Material/crateMaterial.txt", &camera, projection);
+	GameObject grassGameObject("alpha.vert", "alpha.frag", "grass.png", "Mesh/grass.txt", "Transform/grass.txt", &camera, projection);
 	/* "vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", Transform/crate.txt */
-	GameObject windowGameObject("alpha.vert", "blend.frag", "blending_transparent_window.png", NULL, "Mesh/window.txt", NULL, "Transform/window.txt", "Material/crateMaterial.txt", &camera, projection);
-	GameObject lightBox1("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox1.txt", "Material/crateMaterial.txt", &camera, projection);
-	GameObject lightBox2("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox2.txt", "Material/crateMaterial.txt", &camera, projection);
-	GameObject lightBox3("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox3.txt", "Material/crateMaterial.txt", &camera, projection);
-	GameObject lightBox4("lamp.vert", "lamp.frag", NULL, NULL, "Mesh/lightBox.txt", NULL, "Transform/lightBox4.txt", "Material/crateMaterial.txt", &camera, projection);
+	GameObject windowGameObject("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window.txt", &camera, projection);
+	GameObject lightBox1("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox1.txt", &camera, projection);
+	GameObject lightBox2("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox2.txt", &camera, projection);
+	GameObject lightBox3("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox3.txt", &camera, projection);
+	GameObject lightBox4("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox4.txt", &camera, projection);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
