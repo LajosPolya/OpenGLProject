@@ -1,6 +1,6 @@
 #version 330 core
 
-#define NR_POINT_LIGHTS 4
+#define NR_POINT_LIGHTS 128
 
 struct Material {
 	sampler2D diffuse;
@@ -59,6 +59,8 @@ uniform DirLight dirLight;
 uniform PointLight pointLights[NR_POINT_LIGHTS];
 uniform SpotLight spotLight;
 
+uniform int size;
+
 void main()
 {
 	// Properties
@@ -69,7 +71,7 @@ void main()
 	vec4 result = CalcDirLight(dirLight, norm, viewDir);
 
 	// Point Lights
-	for(int i = 0; i < NR_POINT_LIGHTS; i++) {
+	for(int i = 0; i < size; i++) {
 		result += CalcPointLight(pointLights[i], norm, FragPos, viewDir);
 	}
 

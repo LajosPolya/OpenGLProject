@@ -33,6 +33,7 @@ void LightsContainer::sendDatatoShader(Shader shader) {
 	glUniform3f(glGetUniformLocation(shader.Program, "dirLight.specular"), dirLight->specular.x, dirLight->specular.y, dirLight->specular.z);
 
 	// Point Light
+	glUniform1i(glGetUniformLocation(shader.Program, "size"), pointLights.size());
 	for (GLuint i = 0; i < pointLights.size(); i++) {
 		glUniform3f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].position").c_str()), pointLights[i].position.x, pointLights[i].position.y, pointLights[i].position.z);
 		glUniform3f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].ambient").c_str()), pointLights[i].ambient.x, pointLights[i].ambient.y, pointLights[i].ambient.z);
