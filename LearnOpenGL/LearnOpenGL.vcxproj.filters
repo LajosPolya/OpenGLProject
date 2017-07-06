@@ -160,6 +160,12 @@
     <Text Include="Doc\FutureIdeas.txt">
       <Filter>Doc</Filter>
     </Text>
+    <Text Include="Transform\window2.txt">
+      <Filter>Transform</Filter>
+    </Text>
+    <Text Include="Transform\window3.txt">
+      <Filter>Transform</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="wall.jpg">

@@ -163,6 +163,8 @@
     <Text Include="Transform\lightBox3.txt" />
     <Text Include="Transform\lightBox4.txt" />
     <Text Include="Transform\window.txt" />
+    <Text Include="Transform\window2.txt" />
+    <Text Include="Transform\window3.txt" />
     <Text Include="vertex.vert" />
   </ItemGroup>
   <ItemGroup>
