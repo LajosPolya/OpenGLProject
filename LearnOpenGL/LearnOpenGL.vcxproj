@@ -148,6 +148,7 @@
     <Text Include="Doc\FutureIdeas.txt" />
     <Text Include="Doc\Material.txt" />
     <Text Include="fragment.frag" />
+    <Text Include="Instance\crate.txt" />
     <Text Include="lamp.frag" />
     <Text Include="lamp.vert" />
     <Text Include="Material\crateMaterial.txt" />
@@ -175,6 +176,9 @@
     <Image Include="container2_specular.png" />
     <Image Include="grass.png" />
     <Image Include="wall.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="instanced.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

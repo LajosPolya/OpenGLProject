@@ -5,7 +5,7 @@ Mesh::Mesh() {
 }
 
 Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader) {
-	GLint vertexProp_BitMap = this->readVertexFile(vertexLocation);
+	this->readVertexFile(vertexLocation);
 	this->textures = textures;
 
 	/*for (GLuint i = 0; i < vertices.size(); i++) {
@@ -24,7 +24,16 @@ Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader)
 
 	std::cout << std::endl;*/
 
-	this->setupMesh(vertexProp_BitMap);
+	this->setupMesh();
+}
+
+Mesh::Mesh(GLchar * vertexLocation, GLchar * instanceLoc, std::vector<Texture> textures, Shader shader)
+{
+	this->readVertexFile(vertexLocation);
+	this->textures = textures;
+	this->readInstanceFile(instanceLoc);
+
+	this->setupMesh();
 }
 
 
@@ -72,8 +81,11 @@ void Mesh::Draw(Shader shader) {
 
 	// Draw Mesh
 	glBindVertexArray(this->VAO);
-	if (EBO == -1) { // If EBO is not initialized
+	if (EBO == -1 && !(this->vertexProp_BitMap & INSTANCE_POSITION_BITMAP)) { // If EBO is not initialized
 		glDrawArrays(GL_TRIANGLES, 0, this->vertices.size());
+	}
+	else if (EBO == -1 && this->vertexProp_BitMap & INSTANCE_POSITION_BITMAP) {
+		glDrawArraysInstanced(GL_TRIANGLES, 0, this->vertices.size(), this->instances.size());
 	}
 	else { // If EBO is initialized
 		glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
@@ -83,7 +95,7 @@ void Mesh::Draw(Shader shader) {
 }
 
 // Function
-void Mesh::setupMesh(GLuint vertexProp_BitMap) {
+void Mesh::setupMesh() {
 	glGenVertexArrays(1, &this->VAO);
 	glGenBuffers(1, &this->VBO);
 
@@ -98,46 +110,59 @@ void Mesh::setupMesh(GLuint vertexProp_BitMap) {
 	}
 
 	// Vertex Positions
-	if (vertexProp_BitMap & POSITION_BITMAP) {
+	if (this->vertexProp_BitMap & POSITION_BITMAP) {
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
 	}
 
 
 	// Vertex Normals
-	if (vertexProp_BitMap & NORMAL_BITMAP) {
+	if (this->vertexProp_BitMap & NORMAL_BITMAP) {
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
 	}
 
 	// Vertex Texture Coords
-	if (vertexProp_BitMap & TEXTURE_COORDS_BITMAP) {
+	if (this->vertexProp_BitMap & TEXTURE_COORDS_BITMAP) {
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
 	}
+
+	// Instancing
+	if (this->vertexProp_BitMap & INSTANCE_POSITION_BITMAP) {
+		glGenBuffers(1, &this->instanceVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * this->instances.size(), &this->instances[0], GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(3);
+		glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glVertexAttribDivisor(3, 1);
+	}
+
 
 	glBindVertexArray(0);
 }
 
 /* Reads in a mesh file and Processes Vertices */
-GLint Mesh::readVertexFile(GLchar* filename) {
+void Mesh::readVertexFile(GLchar* filename) {
 	std::string line;
 	std::ifstream file(filename);
-	GLint vertexProp_BitMap = 0;
 	if (file.is_open()) {
 
 		// The File has specific locations for each vertex property (position, normal, texture coordinates)
 		std::getline(file, line);
 		if (line[POSITION] != NULL && line[POSITION] == '1') {
-			vertexProp_BitMap = vertexProp_BitMap | POSITION_BITMAP; // 00000001
+			this->vertexProp_BitMap = this->vertexProp_BitMap | POSITION_BITMAP; // 00000001
 			//std::cout << position << std::endl;
 		}
 		if (line[NORMAL] != NULL && line[NORMAL] == '1') {
-			vertexProp_BitMap = vertexProp_BitMap | NORMAL_BITMAP; // 00000010
+			this->vertexProp_BitMap = this->vertexProp_BitMap | NORMAL_BITMAP; // 00000010
 			//std::cout << normal << std::endl;
 		}
 		if (line[TEXT_COORDS] != NULL && line[TEXT_COORDS] == '1') {
-			vertexProp_BitMap = vertexProp_BitMap | TEXTURE_COORDS_BITMAP; // 00000100
+			this->vertexProp_BitMap = this->vertexProp_BitMap | TEXTURE_COORDS_BITMAP; // 00000100
 			//std::cout << textCoords << std::endl;
 		}
 
@@ -151,7 +176,7 @@ GLint Mesh::readVertexFile(GLchar* filename) {
 			// Get all numbers and convert to floats (each vertex property has at least 2 floats)
 			GLfloat floatNum;
 			tokens = strtok_s(&line[0], ",", &context);
-			if (vertexProp_BitMap & POSITION_BITMAP) {
+			if (this->vertexProp_BitMap & POSITION_BITMAP) {
 				floatNum = std::stof(tokens, NULL);
 				vertex.Position.x = floatNum;
 
@@ -164,7 +189,7 @@ GLint Mesh::readVertexFile(GLchar* filename) {
 				vertex.Position.z = floatNum;
 				tokens = strtok_s(NULL, ",", &context);
 			}
-			if (vertexProp_BitMap & NORMAL_BITMAP) {
+			if (this->vertexProp_BitMap & NORMAL_BITMAP) {
 				floatNum = std::stof(tokens, NULL);
 				vertex.Normal.x = floatNum;
 
@@ -177,7 +202,7 @@ GLint Mesh::readVertexFile(GLchar* filename) {
 				vertex.Normal.z = floatNum;
 				tokens = strtok_s(NULL, ",", &context);
 			}
-			if (vertexProp_BitMap & TEXTURE_COORDS_BITMAP) {
+			if (this->vertexProp_BitMap & TEXTURE_COORDS_BITMAP) {
 				floatNum = std::stof(tokens, NULL);
 				vertex.TexCoords.x = floatNum;
 
@@ -188,10 +213,38 @@ GLint Mesh::readVertexFile(GLchar* filename) {
 			vertices.push_back(vertex);
 		}
 		this->vertices = vertices;
-		return vertexProp_BitMap;
 	}
 	else {
 		std::cout << "FAILED TO OPEN FILE" << std::endl;
-		return 0;
+		this->vertexProp_BitMap = 0;
+	}
+}
+
+void Mesh::readInstanceFile(GLchar * filename)
+{
+	std::string line;
+	std::ifstream file(filename);
+	if (file.is_open()) {
+		while (std::getline(file, line)) {
+			GLchar * token;
+			GLchar* context = NULL;
+			glm::vec3 instance;
+
+			// Get all numbers and convert to floats (each vertex property has at least 2 floats)
+			token = strtok_s(&line[0], ",", &context);
+			instance.x = std::stof(token, NULL);
+
+			token = strtok_s(NULL, ",", &context);
+			instance.y = std::stof(token, NULL);
+
+			token = strtok_s(NULL, ",", &context);
+			instance.z = std::stof(token, NULL);
+
+			this->instances.push_back(instance);
+		}
+
+		if (instances.size() > 0) {
+			this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP; // 00001000
+		}
 	}
 }

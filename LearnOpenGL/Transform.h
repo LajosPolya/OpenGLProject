@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef TRANSFORM_H
+#define TRANSFORM_H
+
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -15,10 +18,6 @@
 #include <GL/glew.h>
 
 #include <map>
-
-
-#ifndef TRANSFORM_H
-#define TRANSFORM_H
 
 class GameObject;
 

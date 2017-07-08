@@ -31,6 +31,9 @@
     <Filter Include="Material">
       <UniqueIdentifier>{d3bc7eef-7237-4c3d-9c32-787978e3fc2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Instance">
+      <UniqueIdentifier>{c96f715e-55e6-48a5-83da-6ec46ce58387}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LearnOpenGL.cpp">
@@ -166,6 +169,9 @@
     <Text Include="Transform\window3.txt">
       <Filter>Transform</Filter>
     </Text>
+    <Text Include="Instance\crate.txt">
+      <Filter>Instance</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="wall.jpg">
@@ -189,5 +195,10 @@
     <Image Include="blending_transparent_window.png">
       <Filter>Textures</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="instanced.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
