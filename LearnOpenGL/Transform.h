@@ -8,6 +8,8 @@
 #include <cmath>
 #include <string>
 
+#include "TransformInt.h"
+
 // GLM
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -21,7 +23,7 @@
 
 class GameObject;
 
-class Transform {
+class Transform : public TransformInt {
 
 public:
 
@@ -36,7 +38,6 @@ public:
 
 	void setRotation();
 	void setYRotation(GLfloat radians);
-	void setRotation(glm::vec3 rotation);
 
 	void setScale();
 

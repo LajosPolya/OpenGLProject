@@ -120,6 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="InstancedTransform.cpp" />
     <ClCompile Include="LearnOpenGL.cpp" />
     <ClCompile Include="LightsContainer.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -131,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InstancedTransform.h" />
     <ClInclude Include="LightsContainer.h" />
     <ClInclude Include="LightTypes.h" />
     <ClInclude Include="Material.h" />
@@ -138,6 +140,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="TransformInt.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="alpha.frag" />
@@ -149,7 +152,7 @@
     <Text Include="Instance\crate.txt" />
     <Text Include="lamp.frag" />
     <Text Include="lamp.vert" />
-    <Text Include="Material\crateMaterial.txt" />
+    <Text Include="Material\crate.txt" />
     <Text Include="Mesh\crate.txt" />
     <Text Include="Mesh\grass.txt" />
     <Text Include="Mesh\lightBox.txt" />

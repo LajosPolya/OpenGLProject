@@ -25,32 +25,37 @@ void Transform::readFile(GLchar* filename) {
 		std::string line;
 
 		while (std::getline(file, line)) {
-			std::cout << line << std::endl;
+			// std::cout << line << std::endl;
 			GLchar * token;
 			GLchar* context = NULL;
 			GLuint i = 0;
-			glm::vec3 prop;
-			GLchar* propType = '\0';
 
-			propType = strtok_s(&line[0], ",", &context);
+			token = strtok_s(&line[0], ",", &context);
+			this->Position.x = std::stof(token);
 
 			token = strtok_s(NULL, ",", &context);
-			while (token != NULL) {
-				prop[i] = std::stof(token, NULL);
-				token = strtok_s(NULL, ",", &context);
-				i++;
-			}
+			this->Position.y = std::stof(token);
 
-			if (propType[0] == 'P') {
-				Position = prop;
-			}
-			else if (propType[0] == 'S') {
-				Scale = prop;
-			}
-			else if (propType[0] == 'R') { /* Rotation May Not Be Used Yet */
-				Rotation = prop;
-			}
+			token = strtok_s(NULL, ",", &context);
+			this->Position.z = std::stof(token);
 
+			token = strtok_s(NULL, ",", &context);
+			this->Rotation.x = std::stof(token);
+
+			token = strtok_s(NULL, ",", &context);
+			this->Rotation.y = std::stof(token);
+
+			token = strtok_s(NULL, ",", &context);
+			this->Rotation.z = std::stof(token);
+
+			token = strtok_s(NULL, ",", &context);
+			this->Scale.x = std::stof(token);
+
+			token = strtok_s(NULL, ",", &context);
+			this->Scale.y = std::stof(token);
+
+			token = strtok_s(NULL, ",", &context);
+			this->Scale.z = std::stof(token);
 
 		}
 	}

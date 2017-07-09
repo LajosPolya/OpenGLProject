@@ -81,7 +81,7 @@ Camera * GameObject::getCamera() {
 	return this->camera;
 }
 
-Transform * GameObject::getTransform() {
+TransformInt * GameObject::getTransform() {
 	return this->transform;
 }
 

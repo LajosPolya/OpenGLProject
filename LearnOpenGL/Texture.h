@@ -3,7 +3,8 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include<string>
+#include <string>
+#include <iostream>
 
 // GLEW
 #define GLEW_STATIC

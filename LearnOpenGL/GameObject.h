@@ -17,6 +17,7 @@
 #include "Material.h"
 #include "Texture.h"
 #include "Transform.h"
+#include "InstancedTransform.h"
 #include "LightsContainer.h"
 
 // GLM
@@ -39,7 +40,7 @@ public:
 
 	Camera* getCamera();
 
-	Transform* getTransform();
+	TransformInt* getTransform();
 
 	Texture* getDiffuseMap();
 	Texture* getSpecularMap();
@@ -58,7 +59,7 @@ private:
 
 	Camera* camera;
 
-	Transform* transform;
+	TransformInt* transform;
 
 	LightsContainer* lightsContainer;
 
