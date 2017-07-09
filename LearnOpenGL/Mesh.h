@@ -44,17 +44,17 @@ public:
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
 	std::vector<Texture> textures;
-	std::vector<glm::vec3> instances;
+	std::vector<glm::mat4> instances;
 
 	Mesh();
-
 	Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader);
-	Mesh(GLchar* vertexLocation, GLchar* instanceLoc, std::vector<Texture> textures, Shader shader);
+	Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader, std::vector<glm::mat4> instances);
 
-	
 	void Draw(Shader shader, int * placeHolder);
 
 	void Draw(Shader shader);
+
+	void setInstance(std::vector<glm::mat4> instances);
 
 private:
 	// Render Data
@@ -68,9 +68,6 @@ private:
 
 	/* Reads in a mesh file and Processes Vertices */
 	void readVertexFile(GLchar* filename);
-
-	/* Reads in an instance file and saves the position */
-	void readInstanceFile(GLchar* filename);
 };
 
 #endif // !MESH_H

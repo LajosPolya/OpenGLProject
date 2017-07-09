@@ -42,6 +42,7 @@ public:
 	void setScale();
 
 	glm::mat4 getModel();
+	std::vector<glm::mat4> getModels();
 
 	void refreshModel();
 

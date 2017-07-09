@@ -118,6 +118,8 @@ int main()
 	GameObject lightBox3("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox3.txt", &camera, projection);
 	GameObject lightBox4("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox4.txt", &camera, projection);
 
+	GameObject instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection, NULL);
+
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -151,6 +153,8 @@ int main()
 		grassGameObject.Draw();
 		grassGameObject.getTransform()->setYRotation(glm::radians(135.0f));
 		grassGameObject.Draw();
+
+		instancedGameObject.Draw();
 
 
 		/*std::map<float, glm::vec3> sortedWindowPosition;

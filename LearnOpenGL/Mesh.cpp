@@ -27,15 +27,14 @@ Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader)
 	this->setupMesh();
 }
 
-Mesh::Mesh(GLchar * vertexLocation, GLchar * instanceLoc, std::vector<Texture> textures, Shader shader)
+Mesh::Mesh(GLchar * vertexLocation, std::vector<Texture> textures, Shader shader, std::vector<glm::mat4> instances)
 {
 	this->readVertexFile(vertexLocation);
+	this->instances = instances;
 	this->textures = textures;
-	this->readInstanceFile(instanceLoc);
 
 	this->setupMesh();
 }
-
 
 void Mesh::Draw(Shader shader, int * placeHolder) {
 
@@ -94,6 +93,11 @@ void Mesh::Draw(Shader shader) {
 	glBindVertexArray(0);
 }
 
+void Mesh::setInstance(std::vector<glm::mat4> instances)
+{
+	this->instances = instances;
+}
+
 // Function
 void Mesh::setupMesh() {
 	glGenVertexArrays(1, &this->VAO);
@@ -129,16 +133,29 @@ void Mesh::setupMesh() {
 	}
 
 	// Instancing
-	if (this->vertexProp_BitMap & INSTANCE_POSITION_BITMAP) {
+	if (this->instances.size() > 0) {
+		this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
 		glGenBuffers(1, &this->instanceVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * this->instances.size(), &this->instances[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * this->instances.size(), &this->instances[0], GL_STATIC_DRAW);
 
-		glEnableVertexAttribArray(3);
 		glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
-		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
+		glEnableVertexAttribArray(4);
+		glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
+		glEnableVertexAttribArray(5);
+		glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
+		glEnableVertexAttribArray(6);
+		glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
+		
 		glVertexAttribDivisor(3, 1);
+		glVertexAttribDivisor(4, 1);
+		glVertexAttribDivisor(5, 1);
+		glVertexAttribDivisor(6, 1);
+
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
 
@@ -217,34 +234,5 @@ void Mesh::readVertexFile(GLchar* filename) {
 	else {
 		std::cout << "FAILED TO OPEN FILE" << std::endl;
 		this->vertexProp_BitMap = 0;
-	}
-}
-
-void Mesh::readInstanceFile(GLchar * filename)
-{
-	std::string line;
-	std::ifstream file(filename);
-	if (file.is_open()) {
-		while (std::getline(file, line)) {
-			GLchar * token;
-			GLchar* context = NULL;
-			glm::vec3 instance;
-
-			// Get all numbers and convert to floats (each vertex property has at least 2 floats)
-			token = strtok_s(&line[0], ",", &context);
-			instance.x = std::stof(token, NULL);
-
-			token = strtok_s(NULL, ",", &context);
-			instance.y = std::stof(token, NULL);
-
-			token = strtok_s(NULL, ",", &context);
-			instance.z = std::stof(token, NULL);
-
-			this->instances.push_back(instance);
-		}
-
-		if (instances.size() > 0) {
-			this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP; // 00001000
-		}
 	}
 }

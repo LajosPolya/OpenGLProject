@@ -90,6 +90,11 @@ glm::mat4 Transform::getModel() {
 	return this->model;
 }
 
+std::vector<glm::mat4> Transform::getModels()
+{
+	return std::vector<glm::mat4>();
+}
+
 void Transform::refreshModel() {
 	this->model = glm::mat4();
 }

@@ -4,6 +4,7 @@
 #ifndef TRANSFORM_INT_H
 #define TRANSFORM_INT_H
 
+#include <vector>
 
 // GLM
 #include <glm/glm.hpp>
@@ -28,6 +29,9 @@ public:
 	virtual void setScale() = 0;
 
 	virtual glm::mat4 getModel() = 0;
+
+	// Testing for Instancing
+	virtual std::vector<glm::mat4> getModels() = 0;
 
 	virtual void refreshModel() = 0;
 
