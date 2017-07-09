@@ -1,4 +1,5 @@
 #include "Shader.h"
+#include "GameObject.h"
 
 Shader::Shader() {
 
@@ -87,4 +88,68 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
 
 void Shader::Use() {
 	glUseProgram(this->Program);
+}
+
+void Shader::sendToShader(DirLight * dirLight, SpotLight * spotLight, std::vector<PointLight>* pointLights)
+{
+	this->Use();
+	// Directional light
+	glUniform3f(glGetUniformLocation(this->Program, "dirLight.direction"), dirLight->direction.x, dirLight->direction.y, dirLight->direction.z);
+	glUniform3f(glGetUniformLocation(this->Program, "dirLight.ambient"), dirLight->ambient.x, dirLight->ambient.y, dirLight->ambient.z);
+	glUniform3f(glGetUniformLocation(this->Program, "dirLight.diffuse"), dirLight->diffuse.x, dirLight->diffuse.y, dirLight->diffuse.z);
+	glUniform3f(glGetUniformLocation(this->Program, "dirLight.specular"), dirLight->specular.x, dirLight->specular.y, dirLight->specular.z);
+
+	// Point Light
+	glUniform1i(glGetUniformLocation(this->Program, "size"), pointLights->size());
+	for (GLuint i = 0; i < pointLights->size(); i++) {
+		glUniform3f(glGetUniformLocation(this->Program, ("pointLights[" + std::to_string(i) + "].position").c_str()), (*pointLights)[i].position.x, (*pointLights)[i].position.y, (*pointLights)[i].position.z);
+		glUniform3f(glGetUniformLocation(this->Program, ("pointLights[" + std::to_string(i) + "].ambient").c_str()), (*pointLights)[i].ambient.x, (*pointLights)[i].ambient.y, (*pointLights)[i].ambient.z);
+		glUniform3f(glGetUniformLocation(this->Program, ("pointLights[" + std::to_string(i) + "].diffuse").c_str()), (*pointLights)[i].diffuse.x, (*pointLights)[i].diffuse.y, (*pointLights)[i].diffuse.z);
+		glUniform3f(glGetUniformLocation(this->Program, ("pointLights[" + std::to_string(i) + "].specular").c_str()), (*pointLights)[i].specular.x, (*pointLights)[i].specular.y, (*pointLights)[i].specular.z);
+		glUniform1f(glGetUniformLocation(this->Program, ("pointLights[" + std::to_string(i) + "].constant").c_str()), (*pointLights)[i].constant);
+		glUniform1f(glGetUniformLocation(this->Program, ("pointLights[" + std::to_string(i) + "].linear").c_str()), (*pointLights)[i].linear);
+		glUniform1f(glGetUniformLocation(this->Program, ("pointLights[" + std::to_string(i) + "].quadratic").c_str()), (*pointLights)[i].quadratic);
+	}
+
+	// SpotLight
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.ambient"), spotLight->ambient.x, spotLight->ambient.y, spotLight->ambient.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.diffuse"), spotLight->diffuse.x, spotLight->diffuse.y, spotLight->diffuse.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.specular"), spotLight->specular.x, spotLight->specular.y, spotLight->specular.z);
+	glUniform1f(glGetUniformLocation(this->Program, "spotLight.constant"), spotLight->constant);
+	glUniform1f(glGetUniformLocation(this->Program, "spotLight.linear"), spotLight->linear);
+	glUniform1f(glGetUniformLocation(this->Program, "spotLight.quadratic"), spotLight->quadratic);
+	glUniform1f(glGetUniformLocation(this->Program, "spotLight.cutOff"), glm::cos(glm::radians(spotLight->cutOff)));
+	glUniform1f(glGetUniformLocation(this->Program, "spotLight.outerCutOff"), glm::cos(glm::radians(spotLight->outerCutOff)));
+}
+
+void Shader::sendToShader(GameObject * gameObject)
+{
+	this->Use();
+
+	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
+
+	// Bind Diffuse Map
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, gameObject->getDiffuseMap()->getTextureID());
+
+	// Bind Specular Map
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, gameObject->getSpecularMap()->getTextureID());
+
+	glUniform1i(glGetUniformLocation(gameObject->getShader()->Program, "material.diffuse"), 0);
+	glUniform1i(glGetUniformLocation(gameObject->getShader()->Program, "material.specular"), 1);
+
+	glUniformMatrix4fv(glGetUniformLocation(gameObject->getShader()->Program, "view"), 1, GL_FALSE, glm::value_ptr(gameObject->getCamera()->GetViewMatrix()));
+	glUniformMatrix4fv(glGetUniformLocation(gameObject->getShader()->Program, "model"), 1, GL_FALSE, glm::value_ptr(gameObject->getTransform()->getModel()));
+
+	// Set material properties
+	glUniform3f(glGetUniformLocation(gameObject->getShader()->Program, "spotLight.position"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
+	glUniform3f(glGetUniformLocation(gameObject->getShader()->Program, "spotLight.direction"), gameObject->getCamera()->Front.x, gameObject->getCamera()->Front.y, gameObject->getCamera()->Front.z);
+
+}
+
+void Shader::setProjectionMatrix(glm::mat4 projection)
+{
+	this->Use();
+	glUniformMatrix4fv(glGetUniformLocation(this->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 }

@@ -6,10 +6,12 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "LightsContainer.h"
+#include "Camera.h"
 
 #include <GL/glew.h>
 
-
+class GameObject;
 class Shader
 {
 public:
@@ -21,6 +23,11 @@ public:
 	Shader(const GLchar* vertexPath, const GLchar* fragmentPath);
 
 	void Use();
+
+	void sendToShader(DirLight * dirLight, SpotLight * spotLight, std::vector<PointLight> * pointLights);
+	void sendToShader(GameObject * gameObject);
+
+	void setProjectionMatrix(glm::mat4 projection);
 };
 
 #endif // !SHADER_H

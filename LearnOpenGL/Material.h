@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "LightTypes.h"
+#include "Shader.h"
 
 /* 
  * Each PointLight should have an ID (which corresponds to its intdex in the std::vector<PointLight> pointLights;) 

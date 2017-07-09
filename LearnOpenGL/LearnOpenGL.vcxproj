@@ -124,7 +124,6 @@
     <ClCompile Include="LightsContainer.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -136,7 +135,6 @@
     <ClInclude Include="LightTypes.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />

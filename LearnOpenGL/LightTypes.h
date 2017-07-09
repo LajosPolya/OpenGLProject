@@ -1,13 +1,7 @@
 #pragma once
 
-// STD
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <vector>
-
-#include "Shader.h"
+#ifndef LIGHTYPES_H
+#define LIGHTYPES_H
 
 // GML
 #include <GL/glew.h> 
@@ -17,6 +11,7 @@
 // GLEW
 #define GLEW_STATIC
 #include <GL/glew.h>
+
 
 // These Structs are Direct Copies of the Structs in the Fragment Shader
 
@@ -56,3 +51,5 @@ typedef struct SpotLight {
 	glm::vec3 diffuse;
 	glm::vec3 specular;
 } SpotLight;
+
+#endif // !LIGHTYPES_H

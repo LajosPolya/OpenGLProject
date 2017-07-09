@@ -4,6 +4,9 @@
 #define LIGHTSCONTAINER_H
 
 #include "LightTypes.h"
+#include <vector>
+#include <string>
+#include <fstream>
 
 class LightsContainer
 {
@@ -11,7 +14,10 @@ public:
 	LightsContainer(GLchar* lightsLocation);
 	~LightsContainer();
 
-	void sendDatatoShader(Shader shader);
+	DirLight * getDirLight();
+	SpotLight * getSpotLight();
+	std::vector<PointLight> * getPointLights();
+
 
 private:
 	GLboolean havePushedLastPointLight = false;

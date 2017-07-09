@@ -21,6 +21,7 @@
 
 #include "LightTypes.h"
 #include "Texture.h"
+#include "Shader.h"
 
 #define POSITION 0
 #define NORMAL 1

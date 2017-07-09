@@ -24,35 +24,19 @@ LightsContainer::LightsContainer(GLchar* lightsLocation)
 
 LightsContainer::~LightsContainer() {}
 
-void LightsContainer::sendDatatoShader(Shader shader) {
-	shader.Use();
-	// Directional light
-	glUniform3f(glGetUniformLocation(shader.Program, "dirLight.direction"), dirLight->direction.x, dirLight->direction.y, dirLight->direction.z);
-	glUniform3f(glGetUniformLocation(shader.Program, "dirLight.ambient"), dirLight->ambient.x, dirLight->ambient.y, dirLight->ambient.z);
-	glUniform3f(glGetUniformLocation(shader.Program, "dirLight.diffuse"), dirLight->diffuse.x, dirLight->diffuse.y, dirLight->diffuse.z);
-	glUniform3f(glGetUniformLocation(shader.Program, "dirLight.specular"), dirLight->specular.x, dirLight->specular.y, dirLight->specular.z);
+DirLight * LightsContainer::getDirLight()
+{
+	return this->dirLight;
+}
 
-	// Point Light
-	glUniform1i(glGetUniformLocation(shader.Program, "size"), pointLights.size());
-	for (GLuint i = 0; i < pointLights.size(); i++) {
-		glUniform3f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].position").c_str()), pointLights[i].position.x, pointLights[i].position.y, pointLights[i].position.z);
-		glUniform3f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].ambient").c_str()), pointLights[i].ambient.x, pointLights[i].ambient.y, pointLights[i].ambient.z);
-		glUniform3f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].diffuse").c_str()), pointLights[i].diffuse.x, pointLights[i].diffuse.y, pointLights[i].diffuse.z);
-		glUniform3f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].specular").c_str()), pointLights[i].specular.x, pointLights[i].specular.y, pointLights[i].specular.z);
-		glUniform1f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].constant").c_str()), pointLights[i].constant);
-		glUniform1f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].linear").c_str()), pointLights[i].linear);
-		glUniform1f(glGetUniformLocation(shader.Program, ("pointLights[" + std::to_string(i) + "].quadratic").c_str()), pointLights[i].quadratic);
-	}
+SpotLight * LightsContainer::getSpotLight()
+{
+	return this->spotLight;
+}
 
-	// SpotLight
-	glUniform3f(glGetUniformLocation(shader.Program, "spotLight.ambient"), spotLight->ambient.x, spotLight->ambient.y, spotLight->ambient.z);
-	glUniform3f(glGetUniformLocation(shader.Program, "spotLight.diffuse"), spotLight->diffuse.x, spotLight->diffuse.y, spotLight->diffuse.z);
-	glUniform3f(glGetUniformLocation(shader.Program, "spotLight.specular"), spotLight->specular.x, spotLight->specular.y, spotLight->specular.z);
-	glUniform1f(glGetUniformLocation(shader.Program, "spotLight.constant"), spotLight->constant);
-	glUniform1f(glGetUniformLocation(shader.Program, "spotLight.linear"), spotLight->linear);
-	glUniform1f(glGetUniformLocation(shader.Program, "spotLight.quadratic"), spotLight->quadratic);
-	glUniform1f(glGetUniformLocation(shader.Program, "spotLight.cutOff"), glm::cos(glm::radians(spotLight->cutOff)));
-	glUniform1f(glGetUniformLocation(shader.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(spotLight->outerCutOff)));
+std::vector<PointLight>* LightsContainer::getPointLights()
+{
+	return &this->pointLights;
 }
 
 

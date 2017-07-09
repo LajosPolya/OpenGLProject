@@ -17,7 +17,6 @@
 #include "Material.h"
 #include "Texture.h"
 #include "Transform.h"
-#include "Renderer.h"
 #include "LightsContainer.h"
 
 // GLM
@@ -60,8 +59,6 @@ private:
 	Camera* camera;
 
 	Transform* transform;
-
-	Renderer* renderer;
 
 	LightsContainer* lightsContainer;
 

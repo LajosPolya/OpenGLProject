@@ -19,9 +19,7 @@ GameObject::GameObject(GLchar* vertexShader, GLchar* fragmentShader, GLchar* dif
 	
 	this->lightsContainer = new LightsContainer(lightsLoc);
 
-	this->shader->Use();
-
-	this->renderer = new Renderer(this, this->projection);
+	this->shader->setProjectionMatrix(projection);
 }
 
 GameObject::GameObject(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
@@ -40,9 +38,7 @@ GameObject::GameObject(GLchar * vertexShader, GLchar * fragmentShader, GLchar * 
 
 	this->lightsContainer = new LightsContainer(NULL);
 
-	this->shader->Use();
-
-	this->renderer = new Renderer(this, this->projection);
+	this->shader->setProjectionMatrix(projection);
 }
 
 GameObject::GameObject(GLchar * vertexShader, GLchar * fragmentShader, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
@@ -61,9 +57,7 @@ GameObject::GameObject(GLchar * vertexShader, GLchar * fragmentShader, GLchar * 
 
 	this->lightsContainer = new LightsContainer(NULL);
 
-	this->shader->Use();
-
-	this->renderer = new Renderer(this, this->projection);
+	this->shader->setProjectionMatrix(projection);
 }
 
 void GameObject::Draw() {
@@ -74,9 +68,8 @@ void GameObject::Draw() {
 	this->transform->setScale();
 	this->transform->Draw();
 
-	this->lightsContainer->sendDatatoShader(*this->shader);
-
-	this->renderer->Render();
+	this->shader->sendToShader(lightsContainer->getDirLight(), lightsContainer->getSpotLight(), lightsContainer->getPointLights());
+	this->shader->sendToShader(this);
 	this->mesh->Draw(*(this->shader));
 }
 
