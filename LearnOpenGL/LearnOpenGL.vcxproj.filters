@@ -54,13 +54,13 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LightsContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InstancedTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,16 +86,16 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LightsContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TransformInt.h">
+    <ClInclude Include="InstancedTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InstancedTransform.h">
+    <ClInclude Include="TransformImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

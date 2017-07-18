@@ -16,7 +16,7 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "Texture.h"
-#include "Transform.h"
+#include "TransformImpl.h"
 #include "InstancedTransform.h"
 #include "LightsContainer.h"
 
@@ -43,7 +43,7 @@ public:
 
 	Camera* getCamera();
 
-	TransformInt* getTransform();
+	Transform* getTransform();
 
 	Texture* getDiffuseMap();
 	Texture* getSpecularMap();
@@ -62,7 +62,7 @@ private:
 
 	Camera* camera;
 
-	TransformInt* transform;
+	Transform* transform;
 
 	LightsContainer* lightsContainer;
 

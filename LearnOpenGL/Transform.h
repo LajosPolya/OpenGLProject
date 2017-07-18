@@ -1,14 +1,10 @@
 #pragma once
 
+
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
-#include <iostream>
-#include <fstream>
-#include <cmath>
-#include <string>
-
-#include "TransformInt.h"
+#include <vector>
 
 // GLM
 #include <glm/glm.hpp>
@@ -19,53 +15,27 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
-#include <map>
-
-class GameObject;
-
-class Transform : public TransformInt {
-
+class Transform {
 public:
 
-	Transform();
+	virtual glm::vec3 getPosition() = 0;
 
-	Transform(GLchar* fileLocation, GameObject* gameObject);
+	virtual void setPosition() = 0;
+	virtual void setPosition(glm::vec3 pos) = 0;
 
-	glm::vec3 getPosition();
+	virtual void setRotation() = 0;
+	virtual void setYRotation(GLfloat radians) = 0;
 
-	void setPosition();
-	void setPosition(glm::vec3 pos);
+	virtual void setScale() = 0;
 
-	void setRotation();
-	void setYRotation(GLfloat radians);
+	virtual glm::mat4 getModel() = 0;
 
-	void setScale();
+	// Testing for Instancing
+	virtual std::vector<glm::mat4> getModels() = 0;
 
-	glm::mat4 getModel();
-	std::vector<glm::mat4> getModels();
+	virtual void refreshModel() = 0;
 
-	void refreshModel();
-
-	void Draw();
-
-private:
-	/* Reference to own GameObject instance*/
-	GameObject* gameObject;
-
-
-	/* Only the file should set this */
-	glm::vec3 Position;
-	glm::vec3 Rotation;
-	glm::vec3 Scale;
-
-	/* These get updated which update the model */
-	glm::vec3 newPosition;
-	glm::vec3 newRotation;
-	glm::vec3 newScale;
-
-	glm::mat4 model;
-
-	void readFile(GLchar* filename);
+	virtual void Draw() = 0;
 };
 
 #endif // !TRANSFORM_H

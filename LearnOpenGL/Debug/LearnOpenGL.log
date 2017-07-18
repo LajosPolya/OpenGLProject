@@ -1,5 +1,4 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\lajos polya\documents\github\learnopengl\debug\learnopengl.pdb' because it is being used by another process.
-  Transform.cpp
+﻿  TransformImpl.cpp
   Texture.cpp
   Shader.cpp
   Mesh.cpp
@@ -8,14 +7,14 @@
   LearnOpenGL.cpp
 c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(126): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(234): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(120): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(228): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(229): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(233): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(234): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(235): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(239): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(240): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(241): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(242): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(248): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(236): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(242): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
   InstancedTransform.cpp
   GameObject.cpp
   Generating Code...

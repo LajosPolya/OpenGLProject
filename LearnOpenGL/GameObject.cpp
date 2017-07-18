@@ -13,7 +13,7 @@ GameObject::GameObject(GLchar* vertexShader, GLchar* fragmentShader, GLchar* dif
 	textures.push_back(*(this->specularMap));
 	this->mesh = new Mesh(meshLoc, textures, *(this->shader));
 	this->material = new Material(materialLoc, *(this->shader));
-	this->transform = new Transform(transformLoc, this);
+	this->transform = new TransformImpl(transformLoc, this);
 	this->camera = camera;
 	this->projection = projection;
 	
@@ -32,7 +32,7 @@ GameObject::GameObject(GLchar * vertexShader, GLchar * fragmentShader, GLchar * 
 	textures.push_back(*(this->specularMap));
 	this->mesh = new Mesh(meshLoc, textures, *(this->shader));
 	this->material = new Material(NULL, *(this->shader));
-	this->transform = new Transform(transformLoc, this);
+	this->transform = new TransformImpl(transformLoc, this);
 	this->camera = camera;
 	this->projection = projection;
 
@@ -51,7 +51,7 @@ GameObject::GameObject(GLchar * vertexShader, GLchar * fragmentShader, GLchar * 
 	textures.push_back(*(this->specularMap));
 	this->mesh = new Mesh(meshLoc, textures, *(this->shader));
 	this->material = new Material(NULL, *(this->shader));
-	this->transform = new Transform(transformLoc, this);
+	this->transform = new TransformImpl(transformLoc, this);
 	this->camera = camera;
 	this->projection = projection;
 
@@ -102,7 +102,7 @@ Camera * GameObject::getCamera() {
 	return this->camera;
 }
 
-TransformInt * GameObject::getTransform() {
+Transform * GameObject::getTransform() {
 	return this->transform;
 }
 

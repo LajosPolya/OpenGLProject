@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TransformInt.h"
+#include "Transform.h"
 
 
 #include <fstream>
@@ -19,7 +19,7 @@
 
 class GameObject;
 
-class InstancedTransform : public TransformInt
+class InstancedTransform : public Transform
 {
 public:
 	InstancedTransform();

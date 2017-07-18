@@ -10,14 +10,8 @@
 #include <GLFW/glfw3.h>
 
 // My Code
-#include "Shader.h"
 #include "Camera.h"
-#include "Mesh.h"
-#include "Material.h"
-#include "Texture.h"
-#include "Transform.h"
 #include "GameObject.h"
-#include "LightsContainer.h"
 
 // Windows
 #include <Windows.h>
