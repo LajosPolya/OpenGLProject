@@ -119,7 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectImpl.cpp" />
     <ClCompile Include="InstancedTransform.cpp" />
     <ClCompile Include="LearnOpenGL.cpp" />
     <ClCompile Include="LightsContainer.cpp" />
@@ -131,7 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectImpl.h" />
     <ClInclude Include="InstancedTransform.h" />
     <ClInclude Include="LightsContainer.h" />
     <ClInclude Include="LightTypes.h" />

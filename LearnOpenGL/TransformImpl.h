@@ -21,7 +21,7 @@
 
 #include <map>
 
-class GameObject;
+class GameObjectImpl;
 
 class TransformImpl : public Transform {
 
@@ -29,7 +29,7 @@ public:
 
 	TransformImpl();
 
-	TransformImpl(GLchar* fileLocation, GameObject* gameObject);
+	TransformImpl(GLchar* fileLocation, GameObjectImpl* gameObject);
 
 	glm::vec3 getPosition();
 
@@ -50,7 +50,7 @@ public:
 
 private:
 	/* Reference to own GameObject instance*/
-	GameObject* gameObject;
+	GameObjectImpl* gameObject;
 
 
 	/* Only the file should set this */

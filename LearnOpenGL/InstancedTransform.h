@@ -17,7 +17,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
-class GameObject;
+class GameObjectImpl;
 
 class InstancedTransform : public Transform
 {
@@ -26,7 +26,7 @@ public:
 	~InstancedTransform();
 
 
-	InstancedTransform(GLchar* fileLocation, GameObject* gameObject);
+	InstancedTransform(GLchar* fileLocation, GameObjectImpl* gameObject);
 
 	glm::vec3 getPosition();
 
@@ -48,7 +48,7 @@ public:
 
 private:
 	/* Reference to own GameObject instance*/
-	GameObject* gameObject;
+	GameObjectImpl* gameObject;
 
 
 	/* Only the file should set this */

@@ -39,9 +39,6 @@
     <ClCompile Include="LearnOpenGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,6 +58,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TransformImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,9 +83,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LightsContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -96,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

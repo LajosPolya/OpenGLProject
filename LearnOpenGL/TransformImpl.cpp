@@ -1,11 +1,11 @@
 #include "TransformImpl.h"
-#include "GameObject.h"
+#include "GameObjectImpl.h"
 
 TransformImpl::TransformImpl() {
 
 }
 
-TransformImpl::TransformImpl(GLchar* fileLocation, GameObject* gameObject) {
+TransformImpl::TransformImpl(GLchar* fileLocation, GameObjectImpl* gameObject) {
 	this->gameObject = gameObject;
 	readFile(fileLocation);
 

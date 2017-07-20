@@ -1,4 +1,5 @@
 #include "InstancedTransform.h"
+#include "GameObjectImpl.h"
 
 
 
@@ -11,7 +12,7 @@ InstancedTransform::~InstancedTransform()
 {
 }
 
-InstancedTransform::InstancedTransform(GLchar* fileLocation, GameObject* gameObject) {
+InstancedTransform::InstancedTransform(GLchar* fileLocation, GameObjectImpl* gameObject) {
 	this->gameObject = gameObject;
 	this->readFile(fileLocation);
 }

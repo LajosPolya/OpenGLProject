@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "GameObject.h"
+#include "GameObjectImpl.h"
 
 Shader::Shader() {
 
@@ -122,7 +122,7 @@ void Shader::sendToShader(DirLight * dirLight, SpotLight * spotLight, std::vecto
 	glUniform1f(glGetUniformLocation(this->Program, "spotLight.outerCutOff"), glm::cos(glm::radians(spotLight->outerCutOff)));
 }
 
-void Shader::sendToShader(GameObject * gameObject)
+void Shader::sendToShader(GameObjectImpl * gameObject)
 {
 	this->Use();
 
