@@ -122,7 +122,7 @@ void Shader::sendToShader(DirLight * dirLight, SpotLight * spotLight, std::vecto
 	glUniform1f(glGetUniformLocation(this->Program, "spotLight.outerCutOff"), glm::cos(glm::radians(spotLight->outerCutOff)));
 }
 
-void Shader::sendToShader(GameObjectImpl * gameObject)
+void Shader::sendToShader(GameObject * gameObject)
 {
 	this->Use();
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef LIGHTSCONTAINER_H
-#define LIGHTSCONTAINER_H
+#ifndef LIGHTS_CONTAINER_H
+#define LIGHTS_CONTAINER_H
 
 #include "LightTypes.h"
 #include <vector>
@@ -48,4 +48,4 @@ private:
 	void getMeshProperties(PointLight * pointLight, GLchar* context, GLchar lightPropType);
 };
 
-#endif // !LIGHTSCONTAINER_H
+#endif // !LIGHTS_CONTAINER_H

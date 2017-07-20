@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectImpl.h" />
     <ClInclude Include="InstancedTransform.h" />
     <ClInclude Include="LightsContainer.h" />

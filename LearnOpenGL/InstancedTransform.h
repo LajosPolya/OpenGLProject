@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef INSTANCED_TRANSFORM_H
+#define INSTANCED_TRANSFORM_H
+
 #include "Transform.h"
 
 
@@ -17,7 +20,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
-class GameObjectImpl;
+class GameObject;
 
 class InstancedTransform : public Transform
 {
@@ -26,7 +29,7 @@ public:
 	~InstancedTransform();
 
 
-	InstancedTransform(GLchar* fileLocation, GameObjectImpl* gameObject);
+	InstancedTransform(GLchar* fileLocation, GameObject* gameObject);
 
 	glm::vec3 getPosition();
 
@@ -48,7 +51,7 @@ public:
 
 private:
 	/* Reference to own GameObject instance*/
-	GameObjectImpl* gameObject;
+	GameObject* gameObject;
 
 
 	/* Only the file should set this */
@@ -60,4 +63,6 @@ private:
 
 	void readFile(GLchar* filename);
 };
+
+#endif // !INSTANCED_TRANSFORM_H
 

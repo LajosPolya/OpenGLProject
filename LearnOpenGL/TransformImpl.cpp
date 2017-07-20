@@ -5,7 +5,7 @@ TransformImpl::TransformImpl() {
 
 }
 
-TransformImpl::TransformImpl(GLchar* fileLocation, GameObjectImpl* gameObject) {
+TransformImpl::TransformImpl(GLchar* fileLocation, GameObject* gameObject) {
 	this->gameObject = gameObject;
 	readFile(fileLocation);
 

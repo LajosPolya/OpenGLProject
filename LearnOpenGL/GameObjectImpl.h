@@ -19,6 +19,7 @@
 #include "TransformImpl.h"
 #include "InstancedTransform.h"
 #include "LightsContainer.h"
+#include "GameObject.h"
 
 // GLM
 #include <glm/glm.hpp>
@@ -26,7 +27,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-class GameObjectImpl {
+class GameObjectImpl : public GameObject {
 public:
 
 	/* In the future have a Constructor which doesn't take the lightsLoc and allow the LightsContainer to be initialized independenty */

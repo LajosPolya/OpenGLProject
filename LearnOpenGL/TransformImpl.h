@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef TRANSFORMIMPL_H
-#define TRANSFORMIMPL_H
+#ifndef TRANSFORM_IMPL_H
+#define TRANSFORM_IMPL_H
 
 #include <iostream>
 #include <fstream>
@@ -21,7 +21,7 @@
 
 #include <map>
 
-class GameObjectImpl;
+class GameObject;
 
 class TransformImpl : public Transform {
 
@@ -29,7 +29,7 @@ public:
 
 	TransformImpl();
 
-	TransformImpl(GLchar* fileLocation, GameObjectImpl* gameObject);
+	TransformImpl(GLchar* fileLocation, GameObject* gameObject);
 
 	glm::vec3 getPosition();
 
@@ -50,7 +50,7 @@ public:
 
 private:
 	/* Reference to own GameObject instance*/
-	GameObjectImpl* gameObject;
+	GameObject* gameObject;
 
 
 	/* Only the file should set this */
@@ -68,4 +68,4 @@ private:
 	void readFile(GLchar* filename);
 };
 
-#endif // !TRANSFORMIMPL_H
+#endif // !TRANSFORM_IMPL_H

@@ -6,12 +6,13 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+
 #include "LightsContainer.h"
 #include "Camera.h"
 
 #include <GL/glew.h>
 
-class GameObjectImpl;
+class GameObject;
 class Shader
 {
 public:
@@ -25,7 +26,7 @@ public:
 	void Use();
 
 	void sendToShader(DirLight * dirLight, SpotLight * spotLight, std::vector<PointLight> * pointLights);
-	void sendToShader(GameObjectImpl * gameObject);
+	void sendToShader(GameObject * gameObject);
 
 	void setProjectionMatrix(glm::mat4 projection);
 };

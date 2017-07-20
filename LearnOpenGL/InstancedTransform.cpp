@@ -12,7 +12,7 @@ InstancedTransform::~InstancedTransform()
 {
 }
 
-InstancedTransform::InstancedTransform(GLchar* fileLocation, GameObjectImpl* gameObject) {
+InstancedTransform::InstancedTransform(GLchar* fileLocation, GameObject* gameObject) {
 	this->gameObject = gameObject;
 	this->readFile(fileLocation);
 }

@@ -1,27 +1,10 @@
-﻿  InstancedTransform.cpp
-  Generating Code...
-  Compiling...
-  TransformImpl.cpp
-  Shader.cpp
-  LearnOpenGL.cpp
-c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(120): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(228): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(229): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(233): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(234): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(235): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(236): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(242): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-  GameObjectImpl.cpp
-  Generating Code...
+﻿  Shader.cpp
 LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
 Material.obj : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
 Mesh.obj : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
 Shader.obj : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
 Material.obj : warning LNK4049: locally defined symbol ___glewUniform1f imported
-Shader.obj : warning LNK4049: locally defined symbol ___glewUniform1f imported
+Shader.obj : warning LNK4217: locally defined symbol ___glewUniform1f imported in function __unwindfunclet$??$?6U?$char_traits@D@std@@@std@@YAAAV?$basic_ostream@DU?$char_traits@D@std@@@0@AAV10@PBD@Z$2
 Mesh.obj : warning LNK4049: locally defined symbol ___glewActiveTexture imported
 Shader.obj : warning LNK4049: locally defined symbol ___glewActiveTexture imported
 Mesh.obj : warning LNK4049: locally defined symbol ___glewBindBuffer imported
