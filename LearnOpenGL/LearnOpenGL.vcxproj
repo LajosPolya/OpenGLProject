@@ -121,7 +121,7 @@
   <ItemGroup>
     <ClCompile Include="GameObjectImpl.cpp" />
     <ClCompile Include="InstancedGameObjectImpl.cpp" />
-    <ClCompile Include="InstancedTransform.cpp" />
+    <ClCompile Include="InstancedTransformImpl.cpp" />
     <ClCompile Include="LearnOpenGL.cpp" />
     <ClCompile Include="LightsContainer.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -135,7 +135,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectImpl.h" />
     <ClInclude Include="InstancedGameObjectImpl.h" />
-    <ClInclude Include="InstancedTransform.h" />
+    <ClInclude Include="InstancedTransformImpl.h" />
     <ClInclude Include="LightsContainer.h" />
     <ClInclude Include="LightTypes.h" />
     <ClInclude Include="Material.h" />

@@ -6,7 +6,7 @@
 #include "GameObject.h"
 #include "Mesh.h"
 #include "Material.h"
-#include "InstancedTransform.h"
+#include "InstancedTransformImpl.h"
 #include "TransformImpl.h"
 
 class InstancedGameObjectImpl : public GameObject
