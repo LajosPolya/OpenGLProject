@@ -26,17 +26,17 @@ GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, G
 {
 	this->shader = new Shader(vertexShader, fragmentShader);
 	this->diffuseMap = new Texture(diffuseMapLoc, true);
-	this->specularMap = new Texture(NULL, true);
+	this->specularMap = new Texture(nullptr, true);
 	std::vector<Texture> textures;
 	textures.push_back(*(this->diffuseMap));
 	textures.push_back(*(this->specularMap));
 	this->mesh = new Mesh(meshLoc, textures, *(this->shader));
-	this->material = new Material(NULL, *(this->shader));
+	this->material = new Material(nullptr, *(this->shader));
 	this->transform = new TransformImpl(transformLoc, this);
 	this->camera = camera;
 	this->projection = projection;
 
-	this->lightsContainer = new LightsContainer(NULL);
+	this->lightsContainer = new LightsContainer(nullptr);
 
 	this->shader->setProjectionMatrix(projection);
 }
@@ -44,39 +44,18 @@ GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, G
 GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
 {
 	this->shader = new Shader(vertexShader, fragmentShader);
-	this->diffuseMap = new Texture(NULL, true);
-	this->specularMap = new Texture(NULL, true);
+	this->diffuseMap = new Texture(nullptr, true);
+	this->specularMap = new Texture(nullptr, true);
 	std::vector<Texture> textures;
 	textures.push_back(*(this->diffuseMap));
 	textures.push_back(*(this->specularMap));
 	this->mesh = new Mesh(meshLoc, textures, *(this->shader));
-	this->material = new Material(NULL, *(this->shader));
+	this->material = new Material(nullptr, *(this->shader));
 	this->transform = new TransformImpl(transformLoc, this);
 	this->camera = camera;
 	this->projection = projection;
 
-	this->lightsContainer = new LightsContainer(NULL);
-
-	this->shader->setProjectionMatrix(projection);
-}
-
-GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * specularMapLoc, GLchar * meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection, void * ptr)
-{
-	this->shader = new Shader(vertexShader, fragmentShader);
-	this->diffuseMap = new Texture(diffuseMapLoc, true);
-	this->diffuseMap->name = "material.diffuse";
-	this->specularMap = new Texture(specularMapLoc, true);
-	this->specularMap->name = "material.specular";
-	std::vector<Texture> textures;
-	textures.push_back(*(this->diffuseMap));
-	textures.push_back(*(this->specularMap));
-	this->material = new Material(materialLoc, *(this->shader));
-	this->transform = new InstancedTransformImpl(transformLoc, this);
-	this->mesh = new Mesh(meshLoc, textures, *(this->shader), this->transform->getModels());
-	this->camera = camera;
-	this->projection = projection;
-
-	this->lightsContainer = new LightsContainer(lightsLoc);
+	this->lightsContainer = new LightsContainer(nullptr);
 
 	this->shader->setProjectionMatrix(projection);
 }
