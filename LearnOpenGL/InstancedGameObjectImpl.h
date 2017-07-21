@@ -23,7 +23,7 @@ public:
 
 	Camera* getCamera();
 
-	Transform* getTransform();
+	InstancedTransformImpl* getTransform();
 
 	Texture* getDiffuseMap();
 	Texture* getSpecularMap();
@@ -42,7 +42,7 @@ private:
 
 	Camera* camera;
 
-	Transform* transform;
+	InstancedTransformImpl* transform;
 
 	LightsContainer* lightsContainer;
 

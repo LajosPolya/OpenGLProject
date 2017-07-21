@@ -31,9 +31,6 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 void InstancedGameObjectImpl::Draw() {
 
 	this->transform->refreshModel();
-	this->transform->setRotation();
-	this->transform->setPosition();
-	this->transform->setScale();
 	this->transform->Draw();
 
 	this->shader->sendToShader(lightsContainer->getDirLight(), lightsContainer->getSpotLight(), lightsContainer->getPointLights());
@@ -49,7 +46,7 @@ Camera * InstancedGameObjectImpl::getCamera() {
 	return this->camera;
 }
 
-Transform * InstancedGameObjectImpl::getTransform() {
+InstancedTransformImpl * InstancedGameObjectImpl::getTransform() {
 	return this->transform;
 }
 

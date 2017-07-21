@@ -31,16 +31,6 @@ public:
 
 	InstancedTransformImpl(GLchar* fileLocation, GameObject* gameObject);
 
-	glm::vec3 getPosition();
-
-	void setPosition();
-	void setPosition(glm::vec3 pos);
-
-	void setRotation();
-	void setYRotation(GLfloat radians);
-
-	void setScale();
-
 	glm::mat4 getModel();
 
 	std::vector<glm::mat4> getModels();

@@ -3,41 +3,14 @@
 
 
 
-InstancedTransformImpl::InstancedTransformImpl()
-{
-}
+InstancedTransformImpl::InstancedTransformImpl() {}
 
 
-InstancedTransformImpl::~InstancedTransformImpl()
-{
-}
+InstancedTransformImpl::~InstancedTransformImpl() {}
 
 InstancedTransformImpl::InstancedTransformImpl(GLchar* fileLocation, GameObject* gameObject) {
 	this->gameObject = gameObject;
 	this->readFile(fileLocation);
-}
-
-glm::vec3 InstancedTransformImpl::getPosition() {
-	return glm::vec3();
-}
-
-void InstancedTransformImpl::setPosition() {
-	// this->model = glm::translate(this->model, this->newPosition);
-}
-
-void InstancedTransformImpl::setPosition(glm::vec3 pos) {
-	// this->newPosition = pos;
-}
-
-void InstancedTransformImpl::setYRotation(GLfloat radians)
-{
-	// this->newRotation.y = radians;
-}
-
-
-/* Only on x-axis currently */
-void InstancedTransformImpl::setRotation() {
-	// this->model = glm::rotate(this->model, this->newRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 glm::mat4 InstancedTransformImpl::getModel() {
@@ -52,10 +25,6 @@ std::vector<glm::mat4> InstancedTransformImpl::getModels()
 
 void InstancedTransformImpl::refreshModel() {
 	// this->model = glm::mat4();
-}
-
-void InstancedTransformImpl::setScale() {
-	// this->model = glm::scale(model, this->Scale);
 }
 
 void InstancedTransformImpl::Draw() {

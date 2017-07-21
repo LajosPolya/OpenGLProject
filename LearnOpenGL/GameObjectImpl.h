@@ -41,7 +41,7 @@ public:
 
 	Camera* getCamera();
 
-	Transform* getTransform();
+	TransformImpl* getTransform();
 
 	Texture* getDiffuseMap();
 	Texture* getSpecularMap();
@@ -60,7 +60,7 @@ private:
 
 	Camera* camera;
 
-	Transform* transform;
+	TransformImpl* transform;
 
 	LightsContainer* lightsContainer;
 
