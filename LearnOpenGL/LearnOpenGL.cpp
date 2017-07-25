@@ -105,6 +105,7 @@ int main()
 	GameObjectImpl grassGameObject("alpha.vert", "alpha.frag", "grass.png", "Mesh/grass.txt", "Transform/grass.txt", &camera, projection);
 	/* "vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", Transform/crate.txt */
 	std::vector<GameObjectImpl> transparentGameObjects;
+	GameObjectImpl windows("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window.txt", &camera, projection);
 	transparentGameObjects.push_back(GameObjectImpl("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window.txt", &camera, projection));
 	transparentGameObjects.push_back(GameObjectImpl("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window2.txt", &camera, projection));
 	transparentGameObjects.push_back(GameObjectImpl("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window3.txt", &camera, projection));
@@ -152,33 +153,28 @@ int main()
 		instancedGameObject.Draw();
 
 
-		/*std::map<float, glm::vec3> sortedWindowPosition;
+		std::map<float, glm::vec3> sortedWindowPosition;
 		for (GLuint i = 0; i < transparentGameObjects.size(); i++) {
 			GLfloat distance = glm::length(camera.Position - transparentGameObjects[i].getTransform()->getPosition());
 			sortedWindowPosition[distance] = transparentGameObjects[i].getTransform()->getPosition();
 		}
 
-		for (std::map<float, glm::vec3>::reverse_iterator it = sortedWindowPosition.rbegin(); it != sortedWindowPosition.rend(); ++it)
-		{
-			model = glm::mat4();
-			model = glm::translate(model, it->second);
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			glDrawArrays(GL_TRIANGLES, 0, 6);
-		}*/
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		transparentGameObjects[0].Draw();
-		transparentGameObjects[1].Draw();
-		transparentGameObjects[2].Draw();
-		glDisable(GL_BLEND);
-
-		glBindVertexArray(0);
-
 		lightBox1.Draw();
 		lightBox2.Draw();
 		lightBox3.Draw();
 		lightBox4.Draw();
+		
+		GLint i;
+		i = 0;
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		for (std::map<float, glm::vec3>::reverse_iterator it = sortedWindowPosition.rbegin(); it != sortedWindowPosition.rend(); ++it)
+		{
+			transparentGameObjects[i].getTransform()->setPosition(it->second);
+			transparentGameObjects[i].Draw();
+			i++;
+		}
+		glDisable(GL_BLEND);
 
 		glEnable(GL_DEPTH_TEST);
 
