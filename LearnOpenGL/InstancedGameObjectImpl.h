@@ -3,13 +3,11 @@
 #ifndef INSTANCED_GAMEOBJECT_IMPL_H
 #define INSTANCED_GAMEOBJECT_IMPL_H
 
-#include "GameObject.h"
 #include "Mesh.h"
 #include "Material.h"
 #include "InstancedTransformImpl.h"
-#include "TransformImpl.h"
 
-class InstancedGameObjectImpl : public GameObject
+class InstancedGameObjectImpl
 {
 public:
 	InstancedGameObjectImpl();

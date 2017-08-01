@@ -20,18 +20,16 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
-class GameObject;
+class InstancedGameObjectImpl;
 
-class InstancedTransformImpl : public Transform
+class InstancedTransformImpl
 {
 public:
 	InstancedTransformImpl();
 	~InstancedTransformImpl();
 
 
-	InstancedTransformImpl(GLchar* fileLocation, GameObject* gameObject);
-
-	glm::mat4 getModel();
+	InstancedTransformImpl(GLchar* fileLocation, InstancedGameObjectImpl * gameObject);
 
 	std::vector<glm::mat4> getModels();
 
@@ -41,7 +39,7 @@ public:
 
 private:
 	/* Reference to own GameObject instance*/
-	GameObject* gameObject;
+	InstancedGameObjectImpl* gameObject;
 
 
 	/* Only the file should set this */

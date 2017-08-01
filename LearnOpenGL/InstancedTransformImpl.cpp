@@ -1,5 +1,5 @@
 #include "InstancedTransformImpl.h"
-#include "GameObjectImpl.h"
+#include "InstancedGameObjectImpl.h"
 
 
 
@@ -8,14 +8,9 @@ InstancedTransformImpl::InstancedTransformImpl() {}
 
 InstancedTransformImpl::~InstancedTransformImpl() {}
 
-InstancedTransformImpl::InstancedTransformImpl(GLchar* fileLocation, GameObject* gameObject) {
+InstancedTransformImpl::InstancedTransformImpl(GLchar* fileLocation, InstancedGameObjectImpl* gameObject) {
 	this->gameObject = gameObject;
 	this->readFile(fileLocation);
-}
-
-glm::mat4 InstancedTransformImpl::getModel() {
-	// return this->model;
-	return glm::mat4();
 }
 
 std::vector<glm::mat4> InstancedTransformImpl::getModels()
