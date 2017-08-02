@@ -1,21 +1,17 @@
-#version 330 core
+#version 330
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
 layout (location = 2) in vec2 texCoords;
-layout (location = 3) in mat4 instanceModel;
 
 out vec3 Normal;
 out vec3 FragPos;
 out vec2 TexCoords;
 
-uniform mat4 projection;
-uniform mat4 view;
+uniform vec3 model[100];
 
-void main()
-{
-	gl_Position = projection * view * instanceModel * vec4(position, 1.0f);
-	// This should be calculated bt the CPU and sent of as a uniform because currently this will get executed on every vertex
-	Normal = mat3(transpose(inverse(instanceModel))) * normal; // Creates the Normal Matrix which allows non-uniform scaling on objects
-	FragPos = vec3(instanceModel * vec4(position, 1.0f)); // Do all lighting calulations in World Space
+void main() {
+	gl_Position = projection * view * model[gl_InstanceID] * vec4(position, 1.0f);
+	Normal = mat3(transpose(inverse(model[gl_InstanceID]))) * normal;
+	FragPos = vec3(model[gl_InstanceID] * vec4(position, 1.0f));
 	TexCoords = texCoords;
 }

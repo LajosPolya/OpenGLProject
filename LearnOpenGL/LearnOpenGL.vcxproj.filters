@@ -209,6 +209,9 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
+    <None Include="instancedArray.vert">
+      <Filter>Shaders</Filter>
+    </None>
     <None Include="instanced.vert">
       <Filter>Shaders</Filter>
     </None>

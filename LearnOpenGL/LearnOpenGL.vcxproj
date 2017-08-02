@@ -183,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="instanced.vert" />
+    <None Include="instancedArray.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

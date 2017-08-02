@@ -114,7 +114,7 @@ int main()
 	GameObjectImpl lightBox3("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox3.txt", &camera, projection);
 	GameObjectImpl lightBox4("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox4.txt", &camera, projection);
 
-	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection);
+	InstancedGameObjectImpl instancedGameObject("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
