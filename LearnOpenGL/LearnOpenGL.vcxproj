@@ -120,7 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectImpl.cpp" />
-    <ClCompile Include="InstancedGameObjectImpl.cpp" />
+    <ClCompile Include="InstancedArrayGameObjectImpl.cpp" />
     <ClCompile Include="InstancedTransformImpl.cpp" />
     <ClCompile Include="LearnOpenGL.cpp" />
     <ClCompile Include="LightsContainer.cpp" />
@@ -134,7 +134,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectImpl.h" />
-    <ClInclude Include="InstancedGameObjectImpl.h" />
+    <ClInclude Include="InstancedArrayGameObjectImpl.h" />
     <ClInclude Include="InstancedTransformImpl.h" />
     <ClInclude Include="LightsContainer.h" />
     <ClInclude Include="LightTypes.h" />

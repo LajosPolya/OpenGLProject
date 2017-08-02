@@ -1,10 +1,8 @@
 #include "Shader.h"
 #include "GameObjectImpl.h"
-#include "InstancedGameObjectImpl.h"
+#include "InstancedArrayGameObjectImpl.h"
 
-Shader::Shader() {
-
-}
+Shader::Shader() {}
 
 Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
 	// 1. Retrieve the source code from filepath
@@ -148,7 +146,7 @@ void Shader::sendToShader(GameObjectImpl * gameObject)
 	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), gameObject->getCamera()->Front.x, gameObject->getCamera()->Front.y, gameObject->getCamera()->Front.z);
 }
 
-void Shader::sendToShader(InstancedGameObjectImpl * gameObject)
+void Shader::sendToShader(InstancedArrayGameObjectImpl * gameObject)
 {
 	this->Use();
 

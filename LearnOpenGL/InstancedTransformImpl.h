@@ -20,7 +20,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
-class InstancedGameObjectImpl;
+class InstancedArrayGameObjectImpl;
 
 class InstancedTransformImpl
 {
@@ -29,7 +29,7 @@ public:
 	~InstancedTransformImpl();
 
 
-	InstancedTransformImpl(GLchar* fileLocation, InstancedGameObjectImpl * gameObject);
+	InstancedTransformImpl(GLchar* fileLocation, InstancedArrayGameObjectImpl * gameObject);
 
 	std::vector<glm::mat4> getModels();
 
@@ -39,7 +39,7 @@ public:
 
 private:
 	/* Reference to own GameObject instance*/
-	InstancedGameObjectImpl* gameObject;
+	InstancedArrayGameObjectImpl* gameObject;
 
 
 	/* Only the file should set this */

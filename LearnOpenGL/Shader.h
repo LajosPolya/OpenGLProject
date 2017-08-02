@@ -13,7 +13,7 @@
 #include <GL/glew.h>
 
 class GameObjectImpl;
-class InstancedGameObjectImpl;
+class InstancedArrayGameObjectImpl;
 class Shader
 {
 public:
@@ -28,7 +28,7 @@ public:
 
 	void sendToShader(DirLight * dirLight, SpotLight * spotLight, std::vector<PointLight> * pointLights);
 	void sendToShader(GameObjectImpl * gameObject);
-	void sendToShader(InstancedGameObjectImpl * gameObject);
+	void sendToShader(InstancedArrayGameObjectImpl * gameObject);
 
 	void setProjectionMatrix(glm::mat4 projection);
 };
