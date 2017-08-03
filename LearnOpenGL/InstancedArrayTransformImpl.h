@@ -3,9 +3,6 @@
 #ifndef INSTANCED_TRANSFORM_IMPL_H
 #define INSTANCED_TRANSFORM_IMPL_H
 
-#include "Transform.h"
-
-
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -53,4 +50,3 @@ private:
 };
 
 #endif // !INSTANCED_TRANSFORM_IMPL_H
-

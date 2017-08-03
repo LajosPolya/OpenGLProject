@@ -105,7 +105,6 @@ int main()
 	GameObjectImpl grassGameObject("alpha.vert", "alpha.frag", "grass.png", "Mesh/grass.txt", "Transform/grass.txt", &camera, projection);
 	/* "vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", Transform/crate.txt */
 	std::vector<GameObjectImpl> transparentGameObjects;
-	GameObjectImpl windows("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window.txt", &camera, projection);
 	transparentGameObjects.push_back(GameObjectImpl("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window.txt", &camera, projection));
 	transparentGameObjects.push_back(GameObjectImpl("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window2.txt", &camera, projection));
 	transparentGameObjects.push_back(GameObjectImpl("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window3.txt", &camera, projection));
