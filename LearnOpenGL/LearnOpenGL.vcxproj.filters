@@ -60,10 +60,10 @@
     <ClCompile Include="GameObjectImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="InstancedTransformImpl.cpp">
+    <ClCompile Include="InstancedArrayGameObjectImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="InstancedArrayGameObjectImpl.cpp">
+    <ClCompile Include="InstancedArrayTransformImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,10 +101,10 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InstancedTransformImpl.h">
+    <ClInclude Include="InstancedArrayGameObjectImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InstancedArrayGameObjectImpl.h">
+    <ClInclude Include="InstancedArrayTransformImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

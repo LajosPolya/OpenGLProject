@@ -17,7 +17,7 @@
 #include "Material.h"
 #include "Texture.h"
 #include "TransformImpl.h"
-#include "InstancedTransformImpl.h"
+#include "InstancedArrayTransformImpl.h"
 #include "LightsContainer.h"
 #include "GameObject.h"
 
