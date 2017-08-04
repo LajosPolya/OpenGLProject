@@ -1,13 +1,12 @@
 #pragma once
 
-#ifndef MATERIAL_H
-#define MATERIAL_H
-
 #include <vector>
 
 #include "LightTypes.h"
 #include "Shader.h"
 
+
+// TODO: HashMap to Access PointLights
 /* 
  * Each PointLight should have an ID (which corresponds to its intdex in the std::vector<PointLight> pointLights;) 
  * This way a GameObject can access any light in the scene
@@ -63,5 +62,3 @@ private:
 	MaterialProp material;
 	void readLightingFile(GLchar* filename);
 };
-
-#endif // !MATERIAL_H

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef MESH_H
-#define MESH_H
-
 // STD
 #include <string>
 #include <fstream>
@@ -69,5 +66,3 @@ private:
 	/* Reads in a mesh file and Processes Vertices */
 	void readVertexFile(GLchar* filename);
 };
-
-#endif // !MESH_H

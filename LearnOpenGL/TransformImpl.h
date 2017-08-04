@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef TRANSFORM_IMPL_H
-#define TRANSFORM_IMPL_H
-
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -66,5 +63,3 @@ private:
 
 	void readFile(GLchar* filename);
 };
-
-#endif // !TRANSFORM_IMPL_H

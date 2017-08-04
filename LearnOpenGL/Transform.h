@@ -1,9 +1,5 @@
 #pragma once
 
-
-#ifndef TRANSFORM_H
-#define TRANSFORM_H
-
 #include <vector>
 
 // GLM
@@ -24,5 +20,3 @@ public:
 
 	virtual void Draw() = 0;
 };
-
-#endif // !TRANSFORM_H

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef LIGHTYPES_H
-#define LIGHTYPES_H
-
 // GML
 #include <GL/glew.h> 
 #include <glm/glm.hpp>
@@ -51,5 +48,3 @@ typedef struct SpotLight {
 	glm::vec3 diffuse;
 	glm::vec3 specular;
 } SpotLight;
-
-#endif // !LIGHTYPES_H

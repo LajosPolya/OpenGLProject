@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef TEXTURE_H
-#define TEXTURE_H
-
 #include <string>
 #include <iostream>
 
@@ -34,5 +31,3 @@ private:
 	
 
 };
-
-#endif // !TEXTURE_H

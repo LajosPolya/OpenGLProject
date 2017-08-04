@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef INSTANCED_TRANSFORM_IMPL_H
-#define INSTANCED_TRANSFORM_IMPL_H
-
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -48,5 +45,3 @@ private:
 
 	void readFile(GLchar* filename);
 };
-
-#endif // !INSTANCED_TRANSFORM_IMPL_H

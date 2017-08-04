@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef INSTANCED_ARRAY_GAMEOBJECT_IMPL_H
-#define INSTANCED_ARRAY_GAMEOBJECT_IMPL_H
-
 #include "Mesh.h"
 #include "Material.h"
 #include "InstancedArrayTransformImpl.h"
@@ -48,5 +45,3 @@ private:
 
 
 };
-
-#endif // !INSTANCED_ARRAY_GAMEOBJECT_IMPL_H
