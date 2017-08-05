@@ -69,6 +69,9 @@
     <ClCompile Include="InstancedTransformImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InstancedGameObjectImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -114,6 +117,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InstancedTransform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InstancedGameObjectImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -192,6 +198,9 @@
     </Text>
     <Text Include="Material\crate.txt">
       <Filter>Material</Filter>
+    </Text>
+    <Text Include="Instance\crate1.txt">
+      <Filter>Instance</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

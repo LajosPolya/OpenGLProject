@@ -12,6 +12,7 @@
 // My Code
 #include "Camera.h"
 #include "GameObjectImpl.h"
+#include "InstancedGameObjectImpl.h"
 #include "InstancedArrayGameObjectImpl.h"
 
 // Windows
@@ -113,7 +114,8 @@ int main()
 	GameObjectImpl lightBox3("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox3.txt", &camera, projection);
 	GameObjectImpl lightBox4("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox4.txt", &camera, projection);
 
-	InstancedArrayGameObjectImpl instancedGameObject("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection);
+	InstancedArrayGameObjectImpl instancedArrayGameObject("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection);
+	InstancedGameObjectImpl instancedGameObject("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -149,6 +151,7 @@ int main()
 		grassGameObject.getTransform()->setYRotation(glm::radians(135.0f));
 		grassGameObject.Draw();
 
+		instancedArrayGameObject.Draw();
 		instancedGameObject.Draw();
 
 

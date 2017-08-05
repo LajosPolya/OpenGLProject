@@ -1,6 +1,4 @@
 #pragma once
-#ifndef SHADER_H
-#define SHADER_H
 
 #include <string>
 #include <fstream>
@@ -14,6 +12,7 @@
 
 class GameObjectImpl;
 class InstancedArrayGameObjectImpl;
+class InstancedGameObjectImpl;
 class Shader
 {
 public:
@@ -29,8 +28,7 @@ public:
 	void sendToShader(DirLight * dirLight, SpotLight * spotLight, std::vector<PointLight> * pointLights);
 	void sendToShader(GameObjectImpl * gameObject);
 	void sendToShader(InstancedArrayGameObjectImpl * gameObject);
+	void sendToShader(InstancedGameObjectImpl * gameObject);
 
 	void setProjectionMatrix(glm::mat4 projection);
 };
-
-#endif // !SHADER_H

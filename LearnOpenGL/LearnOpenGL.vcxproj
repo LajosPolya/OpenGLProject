@@ -122,6 +122,7 @@
     <ClCompile Include="GameObjectImpl.cpp" />
     <ClCompile Include="InstancedArrayGameObjectImpl.cpp" />
     <ClCompile Include="InstancedArrayTransformImpl.cpp" />
+    <ClCompile Include="InstancedGameObjectImpl.cpp" />
     <ClCompile Include="InstancedTransformImpl.cpp" />
     <ClCompile Include="LearnOpenGL.cpp" />
     <ClCompile Include="LightsContainer.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="GameObjectImpl.h" />
     <ClInclude Include="InstancedArrayGameObjectImpl.h" />
     <ClInclude Include="InstancedArrayTransformImpl.h" />
+    <ClInclude Include="InstancedGameObjectImpl.h" />
     <ClInclude Include="InstancedTransform.h" />
     <ClInclude Include="InstancedTransformImpl.h" />
     <ClInclude Include="LightsContainer.h" />
@@ -156,6 +158,7 @@
     <Text Include="Doc\Material.txt" />
     <Text Include="fragment.frag" />
     <Text Include="Instance\crate.txt" />
+    <Text Include="Instance\crate1.txt" />
     <Text Include="lamp.frag" />
     <Text Include="lamp.vert" />
     <Text Include="Material\crate.txt" />
