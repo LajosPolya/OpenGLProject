@@ -7,7 +7,7 @@ out vec3 Normal;
 out vec3 FragPos;
 out vec2 TexCoords;
 
-uniform mat4 model[100];
+uniform mat4 model[128];
 uniform mat4 view;
 uniform mat4 projection;
 

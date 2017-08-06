@@ -1,4 +1,5 @@
 #include "InstancedArrayGameObjectImpl.h"
+#include "InstancedArrayTransformImpl.h"
 
 
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl() {}
@@ -46,7 +47,7 @@ Camera * InstancedArrayGameObjectImpl::getCamera() {
 	return this->camera;
 }
 
-InstancedArrayTransformImpl * InstancedArrayGameObjectImpl::getTransform() {
+InstancedTransform * InstancedArrayGameObjectImpl::getTransform() {
 	return this->transform;
 }
 

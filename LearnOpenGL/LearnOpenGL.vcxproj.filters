@@ -122,6 +122,9 @@
     <ClInclude Include="InstancedGameObjectImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InstancedGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mesh\crate.txt">

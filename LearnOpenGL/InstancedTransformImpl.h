@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -15,9 +14,11 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+#include "InstancedTransform.h"
+
 class InstancedGameObjectImpl;
 
-class InstancedTransformImpl
+class InstancedTransformImpl : public InstancedTransform
 {
 public:
 	InstancedTransformImpl();

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Shader.h"
-#include "Transform.h"
-#include "Texture.h"
+#include "Mesh.h"
+#include "Material.h"
+#include "InstancedTransform.h"
 
-class GameObject {
+class InstancedGameObject {
 public:
 	virtual void Draw() = 0;
 
@@ -12,11 +12,10 @@ public:
 
 	virtual Camera* getCamera() = 0;
 
-	virtual Transform* getTransform() = 0;
+	virtual InstancedTransform* getTransform() = 0;
 
 	virtual Texture* getDiffuseMap() = 0;
 	virtual Texture* getSpecularMap() = 0;
 
 	virtual LightsContainer* getLightsContainer() = 0;
-
 };

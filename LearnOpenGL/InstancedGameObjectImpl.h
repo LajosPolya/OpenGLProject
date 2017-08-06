@@ -2,7 +2,7 @@
 
 #include "Mesh.h"
 #include "Material.h"
-#include "InstancedTransformImpl.h"
+#include "InstancedTransform.h"
 
 class InstancedGameObjectImpl
 {
@@ -18,7 +18,7 @@ public:
 
 	Camera* getCamera();
 
-	InstancedTransformImpl* getTransform();
+	InstancedTransform* getTransform();
 
 	Texture* getDiffuseMap();
 	Texture* getSpecularMap();
@@ -37,7 +37,7 @@ private:
 
 	Camera* camera;
 
-	InstancedTransformImpl* transform;
+	InstancedTransform* transform;
 
 	LightsContainer* lightsContainer;
 

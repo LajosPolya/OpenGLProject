@@ -138,6 +138,7 @@
     <ClInclude Include="GameObjectImpl.h" />
     <ClInclude Include="InstancedArrayGameObjectImpl.h" />
     <ClInclude Include="InstancedArrayTransformImpl.h" />
+    <ClInclude Include="InstancedGameObject.h" />
     <ClInclude Include="InstancedGameObjectImpl.h" />
     <ClInclude Include="InstancedTransform.h" />
     <ClInclude Include="InstancedTransformImpl.h" />

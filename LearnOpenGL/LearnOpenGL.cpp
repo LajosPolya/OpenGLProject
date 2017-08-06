@@ -154,17 +154,17 @@ int main()
 		instancedArrayGameObject.Draw();
 		instancedGameObject.Draw();
 
+		lightBox1.Draw();
+		lightBox2.Draw();
+		lightBox3.Draw();
+		lightBox4.Draw();
+
 
 		std::map<float, glm::vec3> sortedWindowPosition;
 		for (GLuint i = 0; i < transparentGameObjects.size(); i++) {
 			GLfloat distance = glm::length(camera.Position - transparentGameObjects[i].getTransform()->getPosition());
 			sortedWindowPosition[distance] = transparentGameObjects[i].getTransform()->getPosition();
 		}
-
-		lightBox1.Draw();
-		lightBox2.Draw();
-		lightBox3.Draw();
-		lightBox4.Draw();
 		
 		GLint i;
 		i = 0;

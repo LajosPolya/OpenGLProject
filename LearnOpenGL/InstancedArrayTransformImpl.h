@@ -14,9 +14,11 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+#include "InstancedTransform.h"
+
 class InstancedArrayGameObjectImpl;
 
-class InstancedArrayTransformImpl
+class InstancedArrayTransformImpl : public InstancedTransform
 {
 public:
 	InstancedArrayTransformImpl();
