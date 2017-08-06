@@ -1,10 +1,11 @@
 #pragma once
 
+#include "InstancedGameObject.h"
 #include "Mesh.h"
 #include "Material.h"
 #include "InstancedTransform.h"
 
-class InstancedArrayGameObjectImpl
+class InstancedArrayGameObjectImpl : public InstancedGameObject
 {
 public:
 	InstancedArrayGameObjectImpl();

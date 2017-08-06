@@ -1,8 +1,6 @@
 #include "Material.h"
 
-Material::Material() {
-
-}
+Material::Material() {}
 
 Material::Material(GLchar* materialLocation, Shader shader) {
 
@@ -170,6 +168,7 @@ void Material::getMeshProperties(MaterialProp * material, GLchar* context, GLcha
 	}
 }
 
+// TODO: Upgrade reading in Lighting File
 void Material::readLightingFile(GLchar* filename) {
 	std::string line;
 	std::ifstream file(filename);

@@ -92,7 +92,6 @@ void Mesh::Draw(Shader shader) {
 	glBindVertexArray(0);
 }
 
-// TODO: Better impl needed for normal, instanced, or instancedArray comparison
 void Mesh::setInstance(std::vector<glm::mat4> instances)
 {
 	this->instances = instances;
