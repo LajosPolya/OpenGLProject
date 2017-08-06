@@ -191,6 +191,10 @@ void Shader::sendToShader(InstancedGameObjectImpl * gameObject)
 	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
 	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
 
+	for (GLuint i = 0; i < gameObject->getTransform()->getModels().size(); i++) {
+		glUniformMatrix4fv(glGetUniformLocation(this->Program, ("model[" + std::to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(gameObject->getTransform()->getModels()[i]));
+	}
+
 	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(gameObject->getCamera()->GetViewMatrix()));
 
 	// Set material properties

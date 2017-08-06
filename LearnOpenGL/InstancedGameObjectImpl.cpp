@@ -17,7 +17,7 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	textures.push_back(*(this->specularMap));
 	this->material = new Material(materialLoc, *(this->shader));
 	this->transform = new InstancedTransformImpl(transformLoc, this);
-	this->mesh = new Mesh(meshLoc, textures, *(this->shader), this->transform->getModels());
+	this->mesh = new Mesh(meshLoc, textures, *(this->shader), this->transform->getModels(), INSTANCED_SHADER);
 	this->camera = camera;
 	this->projection = projection;
 

@@ -29,6 +29,9 @@
 #define TEXTURE_COORDS_BITMAP 4
 #define INSTANCE_POSITION_BITMAP 8
 
+#define INSTANCED_ARRAY_SHADER 1
+#define INSTANCED_SHADER  2
+
 struct Vertex {
 	glm::vec3 Position;
 	glm::vec3 Normal;
@@ -45,7 +48,7 @@ public:
 
 	Mesh();
 	Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader);
-	Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader, std::vector<glm::mat4> instances);
+	Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader, std::vector<glm::mat4> instances, GLuint type);
 
 	void Draw(Shader shader, int * placeHolder);
 
@@ -59,6 +62,7 @@ private:
 	GLuint instanceVBO = -1;
 
 	GLuint vertexProp_BitMap;
+	GLuint type = 0;
 
 	// Function
 	void setupMesh();

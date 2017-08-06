@@ -1,8 +1,6 @@
 #include "Mesh.h"
 
-Mesh::Mesh() {
-
-}
+Mesh::Mesh() {}
 
 Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader) {
 	this->readVertexFile(vertexLocation);
@@ -27,10 +25,11 @@ Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader)
 	this->setupMesh();
 }
 
-Mesh::Mesh(GLchar * vertexLocation, std::vector<Texture> textures, Shader shader, std::vector<glm::mat4> instances)
+Mesh::Mesh(GLchar * vertexLocation, std::vector<Texture> textures, Shader shader, std::vector<glm::mat4> instances, GLuint type)
 {
 	this->readVertexFile(vertexLocation);
 	this->instances = instances;
+	this->type = type;
 	this->textures = textures;
 
 	this->setupMesh();
@@ -134,7 +133,7 @@ void Mesh::setupMesh() {
 	}
 
 	// Instancing
-	if (this->instances.size() > 0) {
+	if (this->instances.size() > 0 && type == INSTANCED_ARRAY_SHADER) {
 		this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
 		glGenBuffers(1, &this->instanceVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
@@ -157,6 +156,9 @@ void Mesh::setupMesh() {
 
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+	else if (this->instances.size() > 0 && type == INSTANCED_SHADER) {
+		this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
 	}
 
 

@@ -7,7 +7,9 @@ out vec3 Normal;
 out vec3 FragPos;
 out vec2 TexCoords;
 
-uniform vec3 model[100];
+uniform mat4 model[100];
+uniform mat4 view;
+uniform mat4 projection;
 
 void main() {
 	gl_Position = projection * view * model[gl_InstanceID] * vec4(position, 1.0f);
