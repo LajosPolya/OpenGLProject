@@ -1,7 +1,6 @@
 #include "InstancedTransformImpl.h"
 #include "InstancedGameObjectImpl.h"
 
-
 InstancedTransformImpl::InstancedTransformImpl() {}
 
 InstancedTransformImpl::~InstancedTransformImpl() {}

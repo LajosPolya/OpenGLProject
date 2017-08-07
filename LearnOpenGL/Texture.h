@@ -10,7 +10,6 @@
 // SOIL
 #include <SOIL/SOIL.h>
 
-
 class Texture {
 public:
 	GLuint id;

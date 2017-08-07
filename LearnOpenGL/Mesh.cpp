@@ -2,9 +2,8 @@
 
 Mesh::Mesh() {}
 
-Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures) {
+Mesh::Mesh(GLchar* vertexLocation) {
 	this->readVertexFile(vertexLocation);
-	this->textures = textures;
 
 	/*for (GLuint i = 0; i < vertices.size(); i++) {
 		std::cout << vertices[i].Position.x << " ";
@@ -25,12 +24,11 @@ Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures) {
 	this->setupMesh();
 }
 
-Mesh::Mesh(GLchar * vertexLocation, std::vector<Texture> textures, std::vector<glm::mat4> instances, GLuint type)
+Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type)
 {
 	this->readVertexFile(vertexLocation);
 	this->instances = instances;
 	this->type = type;
-	this->textures = textures;
 
 	this->setupMesh();
 }

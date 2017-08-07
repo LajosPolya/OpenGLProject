@@ -1,11 +1,9 @@
 #include "LightsContainer.h"
 
-
 /* Static vars must be rediefined in .cpp (they can also be initialized here) */
 DirLight* LightsContainer::dirLight = NULL;
 SpotLight*  LightsContainer::spotLight = NULL;
 std::vector<PointLight> LightsContainer::pointLights;
-
 
 LightsContainer::LightsContainer(GLchar* lightsLocation)
 {	

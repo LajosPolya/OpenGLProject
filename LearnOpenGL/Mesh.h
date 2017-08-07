@@ -17,7 +17,6 @@
 #include <GL/glew.h>
 
 #include "LightTypes.h"
-#include "Texture.h"
 
 #define POSITION 0
 #define NORMAL 1
@@ -42,12 +41,11 @@ public:
 	// Mesh Data
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
-	std::vector<Texture> textures;
 	std::vector<glm::mat4> instances;
 
 	Mesh();
-	Mesh(GLchar* vertexLocation, std::vector<Texture> textures);
-	Mesh(GLchar* vertexLocation, std::vector<Texture> textures, std::vector<glm::mat4> instances, GLuint type);
+	Mesh(GLchar* vertexLocation);
+	Mesh(GLchar* vertexLocation, std::vector<glm::mat4> instances, GLuint type);
 
 	void Draw();
 

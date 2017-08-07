@@ -3,6 +3,7 @@
 #include "Shader.h"
 #include "Transform.h"
 #include "Texture.h"
+#include "Camera.h"
 
 class GameObject {
 public:
@@ -18,5 +19,4 @@ public:
 	virtual Texture* getSpecularMap() = 0;
 
 	virtual LightsContainer* getLightsContainer() = 0;
-
 };

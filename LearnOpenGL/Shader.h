@@ -13,6 +13,7 @@
 class GameObjectImpl;
 class InstancedArrayGameObjectImpl;
 class InstancedGameObjectImpl;
+
 class Shader
 {
 public:

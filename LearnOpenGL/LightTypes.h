@@ -9,9 +9,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
-
 // These Structs are Direct Copies of the Structs in the Fragment Shader
-
 typedef struct DirLight {
 	glm::vec3 direction;
 

@@ -1,6 +1,5 @@
-#pragma once
-
 #include "GameObjectImpl.h"
+#include "TransformImpl.h"
 
 GameObjectImpl::GameObjectImpl(GLchar* vertexShader, GLchar* fragmentShader, GLchar* diffuseMapLoc, GLchar* specularMapLoc, GLchar* meshLoc, GLchar* materialLoc, GLchar* transformLoc, GLchar* lightsLoc,  Camera * camera, glm::mat4 projection) {
 	this->shader = new Shader(vertexShader, fragmentShader);
@@ -8,10 +7,7 @@ GameObjectImpl::GameObjectImpl(GLchar* vertexShader, GLchar* fragmentShader, GLc
 	this->diffuseMap->name = "material.diffuse";
 	this->specularMap = new Texture(specularMapLoc, true);
 	this->specularMap->name = "material.specular";
-	std::vector<Texture> textures;
-	textures.push_back(*(this->diffuseMap));
-	textures.push_back(*(this->specularMap));
-	this->mesh = new Mesh(meshLoc, textures);
+	this->mesh = new Mesh(meshLoc);
 	this->material = new Material(materialLoc);
 	this->transform = new TransformImpl(transformLoc, this);
 	this->camera = camera;
@@ -27,10 +23,7 @@ GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, G
 	this->shader = new Shader(vertexShader, fragmentShader);
 	this->diffuseMap = new Texture(diffuseMapLoc, true);
 	this->specularMap = new Texture(nullptr, true);
-	std::vector<Texture> textures;
-	textures.push_back(*(this->diffuseMap));
-	textures.push_back(*(this->specularMap));
-	this->mesh = new Mesh(meshLoc, textures);
+	this->mesh = new Mesh(meshLoc);
 	this->material = new Material(nullptr);
 	this->transform = new TransformImpl(transformLoc, this);
 	this->camera = camera;
@@ -46,10 +39,7 @@ GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, G
 	this->shader = new Shader(vertexShader, fragmentShader);
 	this->diffuseMap = new Texture(nullptr, true);
 	this->specularMap = new Texture(nullptr, true);
-	std::vector<Texture> textures;
-	textures.push_back(*(this->diffuseMap));
-	textures.push_back(*(this->specularMap));
-	this->mesh = new Mesh(meshLoc, textures);
+	this->mesh = new Mesh(meshLoc);
 	this->material = new Material(nullptr);
 	this->transform = new TransformImpl(transformLoc, this);
 	this->camera = camera;
@@ -82,7 +72,7 @@ Camera * GameObjectImpl::getCamera() {
 	return this->camera;
 }
 
-TransformImpl * GameObjectImpl::getTransform() {
+Transform * GameObjectImpl::getTransform() {
 	return this->transform;
 }
 

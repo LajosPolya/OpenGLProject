@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef GAMEOBJECT_IMPL_H
-#define GAMEOBJECT_IMPL_H
-
 // GLEW
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -11,14 +8,8 @@
 #include <GLFW/glfw3.h>
 
 // My Code
-#include "Shader.h"
-#include "Camera.h"
 #include "Mesh.h"
 #include "Material.h"
-#include "Texture.h"
-#include "TransformImpl.h"
-#include "InstancedArrayTransformImpl.h"
-#include "LightsContainer.h"
 #include "GameObject.h"
 
 // GLM
@@ -41,7 +32,7 @@ public:
 
 	Camera* getCamera();
 
-	TransformImpl* getTransform();
+	Transform* getTransform();
 
 	Texture* getDiffuseMap();
 	Texture* getSpecularMap();
@@ -60,12 +51,9 @@ private:
 
 	Camera* camera;
 
-	TransformImpl* transform;
+	Transform* transform;
 
 	LightsContainer* lightsContainer;
 
 	glm::mat4 projection;
-
 };
-
-#endif // !GAMEOBJECT_IMPL_H

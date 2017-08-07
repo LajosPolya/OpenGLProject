@@ -1,9 +1,7 @@
 #include "TransformImpl.h"
 #include "GameObjectImpl.h"
 
-TransformImpl::TransformImpl() {
-
-}
+TransformImpl::TransformImpl() {}
 
 TransformImpl::TransformImpl(GLchar* fileLocation, GameObject* gameObject) {
 	this->gameObject = gameObject;
