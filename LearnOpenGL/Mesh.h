@@ -47,12 +47,12 @@ public:
 	std::vector<glm::mat4> instances;
 
 	Mesh();
-	Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader);
-	Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader, std::vector<glm::mat4> instances, GLuint type);
+	Mesh(GLchar* vertexLocation, std::vector<Texture> textures);
+	Mesh(GLchar* vertexLocation, std::vector<Texture> textures, std::vector<glm::mat4> instances, GLuint type);
 
 	void Draw(Shader shader, int * placeHolder);
 
-	void Draw(Shader shader);
+	void Draw();
 
 	void setInstance(std::vector<glm::mat4> instances);
 

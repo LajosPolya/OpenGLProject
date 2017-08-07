@@ -1,9 +1,10 @@
 #pragma once
 
 #include <vector>
+#include <string>
+#include <fstream>
 
 #include "LightTypes.h"
-#include "Shader.h"
 
 
 // TODO: HashMap to Access PointLights
@@ -21,7 +22,9 @@ public:
 
 	Material();
 
-	Material(GLchar* materialLocation, Shader shader);
+	Material(GLchar* materialLocation);
+
+	GLfloat getShininess();
 
 private:
 	struct MaterialProp {
@@ -30,8 +33,6 @@ private:
 
 
 	/* DirLight, SpotLight and PointLights were initialized in this->readLightingFile() */
-	void sendDataToShader(Shader shader);
-
 	/*
 	Light Prop Type {
 	0 : Position      (PointLight, maybe SpotLight in the future)

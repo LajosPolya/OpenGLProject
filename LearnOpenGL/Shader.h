@@ -7,6 +7,7 @@
 
 #include "LightsContainer.h"
 #include "Camera.h"
+#include "Material.h"
 
 #include <GL/glew.h>
 
@@ -29,6 +30,7 @@ public:
 	void sendToShader(GameObjectImpl * gameObject);
 	void sendToShader(InstancedArrayGameObjectImpl * gameObject);
 	void sendToShader(InstancedGameObjectImpl * gameObject);
+	void sendToShader(Material * material);
 
 	void setProjectionMatrix(glm::mat4 projection);
 };

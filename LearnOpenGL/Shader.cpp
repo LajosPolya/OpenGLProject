@@ -203,6 +203,12 @@ void Shader::sendToShader(InstancedGameObjectImpl * gameObject)
 
 }
 
+void Shader::sendToShader(Material * material)
+{
+	this->Use();
+	glUniform1f(glGetUniformLocation(this->Program, "material.shininess"), material->getShininess());
+}
+
 void Shader::setProjectionMatrix(glm::mat4 projection)
 {
 	this->Use();

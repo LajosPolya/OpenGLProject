@@ -11,8 +11,8 @@ GameObjectImpl::GameObjectImpl(GLchar* vertexShader, GLchar* fragmentShader, GLc
 	std::vector<Texture> textures;
 	textures.push_back(*(this->diffuseMap));
 	textures.push_back(*(this->specularMap));
-	this->mesh = new Mesh(meshLoc, textures, *(this->shader));
-	this->material = new Material(materialLoc, *(this->shader));
+	this->mesh = new Mesh(meshLoc, textures);
+	this->material = new Material(materialLoc);
 	this->transform = new TransformImpl(transformLoc, this);
 	this->camera = camera;
 	this->projection = projection;
@@ -30,8 +30,8 @@ GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, G
 	std::vector<Texture> textures;
 	textures.push_back(*(this->diffuseMap));
 	textures.push_back(*(this->specularMap));
-	this->mesh = new Mesh(meshLoc, textures, *(this->shader));
-	this->material = new Material(nullptr, *(this->shader));
+	this->mesh = new Mesh(meshLoc, textures);
+	this->material = new Material(nullptr);
 	this->transform = new TransformImpl(transformLoc, this);
 	this->camera = camera;
 	this->projection = projection;
@@ -49,8 +49,8 @@ GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, G
 	std::vector<Texture> textures;
 	textures.push_back(*(this->diffuseMap));
 	textures.push_back(*(this->specularMap));
-	this->mesh = new Mesh(meshLoc, textures, *(this->shader));
-	this->material = new Material(nullptr, *(this->shader));
+	this->mesh = new Mesh(meshLoc, textures);
+	this->material = new Material(nullptr);
 	this->transform = new TransformImpl(transformLoc, this);
 	this->camera = camera;
 	this->projection = projection;
@@ -70,7 +70,8 @@ void GameObjectImpl::Draw() {
 
 	this->shader->sendToShader(lightsContainer->getDirLight(), lightsContainer->getSpotLight(), lightsContainer->getPointLights());
 	this->shader->sendToShader(this);
-	this->mesh->Draw(*(this->shader));
+	this->shader->sendToShader(this->material);
+	this->mesh->Draw();
 }
 
 Shader * GameObjectImpl::getShader() {

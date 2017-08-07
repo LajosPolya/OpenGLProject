@@ -16,9 +16,9 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	std::vector<Texture> textures;
 	textures.push_back(*(this->diffuseMap));
 	textures.push_back(*(this->specularMap));
-	this->material = new Material(materialLoc, *(this->shader));
+	this->material = new Material(materialLoc);
 	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
-	this->mesh = new Mesh(meshLoc, textures, *(this->shader), this->transform->getModels(), INSTANCED_ARRAY_SHADER);
+	this->mesh = new Mesh(meshLoc, textures, this->transform->getModels(), INSTANCED_ARRAY_SHADER);
 	this->camera = camera;
 	this->projection = projection;
 
@@ -36,7 +36,8 @@ void InstancedArrayGameObjectImpl::Draw() {
 	/* I don't think this should be called by every sort of instance of GameObject */
 	this->shader->sendToShader(lightsContainer->getDirLight(), lightsContainer->getSpotLight(), lightsContainer->getPointLights());
 	this->shader->sendToShader(this);
-	this->mesh->Draw(*(this->shader));
+	this->shader->sendToShader(this->material);
+	this->mesh->Draw();
 }
 
 Shader * InstancedArrayGameObjectImpl::getShader() {

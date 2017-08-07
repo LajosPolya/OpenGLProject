@@ -2,7 +2,7 @@
 
 Mesh::Mesh() {}
 
-Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader) {
+Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures) {
 	this->readVertexFile(vertexLocation);
 	this->textures = textures;
 
@@ -25,7 +25,7 @@ Mesh::Mesh(GLchar* vertexLocation, std::vector<Texture> textures, Shader shader)
 	this->setupMesh();
 }
 
-Mesh::Mesh(GLchar * vertexLocation, std::vector<Texture> textures, Shader shader, std::vector<glm::mat4> instances, GLuint type)
+Mesh::Mesh(GLchar * vertexLocation, std::vector<Texture> textures, std::vector<glm::mat4> instances, GLuint type)
 {
 	this->readVertexFile(vertexLocation);
 	this->instances = instances;
@@ -35,6 +35,7 @@ Mesh::Mesh(GLchar * vertexLocation, std::vector<Texture> textures, Shader shader
 	this->setupMesh();
 }
 
+// TODO: Sending data to the Shader should be done in the Shader class
 void Mesh::Draw(Shader shader, int * placeHolder) {
 
 	for (GLuint i = 0; i < this->textures.size(); i++) {
@@ -55,7 +56,7 @@ void Mesh::Draw(Shader shader, int * placeHolder) {
 	glBindVertexArray(0);
 }
 
-void Mesh::Draw(Shader shader) {
+void Mesh::Draw() {
 	GLuint diffuseNr = 1;
 	GLuint specularNr = 1;
 

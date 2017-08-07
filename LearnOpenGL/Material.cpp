@@ -2,20 +2,19 @@
 
 Material::Material() {}
 
-Material::Material(GLchar* materialLocation, Shader shader) {
+Material::Material(GLchar* materialLocation) {
 
 	if (materialLocation != NULL) {
 		this->readLightingFile(materialLocation);
-		this->sendDataToShader(shader);
 	}
 }
 
-/* DirLight, SpotLight and PointLights were initialized in this->readLightingFile() */
-void Material::sendDataToShader(Shader shader) {
-	shader.Use();
-	glUniform1f(glGetUniformLocation(shader.Program, "material.shininess"), material.shininess);
+GLfloat Material::getShininess()
+{
+	return material.shininess;
 }
 
+/* DirLight, SpotLight and PointLights were initialized in this->readLightingFile() */
 /*
 Light Prop Type {
 0 : Position      (PointLight, maybe SpotLight in the future)
@@ -209,7 +208,7 @@ void Material::readLightingFile(GLchar* filename) {
 					this->havePushedLastPointLight = true;
 				}
 			}
-			else if (token[0] == '4') {
+			else if (token[0] == '4') { // TODO: Only this if statement is needed, lights are taken care of in LightsContainer Class
 				getMeshProperties(&this->material, context, token[1]);
 
 				if (pointLights.size() != 0 && this->havePushedLastPointLight == false) {
