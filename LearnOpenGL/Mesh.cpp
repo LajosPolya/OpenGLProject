@@ -35,27 +35,6 @@ Mesh::Mesh(GLchar * vertexLocation, std::vector<Texture> textures, std::vector<g
 	this->setupMesh();
 }
 
-// TODO: Sending data to the Shader should be done in the Shader class
-void Mesh::Draw(Shader shader, int * placeHolder) {
-
-	for (GLuint i = 0; i < this->textures.size(); i++) {
-		glActiveTexture(GL_TEXTURE0 + i); // Activate Texture Unit
-
-		glUniform1i(glGetUniformLocation(shader.Program, this->textures[i].name), i);
-		glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
-	}
-
-	// Draw Mesh
-	glBindVertexArray(this->VAO);
-	if (EBO == -1) { // If EBO is not initialized
-		glDrawArrays(GL_TRIANGLES, 0, this->vertices.size());
-	}
-	else { // If EBO is initialized
-		glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
-	}
-	glBindVertexArray(0);
-}
-
 void Mesh::Draw() {
 	GLuint diffuseNr = 1;
 	GLuint specularNr = 1;

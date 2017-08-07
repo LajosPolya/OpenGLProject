@@ -214,3 +214,14 @@ void Shader::setProjectionMatrix(glm::mat4 projection)
 	this->Use();
 	glUniformMatrix4fv(glGetUniformLocation(this->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 }
+
+
+// TODO: This can allow Shaders to have variable amount of Textures
+/*
+for (GLuint i = 0; i < this->textures.size(); i++) {
+    glActiveTexture(GL_TEXTURE0 + i); // Activate Texture Unit
+
+    glUniform1i(glGetUniformLocation(shader.Program, this->textures[i].name), i);
+    glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
+}
+*/

@@ -18,7 +18,6 @@
 
 #include "LightTypes.h"
 #include "Texture.h"
-#include "Shader.h"
 
 #define POSITION 0
 #define NORMAL 1
@@ -49,8 +48,6 @@ public:
 	Mesh();
 	Mesh(GLchar* vertexLocation, std::vector<Texture> textures);
 	Mesh(GLchar* vertexLocation, std::vector<Texture> textures, std::vector<glm::mat4> instances, GLuint type);
-
-	void Draw(Shader shader, int * placeHolder);
 
 	void Draw();
 

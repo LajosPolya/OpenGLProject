@@ -1,13 +1,5 @@
-﻿  Mesh.cpp
-  Generating Code...
-  Compiling...
+﻿  Shader.cpp
   InstancedArrayGameObjectImpl.cpp
   Generating Code...
-  Skipping... (no relevant changes detected)
-  Shader.cpp
-  LearnOpenGL.cpp
-  InstancedTransformImpl.cpp
-  InstancedGameObjectImpl.cpp
-  InstancedArrayTransformImpl.cpp
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)
