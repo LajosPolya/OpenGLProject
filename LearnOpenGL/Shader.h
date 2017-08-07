@@ -6,7 +6,6 @@
 #include <iostream>
 
 #include "LightsContainer.h"
-#include "Camera.h"
 #include "Material.h"
 
 #include <GL/glew.h>

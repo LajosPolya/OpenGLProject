@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "Shader.h"
+#include "Camera.h"
 #include "InstancedTransform.h"
 
 class InstancedGameObject {

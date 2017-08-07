@@ -25,9 +25,4 @@ public:
 	Texture(GLchar * path, GLboolean alpha, GLchar * name);
 
 	GLuint getTextureID();
-
-
-private:
-	
-
 };
