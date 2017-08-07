@@ -1,11 +1,11 @@
-﻿  InstancedTransformImpl.cpp
+﻿  Shader.cpp
+  InstancedTransformImpl.cpp
   InstancedGameObjectImpl.cpp
   InstancedArrayTransformImpl.cpp
   InstancedArrayGameObjectImpl.cpp
   Generating Code...
   Compiling...
   TransformImpl.cpp
-  Shader.cpp
   LearnOpenGL.cpp
 c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'

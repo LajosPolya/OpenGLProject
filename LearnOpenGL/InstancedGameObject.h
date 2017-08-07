@@ -5,6 +5,7 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "InstancedTransform.h"
+#include "LightsContainer.h"
 
 class InstancedGameObject {
 public:

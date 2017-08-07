@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Mesh.h"
 #include "Shader.h"
 #include "Transform.h"
 #include "Texture.h"
 #include "Camera.h"
+#include "LightsContainer.h"
 
 class GameObject {
 public:

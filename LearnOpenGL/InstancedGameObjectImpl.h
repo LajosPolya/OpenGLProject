@@ -1,7 +1,6 @@
 #pragma once
 
 #include "InstancedGameObject.h"
-#include "InstancedTransform.h"
 
 class InstancedGameObjectImpl : public InstancedGameObject
 {
