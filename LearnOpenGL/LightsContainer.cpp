@@ -1,24 +1,23 @@
 #include "LightsContainer.h"
 
 /* Static vars must be rediefined in .cpp (they can also be initialized here) */
-DirLight* LightsContainer::dirLight = NULL;
-SpotLight*  LightsContainer::spotLight = NULL;
+DirLight* LightsContainer::dirLight = nullptr;
+SpotLight*  LightsContainer::spotLight = nullptr;
 std::vector<PointLight> LightsContainer::pointLights;
 
 LightsContainer::LightsContainer(GLchar* lightsLocation)
 {	
-	if (lightsLocation != NULL) {
+	if (lightsLocation != nullptr) {
 		/* Should only read Scene Lights once */
 		/* This can also be implemented such that is saves the file name
 		 * and if it's already been read in then it won't be read again */
-		if (dirLight == NULL && spotLight == NULL && pointLights.size() == 0) {
+		if (dirLight == nullptr && spotLight == nullptr && pointLights.size() == 0) {
 			dirLight = new DirLight();
 			spotLight = new SpotLight();
 			this->readLightingFile(lightsLocation);
 		}
 	}
 }
-
 
 LightsContainer::~LightsContainer() {}
 

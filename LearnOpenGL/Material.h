@@ -32,7 +32,7 @@ private:
 	};
 
 
-	/* DirLight, SpotLight and PointLights were initialized in this->readLightingFile() */
+	/* DirLight, SpotLight and PointLights were initialized in this->readLightingFile() in LightsContainer Class */
 	/*
 	Light Prop Type {
 	0 : Position      (PointLight, maybe SpotLight in the future)
@@ -48,18 +48,8 @@ private:
 	}
 	Read Doc/Material.txt for more info
 	*/
-	void getMeshProperties(DirLight * dirLight, GLchar* context, GLchar lightPropType);
-
-	void getMeshProperties(SpotLight * spotLight, GLchar* context, GLchar lightPropType);
-
-	void getMeshProperties(PointLight * pointLight, GLchar* context, GLchar lightPropType);
-
 	void getMeshProperties(MaterialProp * material, GLchar* context, GLchar lightPropType);
 
-	DirLight dirLight;
-	SpotLight spotLight;
-	GLboolean havePushedLastPointLight = false;
-	std::vector<PointLight> pointLights;
 	MaterialProp material;
 	void readLightingFile(GLchar* filename);
 };
