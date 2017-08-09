@@ -38,19 +38,14 @@ public:
 
 	void Draw();
 	
-	//InstancedGameObjectImpl* getGameObject();
+	InstancedGameObjectImpl* getGameObject();
 
 private:
 	/* Reference to own GameObject instance*/
 	InstancedGameObjectImpl* gameObject;
 
-
 	/* Only the file should set this */
-	std::vector<glm::vec3> Position;
-	std::vector<glm::vec3> Rotation;
-	std::vector<glm::vec3> Scale;
-
-	std::vector<glm::mat4> model;
+	InstancedTransformProps props;
 
 	void readFile(GLchar* filename);
 };

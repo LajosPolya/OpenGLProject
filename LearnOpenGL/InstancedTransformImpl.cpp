@@ -12,12 +12,12 @@ InstancedTransformImpl::InstancedTransformImpl(GLchar* fileLocation, InstancedGa
 
 std::vector<glm::vec3>* InstancedTransformImpl::getPositions()
 {
-	return &(this->Position);
+	return &this->props.Position;
 }
 
 std::vector<glm::mat4> InstancedTransformImpl::getModels()
 {
-	return this->model;
+	return this->props.model;
 }
 
 void InstancedTransformImpl::refreshModel() {
@@ -29,6 +29,11 @@ void InstancedTransformImpl::Draw() {
 	// this->newRotation = this->Rotation;
 	// this->newPosition = this->Position;
 	// this->newScale = this->Scale;
+}
+
+InstancedGameObjectImpl * InstancedTransformImpl::getGameObject()
+{
+	return this->gameObject;
 }
 
 // TODO: Create a Base Class which will have this method (implemented by this and InstancedTransformImpl)
@@ -84,11 +89,11 @@ void InstancedTransformImpl::readFile(GLchar * filename)
 
 			model = glm::scale(model, scale);
 
-			this->Position.push_back(position);
-			this->Rotation.push_back(rotation);
-			this->Scale.push_back(scale);
+			this->props.Position.push_back(position);
+			this->props.Rotation.push_back(rotation);
+			this->props.Scale.push_back(scale);
 
-			this->model.push_back(model);
+			this->props.model.push_back(model);
 		}
 	}
 	else {
