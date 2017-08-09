@@ -72,6 +72,9 @@
     <ClCompile Include="InstancedGameObjectImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TransparentTransformImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -123,6 +126,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InstancedGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TransparentTransformImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -205,6 +211,9 @@
     <Text Include="Instance\crate1.txt">
       <Filter>Instance</Filter>
     </Text>
+    <Text Include="Instance\window.txt">
+      <Filter>Instance</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="wall.jpg">
@@ -234,6 +243,9 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="instanced.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="instancedAlpha.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

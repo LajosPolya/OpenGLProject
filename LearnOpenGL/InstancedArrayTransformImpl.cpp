@@ -1,7 +1,6 @@
 #include "InstancedArrayTransformImpl.h"
 #include "InstancedArrayGameObjectImpl.h"
 
-
 InstancedArrayTransformImpl::InstancedArrayTransformImpl() {}
 
 InstancedArrayTransformImpl::~InstancedArrayTransformImpl() {}
@@ -9,6 +8,11 @@ InstancedArrayTransformImpl::~InstancedArrayTransformImpl() {}
 InstancedArrayTransformImpl::InstancedArrayTransformImpl(GLchar* fileLocation, InstancedArrayGameObjectImpl * gameObject) {
 	this->gameObject = gameObject;
 	this->readFile(fileLocation);
+}
+
+std::vector<glm::vec3>* InstancedArrayTransformImpl::getPositions()
+{
+	return &(this->Position);
 }
 
 std::vector<glm::mat4> InstancedArrayTransformImpl::getModels()

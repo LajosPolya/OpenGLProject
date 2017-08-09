@@ -10,6 +10,11 @@ InstancedTransformImpl::InstancedTransformImpl(GLchar* fileLocation, InstancedGa
 	this->readFile(fileLocation);
 }
 
+std::vector<glm::vec3>* InstancedTransformImpl::getPositions()
+{
+	return &(this->Position);
+}
+
 std::vector<glm::mat4> InstancedTransformImpl::getModels()
 {
 	return this->model;

@@ -23,6 +23,23 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	this->shader->setProjectionMatrix(projection);
 }
 
+InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
+{
+	this->shader = new Shader(vertexShader, fragmentShader);
+	this->diffuseMap = new Texture(diffuseMapLoc, true);
+	this->diffuseMap->name = "material.diffuse";
+	this->specularMap = new Texture(nullptr, true);
+	this->transform = new InstancedTransformImpl(transformLoc, this);
+	this->mesh = new Mesh(meshLoc, this->transform->getModels(), INSTANCED_SHADER);
+	this->material = new Material(nullptr);
+	this->camera = camera;
+	this->projection = projection;
+
+	this->lightsContainer = new LightsContainer(nullptr);
+
+	this->shader->setProjectionMatrix(projection);
+}
+
 void InstancedGameObjectImpl::Draw() {
 
 	this->transform->refreshModel();

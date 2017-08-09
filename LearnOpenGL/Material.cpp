@@ -4,7 +4,7 @@ Material::Material() {}
 
 Material::Material(GLchar* materialLocation) {
 
-	if (materialLocation != NULL) {
+	if (materialLocation != nullptr) {
 		this->readLightingFile(materialLocation);
 	}
 }
