@@ -1,5 +1,4 @@
 #include "InstancedGameObjectImpl.h"
-#include "InstancedTransformImpl.h"
 
 InstancedGameObjectImpl::InstancedGameObjectImpl() {}
 
@@ -14,6 +13,7 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	this->specularMap->name = "material.specular";
 	this->material = new Material(materialLoc);
 	this->transform = new InstancedTransformImpl(transformLoc, this);
+	// TODO: Does this need to send its model to Mesh?
 	this->mesh = new Mesh(meshLoc, this->transform->getModels(), INSTANCED_SHADER);
 	this->camera = camera;
 	this->projection = projection;
@@ -61,7 +61,7 @@ Camera * InstancedGameObjectImpl::getCamera() {
 	return this->camera;
 }
 
-InstancedTransform * InstancedGameObjectImpl::getTransform() {
+InstancedTransformImpl * InstancedGameObjectImpl::getTransform() {
 	return this->transform;
 }
 

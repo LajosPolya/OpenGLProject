@@ -44,7 +44,7 @@ Camera * InstancedArrayGameObjectImpl::getCamera() {
 	return this->camera;
 }
 
-InstancedTransform * InstancedArrayGameObjectImpl::getTransform() {
+InstancedArrayTransformImpl * InstancedArrayGameObjectImpl::getTransform() {
 	return this->transform;
 }
 

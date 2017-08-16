@@ -4,7 +4,7 @@
 #include "Texture.h"
 #include "Shader.h"
 #include "Camera.h"
-#include "InstancedTransform.h"
+// #include "InstancedTransform.h"
 #include "LightsContainer.h"
 
 class InstancedGameObject {
@@ -15,7 +15,7 @@ public:
 
 	virtual Camera* getCamera() = 0;
 
-	virtual InstancedTransform* getTransform() = 0;
+	// virtual InstancedTransform* getTransform() = 0;
 
 	virtual Texture* getDiffuseMap() = 0;
 	virtual Texture* getSpecularMap() = 0;

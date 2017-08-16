@@ -1,6 +1,7 @@
 #pragma once
 
 #include "InstancedGameObject.h"
+#include "InstancedArrayTransformImpl.h"
 
 class InstancedArrayGameObjectImpl : public InstancedGameObject
 {
@@ -16,7 +17,7 @@ public:
 
 	Camera* getCamera();
 
-	InstancedTransform* getTransform();
+	InstancedArrayTransformImpl* getTransform();
 
 	Texture* getDiffuseMap();
 	Texture* getSpecularMap();
@@ -35,7 +36,7 @@ private:
 
 	Camera* camera;
 
-	InstancedTransform* transform;
+	InstancedArrayTransformImpl* transform;
 
 	LightsContainer* lightsContainer;
 

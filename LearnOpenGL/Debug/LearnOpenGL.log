@@ -1,15 +1,3 @@
-﻿  TransparentTransformImpl.cpp
-  LearnOpenGL.cpp
-c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(123): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(230): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(231): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(235): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(236): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(237): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(238): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(244): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-  Generating Code...
+﻿  Shader.cpp
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)
