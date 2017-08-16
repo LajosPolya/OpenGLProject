@@ -131,6 +131,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TransformImpl.cpp" />
+    <ClCompile Include="TransparentGameObjectImpl.cpp" />
     <ClCompile Include="TransparentTransformImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TransformImpl.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="TransparentGameObjectImpl.h" />
     <ClInclude Include="TransparentTransformImpl.h" />
   </ItemGroup>
   <ItemGroup>

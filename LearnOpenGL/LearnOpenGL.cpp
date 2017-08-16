@@ -14,6 +14,7 @@
 #include "GameObjectImpl.h"
 #include "InstancedGameObjectImpl.h"
 #include "InstancedArrayGameObjectImpl.h"
+#include "TransparentGameObjectImpl.h"
 
 // Windows
 #include <Windows.h>
@@ -116,7 +117,7 @@ int main()
 
 	InstancedArrayGameObjectImpl instancedArrayGameObject("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection);
 	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
-	InstancedGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Instance/window.txt", &camera, projection);
+	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Instance/window.txt", &camera, projection);
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
