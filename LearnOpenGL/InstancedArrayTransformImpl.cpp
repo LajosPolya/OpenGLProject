@@ -12,12 +12,12 @@ InstancedArrayTransformImpl::InstancedArrayTransformImpl(GLchar* fileLocation, I
 
 std::vector<glm::vec3>* InstancedArrayTransformImpl::getPositions()
 {
-	return &(this->props.Position);
+	return &(this->Position);
 }
 
 std::vector<glm::mat4> InstancedArrayTransformImpl::getModels()
 {
-	return this->props.model;
+	return this->model;
 }
 
 void InstancedArrayTransformImpl::refreshModel() {
@@ -83,11 +83,11 @@ void InstancedArrayTransformImpl::readFile(GLchar * filename)
 
 			model = glm::scale(model, scale);
 
-			this->props.Position.push_back(position);
-			this->props.Rotation.push_back(rotation);
-			this->props.Scale.push_back(scale);
+			this->Position.push_back(position);
+			this->Rotation.push_back(rotation);
+			this->Scale.push_back(scale);
 
-			this->props.model.push_back(model);
+			this->model.push_back(model);
 		}
 	}
 	else {

@@ -14,16 +14,6 @@ public:
 
 	virtual void Draw() = 0;
 
-protected:
-	// This is protected so the derived classes have access to it
-	struct InstancedTransformProps {
-		std::vector<glm::vec3> Position;
-		std::vector<glm::vec3> Rotation;
-		std::vector<glm::vec3> Scale;
-
-		std::vector<glm::mat4> model;
-	};
-
 private:
 
 	virtual void readFile(GLchar* filename) = 0;

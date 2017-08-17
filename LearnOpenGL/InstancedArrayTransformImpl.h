@@ -40,7 +40,11 @@ private:
 	InstancedArrayGameObjectImpl* gameObject;
 
 	/* Only the file should set this */
-	InstancedTransformProps props;
+	std::vector<glm::vec3> Position;
+	std::vector<glm::vec3> Rotation;
+	std::vector<glm::vec3> Scale;
+
+	std::vector<glm::mat4> model;
 
 	void readFile(GLchar* filename);
 };
