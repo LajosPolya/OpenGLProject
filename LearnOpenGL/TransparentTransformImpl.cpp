@@ -26,7 +26,7 @@ std::vector<glm::mat4> TransparentTransformImpl::getModels()
 }
 
 void TransparentTransformImpl::refreshModel() {
-	// this->model = glm::mat4();
+	std::sort(this->props.begin(), this->props.end(), [this](InstancedTransformProps const &x, InstancedTransformProps const& y) { return this->sortFunction(x, y); });
 }
 
 void TransparentTransformImpl::Draw() {
@@ -107,4 +107,13 @@ void TransparentTransformImpl::readFile(GLchar * filename)
 	else {
 		std::cout << "ERROR::BAD TRANSFORM FILENAME" << std::endl;
 	}
+}
+
+
+/* Note this sort returns the opposite of what a sort funciton is supposed to */
+GLboolean TransparentTransformImpl::sortFunction(InstancedTransformProps const &x, InstancedTransformProps const &y)
+{
+	GLfloat dist1 = glm::length(this->gameObject->getCamera()->Position - x.Position);
+	GLfloat dist2 = glm::length(this->gameObject->getCamera()->Position - y.Position);
+	return dist1 > dist2;
 }

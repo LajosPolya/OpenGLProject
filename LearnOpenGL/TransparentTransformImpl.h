@@ -14,6 +14,8 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+#include <algorithm>
+
 class TransparentGameObjectImpl;
 
 // TODO: Create a TransparentTransformImpl which derives from this class.
@@ -50,6 +52,7 @@ private:
 		glm::mat4 model;
 	};
 
+	// TODO: Implement model to react to sort
 	std::vector<glm::mat4> models;
 
 	/* Reference to own GameObject instance*/
@@ -59,5 +62,7 @@ private:
 	std::vector<InstancedTransformProps> props;
 
 	void readFile(GLchar* filename);
+
+	GLboolean sortFunction(InstancedTransformProps const &x, InstancedTransformProps const &y);
 };
 
