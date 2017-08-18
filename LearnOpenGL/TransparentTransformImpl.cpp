@@ -10,14 +10,19 @@ TransparentTransformImpl::TransparentTransformImpl(GLchar* fileLocation, Transpa
 	this->readFile(fileLocation);
 }
 
-std::vector<glm::vec3>* TransparentTransformImpl::getPositions()
+glm::vec3* TransparentTransformImpl::getPositions(GLuint i)
 {
-	return &this->props.Position;
+	return &this->props[i].Position;
+}
+
+glm::mat4 TransparentTransformImpl::getModel(GLuint i)
+{
+	return this->props[i].model;
 }
 
 std::vector<glm::mat4> TransparentTransformImpl::getModels()
 {
-	return this->props.model;
+	return this->models;
 }
 
 void TransparentTransformImpl::refreshModel() {
@@ -53,6 +58,7 @@ void TransparentTransformImpl::readFile(GLchar * filename)
 			glm::vec3 rotation;
 			glm::vec3 scale;
 			glm::mat4 model;
+			InstancedTransformProps prop;
 
 			token = strtok_s(&line[0], ",", &context);
 			position.x = std::stof(token);
@@ -89,11 +95,13 @@ void TransparentTransformImpl::readFile(GLchar * filename)
 
 			model = glm::scale(model, scale);
 
-			this->props.Position.push_back(position);
-			this->props.Rotation.push_back(rotation);
-			this->props.Scale.push_back(scale);
+			prop.Position = position;
+			prop.Rotation = rotation;
+			prop.Scale = scale;
+			prop.model = model;
+			this->props.push_back(prop);
 
-			this->props.model.push_back(model);
+			this->models.push_back(this->props[this->props.size()-1].model);
 		}
 	}
 	else {

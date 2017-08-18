@@ -28,8 +28,11 @@ public:
 
 	TransparentTransformImpl(GLchar* fileLocation, TransparentGameObjectImpl * gameObject);
 
-	std::vector<glm::vec3> * getPositions();
+	glm::vec3* getPositions(GLuint i);
 
+	glm::mat4 getModel(GLuint i);
+
+	// TODO: Change mesh so we don't need to send it the model for this class
 	std::vector<glm::mat4> getModels();
 
 	void refreshModel();
@@ -40,17 +43,20 @@ public:
 
 private:
 	struct InstancedTransformProps {
-		std::vector<glm::vec3> Position;
-		std::vector<glm::vec3> Rotation;
-		std::vector<glm::vec3> Scale;
+		glm::vec3 Position;
+		glm::vec3 Rotation;
+		glm::vec3 Scale;
 
-		std::vector<glm::mat4> model;
+		glm::mat4 model;
 	};
+
+	std::vector<glm::mat4> models;
+
 	/* Reference to own GameObject instance*/
 	TransparentGameObjectImpl* gameObject;
 
 	/* Only the file should set this */
-	InstancedTransformProps props;
+	std::vector<InstancedTransformProps> props;
 
 	void readFile(GLchar* filename);
 };

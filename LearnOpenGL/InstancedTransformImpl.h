@@ -41,7 +41,6 @@ public:
 	InstancedGameObjectImpl* getGameObject();
 
 private:
-	std::vector<glm::mat4> model;
 	/* Reference to own GameObject instance*/
 	InstancedGameObjectImpl* gameObject;
 
@@ -49,6 +48,8 @@ private:
 	std::vector<glm::vec3> Position;
 	std::vector<glm::vec3> Rotation;
 	std::vector<glm::vec3> Scale;
+
+	std::vector<glm::mat4> model;
 
 	void readFile(GLchar* filename);
 };
