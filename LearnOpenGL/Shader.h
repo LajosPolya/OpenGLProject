@@ -13,6 +13,7 @@ class GameObjectImpl;
 class InstancedArrayGameObjectImpl;
 class InstancedGameObjectImpl;
 class TransparentGameObjectImpl;
+class InstancedGameObject;
 
 class Shader
 {
@@ -34,4 +35,8 @@ public:
 	void sendToShader(Material * material);
 
 	void setProjectionMatrix(glm::mat4 projection);
+
+private:
+	void sendCommonToShader(InstancedGameObject * gameObject);
+
 };

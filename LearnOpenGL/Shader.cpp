@@ -1,5 +1,6 @@
 #include "Shader.h"
 #include "GameObjectImpl.h"
+#include "InstancedGameObject.h"
 #include "InstancedGameObjectImpl.h"
 #include "InstancedArrayGameObjectImpl.h"
 #include "TransparentGameObjectImpl.h"
@@ -153,84 +154,27 @@ void Shader::sendToShader(GameObjectImpl * gameObject)
 void Shader::sendToShader(InstancedArrayGameObjectImpl * gameObject)
 {
 	this->Use();
-
-	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
-
-	// Bind Diffuse Map
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, gameObject->getDiffuseMap()->getTextureID());
-
-	// Bind Specular Map
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, gameObject->getSpecularMap()->getTextureID());
-
-	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
-	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
-
-	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(gameObject->getCamera()->GetViewMatrix()));
-
-	// Set material properties
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), gameObject->getCamera()->Front.x, gameObject->getCamera()->Front.y, gameObject->getCamera()->Front.z);
-
+	sendCommonToShader(gameObject);
 }
 
 void Shader::sendToShader(InstancedGameObjectImpl * gameObject)
 {
 	this->Use();
-
-	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
-
-	// Bind Diffuse Map
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, gameObject->getDiffuseMap()->getTextureID());
-
-	// Bind Specular Map
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, gameObject->getSpecularMap()->getTextureID());
-
-	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
-	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
+	sendCommonToShader(gameObject);
 
 	for (GLuint i = 0; i < gameObject->getTransform()->getModels().size(); i++) {
 		glUniformMatrix4fv(glGetUniformLocation(this->Program, ("model[" + std::to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(gameObject->getTransform()->getModels()[i]));
 	}
-
-	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(gameObject->getCamera()->GetViewMatrix()));
-
-	// Set material properties
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), gameObject->getCamera()->Front.x, gameObject->getCamera()->Front.y, gameObject->getCamera()->Front.z);
-
 }
 
 void Shader::sendToShader(TransparentGameObjectImpl * gameObject)
 {
 	this->Use();
-
-	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
-
-	// Bind Diffuse Map
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, gameObject->getDiffuseMap()->getTextureID());
-
-	// Bind Specular Map
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, gameObject->getSpecularMap()->getTextureID());
-
-	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
-	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
+	sendCommonToShader(gameObject);
 
 	for (GLuint i = 0; i < gameObject->getTransform()->getModels().size(); i++) {
 		glUniformMatrix4fv(glGetUniformLocation(this->Program, ("model[" + std::to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(gameObject->getTransform()->getModel(i)));
 	}
-
-	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(gameObject->getCamera()->GetViewMatrix()));
-
-	// Set material properties
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), gameObject->getCamera()->Front.x, gameObject->getCamera()->Front.y, gameObject->getCamera()->Front.z);
-
 }
 
 void Shader::sendToShader(Material * material)
@@ -245,6 +189,27 @@ void Shader::setProjectionMatrix(glm::mat4 projection)
 	glUniformMatrix4fv(glGetUniformLocation(this->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 }
 
+void Shader::sendCommonToShader(InstancedGameObject * gameObject)
+{
+	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
+
+	// Bind Diffuse Map
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, gameObject->getDiffuseMap()->getTextureID());
+
+	// Bind Specular Map
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, gameObject->getSpecularMap()->getTextureID());
+	
+	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
+	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
+
+	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(gameObject->getCamera()->GetViewMatrix()));
+
+	// Set material properties
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), gameObject->getCamera()->Front.x, gameObject->getCamera()->Front.y, gameObject->getCamera()->Front.z);
+}
 
 // TODO: This can allow Shaders to have variable amount of Textures
 /*

@@ -110,7 +110,7 @@ void TransparentTransformImpl::readFile(GLchar * filename)
 }
 
 
-/* Note this sort returns the opposite of what a sort funciton is supposed to */
+/* Note this sort returns the opposite of what a sort function is supposed to */
 GLboolean TransparentTransformImpl::sortFunction(InstancedTransformProps const &x, InstancedTransformProps const &y)
 {
 	GLfloat dist1 = glm::length(this->gameObject->getCamera()->Position - x.Position);

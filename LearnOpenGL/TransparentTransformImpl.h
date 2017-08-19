@@ -18,10 +18,6 @@
 
 class TransparentGameObjectImpl;
 
-// TODO: Create a TransparentTransformImpl which derives from this class.
-// But the difference is that in sorts the Transform vector in the Draw Method
-// And Send an extra param to InstancedGameObjecImpl to instantiate the Transparent class
-// Instead of this class
 class TransparentTransformImpl
 {
 public:
