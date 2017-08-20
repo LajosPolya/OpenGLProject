@@ -28,9 +28,9 @@ void InstancedArrayGameObjectImpl::Draw() {
 	this->transform->refreshModel();
 	this->transform->Draw();
 
-	// TODO: Don't make every GameObject reload the Light Data to the Shader
-	/* I don't think this should be called by every sort of instance of GameObject */
-	this->shader->sendToShader(lightsContainer->getDirLight(), lightsContainer->getSpotLight(), lightsContainer->getPointLights());
+	if (this->lightsContainer != nullptr) {
+		this->shader->sendToShader(lightsContainer->getDirLight(), lightsContainer->getSpotLight(), lightsContainer->getPointLights());
+	}
 	this->shader->sendToShader(this);
 	this->shader->sendToShader(this->material);
 	this->mesh->Draw();

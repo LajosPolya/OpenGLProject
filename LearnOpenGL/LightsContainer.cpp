@@ -1,6 +1,6 @@
 #include "LightsContainer.h"
 
-/* Static vars must be rediefined in .cpp (they can also be initialized here) */
+/* Static vars must be redefined in .cpp (they can also be initialized here) */
 DirLight* LightsContainer::dirLight = nullptr;
 SpotLight*  LightsContainer::spotLight = nullptr;
 std::vector<PointLight> LightsContainer::pointLights;

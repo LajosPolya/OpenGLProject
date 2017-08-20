@@ -13,8 +13,7 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	this->specularMap->name = "material.specular";
 	this->material = new Material(materialLoc);
 	this->transform = new InstancedTransformImpl(transformLoc, this);
-	// TODO: Does this need to send its model to Mesh?
-	this->mesh = new Mesh(meshLoc, this->transform->getModels(), INSTANCED_SHADER);
+	this->mesh = new Mesh(meshLoc, this->transform->getSize());
 	this->camera = camera;
 	this->projection = projection;
 
@@ -35,7 +34,7 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	this->camera = camera;
 	this->projection = projection;
 
-	this->lightsContainer = new LightsContainer(nullptr);
+	this->lightsContainer = nullptr;
 
 	this->shader->setProjectionMatrix(projection);
 }
@@ -45,9 +44,9 @@ void InstancedGameObjectImpl::Draw() {
 	this->transform->refreshModel();
 	this->transform->Draw();
 
-	// TODO: Don't make every GameObject reload the Light Data to the Shader
-	/* I don't think this should be called by every sort of instance of GameObject */
-	this->shader->sendToShader(lightsContainer->getDirLight(), lightsContainer->getSpotLight(), lightsContainer->getPointLights());
+	if (this->lightsContainer != nullptr) {
+		this->shader->sendToShader(lightsContainer->getDirLight(), lightsContainer->getSpotLight(), lightsContainer->getPointLights());
+	}
 	this->shader->sendToShader(this);
 	this->shader->sendToShader(this->material);
 	this->mesh->Draw();

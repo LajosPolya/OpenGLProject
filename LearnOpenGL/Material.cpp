@@ -62,7 +62,7 @@ void Material::readLightingFile(GLchar* filename) {
 			GLchar* context = NULL;
 			//std::cout << line << std::endl;
 
-			// TODO: The Material file is still the Lighting file but only one feel is used
+			// TODO: The Material file is still the Lighting file but only one field is used
 			token = strtok_s(&line[0], ",", &context);
 			if (token[0] == '4') {
 				getMeshProperties(&this->material, context, token[1]);

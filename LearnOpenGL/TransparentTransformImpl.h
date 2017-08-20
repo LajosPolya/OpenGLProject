@@ -30,7 +30,6 @@ public:
 
 	glm::mat4 getModel(GLuint i);
 
-	// TODO: Change mesh so we don't need to send it the model for this class
 	std::vector<glm::mat4> getModels();
 
 	void refreshModel();
@@ -50,7 +49,9 @@ private:
 		glm::mat4 model;
 	};
 
-	// TODO: Implement model to react to sort
+	/* This allows me to return models which are sorted,
+	   the above data structure allows me to get a model by index
+	*/
 	std::vector<glm::mat4> models;
 
 	/* Reference to own GameObject instance*/
