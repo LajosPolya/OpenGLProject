@@ -46,6 +46,7 @@ public:
 	Mesh();
 	Mesh(GLchar* vertexLocation);
 	Mesh(GLchar* vertexLocation, std::vector<glm::mat4> instances, GLuint type);
+	Mesh(GLchar* vertexLocation, GLuint size);
 
 	void Draw();
 
@@ -55,6 +56,7 @@ private:
 	// Render Data
 	GLuint VAO, VBO, EBO = -1;
 	GLuint instanceVBO = -1;
+	GLuint numInstances = 0;
 
 	GLuint vertexProp_BitMap;
 	GLuint type = 0;

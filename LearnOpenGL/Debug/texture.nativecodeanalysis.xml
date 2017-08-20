@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\lajos polya\documents\github\learnopengl\learnopengl\</FILEPATH>
+      <FILENAME>texture.cpp</FILENAME>
+      <LINE>39</LINE>
+      <COLUMN>16</COLUMN>
+    </SFA>
+    <DEFECTCODE>6244</DEFECTCODE>
+    <DESCRIPTION>Local declaration of 'name' hides previous declaration at line '4' of 'c:\users\lajos polya\documents\github\learnopengl\learnopengl\texture.cpp'.</DESCRIPTION>
+    <FUNCTION>Texture::{ctor}</FUNCTION>
+    <DECORATED>??0Texture@@QAE@PADE0@Z</DECORATED>
+    <FUNCLINE>39</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\lajos polya\documents\github\learnopengl\learnopengl\</FILEPATH>
+        <FILENAME>texture.cpp</FILENAME>
+        <LINE>4</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

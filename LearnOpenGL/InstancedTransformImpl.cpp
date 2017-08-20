@@ -36,6 +36,11 @@ InstancedGameObjectImpl * InstancedTransformImpl::getGameObject()
 	return this->gameObject;
 }
 
+GLuint InstancedTransformImpl::getSize()
+{
+	return this->model.size();
+}
+
 // TODO: Create a Base Class which will have this method (implemented by this and InstancedTransformImpl)
 void InstancedTransformImpl::readFile(GLchar * filename)
 {

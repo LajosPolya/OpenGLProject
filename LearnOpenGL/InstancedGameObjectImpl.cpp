@@ -30,7 +30,7 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	this->diffuseMap->name = "material.diffuse";
 	this->specularMap = new Texture(nullptr, true);
 	this->transform = new InstancedTransformImpl(transformLoc, this);
-	this->mesh = new Mesh(meshLoc, this->transform->getModels(), INSTANCED_SHADER);
+	this->mesh = new Mesh(meshLoc, this->transform->getSize());
 	this->material = new Material(nullptr);
 	this->camera = camera;
 	this->projection = projection;

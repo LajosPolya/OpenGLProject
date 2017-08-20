@@ -29,6 +29,16 @@ Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint typ
 	this->readVertexFile(vertexLocation);
 	this->instances = instances;
 	this->type = type;
+	this->numInstances = instances.size();
+
+	this->setupMesh();
+}
+
+Mesh::Mesh(GLchar * vertexLocation, GLuint size)
+{
+	this->readVertexFile(vertexLocation);
+	this->type = INSTANCED_SHADER;
+	this->numInstances = size;
 
 	this->setupMesh();
 }
@@ -61,7 +71,7 @@ void Mesh::Draw() {
 		glDrawArrays(GL_TRIANGLES, 0, this->vertices.size());
 	}
 	else if (EBO == -1 && this->vertexProp_BitMap & INSTANCE_POSITION_BITMAP) {
-		glDrawArraysInstanced(GL_TRIANGLES, 0, this->vertices.size(), this->instances.size());
+		glDrawArraysInstanced(GL_TRIANGLES, 0, this->vertices.size(), this->numInstances);
 	}
 	else { // If EBO is initialized
 		glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
@@ -73,6 +83,7 @@ void Mesh::Draw() {
 void Mesh::setInstance(std::vector<glm::mat4> instances)
 {
 	this->instances = instances;
+	this->numInstances = instances.size();
 }
 
 // Function
@@ -110,7 +121,7 @@ void Mesh::setupMesh() {
 	}
 
 	// Instancing
-	if (this->instances.size() > 0 && type == INSTANCED_ARRAY_SHADER) {
+	if (this->numInstances > 0 && type == INSTANCED_ARRAY_SHADER) {
 		this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
 		glGenBuffers(1, &this->instanceVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
@@ -134,7 +145,7 @@ void Mesh::setupMesh() {
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
-	else if (this->instances.size() > 0 && type == INSTANCED_SHADER) {
+	else if (this->numInstances > 0 && type == INSTANCED_SHADER) {
 		this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
 	}
 

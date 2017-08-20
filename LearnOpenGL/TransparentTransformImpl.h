@@ -39,6 +39,8 @@ public:
 
 	TransparentGameObjectImpl* getGameObject();
 
+	GLuint getSize();
+
 private:
 	struct InstancedTransformProps {
 		glm::vec3 Position;

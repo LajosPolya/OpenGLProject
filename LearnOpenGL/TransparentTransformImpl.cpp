@@ -41,6 +41,11 @@ TransparentGameObjectImpl * TransparentTransformImpl::getGameObject()
 	return this->gameObject;
 }
 
+GLuint TransparentTransformImpl::getSize()
+{
+	return this->props.size();
+}
+
 // TODO: Create a Base Class which will have this method (implemented by this and TransparentTransformImpl)
 void TransparentTransformImpl::readFile(GLchar * filename)
 {

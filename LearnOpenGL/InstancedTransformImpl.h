@@ -40,6 +40,8 @@ public:
 	
 	InstancedGameObjectImpl* getGameObject();
 
+	GLuint getSize();
+
 private:
 	/* Reference to own GameObject instance*/
 	InstancedGameObjectImpl* gameObject;

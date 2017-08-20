@@ -106,10 +106,6 @@ int main()
 	/* I think the grass Transform.z is 0.5 so it can be rotated properly on the y-axis (so it doesn't rotate along a corner */
 	GameObjectImpl grassGameObject("alpha.vert", "alpha.frag", "grass.png", "Mesh/grass.txt", "Transform/grass.txt", &camera, projection);
 	/* "vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", Transform/crate.txt */
-	std::vector<GameObjectImpl> transparentGameObjects;
-	transparentGameObjects.push_back(GameObjectImpl("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window.txt", &camera, projection));
-	transparentGameObjects.push_back(GameObjectImpl("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window2.txt", &camera, projection));
-	transparentGameObjects.push_back(GameObjectImpl("alpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Transform/window3.txt", &camera, projection));
 	GameObjectImpl lightBox1("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox1.txt", &camera, projection);
 	GameObjectImpl lightBox2("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox2.txt", &camera, projection);
 	GameObjectImpl lightBox3("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox3.txt", &camera, projection);
@@ -162,23 +158,8 @@ int main()
 		lightBox3.Draw();
 		lightBox4.Draw();
 
-
-		std::map<GLfloat, glm::vec3> sortedWindowPosition;
-		for (GLuint i = 0; i < transparentGameObjects.size(); i++) {
-			GLfloat distance = glm::length(camera.Position - transparentGameObjects[i].getTransform()->getPosition());
-			sortedWindowPosition[distance] = transparentGameObjects[i].getTransform()->getPosition();
-		}
-		
-		GLint i;
-		i = 0;
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		for (std::map<GLfloat, glm::vec3>::reverse_iterator it = sortedWindowPosition.rbegin(); it != sortedWindowPosition.rend(); ++it)
-		{
-			transparentGameObjects[i].getTransform()->setPosition(it->second);
-			transparentGameObjects[i].Draw();
-			i++;
-		}
 		instancedWimdowGameObject.Draw();
 		glDisable(GL_BLEND);
 
