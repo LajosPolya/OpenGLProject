@@ -128,7 +128,9 @@
     <ClCompile Include="LightsContainer.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="TerrainGenerator.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TransformImpl.cpp" />
     <ClCompile Include="TransparentGameObjectImpl.cpp" />
@@ -148,7 +150,9 @@
     <ClInclude Include="LightTypes.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="TerrainGenerator.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TransformImpl.h" />
     <ClInclude Include="Transform.h" />
@@ -191,6 +195,7 @@
     <Image Include="container2.png" />
     <Image Include="container2_specular.png" />
     <Image Include="grass.png" />
+    <Image Include="grassBlock.jpg" />
     <Image Include="wall.jpg" />
   </ItemGroup>
   <ItemGroup>

@@ -78,6 +78,12 @@
     <ClCompile Include="TransparentGameObjectImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TerrainGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PerlinNoise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -135,6 +141,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TransparentGameObjectImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PerlinNoise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -241,6 +253,9 @@
       <Filter>Textures</Filter>
     </Image>
     <Image Include="blending_transparent_window.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="grassBlock.jpg">
       <Filter>Textures</Filter>
     </Image>
   </ItemGroup>
