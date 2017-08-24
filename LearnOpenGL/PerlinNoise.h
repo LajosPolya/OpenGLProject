@@ -12,6 +12,7 @@
 #include <cmath>
 #include <random>
 #include <iostream>
+#include <fstream>
 
 
 class PerlinNoise
@@ -23,9 +24,9 @@ public:
 
 private:
 	glm::vec2 ** gradients;
+	GLfloat ** values;
 
 	void genGradients(GLuint x, GLuint y);
 	GLfloat perlin(GLfloat x, GLfloat y);
-	GLfloat smooth(GLfloat dot1, GLfloat dot2, GLfloat weight);
 };
 
