@@ -124,6 +124,9 @@ void Shader::sendToShader(DirLight * dirLight, SpotLight * spotLight, std::vecto
 	glUniform1f(glGetUniformLocation(this->Program, "spotLight.outerCutOff"), glm::cos(glm::radians(spotLight->outerCutOff)));
 }
 
+
+// TODO: Don't send data to Shader every frame.
+// Only send data to shader when it has changed.
 void Shader::sendToShader(GameObjectImpl * gameObject)
 {
 	this->Use();

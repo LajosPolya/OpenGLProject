@@ -112,6 +112,11 @@ int main()
 	GameObjectImpl lightBox3("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox3.txt", &camera, projection);
 	GameObjectImpl lightBox4("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox4.txt", &camera, projection);
 
+	// TODO: Parts of a GameObject should not communicate with each other.
+	/* But instead they should communicate with the gameObject and the gameObject should do the rest of the work.
+	   For instance, if the Shader wants access to the Transform then it should call GameObject.doSomethingWithTransform();
+	   Is this a good idea?
+	*/
 	InstancedArrayGameObjectImpl instancedArrayGameObject("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection);
 	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Instance/window.txt", &camera, projection);
