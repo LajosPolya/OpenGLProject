@@ -14,15 +14,15 @@ PerlinNoise::PerlinNoise(GLuint x, GLuint y)
 	file.open("Perlin/perlin.txt");
 
 	// Might only need to add 1
-	this->genGradients(x + 2, y + 2);
+	this->genGradients(2, 2);
 
 	this->values = new GLfloat*[x];
 	for (i = 0; i < x; i++) {
 		this->values[i] = new GLfloat[y];
 		for (j = 0; j < y; j++) {
-			this->values[i][j] = perlin((GLfloat)i + dist(rd), (GLfloat)j + dist(rd));
+			this->values[i][j] = perlin((GLfloat)i + (GLfloat)i * 0.005, (GLfloat)j + (GLfloat)j * 0.005);
 			// std::cout << dist(rd) << " " << dist(rd) << std::endl;
-			file << i << "," << this->values[i][j] * (GLfloat)10 + (GLfloat)10 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
+			file << i << "," << this->values[i][j] * (GLfloat)3 + (GLfloat)10 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
 		}
 	}
 
@@ -61,12 +61,12 @@ GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y)
 	GLfloat sx = x - bottomLeft.x;
 	GLfloat sy = y - bottomLeft.y;
 
-	GLfloat bottomLeftDot = glm::dot(gradients[(GLint)bottomLeft.x][(GLint)bottomLeft.y], xy);
-	GLfloat bottomRightDot = glm::dot(gradients[(GLint)topRight.x][(GLint)bottomLeft.y], xy);
+	GLfloat bottomLeftDot = glm::dot(gradients[0][0], bottomLeft- xy);
+	GLfloat bottomRightDot = glm::dot(gradients[1][0], glm::vec2(topRight.x, bottomLeft.y) - xy);
 	GLfloat smooth1 = glm::smoothstep(bottomLeftDot, bottomRightDot, sx);
 
-	GLfloat topLeftDot = glm::dot(gradients[(GLint)bottomLeft.x][(GLint)topRight.y], xy);
-	GLfloat topRightDot = glm::dot(gradients[(GLint)topRight.x][(GLint)topRight.y], xy);
+	GLfloat topLeftDot = glm::dot(gradients[0][1], glm::vec2(bottomLeft.x, topRight.y) - xy);
+	GLfloat topRightDot = glm::dot(gradients[1][1], topRight - xy);
 	GLfloat smooth2 = glm::smoothstep(topLeftDot, topRightDot, sx);
 
 	GLfloat value = glm::smoothstep(smooth1, smooth2, sy);
