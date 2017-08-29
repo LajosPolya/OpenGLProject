@@ -30,5 +30,7 @@ private:
 
 	void genGradients(GLuint x, GLuint y);
 	GLfloat perlin(GLfloat x, GLfloat y);
+
+	GLfloat perlin(GLint x, GLint y, GLfloat xVal, GLfloat yVal);
 };
 
