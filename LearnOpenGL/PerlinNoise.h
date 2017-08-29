@@ -13,6 +13,7 @@
 #include <random>
 #include <iostream>
 #include <fstream>
+#include <math.h>
 
 
 class PerlinNoise
@@ -23,6 +24,7 @@ public:
 	~PerlinNoise();
 
 private:
+	const double PI = 3.141592653589793;
 	glm::vec2 ** gradients;
 	GLfloat ** values;
 
@@ -32,5 +34,7 @@ private:
 	GLfloat perlin(GLfloat x, GLfloat y);
 
 	GLfloat perlin(GLint x, GLint y, GLfloat xVal, GLfloat yVal);
+
+	glm::vec2 randomVector(GLfloat length);
 };
 
