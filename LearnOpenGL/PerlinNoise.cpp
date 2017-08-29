@@ -87,18 +87,21 @@ GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y)
 	return value;
 }
 
+
+// TODO: youtube video 13.30 says the distance coordinate should not exceed 1
 GLfloat PerlinNoise::perlin(GLint x, GLint y, GLfloat xVal, GLfloat yVal)
 {
 	// Turn param into vector
 	glm::vec2 pos = glm::vec2(x, y);
+	glm::vec2 posVal = glm::vec2(xVal, yVal);
 
-	GLfloat bottomLeftDot = glm::dot(gradients[0][0], pos - glm::vec2(0, 0));
-	GLfloat bottomRightDot = glm::dot(gradients[1][0], pos - glm::vec2(this->maxX * 0.01 * 2.0, 0));
+	GLfloat bottomLeftDot = glm::dot(gradients[0][0], posVal - glm::vec2(0, 0));
+	GLfloat bottomRightDot = glm::dot(gradients[1][0], posVal - glm::vec2(this->maxX * 0.01 * 2.0, 0));
 
 	GLfloat smooth1 = glm::smoothstep(bottomLeftDot, bottomRightDot, xVal);
 
-	GLfloat topLeftDot = glm::dot(gradients[0][1], pos - glm::vec2(0, this->maxY * 0.01 * 2.0));
-	GLfloat topRightDot = glm::dot(gradients[1][1], pos - glm::vec2(this->maxX * 0.01 * 2.0, this->maxY * 0.01 * 2.0));
+	GLfloat topLeftDot = glm::dot(gradients[0][1], posVal - glm::vec2(0, this->maxY * 0.01 * 2.0));
+	GLfloat topRightDot = glm::dot(gradients[1][1], posVal - glm::vec2(this->maxX * 0.01 * 2.0, this->maxY * 0.01 * 2.0));
 
 	GLfloat smooth2 = glm::smoothstep(topLeftDot, topRightDot, xVal);
 
