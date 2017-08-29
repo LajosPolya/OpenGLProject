@@ -26,6 +26,8 @@ private:
 	glm::vec2 ** gradients;
 	GLfloat ** values;
 
+	GLint maxX, maxY;
+
 	void genGradients(GLuint x, GLuint y);
 	GLfloat perlin(GLfloat x, GLfloat y);
 };

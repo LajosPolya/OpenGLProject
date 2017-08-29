@@ -121,7 +121,7 @@ int main()
 	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Instance/window.txt", &camera, projection);
 	
-	PerlinNoise(15, 15);
+	PerlinNoise(30, 30);
 
 	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Perlin/perlin.txt", "Material/crate.txt", &camera, projection);
 
