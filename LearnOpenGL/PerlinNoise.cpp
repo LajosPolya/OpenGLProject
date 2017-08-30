@@ -1,31 +1,34 @@
 #include "PerlinNoise.h"
 
+glm::vec2 ** PerlinNoise::gradients;
+GLfloat ** PerlinNoise::values;
 
+GLint PerlinNoise::maxX;
+GLint PerlinNoise::maxY;
 
-PerlinNoise::PerlinNoise() {}
-PerlinNoise::~PerlinNoise() {}
+const double PerlinNoise::PI = 3.141592653589793;
 
-PerlinNoise::PerlinNoise(GLuint x, GLuint y)
+void PerlinNoise::generate(GLuint x, GLuint y)
 {
 	GLuint i, j;
 	std::random_device rd;
 	std::uniform_real_distribution<GLfloat> dist(0, 1);
 	std::ofstream file;
 	file.open("Perlin/perlin.txt");
-	this->maxX = x;
-	this->maxY = y;
+	maxX = x;
+	maxY = y;
 
 	// Might only need to add 1
-	this->genGradients(16, 16);
+	genGradients(16, 16);
 
-	this->values = new GLfloat*[x];
+	values = new GLfloat*[x];
 	for (i = 0; i < x; i++) {
-		this->values[i] = new GLfloat[y];
+		values[i] = new GLfloat[y];
 		for (j = 0; j < y; j++) {
-			//this->values[i][j] = perlin(i, j, (GLfloat)i * 0.005, (GLfloat)j * 0.005);
-			this->values[i][j] = perlin(0.002 * (GLfloat)i * (GLfloat)6.0, 0.002 * (GLfloat)j * (GLfloat)6.0);
+			//values[i][j] = perlin(i, j, (GLfloat)i * 0.005, (GLfloat)j * 0.005);
+			values[i][j] = perlin(0.01 * (GLfloat)i * (GLfloat)4.0, 0.01 * (GLfloat)j * (GLfloat)8.0);
 			// std::cout << dist(rd) << " " << dist(rd) << std::endl;
-			file << i << "," << this->values[i][j] * (GLfloat)10.0 + (GLfloat)10.0 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
+			file << i << "," << values[i][j] * (GLfloat)10.0 + (GLfloat)10.0 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
 		}
 	}
 
@@ -38,14 +41,14 @@ void PerlinNoise::genGradients(GLuint x, GLuint y)
 	std::uniform_real_distribution<GLfloat> dist(0, 1000);
 	GLuint i, j;
 
-	this->gradients = new glm::vec2*[x];
+	gradients = new glm::vec2*[x];
 	for (i = 0; i < x; i++) {
-		this->gradients[i] = new glm::vec2[y];
+		gradients[i] = new glm::vec2[y];
 		for (j = 0; j < y; j++) {
 			/*glm::vec2 nonUnitVec2 = glm::vec2(dist(rd), dist(rd));
 			GLfloat len = glm::length(nonUnitVec2);
-			this->gradients[i][j] = glm::vec2(nonUnitVec2.x / len, nonUnitVec2.y / len);*/
-			this->gradients[i][j] = this->randomVector((GLfloat)1.0);
+			gradients[i][j] = glm::vec2(nonUnitVec2.x / len, nonUnitVec2.y / len);*/
+			gradients[i][j] = randomVector((GLfloat)1.0);
 			// std::cout << gradients[i][j].x << " " << gradients[i][j].y << " " << glm::length(gradients[i][j]) << std::endl;
 		}
 	}
@@ -96,12 +99,12 @@ GLfloat PerlinNoise::perlin(GLint x, GLint y, GLfloat xVal, GLfloat yVal)
 	glm::vec2 posVal = glm::vec2(xVal, yVal);
 
 	GLfloat bottomLeftDot = glm::dot(gradients[0][0], posVal - glm::vec2(0, 0));
-	GLfloat bottomRightDot = glm::dot(gradients[1][0], posVal - glm::vec2(this->maxX * 0.01 * 2.0, 0));
+	GLfloat bottomRightDot = glm::dot(gradients[1][0], posVal - glm::vec2(maxX * 0.01 * 2.0, 0));
 
 	GLfloat smooth1 = glm::smoothstep(bottomLeftDot, bottomRightDot, xVal);
 
-	GLfloat topLeftDot = glm::dot(gradients[0][1], posVal - glm::vec2(0, this->maxY * 0.01 * 2.0));
-	GLfloat topRightDot = glm::dot(gradients[1][1], posVal - glm::vec2(this->maxX * 0.01 * 2.0, this->maxY * 0.01 * 2.0));
+	GLfloat topLeftDot = glm::dot(gradients[0][1], posVal - glm::vec2(0, maxY * 0.01 * 2.0));
+	GLfloat topRightDot = glm::dot(gradients[1][1], posVal - glm::vec2(maxX * 0.01 * 2.0, maxY * 0.01 * 2.0));
 
 	GLfloat smooth2 = glm::smoothstep(topLeftDot, topRightDot, xVal);
 
@@ -119,7 +122,7 @@ Cartesian coordinates
 glm::vec2 PerlinNoise::randomVector(GLfloat length)
 {
 	std::random_device rd;
-	std::uniform_real_distribution<GLfloat> dist(0, 2 * this->PI);
+	std::uniform_real_distribution<GLfloat> dist(0, 2 * PI);
 	GLfloat angle = dist(rd);
 
 	// Turn angle and length into vector

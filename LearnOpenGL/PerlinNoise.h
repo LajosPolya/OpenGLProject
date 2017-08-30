@@ -15,26 +15,24 @@
 #include <fstream>
 #include <math.h>
 
-
-class PerlinNoise
+/* No need to make class static since static keyword doesn't do anything on classes */
+/*static*/class PerlinNoise
 {
 public:
-	PerlinNoise();
-	PerlinNoise(GLuint x, GLuint y);
-	~PerlinNoise();
+	static void generate(GLuint x, GLuint y);
 
 private:
-	const double PI = 3.141592653589793;
-	glm::vec2 ** gradients;
-	GLfloat ** values;
+	static const double PI;
+	static glm::vec2 ** gradients;
+	static GLfloat ** values;
 
-	GLint maxX, maxY;
+	static GLint maxX, maxY;
 
-	void genGradients(GLuint x, GLuint y);
-	GLfloat perlin(GLfloat x, GLfloat y);
+	static void genGradients(GLuint x, GLuint y);
+	static GLfloat perlin(GLfloat x, GLfloat y);
 
-	GLfloat perlin(GLint x, GLint y, GLfloat xVal, GLfloat yVal);
+	static 	GLfloat perlin(GLint x, GLint y, GLfloat xVal, GLfloat yVal);
 
-	glm::vec2 randomVector(GLfloat length);
+	static glm::vec2 randomVector(GLfloat length);
 };
 
