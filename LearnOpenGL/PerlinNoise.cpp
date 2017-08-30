@@ -16,14 +16,14 @@ PerlinNoise::PerlinNoise(GLuint x, GLuint y)
 	this->maxY = y;
 
 	// Might only need to add 1
-	this->genGradients(8, 8);
+	this->genGradients(16, 16);
 
 	this->values = new GLfloat*[x];
 	for (i = 0; i < x; i++) {
 		this->values[i] = new GLfloat[y];
 		for (j = 0; j < y; j++) {
 			//this->values[i][j] = perlin(i, j, (GLfloat)i * 0.005, (GLfloat)j * 0.005);
-			this->values[i][j] = perlin(0.01 * (GLfloat)i * (GLfloat)3.0, 0.01 * (GLfloat)j * (GLfloat)3.0);
+			this->values[i][j] = perlin(0.002 * (GLfloat)i * (GLfloat)6.0, 0.002 * (GLfloat)j * (GLfloat)6.0);
 			// std::cout << dist(rd) << " " << dist(rd) << std::endl;
 			file << i << "," << this->values[i][j] * (GLfloat)10.0 + (GLfloat)10.0 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
 		}

@@ -1,5 +1,13 @@
-﻿  PerlinNoise.cpp
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(26): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(122): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+﻿  LearnOpenGL.cpp
+c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(131): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(221): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(222): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(226): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(227): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(228): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(229): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(235): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)
