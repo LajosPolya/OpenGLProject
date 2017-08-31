@@ -24,7 +24,7 @@ GLfloat **  PerlinNoise::generate(GLuint x, GLuint y)
 		values[i] = new GLfloat[y];
 		for (j = 0; j < y; j++) {
 			//values[i][j] = perlin(i, j, (GLfloat)i * 0.005, (GLfloat)j * 0.005);
-			values[i][j] = perlin(0.01 * (GLfloat)i * (GLfloat)2.0, 0.01 * (GLfloat)j * (GLfloat)2.0);
+			values[i][j] = perlin(0.01 * (GLfloat)i * (GLfloat)8.0, 0.01 * (GLfloat)j * (GLfloat)8.0);
 			// std::cout << dist(rd) << " " << dist(rd) << std::endl;
 		}
 	}
@@ -41,13 +41,25 @@ void PerlinNoise::genGradients(GLuint x, GLuint y)
 		gradients[i] = new glm::vec2[y];
 		for (j = 0; j < y; j++) {
 			gradients[i][j] = randomVector((GLfloat)1.0);
+			// TODO: Createa a function to rotate the vectors (maybe glm has one)
+			if (j != 0) {
+				// x * Math.Cos(degrees) - y * Math.Sin(degrees);
+				gradients[i][j].x = gradients[i][j-1].x * std::cos(-PI / (GLfloat)32.0) - gradients[i][j-1].y * sin(-PI / (GLfloat)32.0);
+				// result[1] = x * Math.Sin(degrees) + y * Math.Cos(degrees);
+				gradients[i][j].y = gradients[i][j-1].x * std::sin(-PI / (GLfloat)32.0) + gradients[i][j-1].y * cos(-PI / (GLfloat)32.0);
+			}
+			else if (j == 0 && i != 0) {
+				gradients[i][j].x = gradients[i-1][j].x * std::cos(-PI / (GLfloat)32.0) - gradients[i-1][j].y * sin(-PI / (GLfloat)32.0);
+				// result[1] = x * Math.Sin(degrees) + y * Math.Cos(degrees);
+				gradients[i][j].y = gradients[i-1][j - 1].x * std::sin(-PI / (GLfloat)32.0) + gradients[i-1][j].y * cos(-PI / (GLfloat)32.0);
+			}
 		}
 	}
 
-	gradients[0][0] = glm::vec2(1.0, 0.0);
+	/*gradients[0][0] = glm::vec2(1.0, 0.0);
 	gradients[1][0] = glm::vec2(0.0, 1.0);
 	gradients[0][1] = glm::vec2(-1.0, 0.0);
-	gradients[1][1] = glm::vec2(0.0, -1.0);
+	gradients[1][1] = glm::vec2(0.0, -1.0);*/
 }
 
 GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y)

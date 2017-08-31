@@ -1,5 +1,7 @@
 ﻿  PerlinNoise.cpp
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(27): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(118): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(129): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)
