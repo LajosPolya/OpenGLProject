@@ -11,15 +11,13 @@
 
 #include <cmath>
 #include <random>
-#include <iostream>
-#include <fstream>
 #include <math.h>
 
 /* No need to make class static since static keyword doesn't do anything on classes */
 /*static*/class PerlinNoise
 {
 public:
-	static void generate(GLuint x, GLuint y);
+	static GLfloat **  generate(GLuint x, GLuint y);
 
 private:
 	static const double PI;

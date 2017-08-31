@@ -16,6 +16,7 @@
 #include "InstancedArrayGameObjectImpl.h"
 #include "TransparentGameObjectImpl.h"
 #include "PerlinNoise.h"
+#include "TerrainGenerator.h"
 
 // Windows
 #include <Windows.h>
@@ -100,7 +101,7 @@ int main()
 			cubePositions[i][j] = glm::vec3((GLfloat)i, (GLfloat)-5, (GLfloat)j);
 		}
 	}
-	
+
 	/* Calcualte Projection Here */
 	glm::mat4 projection = glm::perspective(camera.Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 	GameObjectImpl testingGameObject("vertex.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Transform/crate.txt", "Material/crate.txt", &camera, projection);
@@ -120,8 +121,8 @@ int main()
 	InstancedArrayGameObjectImpl instancedArrayGameObject("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection);
 	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Instance/window.txt", &camera, projection);
-	
-	PerlinNoise::generate(100, 100);
+
+	TerrainGenerator terrain = TerrainGenerator{100, 100};
 
 	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Perlin/perlin.txt", "Material/crate.txt", &camera, projection);
 

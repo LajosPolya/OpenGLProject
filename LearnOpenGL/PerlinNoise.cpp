@@ -8,55 +8,48 @@ GLint PerlinNoise::maxY;
 
 const double PerlinNoise::PI = 3.141592653589793;
 
-void PerlinNoise::generate(GLuint x, GLuint y)
+GLfloat **  PerlinNoise::generate(GLuint x, GLuint y)
 {
 	GLuint i, j;
 	std::random_device rd;
 	std::uniform_real_distribution<GLfloat> dist(0, 1);
-	std::ofstream file;
-	file.open("Perlin/perlin.txt");
+	
 	maxX = x;
 	maxY = y;
 
-	// Might only need to add 1
-	genGradients(16, 16);
+	genGradients(32, 32);
 
 	values = new GLfloat*[x];
 	for (i = 0; i < x; i++) {
 		values[i] = new GLfloat[y];
 		for (j = 0; j < y; j++) {
 			//values[i][j] = perlin(i, j, (GLfloat)i * 0.005, (GLfloat)j * 0.005);
-			values[i][j] = perlin(0.01 * (GLfloat)i * (GLfloat)4.0, 0.01 * (GLfloat)j * (GLfloat)8.0);
+			values[i][j] = perlin(0.01 * (GLfloat)i * (GLfloat)2.0, 0.01 * (GLfloat)j * (GLfloat)2.0);
 			// std::cout << dist(rd) << " " << dist(rd) << std::endl;
-			file << i << "," << values[i][j] * (GLfloat)10.0 + (GLfloat)10.0 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
 		}
 	}
 
-	file.close();
+	return values;
 }
 
 void PerlinNoise::genGradients(GLuint x, GLuint y)
 {
-	std::random_device rd;
-	std::uniform_real_distribution<GLfloat> dist(0, 1000);
 	GLuint i, j;
 
 	gradients = new glm::vec2*[x];
 	for (i = 0; i < x; i++) {
 		gradients[i] = new glm::vec2[y];
 		for (j = 0; j < y; j++) {
-			/*glm::vec2 nonUnitVec2 = glm::vec2(dist(rd), dist(rd));
-			GLfloat len = glm::length(nonUnitVec2);
-			gradients[i][j] = glm::vec2(nonUnitVec2.x / len, nonUnitVec2.y / len);*/
 			gradients[i][j] = randomVector((GLfloat)1.0);
-			// std::cout << gradients[i][j].x << " " << gradients[i][j].y << " " << glm::length(gradients[i][j]) << std::endl;
 		}
 	}
+
+	gradients[0][0] = glm::vec2(1.0, 0.0);
+	gradients[1][0] = glm::vec2(0.0, 1.0);
+	gradients[0][1] = glm::vec2(-1.0, 0.0);
+	gradients[1][1] = glm::vec2(0.0, -1.0);
 }
 
-
-// TODO: Implement Wikipedia Algorithm
-// But input values as values from the youtube video (0.0 to 0.99)
 GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y)
 {
 	// Turn param into vector
@@ -109,7 +102,7 @@ GLfloat PerlinNoise::perlin(GLint x, GLint y, GLfloat xVal, GLfloat yVal)
 	GLfloat smooth2 = glm::smoothstep(topLeftDot, topRightDot, xVal);
 
 	GLfloat value = glm::smoothstep(smooth1, smooth2, yVal);
-	// std::cout << value << std::endl;
+
 	return value;
 }
 

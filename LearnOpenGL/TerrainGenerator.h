@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <fstream>
+
 #include "PerlinNoise.h"
 
 class TerrainGenerator
