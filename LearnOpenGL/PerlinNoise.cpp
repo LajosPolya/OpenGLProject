@@ -11,20 +11,18 @@ const double PerlinNoise::PI = 3.141592653589793;
 GLfloat **  PerlinNoise::generate(GLuint x, GLuint y)
 {
 	GLuint i, j;
-	std::random_device rd;
-	std::uniform_real_distribution<GLfloat> dist(0, 1);
 	
 	maxX = x;
 	maxY = y;
 
-	genGradients(32, 32);
+	genGradients(64, 64);
 
 	values = new GLfloat*[x];
 	for (i = 0; i < x; i++) {
 		values[i] = new GLfloat[y];
 		for (j = 0; j < y; j++) {
 			//values[i][j] = perlin(i, j, (GLfloat)i * 0.005, (GLfloat)j * 0.005);
-			values[i][j] = perlin(0.01 * (GLfloat)i * (GLfloat)8.0, 0.01 * (GLfloat)j * (GLfloat)8.0);
+			values[i][j] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)4.0, (GLfloat)j / (GLfloat)y * (GLfloat)4.0);
 			// std::cout << dist(rd) << " " << dist(rd) << std::endl;
 		}
 	}
@@ -41,18 +39,7 @@ void PerlinNoise::genGradients(GLuint x, GLuint y)
 		gradients[i] = new glm::vec2[y];
 		for (j = 0; j < y; j++) {
 			gradients[i][j] = randomVector((GLfloat)1.0);
-			// TODO: Createa a function to rotate the vectors (maybe glm has one)
-			if (j != 0) {
-				// x * Math.Cos(degrees) - y * Math.Sin(degrees);
-				gradients[i][j].x = gradients[i][j-1].x * std::cos(-PI / (GLfloat)32.0) - gradients[i][j-1].y * sin(-PI / (GLfloat)32.0);
-				// result[1] = x * Math.Sin(degrees) + y * Math.Cos(degrees);
-				gradients[i][j].y = gradients[i][j-1].x * std::sin(-PI / (GLfloat)32.0) + gradients[i][j-1].y * cos(-PI / (GLfloat)32.0);
-			}
-			else if (j == 0 && i != 0) {
-				gradients[i][j].x = gradients[i-1][j].x * std::cos(-PI / (GLfloat)32.0) - gradients[i-1][j].y * sin(-PI / (GLfloat)32.0);
-				// result[1] = x * Math.Sin(degrees) + y * Math.Cos(degrees);
-				gradients[i][j].y = gradients[i-1][j - 1].x * std::sin(-PI / (GLfloat)32.0) + gradients[i-1][j].y * cos(-PI / (GLfloat)32.0);
-			}
+			// TODO: Createa a function to generate vectors to avoid tall mountains
 		}
 	}
 
@@ -62,38 +49,36 @@ void PerlinNoise::genGradients(GLuint x, GLuint y)
 	gradients[1][1] = glm::vec2(0.0, -1.0);*/
 }
 
-GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y)
-{
-	// Turn param into vector
-	glm::vec2 xy = glm::vec2(x, y);
+	GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y)
+	{
+		// Turn param into vector
+		glm::vec2 xy = glm::vec2(x, y);
 
-	// Grid Cell Coordinates
-	glm::vec2 bottomLeft = glm::vec2(std::floor(x), std::floor(y));
-	glm::vec2 topRight = glm::vec2(bottomLeft.x + 1, bottomLeft.y + 1);
+		// Grid Cell Coordinates
+		glm::vec2 bottomLeft = glm::vec2(std::floor(x), std::floor(y));
+		glm::vec2 topRight = glm::vec2(bottomLeft.x + 1, bottomLeft.y + 1);
 
-	// Determine Interpolation Weight
-	// (or the decimal value of the point)
-	GLfloat sx = x - bottomLeft.x;
-	GLfloat sy = y - bottomLeft.y;
+		// Determine Interpolation Weight
+		// (or the decimal value of the point)
+		GLfloat sx = x - bottomLeft.x;
+		GLfloat sy = y - bottomLeft.y;
 
-	GLfloat bottomLeftDot = glm::dot(gradients[(GLint)bottomLeft.x][(GLint)bottomLeft.y], xy - bottomLeft);
-	GLfloat bottomRightDot = glm::dot(gradients[(GLint)topRight.x][(GLint)bottomLeft.y], xy - glm::vec2(topRight.x, bottomLeft.y));
-	//GLfloat bottomLeftDot = glm::dot(gradients[0][0], bottomLeft - xy);
-	//GLfloat bottomRightDot = glm::dot(gradients[1][0], glm::vec2(topRight.x, bottomLeft.y) - xy);
+		sx = fade(sx);
+		sy = fade(sy);
 
-	GLfloat smooth1 = glm::smoothstep(bottomLeftDot, bottomRightDot, sx);
+		GLfloat bottomLeftDot = glm::dot(gradients[(GLint)bottomLeft.x][(GLint)bottomLeft.y], xy - bottomLeft);
+		GLfloat bottomRightDot = glm::dot(gradients[(GLint)topRight.x][(GLint)bottomLeft.y], xy - glm::vec2(topRight.x, bottomLeft.y));
 
-	GLfloat topLeftDot = glm::dot(gradients[(GLint)bottomLeft.x][(GLint)topRight.y], xy - glm::vec2(bottomLeft.x, topRight.y));
-	GLfloat topRightDot = glm::dot(gradients[(GLint)topRight.x][(GLint)topRight.y], xy - topRight);
-	//GLfloat topLeftDot = glm::dot(gradients[0][1], glm::vec2(bottomLeft.x, topRight.y) - xy);
-	//GLfloat topRightDot = glm::dot(gradients[1][1], topRight - xy);
+		GLfloat smooth1 = lerp(bottomLeftDot, bottomRightDot, sx);
 
-	GLfloat smooth2 = glm::smoothstep(topLeftDot, topRightDot, sx);
+		GLfloat topLeftDot = glm::dot(gradients[(GLint)bottomLeft.x][(GLint)topRight.y], xy - glm::vec2(bottomLeft.x, topRight.y));
+		GLfloat topRightDot = glm::dot(gradients[(GLint)topRight.x][(GLint)topRight.y], xy - topRight);
 
-	GLfloat value = glm::smoothstep(smooth1, smooth2, sy);
-	// std::cout << value << std::endl;
-	return value;
-}
+		GLfloat smooth2 = lerp(topLeftDot, topRightDot, sx);
+
+		GLfloat value = lerp(smooth1, smooth2, sy);
+		return value;
+	}
 
 
 // TODO: youtube video 13.30 says the distance coordinate should not exceed 1
@@ -110,9 +95,13 @@ GLfloat PerlinNoise::perlin(GLint x, GLint y, GLfloat xVal, GLfloat yVal)
 
 	GLfloat topLeftDot = glm::dot(gradients[0][1], posVal - glm::vec2(0, maxY * 0.01 * 2.0));
 	GLfloat topRightDot = glm::dot(gradients[1][1], posVal - glm::vec2(maxX * 0.01 * 2.0, maxY * 0.01 * 2.0));
-
+	
+	//topLeftDot = fade(topLeftDot);
+	//topRightDot = fade(topRightDot);
 	GLfloat smooth2 = glm::smoothstep(topLeftDot, topRightDot, xVal);
 
+	//smooth1 = fade(smooth1);
+	//smooth2 = fade(smooth2);
 	GLfloat value = glm::smoothstep(smooth1, smooth2, yVal);
 
 	return value;
@@ -124,15 +113,25 @@ Generates random vector by generating a random angle
 Having the length of the vector we can convert these polar coordinates into
 Cartesian coordinates
 */
-glm::vec2 PerlinNoise::randomVector(GLfloat length)
-{
-	std::random_device rd;
-	std::uniform_real_distribution<GLfloat> dist(0, 2 * PI);
-	GLfloat angle = dist(rd);
+	glm::vec2 PerlinNoise::randomVector(GLfloat length)
+	{
+		std::random_device rd;
+		std::uniform_real_distribution<GLfloat> dist(0.0, 2.0 * PI);
+		GLfloat angle = dist(rd);
 
-	// Turn angle and length into vector
-	// The length of the vector is implicitly 1
-	GLfloat x = std::cos(angle);
-	GLfloat y = std::sin(angle);
-	return glm::vec2(x, y);
+		// Turn angle and length into vector
+		// The length of the vector is implicitly 1
+		GLfloat x = length * std::cos(angle);
+		GLfloat y = length * std::sin(angle);
+		return glm::vec2(x, y);
+	}
+
+GLfloat PerlinNoise::fade(GLfloat val)
+{
+	return val * val * val * (val * (val * 6 - 15) + 10);
+}
+
+GLfloat PerlinNoise::lerp(GLfloat x, GLfloat y, GLfloat w)
+{
+	return (1.0 - w)*x + w*y;
 }

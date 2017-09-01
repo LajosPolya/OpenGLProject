@@ -32,5 +32,9 @@ private:
 	static 	GLfloat perlin(GLint x, GLint y, GLfloat xVal, GLfloat yVal);
 
 	static glm::vec2 randomVector(GLfloat length);
+
+	static GLfloat fade(GLfloat val);
+
+	static GLfloat lerp(GLfloat x, GLfloat y, GLfloat w);
 };
 
