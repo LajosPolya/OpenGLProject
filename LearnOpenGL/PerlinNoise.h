@@ -27,7 +27,10 @@ private:
 	static GLint maxX, maxY;
 
 	static void genGradients(GLuint x, GLuint y);
+
 	static GLfloat perlin(GLfloat x, GLfloat y);
+
+	static GLfloat perlin(GLfloat x, GLfloat y, GLfloat z);
 
 	static 	GLfloat perlin(GLint x, GLint y, GLfloat xVal, GLfloat yVal);
 
