@@ -22,7 +22,7 @@ GLfloat **  PerlinNoise::generate(GLuint x, GLuint y)
 		values[i] = new GLfloat[y];
 		for (j = 0; j < y; j++) {
 			//values[i][j] = perlin(i, j, (GLfloat)i * 0.005, (GLfloat)j * 0.005);
-			values[i][j] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)1.0, (GLfloat)j / (GLfloat)y * (GLfloat)1.0);
+			values[i][j] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)8.0, (GLfloat)j / (GLfloat)y * (GLfloat)8.0);
 			// std::cout << dist(rd) << " " << dist(rd) << std::endl;
 		}
 	}
@@ -124,6 +124,27 @@ glm::vec2 PerlinNoise::randomVector(GLfloat length)
 	GLfloat x = length * std::cos(angle);
 	GLfloat y = length * std::sin(angle);
 	return glm::vec2(x, y);
+}
+
+glm::vec3 PerlinNoise::random3DVector(GLfloat length)
+{
+	std::random_device rd;
+	std::uniform_real_distribution<GLfloat> dist(0.0, 2.0 * PI);
+	std::uniform_real_distribution<GLfloat> randomCostheta(-1.0, 1.0);
+	std::uniform_real_distribution<GLfloat> randomU(0.0, 1.0);
+	GLfloat phi = dist(rd);
+	GLfloat costheta = randomCostheta(rd);
+
+	GLfloat theta = std::acos(costheta);
+
+	length = length * std::cbrt(randomU(rd));
+
+	// Turn angle and length into vector
+	// The length of the vector is implicitly 1
+	GLfloat x = length * std::sin(theta) * std::cos(phi);
+	GLfloat y = length * std::sin(theta) * std::sin(phi);
+	GLfloat z = length * std::cos(theta);
+	return glm::vec3(x, y, z);
 }
 
 GLfloat PerlinNoise::fade(GLfloat val)

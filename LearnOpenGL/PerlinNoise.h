@@ -36,6 +36,8 @@ private:
 
 	static glm::vec2 randomVector(GLfloat length);
 
+	static glm::vec3 random3DVector(GLfloat length);
+
 	static GLfloat fade(GLfloat val);
 
 	static GLfloat lerp(GLfloat x, GLfloat y, GLfloat w);
