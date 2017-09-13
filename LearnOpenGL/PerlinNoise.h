@@ -18,24 +18,22 @@
 {
 public:
 	static GLfloat **  generate(GLuint x, GLuint y);
+	static GLfloat *** generate(GLuint x, GLuint y, GLuint z);
 
 private:
 	static const double PI;
 	static glm::vec2 ** gradients;
+	static glm::vec3 *** gradients3d;
 	static GLfloat ** values;
-
-	static GLint maxX, maxY;
+	static GLfloat *** values3d;
 
 	static void genGradients(GLuint x, GLuint y);
+	static void genGradients3d(GLuint x, GLuint y, GLuint z);
 
 	static GLfloat perlin(GLfloat x, GLfloat y);
-
 	static GLfloat perlin(GLfloat x, GLfloat y, GLfloat z);
 
-	static 	GLfloat perlin(GLint x, GLint y, GLfloat xVal, GLfloat yVal);
-
 	static glm::vec2 randomVector(GLfloat length);
-
 	static glm::vec3 random3DVector(GLfloat length);
 
 	static GLfloat fade(GLfloat val);

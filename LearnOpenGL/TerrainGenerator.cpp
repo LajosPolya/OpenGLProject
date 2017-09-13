@@ -1,15 +1,8 @@
 #include "TerrainGenerator.h"
 
 
-
-TerrainGenerator::TerrainGenerator()
-{
-}
-
-
-TerrainGenerator::~TerrainGenerator()
-{
-}
+TerrainGenerator::TerrainGenerator(){}
+TerrainGenerator::~TerrainGenerator(){}
 
 TerrainGenerator::TerrainGenerator(GLuint x, GLuint y)
 {
@@ -34,4 +27,25 @@ TerrainGenerator::TerrainGenerator(GLuint x, GLuint y)
 	file.close();
 
 
+}
+
+TerrainGenerator::TerrainGenerator(GLuint x, GLuint y, GLuint z)
+{
+	GLuint i, j, k;
+	std::ofstream file;
+	file.open("Perlin/perlin3d.txt");
+
+	GLfloat *** values;
+	values = PerlinNoise::generate(x, y, z);
+	for (i = 0; i < x; i++) {
+		for (j = 0; j < y; j++) {
+			for (k = 0; k < z; k++) {
+				if (values[i][j][k] >(GLfloat)0.1) {
+					file << i << "," << j + (GLint)10 << "," << k + 50 << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
+				}
+			}
+		}
+	}
+
+	file.close();
 }

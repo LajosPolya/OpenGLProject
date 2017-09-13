@@ -12,6 +12,7 @@ public:
 	~TerrainGenerator();
 
 	TerrainGenerator(GLuint x, GLuint y);
+	TerrainGenerator(GLuint x, GLuint y, GLuint z);
 
 	// TODO: TerrainGenerator
 	/* This class will generate the positions for the landscape 

@@ -122,9 +122,11 @@ int main()
 	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Instance/window.txt", &camera, projection);
 
-	TerrainGenerator terrain = TerrainGenerator{100, 100};
+	TerrainGenerator terrain = TerrainGenerator{50, 50};
+	TerrainGenerator terrain3d = TerrainGenerator{ 50, 25, 50 };
 
 	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Perlin/perlin.txt", "Material/crate.txt", &camera, projection);
+	InstancedArrayGameObjectImpl perlin3d("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Perlin/perlin3d.txt", "Material/crate.txt", &camera, projection);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -160,7 +162,7 @@ int main()
 		instancedArrayGameObject.Draw();
 		instancedGameObject.Draw();
 		perlin.Draw();
-
+		perlin3d.Draw();
 
 		// TODO: These should be one isntancedArrayGameObject
 		lightBox1.Draw();
