@@ -6,7 +6,7 @@ SpotLight*  LightsContainer::spotLight = nullptr;
 std::vector<PointLight> LightsContainer::pointLights;
 
 LightsContainer::LightsContainer(GLchar* lightsLocation)
-{	
+{
 	if (lightsLocation != nullptr) {
 		/* Should only read Scene Lights once */
 		/* This can also be implemented such that is saves the file name

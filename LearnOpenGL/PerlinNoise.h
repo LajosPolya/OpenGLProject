@@ -21,11 +21,9 @@ public:
 	static GLfloat *** generate(GLuint x, GLuint y, GLuint z);
 
 private:
-	static const double PI;
+	static const GLdouble PI;
 	static glm::vec2 ** gradients;
 	static glm::vec3 *** gradients3d;
-	static GLfloat ** values;
-	static GLfloat *** values3d;
 
 	static void genGradients(GLuint x, GLuint y);
 	static void genGradients3d(GLuint x, GLuint y, GLuint z);

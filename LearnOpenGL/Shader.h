@@ -5,9 +5,11 @@
 #include <sstream>
 #include <iostream>
 
-#include "Material.h"
-
+// GLEW
+#define GLEW_STATIC
 #include <GL/glew.h>
+
+#include "Material.h"
 
 class GameObjectImpl;
 class InstancedArrayGameObjectImpl;

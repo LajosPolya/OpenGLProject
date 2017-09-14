@@ -2,24 +2,21 @@
 
 glm::vec2 ** PerlinNoise::gradients;
 glm::vec3 *** PerlinNoise::gradients3d;
-GLfloat ** PerlinNoise::values;
-GLfloat *** PerlinNoise::values3d;
 
 const double PerlinNoise::PI = 3.141592653589793;
 
 GLfloat **  PerlinNoise::generate(GLuint x, GLuint y)
 {
 	GLuint i, j;
-	
+	GLfloat ** values;
+
 	genGradients(64, 64);
 
 	values = new GLfloat*[x];
 	for (i = 0; i < x; i++) {
 		values[i] = new GLfloat[y];
 		for (j = 0; j < y; j++) {
-			//values[i][j] = perlin(i, j, (GLfloat)i * 0.005, (GLfloat)j * 0.005);
 			values[i][j] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)8.0, (GLfloat)j / (GLfloat)y * (GLfloat)8.0);
-			// std::cout << dist(rd) << " " << dist(rd) << std::endl;
 		}
 	}
 
@@ -29,6 +26,7 @@ GLfloat **  PerlinNoise::generate(GLuint x, GLuint y)
 GLfloat *** PerlinNoise::generate(GLuint x, GLuint y, GLuint z)
 {
 	GLuint i, j, k;
+	GLfloat *** values3d;
 
 	genGradients3d(64, 64, 64);
 
@@ -38,7 +36,7 @@ GLfloat *** PerlinNoise::generate(GLuint x, GLuint y, GLuint z)
 		for (j = 0; j < y; j++) {
 			values3d[i][j] = new GLfloat[z];
 			for (k = 0; k < z; k++) {
-				values3d[i][j][k] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)4.0, (GLfloat)j / (GLfloat)y * (GLfloat)4.0, (GLfloat)k / (GLfloat)z * (GLfloat)4.0);
+				values3d[i][j][k] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)2.0, (GLfloat)j / (GLfloat)y * (GLfloat)2.0, (GLfloat)k / (GLfloat)z * (GLfloat)2.0);
 			}
 		}
 	}
@@ -92,9 +90,6 @@ GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y)
 	GLfloat sx = x - bottomLeft.x;
 	GLfloat sy = y - bottomLeft.y;
 
-	//sx = fade(sx);
-	//sy = fade(sy);
-
 	GLfloat bottomLeftDot = glm::dot(gradients[(GLint)bottomLeft.x][(GLint)bottomLeft.y], xy - bottomLeft);
 	GLfloat bottomRightDot = glm::dot(gradients[(GLint)topRight.x][(GLint)bottomLeft.y], xy - glm::vec2(topRight.x, bottomLeft.y));
 
@@ -122,7 +117,7 @@ GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y, GLfloat z)
 
 	// Bottom Left Front Dot Product and Bottom Right Front Dot
 	GLfloat blfDot = glm::dot(gradients3d[(GLint)lowerLattice.x][(GLint)lowerLattice.y][(GLint)lowerLattice.z], xyz - lowerLattice);
-	GLfloat brfDot = glm::dot(gradients3d[(GLint)upperLattice.x][(GLint)lowerLattice.y][(GLint)lowerLattice.z], xyz -glm::vec3(upperLattice.x, lowerLattice.y, lowerLattice.z));
+	GLfloat brfDot = glm::dot(gradients3d[(GLint)upperLattice.x][(GLint)lowerLattice.y][(GLint)lowerLattice.z], xyz - glm::vec3(upperLattice.x, lowerLattice.y, lowerLattice.z));
 	GLfloat c00 = lerp(blfDot, brfDot, glm::smoothstep((GLfloat)0.0, (GLfloat)1.0, diff.x));
 
 	GLfloat blbDot = glm::dot(gradients3d[(GLint)lowerLattice.x][(GLint)lowerLattice.y][(GLint)upperLattice.z], xyz - glm::vec3(lowerLattice.x, lowerLattice.y, upperLattice.z));
@@ -155,7 +150,7 @@ glm::vec2 PerlinNoise::randomVector(GLfloat length)
 {
 	std::random_device rd;
 	std::uniform_real_distribution<GLfloat> dist(0.0, 2.0 * PI);
-	GLfloat angle = dist(rd);
+	GLfloat angle = (GLfloat)dist(rd);
 
 	// Turn angle and length into vector
 	// The length of the vector is implicitly 1
@@ -192,5 +187,5 @@ GLfloat PerlinNoise::fade(GLfloat val)
 
 GLfloat PerlinNoise::lerp(GLfloat x, GLfloat y, GLfloat w)
 {
-	return (1.0 - w)*x + w*y;
+	return (1.0f - w)*x + w*y;
 }

@@ -7,14 +7,14 @@
 #include <iostream>
 #include <vector>
 
-// GLM
-#include <GL/glew.h> 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
 // GLEW
 #define GLEW_STATIC
-#include <GL/glew.h>
+#include <GL/glew.h> 
+
+// GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "LightTypes.h"
 

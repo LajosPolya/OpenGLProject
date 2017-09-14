@@ -2,12 +2,20 @@
 #include <cmath>
 #include <map>
 
+// Windows
+#include <Windows.h>
+
 // GLEW
 #define GLEW_STATIC
 #include <GL/glew.h>
 
 // GLFW
 #include <GLFW/glfw3.h>
+
+// GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 // My Code
 #include "Camera.h"
@@ -18,22 +26,14 @@
 #include "PerlinNoise.h"
 #include "TerrainGenerator.h"
 
-// Windows
-#include <Windows.h>
-
-// GLM
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 #define WORLD_LENGTH 5
 
 // Function prototypes
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode);
 void do_movement();
 
-void mouse_callback(GLFWwindow * window, double xpos, double ypos);
-void scroll_callback(GLFWwindow * window, double xoffset, double yoffset);
+void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
+void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 
@@ -131,9 +131,9 @@ int main()
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
-		GLfloat currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
+		GLfloat currentFrame = (GLfloat)glfwGetTime();
+		deltaTime = (GLfloat)(currentFrame - lastFrame);
+		lastFrame = (GLfloat)currentFrame;
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 		do_movement();
@@ -187,7 +187,7 @@ int main()
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode)
 {
 
 	if (action == GLFW_PRESS) {
@@ -218,22 +218,22 @@ void do_movement() {
 }
 
 GLboolean firstMouse = true;
-void mouse_callback(GLFWwindow * window, double xpos, double ypos) {
+void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos) {
 
 	if (firstMouse) {
-		lastX = xpos;
-		lastY = ypos;
+		lastX = (GLfloat)xpos;
+		lastY = (GLfloat)ypos;
 		firstMouse = false;
 	}
 
-	GLfloat xoffset = xpos - lastX;
-	GLfloat yoffset = ypos - lastY;
-	lastX = xpos;
-	lastY = ypos;
+	GLfloat xoffset = (GLfloat)(xpos - lastX);
+	GLfloat yoffset = (GLfloat)(ypos - lastY);
+	lastX = (GLfloat)xpos;
+	lastY = (GLfloat)ypos;
 
 	camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
-void scroll_callback(GLFWwindow * window, double xoffset, double yoffset) {
-	camera.ProcessMouseScroll(yoffset);
+void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
+	camera.ProcessMouseScroll((GLfloat)yoffset);
 }

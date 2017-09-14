@@ -1,8 +1,8 @@
 #include "TerrainGenerator.h"
 
 
-TerrainGenerator::TerrainGenerator(){}
-TerrainGenerator::~TerrainGenerator(){}
+TerrainGenerator::TerrainGenerator() {}
+TerrainGenerator::~TerrainGenerator() {}
 
 TerrainGenerator::TerrainGenerator(GLuint x, GLuint y)
 {
@@ -16,7 +16,7 @@ TerrainGenerator::TerrainGenerator(GLuint x, GLuint y)
 
 	for (i = 0; i < x; i++) {
 		for (j = 0; j < y; j++) {
-			values[i][j] = (GLint)(values[i][j] * (GLfloat)10.0);
+			values[i][j] = (GLfloat)(GLint)(values[i][j] * (GLfloat)10.0f);
 			file << i << "," << values[i][j] + (GLint)10 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
 			for (k = (GLint)values[i][j] - 1; k >= -5; k--) {
 				file << i << "," << k + (GLint)10 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;

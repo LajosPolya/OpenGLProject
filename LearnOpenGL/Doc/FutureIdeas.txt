@@ -1,2 +1,12 @@
 If a GameObject is redrawn in a difference Position (crates, or grass objects) then data should not be sent to the Shader a second time.
 Each GameObject should have a unique Id which is checked before data is sent to the Shader to improve performance.
+
+
+Have a game played on a randomly Perlin Noise generated map.
+The Player can move around in the world, but if the Player 
+holds a button (like ctrl) and pushes the move button then 
+it will also place a block down in that direction and move 
+the Player onto the block it just moved.
+
+This can make a really fast paced game where the player 
+has to collect objects around the map.
