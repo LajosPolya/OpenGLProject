@@ -3,44 +3,44 @@
 #include "InstancedGameObject.h"
 #include "InstancedArrayTransformImpl.h"
 
+
 class InstancedArrayGameObjectImpl : public InstancedGameObject
 {
 public:
 	InstancedArrayGameObjectImpl();
 	~InstancedArrayGameObjectImpl();
 
-	InstancedArrayGameObjectImpl(GLchar* vertexShader, GLchar* fragmentShader, GLchar* diffuseMapLoc, GLchar* specularMapLoc, GLchar* meshLoc, GLchar* materialLoc, GLchar* transformLoc, GLchar* lightsLoc, Camera * camera, glm::mat4 projection);
+	InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * specularMapLoc, GLchar * meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection);
 
 	void Draw();
 
-	Shader* getShader();
+	Shader * getShader();
 
-	Camera* getCamera();
+	Camera * getCamera();
 
-	InstancedArrayTransformImpl* getTransform();
+	InstancedArrayTransformImpl * getTransform();
 
-	Texture* getDiffuseMap();
-	Texture* getSpecularMap();
+	Texture * getDiffuseMap();
+	Texture * getSpecularMap();
 
-	LightsContainer* getLightsContainer();
+	LightsContainer * getLightsContainer();
 
 private:
-	Mesh* mesh;
+	std::vector<Mesh*> mesh;
+	// Mesh * mesh;
 
-	Material* material;
+	Material * material;
 
-	Texture* diffuseMap;
-	Texture* specularMap;
+	Texture * diffuseMap;
+	Texture * specularMap;
 
-	Shader* shader;
+	Shader * shader;
 
-	Camera* camera;
+	Camera * camera;
 
-	InstancedArrayTransformImpl* transform;
+	InstancedArrayTransformImpl * transform;
 
-	LightsContainer* lightsContainer;
+	LightsContainer * lightsContainer;
 
 	glm::mat4 projection;
-
-
 };

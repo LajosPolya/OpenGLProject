@@ -232,6 +232,15 @@
     <Text Include="Instance\window.txt">
       <Filter>Instance</Filter>
     </Text>
+    <Text Include="Mesh\floorSquare.txt">
+      <Filter>Mesh</Filter>
+    </Text>
+    <Text Include="Instance\crate2.txt">
+      <Filter>Instance</Filter>
+    </Text>
+    <Text Include="Mesh\toplessCrate.txt">
+      <Filter>Mesh</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="wall.jpg">
@@ -256,6 +265,9 @@
       <Filter>Textures</Filter>
     </Image>
     <Image Include="grassBlock.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\topGrass.jpg">
       <Filter>Textures</Filter>
     </Image>
   </ItemGroup>

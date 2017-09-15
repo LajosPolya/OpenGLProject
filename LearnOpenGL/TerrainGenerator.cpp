@@ -19,7 +19,7 @@ TerrainGenerator::TerrainGenerator(GLuint x, GLuint y)
 			values[i][j] = (GLfloat)(GLint)(values[i][j] * (GLfloat)10.0f);
 			file << i << "," << values[i][j] + (GLint)10 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
 			for (k = (GLint)values[i][j] - 1; k >= -5; k--) {
-				file << i << "," << k + (GLint)10 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
+				file << i << "," << k + (GLint)15 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
 			}
 		}
 	}
@@ -41,7 +41,7 @@ TerrainGenerator::TerrainGenerator(GLuint x, GLuint y, GLuint z)
 		for (j = 0; j < y; j++) {
 			for (k = 0; k < z; k++) {
 				if (values[i][j][k] >(GLfloat)0.1) {
-					file << i << "," << j + (GLint)10 << "," << k + 50 << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
+					file << i << "," << j << "," << k + 50 << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
 				}
 			}
 		}

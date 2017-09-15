@@ -14,7 +14,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->specularMap->name = "material.specular";
 	this->material = new Material(materialLoc);
 	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
-	this->mesh = new Mesh(meshLoc, this->transform->getModels(), INSTANCED_ARRAY_SHADER);
+	this->mesh.push_back(new Mesh(meshLoc, this->transform->getModels(), INSTANCED_ARRAY_SHADER));
 	this->camera = camera;
 	this->projection = projection;
 
@@ -33,7 +33,11 @@ void InstancedArrayGameObjectImpl::Draw() {
 	}
 	this->shader->sendToShader(this);
 	this->shader->sendToShader(this->material);
-	this->mesh->Draw();
+
+	for (GLint i = 0; i < this->mesh.size(); i++) {
+		this->mesh[i]->Draw();
+	}
+	// this->mesh->Draw();
 }
 
 Shader * InstancedArrayGameObjectImpl::getShader() {

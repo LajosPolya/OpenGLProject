@@ -16,7 +16,7 @@ GLfloat **  PerlinNoise::generate(GLuint x, GLuint y)
 	for (i = 0; i < x; i++) {
 		values[i] = new GLfloat[y];
 		for (j = 0; j < y; j++) {
-			values[i][j] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)8.0, (GLfloat)j / (GLfloat)y * (GLfloat)8.0);
+			values[i][j] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)6.0, (GLfloat)j / (GLfloat)y * (GLfloat)6.0);
 		}
 	}
 

@@ -40,7 +40,7 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 // Camera
 Camera camera(glm::vec3(0.0f, 5.0f, 3.0f));
 // Keep track of pressed keys
-bool keys[1024];
+bool keys[2048];
 
 // Timing
 GLfloat deltaTime = 0.0f;
@@ -119,6 +119,8 @@ int main()
 	   Is this a good idea?
 	*/
 	InstancedArrayGameObjectImpl instancedArrayGameObject("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection);
+	InstancedArrayGameObjectImpl crateBottoms("instancedArray.vert", "fragment.frag", "grassBlock.jpg", "container2_specular.png", "Mesh/toplessCrate.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
+	InstancedArrayGameObjectImpl crateTops("instancedArray.vert", "fragment.frag", "Textures/topGrass.jpg", "container2_specular.png", "Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
 	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Instance/window.txt", &camera, projection);
 
@@ -161,6 +163,8 @@ int main()
 
 		instancedArrayGameObject.Draw();
 		instancedGameObject.Draw();
+		crateBottoms.Draw();
+		crateTops.Draw();
 		perlin.Draw();
 		perlin3d.Draw();
 
