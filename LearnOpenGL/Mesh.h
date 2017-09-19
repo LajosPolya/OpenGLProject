@@ -17,6 +17,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "LightTypes.h"
+#include "Texture.h"
 
 #define POSITION 0
 #define NORMAL 1
@@ -46,11 +47,15 @@ public:
 	Mesh();
 	Mesh(GLchar* vertexLocation);
 	Mesh(GLchar* vertexLocation, std::vector<glm::mat4> instances, GLuint type);
+	Mesh(GLchar* vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar* vertexLocation, GLuint size);
 
 	void Draw();
 
 	void setInstance(std::vector<glm::mat4> instances);
+
+	Texture * getDiffuseMap();
+	Texture * getSpecularMap();
 
 private:
 	// Render Data
@@ -60,6 +65,9 @@ private:
 
 	GLuint vertexProp_BitMap;
 	GLuint type = 0;
+
+	Texture * diffuseMap;
+	Texture * specularMap;
 
 	// Function
 	void setupMesh();

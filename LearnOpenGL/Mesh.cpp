@@ -34,6 +34,13 @@ Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint typ
 	this->setupMesh();
 }
 
+// Constructor Delegation (a consteuctor can't be called from another constructor)
+Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, instances, type)
+{
+	this->diffuseMap = diffuseMap;
+	this->specularMap = specularMap;
+}
+
 Mesh::Mesh(GLchar * vertexLocation, GLuint size)
 {
 	this->readVertexFile(vertexLocation);
@@ -84,6 +91,16 @@ void Mesh::setInstance(std::vector<glm::mat4> instances)
 {
 	this->instances = instances;
 	this->numInstances = instances.size();
+}
+
+Texture * Mesh::getDiffuseMap()
+{
+	return this->diffuseMap;
+}
+
+Texture * Mesh::getSpecularMap()
+{
+	return this->specularMap;
 }
 
 // Function

@@ -10,6 +10,7 @@
 #include <GL/glew.h>
 
 #include "Material.h"
+#include "Mesh.h"
 
 class GameObjectImpl;
 class InstancedArrayGameObjectImpl;
@@ -35,6 +36,7 @@ public:
 	void sendToShader(InstancedGameObjectImpl * gameObject);
 	void sendToShader(TransparentGameObjectImpl * gameObject);
 	void sendToShader(Material * material);
+	void sendToShader(Mesh * mesh);
 
 	void setProjectionMatrix(glm::mat4 projection);
 

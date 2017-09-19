@@ -1,3 +1,6 @@
 ﻿  LearnOpenGL.cpp
+  InstancedArrayGameObjectImpl.cpp
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedarraygameobjectimpl.cpp(76): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)

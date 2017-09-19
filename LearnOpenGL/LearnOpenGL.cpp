@@ -119,9 +119,9 @@ int main()
 	   Is this a good idea?
 	*/
 	InstancedArrayGameObjectImpl instancedArrayGameObject("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection);
-	InstancedArrayGameObjectImpl grassSides("instancedArray.vert", "fragment.frag", "grassBlock.jpg", "container2_specular.png", "Mesh/toplessCrate.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
-	InstancedArrayGameObjectImpl grassbottom("instancedArray.vert", "fragment.frag", "Textures/dirt.jpg", "container2_specular.png", "Mesh/bottomSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
-	InstancedArrayGameObjectImpl grassTop("instancedArray.vert", "fragment.frag", "Textures/topGrass.jpg", "container2_specular.png", "Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
+	InstancedArrayGameObjectImpl grassSides("instancedArray.vert", "fragment.frag", "grassBlock.jpg", "container2_specular.png", "Textures/dirt.jpg", "container2_specular.png", "Textures/topGrass.jpg", "container2_specular.png", "Mesh/toplessCrate.txt", "Mesh/bottomSquare.txt", "Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
+	//InstancedArrayGameObjectImpl grassbottom("instancedArray.vert", "fragment.frag", "Textures/dirt.jpg", "container2_specular.png", "Mesh/bottomSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
+	//InstancedArrayGameObjectImpl grassTop("instancedArray.vert", "fragment.frag", "Textures/topGrass.jpg", "container2_specular.png", "Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
 	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Instance/window.txt", &camera, projection);
 
@@ -164,9 +164,9 @@ int main()
 
 		instancedArrayGameObject.Draw();
 		instancedGameObject.Draw();
-		grassbottom.Draw();
+		//grassbottom.Draw();
 		grassSides.Draw();
-		grassTop.Draw();
+		//grassTop.Draw();
 		perlin.Draw();
 		perlin3d.Draw();
 

@@ -14,7 +14,43 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->specularMap->name = "material.specular";
 	this->material = new Material(materialLoc);
 	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
-	this->mesh.push_back(new Mesh(meshLoc, this->transform->getModels(), INSTANCED_ARRAY_SHADER));
+	this->mesh.push_back(new Mesh(meshLoc, this->transform->getModels(), INSTANCED_ARRAY_SHADER, this->diffuseMap, this->specularMap));
+	this->camera = camera;
+	this->projection = projection;
+
+	this->lightsContainer = new LightsContainer(lightsLoc);
+
+	this->shader->setProjectionMatrix(projection);
+}
+
+InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc1, GLchar * specularMapLoc1, GLchar * diffuseMapLoc2, GLchar * specularMapLoc2, GLchar * diffuseMapLoc3, GLchar * specularMapLoc3, GLchar * meshLoc1, GLchar * meshLoc2, GLchar * meshLoc3, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
+{
+	this->shader = new Shader(vertexShader, fragmentShader);
+
+	this->diffuseMap = new Texture(diffuseMapLoc1, true);
+	this->diffuseMap->name = "material.diffuse";
+	this->specularMap = new Texture(specularMapLoc1, true);
+	this->specularMap->name = "material.specular";
+	this->material = new Material(materialLoc);
+	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
+	this->mesh.push_back(new Mesh(meshLoc1, this->transform->getModels(), INSTANCED_ARRAY_SHADER, this->diffuseMap, this->specularMap));
+
+	this->diffuseMap = new Texture(diffuseMapLoc2, true);
+	this->diffuseMap->name = "material.diffuse";
+	this->specularMap = new Texture(specularMapLoc2, true);
+	this->specularMap->name = "material.specular";
+	this->material = new Material(materialLoc);
+	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
+	this->mesh.push_back(new Mesh(meshLoc2, this->transform->getModels(), INSTANCED_ARRAY_SHADER, this->diffuseMap, this->specularMap));
+
+	this->diffuseMap = new Texture(diffuseMapLoc3, true);
+	this->diffuseMap->name = "material.diffuse";
+	this->specularMap = new Texture(specularMapLoc3, true);
+	this->specularMap->name = "material.specular";
+	this->material = new Material(materialLoc);
+	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
+	this->mesh.push_back(new Mesh(meshLoc3, this->transform->getModels(), INSTANCED_ARRAY_SHADER, this->diffuseMap, this->specularMap));
+
 	this->camera = camera;
 	this->projection = projection;
 
@@ -39,12 +75,7 @@ void InstancedArrayGameObjectImpl::Draw() {
 	*/
 	for (GLint i = 0; i < this->mesh.size(); i++) {
 		// Bind Diffuse Map
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, this->getDiffuseMap()->getTextureID());
-
-		// Bind Specular Map
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, this->getSpecularMap()->getTextureID());
+		this->shader->sendToShader(this->mesh[i]);
 		this->mesh[i]->Draw();
 	}
 	// this->mesh->Draw();
@@ -70,6 +101,16 @@ Texture * InstancedArrayGameObjectImpl::getDiffuseMap()
 Texture * InstancedArrayGameObjectImpl::getSpecularMap()
 {
 	return this->specularMap;
+}
+
+Texture * InstancedArrayGameObjectImpl::getDiffuseMap(GLint i)
+{
+	return this->mesh[i]->getDiffuseMap();
+}
+
+Texture * InstancedArrayGameObjectImpl::getSpecularMap(GLint i)
+{
+	return this->mesh[i]->getSpecularMap();
 }
 
 LightsContainer * InstancedArrayGameObjectImpl::getLightsContainer()

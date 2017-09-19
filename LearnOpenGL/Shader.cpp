@@ -194,6 +194,16 @@ void Shader::sendToShader(Material * material)
 	glUniform1f(glGetUniformLocation(this->Program, "material.shininess"), material->getShininess());
 }
 
+void Shader::sendToShader(Mesh * mesh)
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, mesh->getDiffuseMap()->getTextureID());
+
+	// Bind Specular Map
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, mesh->getSpecularMap()->getTextureID());
+}
+
 void Shader::setProjectionMatrix(glm::mat4 projection)
 {
 	this->Use();
