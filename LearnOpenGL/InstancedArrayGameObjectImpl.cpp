@@ -35,6 +35,13 @@ void InstancedArrayGameObjectImpl::Draw() {
 	this->shader->sendToShader(this->material);
 
 	for (GLint i = 0; i < this->mesh.size(); i++) {
+		// Bind Diffuse Map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, this->getDiffuseMap()->getTextureID());
+
+		// Bind Specular Map
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, this->getSpecularMap()->getTextureID());
 		this->mesh[i]->Draw();
 	}
 	// this->mesh->Draw();

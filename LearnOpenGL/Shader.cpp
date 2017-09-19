@@ -155,7 +155,17 @@ void Shader::sendToShader(GameObjectImpl * gameObject)
 void Shader::sendToShader(InstancedArrayGameObjectImpl * gameObject)
 {
 	this->Use();
-	sendCommonToShader(gameObject);
+	
+	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
+
+	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
+	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
+
+	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(gameObject->getCamera()->GetViewMatrix()));
+
+	// Set material properties
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), gameObject->getCamera()->Front.x, gameObject->getCamera()->Front.y, gameObject->getCamera()->Front.z);
 }
 
 void Shader::sendToShader(InstancedGameObjectImpl * gameObject)
