@@ -34,6 +34,9 @@ void InstancedArrayGameObjectImpl::Draw() {
 	this->shader->sendToShader(this);
 	this->shader->sendToShader(this->material);
 
+	/* With a std::vector<Mesh*> we might be losing a reference to 
+	 * We may need to have a std::vector<Mesh**> 
+	*/
 	for (GLint i = 0; i < this->mesh.size(); i++) {
 		// Bind Diffuse Map
 		glActiveTexture(GL_TEXTURE0);
