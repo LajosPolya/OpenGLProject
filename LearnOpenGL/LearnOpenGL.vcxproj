@@ -173,10 +173,12 @@
     <Text Include="lamp.frag" />
     <Text Include="lamp.vert" />
     <Text Include="Material\crate.txt" />
+    <Text Include="Mesh\bottomSquare.txt" />
     <Text Include="Mesh\crate.txt" />
     <Text Include="Mesh\floorSquare.txt" />
     <Text Include="Mesh\grass.txt" />
     <Text Include="Mesh\lightBox.txt" />
+    <Text Include="Mesh\sideSquare.txt" />
     <Text Include="Mesh\toplessCrate.txt" />
     <Text Include="Mesh\window.txt" />
     <Text Include="singleColour.frag" />
@@ -199,6 +201,7 @@
     <Image Include="container2_specular.png" />
     <Image Include="grass.png" />
     <Image Include="grassBlock.jpg" />
+    <Image Include="Textures\dirt.jpg" />
     <Image Include="Textures\topGrass.jpg" />
     <Image Include="wall.jpg" />
   </ItemGroup>

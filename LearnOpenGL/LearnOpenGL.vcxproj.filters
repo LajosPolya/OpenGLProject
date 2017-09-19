@@ -241,6 +241,12 @@
     <Text Include="Mesh\toplessCrate.txt">
       <Filter>Mesh</Filter>
     </Text>
+    <Text Include="Mesh\sideSquare.txt">
+      <Filter>Mesh</Filter>
+    </Text>
+    <Text Include="Mesh\bottomSquare.txt">
+      <Filter>Mesh</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="wall.jpg">
@@ -268,6 +274,9 @@
       <Filter>Textures</Filter>
     </Image>
     <Image Include="Textures\topGrass.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\dirt.jpg">
       <Filter>Textures</Filter>
     </Image>
   </ItemGroup>

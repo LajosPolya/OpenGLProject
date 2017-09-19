@@ -36,7 +36,7 @@ GLfloat *** PerlinNoise::generate(GLuint x, GLuint y, GLuint z)
 		for (j = 0; j < y; j++) {
 			values3d[i][j] = new GLfloat[z];
 			for (k = 0; k < z; k++) {
-				values3d[i][j][k] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)2.0, (GLfloat)j / (GLfloat)y * (GLfloat)2.0, (GLfloat)k / (GLfloat)z * (GLfloat)2.0);
+				values3d[i][j][k] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)4.0, (GLfloat)j / (GLfloat)y * (GLfloat)4.0, (GLfloat)k / (GLfloat)z * (GLfloat)4.0);
 			}
 		}
 	}
