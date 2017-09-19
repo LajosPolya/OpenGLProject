@@ -4,7 +4,7 @@
 #include "InstancedArrayTransformImpl.h"
 
 
-class InstancedArrayGameObjectImpl : public InstancedGameObject
+class InstancedArrayGameObjectImpl
 {
 public:
 	InstancedArrayGameObjectImpl();
@@ -22,9 +22,6 @@ public:
 
 	InstancedArrayTransformImpl * getTransform();
 
-	Texture * getDiffuseMap();
-	Texture * getSpecularMap();
-
 	Texture * getDiffuseMap(GLint i);
 	Texture * getSpecularMap(GLint i);
 
@@ -32,12 +29,8 @@ public:
 
 private:
 	std::vector<Mesh*> mesh;
-	// Mesh * mesh;
 
 	Material * material;
-
-	Texture * diffuseMap;
-	Texture * specularMap;
 
 	Shader * shader;
 
