@@ -7,6 +7,7 @@ std::vector<PointLight> LightsContainer::pointLights;
 
 LightsContainer::LightsContainer(GLchar* lightsLocation)
 {
+	// TODO: The Lights should be getting their transform from the Material object or vice versa
 	if (lightsLocation != nullptr) {
 		/* Should only read Scene Lights once */
 		/* This can also be implemented such that is saves the file name

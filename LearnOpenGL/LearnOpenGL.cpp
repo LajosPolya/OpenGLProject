@@ -113,15 +113,8 @@ int main()
 	GameObjectImpl lightBox3("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox3.txt", &camera, projection);
 	GameObjectImpl lightBox4("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox4.txt", &camera, projection);
 
-	// TODO: Parts of a GameObject should not communicate with each other.
-	/* But instead they should communicate with the gameObject and the gameObject should do the rest of the work.
-	   For instance, if the Shader wants access to the Transform then it should call GameObject.doSomethingWithTransform();
-	   Is this a good idea?
-	*/
 	InstancedArrayGameObjectImpl instancedArrayGameObject("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection);
 	InstancedArrayGameObjectImpl grassSides("instancedArray.vert", "fragment.frag", "grassBlock.jpg", "container2_specular.png", "Textures/dirt.jpg", "container2_specular.png", "Textures/topGrass.jpg", "container2_specular.png", "Mesh/toplessCrate.txt", "Mesh/bottomSquare.txt", "Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
-	//InstancedArrayGameObjectImpl grassbottom("instancedArray.vert", "fragment.frag", "Textures/dirt.jpg", "container2_specular.png", "Mesh/bottomSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
-	//InstancedArrayGameObjectImpl grassTop("instancedArray.vert", "fragment.frag", "Textures/topGrass.jpg", "container2_specular.png", "Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
 	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Instance/window.txt", &camera, projection);
 
@@ -129,7 +122,7 @@ int main()
 	TerrainGenerator terrain3d = TerrainGenerator{ 50, 25, 50 };
 
 	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Perlin/perlin.txt", "Material/crate.txt", &camera, projection);
-	InstancedArrayGameObjectImpl perlin3d("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Perlin/perlin3d.txt", "Material/crate.txt", &camera, projection);
+	InstancedArrayGameObjectImpl perlin3d("instancedArray.vert", "fragment.frag", "grassBlock.jpg", "container2_specular.png", "Textures/dirt.jpg", "container2_specular.png", "Textures/topGrass.jpg", "container2_specular.png", "Mesh/toplessCrate.txt", "Mesh/bottomSquare.txt", "Mesh/floorSquare.txt", "Material/crate.txt", "Perlin/perlin3d.txt", "Material/crate.txt", &camera, projection);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -164,13 +157,12 @@ int main()
 
 		instancedArrayGameObject.Draw();
 		instancedGameObject.Draw();
-		//grassbottom.Draw();
 		grassSides.Draw();
-		//grassTop.Draw();
 		perlin.Draw();
 		perlin3d.Draw();
 
 		// TODO: These should be one isntancedArrayGameObject
+		// TODO: The Lights should be getting their transform from the Material object or vice versa
 		lightBox1.Draw();
 		lightBox2.Draw();
 		lightBox3.Draw();

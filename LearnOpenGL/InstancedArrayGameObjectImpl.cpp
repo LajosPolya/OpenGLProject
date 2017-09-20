@@ -28,6 +28,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc1, GLchar * specularMapLoc1, GLchar * diffuseMapLoc2, GLchar * specularMapLoc2, GLchar * diffuseMapLoc3, GLchar * specularMapLoc3, GLchar * meshLoc1, GLchar * meshLoc2, GLchar * meshLoc3, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
 {
+	// TODO: Send paths delimited by commas and parse them in hear instead of having a param for each map, mesh...
 	Texture * diffuseMap;
 	Texture * specularMap;
 	this->shader = new Shader(vertexShader, fragmentShader);
