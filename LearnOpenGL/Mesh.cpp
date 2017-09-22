@@ -238,6 +238,7 @@ void Mesh::readVertexFile(GLchar* filename) {
 			vertices.push_back(vertex);
 		}
 		this->vertices = vertices;
+		file.close();
 	}
 	else {
 		std::cout << "FAILED TO OPEN FILE" << std::endl;

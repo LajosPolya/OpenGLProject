@@ -279,6 +279,15 @@
     <Image Include="Textures\dirt.jpg">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\topGrassSpec.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\dirtSpec.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\grassBlockSpec.jpg">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="instancedArray.vert">

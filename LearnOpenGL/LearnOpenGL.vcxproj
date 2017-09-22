@@ -202,7 +202,10 @@
     <Image Include="grass.png" />
     <Image Include="grassBlock.jpg" />
     <Image Include="Textures\dirt.jpg" />
+    <Image Include="Textures\dirtSpec.jpg" />
+    <Image Include="Textures\grassBlockSpec.jpg" />
     <Image Include="Textures\topGrass.jpg" />
+    <Image Include="Textures\topGrassSpec.jpg" />
     <Image Include="wall.jpg" />
   </ItemGroup>
   <ItemGroup>

@@ -149,7 +149,7 @@ Cartesian coordinates
 glm::vec2 PerlinNoise::randomVector(GLfloat length)
 {
 	std::random_device rd;
-	std::uniform_real_distribution<GLfloat> dist(0.0, 2.0 * PI);
+	std::uniform_real_distribution<GLdouble> dist(0.0, 2.0 * PI);
 	GLfloat angle = (GLfloat)dist(rd);
 
 	// Turn angle and length into vector
@@ -162,10 +162,10 @@ glm::vec2 PerlinNoise::randomVector(GLfloat length)
 glm::vec3 PerlinNoise::random3DVector(GLfloat length)
 {
 	std::random_device rd;
-	std::uniform_real_distribution<GLfloat> dist(0.0, 2.0 * PI);
+	std::uniform_real_distribution<GLdouble> dist(0.0, 2.0 * PI);
 	std::uniform_real_distribution<GLfloat> randomCostheta(-1.0, 1.0);
 	std::uniform_real_distribution<GLfloat> randomU(0.0, 1.0);
-	GLfloat phi = dist(rd);
+	GLfloat phi = (GLfloat)dist(rd);
 	GLfloat costheta = randomCostheta(rd);
 
 	GLfloat theta = std::acos(costheta);

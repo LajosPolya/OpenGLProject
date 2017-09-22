@@ -26,36 +26,46 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->shader->setProjectionMatrix(projection);
 }
 
-InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc1, GLchar * specularMapLoc1, GLchar * diffuseMapLoc2, GLchar * specularMapLoc2, GLchar * diffuseMapLoc3, GLchar * specularMapLoc3, GLchar * meshLoc1, GLchar * meshLoc2, GLchar * meshLoc3, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
+InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc1, std::string specularMapLoc1, GLchar * diffuseMapLoc2, GLchar * specularMapLoc2, GLchar * diffuseMapLoc3, GLchar * specularMapLoc3, std::string meshLoc1, GLchar * meshLoc2, GLchar * meshLoc3, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
 {
 	// TODO: Send paths delimited by commas and parse them in hear instead of having a param for each map, mesh...
 	Texture * diffuseMap;
 	Texture * specularMap;
 	this->shader = new Shader(vertexShader, fragmentShader);
 
-	diffuseMap = new Texture(diffuseMapLoc1, true);
-	diffuseMap->name = "material.diffuse";
-	specularMap = new Texture(specularMapLoc1, true);
-	specularMap->name = "material.specular";
-	this->material = new Material(materialLoc);
-	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
-	this->mesh.push_back(new Mesh(meshLoc1, this->transform->getModels(), INSTANCED_ARRAY_SHADER, diffuseMap, specularMap));
+	GLchar * tokens;
+	GLchar* context = NULL;
 
-	diffuseMap = new Texture(diffuseMapLoc2, true);
-	diffuseMap->name = "material.diffuse";
-	specularMap = new Texture(specularMapLoc2, true);
-	specularMap->name = "material.specular";
-	this->material = new Material(materialLoc);
-	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
-	this->mesh.push_back(new Mesh(meshLoc2, this->transform->getModels(), INSTANCED_ARRAY_SHADER, diffuseMap, specularMap));
+	
+	tokens = strtok_s(&diffuseMapLoc1[0], ",", &context);
+	std::vector<Texture*> diffuseMaps;
+	while (tokens != NULL) {
+		diffuseMap = new Texture(tokens, true);
+		diffuseMap->name = "material.diffuse";
+		diffuseMaps.push_back(diffuseMap);
+		tokens = strtok_s(NULL, ",", &context);
+	}
 
-	diffuseMap = new Texture(diffuseMapLoc3, true);
-	diffuseMap->name = "material.diffuse";
-	specularMap = new Texture(specularMapLoc3, true);
-	specularMap->name = "material.specular";
-	this->material = new Material(materialLoc);
+	tokens = strtok_s(&specularMapLoc1[0], ",", &context);
+	std::vector<Texture*> specularMaps;
+	while (tokens != NULL) {
+		specularMap = new Texture(tokens, true);
+		specularMap->name = "material.specular";
+		specularMaps.push_back(specularMap);
+		tokens = strtok_s(NULL, ",", &context);
+	}
+
 	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
-	this->mesh.push_back(new Mesh(meshLoc3, this->transform->getModels(), INSTANCED_ARRAY_SHADER, diffuseMap, specularMap));
+
+	tokens = strtok_s(&meshLoc1[0], ",", &context);
+	GLint i = 0;
+	while (tokens != NULL) {
+		this->mesh.push_back(new Mesh(tokens, this->transform->getModels(), INSTANCED_ARRAY_SHADER, diffuseMaps[i], specularMaps[i]));
+		i++;
+		tokens = strtok_s(NULL, ",", &context);
+	}
+
+	this->material = new Material(materialLoc);
 
 	this->camera = camera;
 	this->projection = projection;
@@ -79,7 +89,7 @@ void InstancedArrayGameObjectImpl::Draw() {
 	/* With a std::vector<Mesh*> we might be losing a reference to 
 	 * We may need to have a std::vector<Mesh**> 
 	*/
-	for (GLint i = 0; i < this->mesh.size(); i++) {
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
 		// Bind Diffuse Map
 		this->shader->sendToShader(this->mesh[i]);
 		this->mesh[i]->Draw();
