@@ -34,7 +34,6 @@ void InstancedArrayTransformImpl::Draw() {
 void InstancedArrayTransformImpl::readFile(GLchar * filename)
 {
 	std::ifstream file(filename);
-	GLint vertexProp_BitMap = 0;
 	if (file.is_open()) {
 		std::string line;
 
@@ -91,6 +90,21 @@ void InstancedArrayTransformImpl::readFile(GLchar * filename)
 		}
 	}
 	else {
-		std::cout << "ERROR::BAD TRANSFORM FILENAME" << std::endl;
+		std::cout << "ERROR:: CAN'T READ TRANSFORM FILE: " << filename << std::endl;
+	}
+}
+
+void InstancedArrayTransformImpl::setup(std::vector<glm::vec3> positions)
+{
+	this->Position = positions;
+	for (GLint i = 0; i < positions.size(); i++) {
+		glm::mat4 model;
+
+		model = glm::translate(model, positions[i]);
+
+		this->Rotation.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+		this->Scale.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+
+		this->model.push_back(model);
 	}
 }

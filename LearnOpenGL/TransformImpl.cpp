@@ -18,7 +18,6 @@ glm::vec3 TransformImpl::getPosition() {
 
 void TransformImpl::readFile(GLchar* filename) {
 	std::ifstream file(filename);
-	GLint vertexProp_BitMap = 0;
 	if (file.is_open()) {
 		std::string line;
 

@@ -47,4 +47,5 @@ private:
 	std::vector<glm::mat4> model;
 
 	void readFile(GLchar* filename);
+	void setup(std::vector<glm::vec3> positions);
 };

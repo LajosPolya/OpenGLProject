@@ -4,21 +4,23 @@
 TerrainGenerator::TerrainGenerator() {}
 TerrainGenerator::~TerrainGenerator() {}
 
-TerrainGenerator::TerrainGenerator(GLuint x, GLuint y)
+/*This should be a static class and should return "GLfloat values" */
+
+TerrainGenerator::TerrainGenerator(GLuint x, GLuint y, GLchar * filename)
 {
 	GLuint i, j;
 	GLint k; // Can't be unsigned because I'm subtracting 1 in the loop
 	std::ofstream file;
-	file.open("Perlin/perlin.txt");
+	file.open(filename);
 
-	GLfloat ** values;
-	values = PerlinNoise::generate(x, y);
+	GLfloat *** values = new GLfloat**();
+	*values = PerlinNoise::generate(x, y);
 
 	for (i = 0; i < x; i++) {
 		for (j = 0; j < y; j++) {
-			values[i][j] = (GLfloat)(GLint)(values[i][j] * (GLfloat)10.0f);
-			file << i << "," << values[i][j] + (GLint)10 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
-			for (k = (GLint)values[i][j] - 1; k >= -5; k--) {
+			(*values)[i][j] = (GLfloat)(GLint)((*values)[i][j] * (GLfloat)10.0f);
+			file << i << "," << (*values)[i][j] + (GLint)10 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
+			for (k = (GLint)(*values)[i][j] - 1; k >= -5; k--) {
 				file << i << "," << k + (GLint)15 << "," << j << "," << 0.0 << "," << 0.0 << "," << 0.0 << "," << 1.0 << "," << 1.0 << "," << 1.0 << std::endl;
 			}
 		}
@@ -29,11 +31,11 @@ TerrainGenerator::TerrainGenerator(GLuint x, GLuint y)
 
 }
 
-TerrainGenerator::TerrainGenerator(GLuint x, GLuint y, GLuint z)
+TerrainGenerator::TerrainGenerator(GLuint x, GLuint y, GLuint z, GLchar * filename)
 {
 	GLuint i, j, k;
 	std::ofstream file;
-	file.open("Perlin/perlin3d.txt");
+	file.open(filename);
 
 	GLfloat *** values;
 	values = PerlinNoise::generate(x, y, z);
