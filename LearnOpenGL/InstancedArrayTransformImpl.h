@@ -25,7 +25,8 @@ public:
 	~InstancedArrayTransformImpl();
 
 
-	InstancedArrayTransformImpl(GLchar* fileLocation, InstancedArrayGameObjectImpl * gameObject);
+	InstancedArrayTransformImpl(GLchar * fileLocation, InstancedArrayGameObjectImpl * gameObject);
+	InstancedArrayTransformImpl(std::vector<glm::vec3> positions, InstancedArrayGameObjectImpl * gameObject);
 
 	std::vector<glm::vec3>* getPositions();
 
@@ -37,7 +38,7 @@ public:
 
 private:
 	/* Reference to own GameObject instance*/
-	InstancedArrayGameObjectImpl* gameObject;
+	InstancedArrayGameObjectImpl * gameObject;
 
 	/* Only the file should set this */
 	std::vector<glm::vec3> Position;
@@ -46,6 +47,6 @@ private:
 
 	std::vector<glm::mat4> model;
 
-	void readFile(GLchar* filename);
+	void readFile(GLchar * filename);
 	void setup(std::vector<glm::vec3> positions);
 };

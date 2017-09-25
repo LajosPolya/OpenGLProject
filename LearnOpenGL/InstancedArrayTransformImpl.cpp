@@ -10,6 +10,12 @@ InstancedArrayTransformImpl::InstancedArrayTransformImpl(GLchar* fileLocation, I
 	this->readFile(fileLocation);
 }
 
+InstancedArrayTransformImpl::InstancedArrayTransformImpl(std::vector<glm::vec3> positions, InstancedArrayGameObjectImpl * gameObject)
+{
+	this->gameObject = gameObject;
+	this->setup(positions);
+}
+
 std::vector<glm::vec3>* InstancedArrayTransformImpl::getPositions()
 {
 	return &(this->Position);

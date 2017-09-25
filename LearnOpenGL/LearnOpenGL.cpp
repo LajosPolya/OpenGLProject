@@ -118,11 +118,13 @@ int main()
 	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Instance/window.txt", &camera, projection);
 
-	TerrainGenerator terrain = TerrainGenerator{50, 50, "Perlin/perlin.txt" };
-	TerrainGenerator terrain3d = TerrainGenerator{ 50, 25, 50 , "Perlin/perlin3d.txt" };
+	std::vector<glm::vec3> pos2d;
+	TerrainGenerator::generate(50, 50, pos2d);
+	std::vector<glm::vec3> pos3d;
+	TerrainGenerator::generate( 50, 25, 50 , pos3d);
 
-	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Perlin/perlin.txt", "Material/crate.txt", &camera, projection);
-	InstancedArrayGameObjectImpl perlin3d("instancedArray.vert", "fragment.frag", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", "Perlin/perlin3d.txt", "Material/crate.txt", &camera, projection);
+	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", &camera, projection);
+	InstancedArrayGameObjectImpl perlin3d("instancedArray.vert", "fragment.frag", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d, "Material/crate.txt", &camera, projection);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))

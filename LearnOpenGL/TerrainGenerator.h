@@ -11,11 +11,11 @@ public:
 	TerrainGenerator();
 	~TerrainGenerator();
 
-	TerrainGenerator(GLuint x, GLuint y);
-	TerrainGenerator(GLuint x, GLuint y, GLuint z);
+	static void generate(GLuint x, GLuint y, std::vector<glm::vec3> &heightValues);
+	static void generate(GLuint x, GLuint y, GLuint z, std::vector<glm::vec3> &position);
 
-	TerrainGenerator(GLuint x, GLuint y, GLchar * filename);
-	TerrainGenerator(GLuint x, GLuint y, GLuint z, GLchar * filename);
+	static void generate(GLuint x, GLuint y, GLchar * filename);
+	static void generate(GLuint x, GLuint y, GLuint z, GLchar * filename);
 
 	// TODO: TerrainGenerator
 	/* This class will generate the positions for the landscape 
