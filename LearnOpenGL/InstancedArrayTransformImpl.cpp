@@ -103,7 +103,7 @@ void InstancedArrayTransformImpl::readFile(GLchar * filename)
 void InstancedArrayTransformImpl::setup(std::vector<glm::vec3> positions)
 {
 	this->Position = positions;
-	for (GLint i = 0; i < positions.size(); i++) {
+	for (GLint i = 0; i < (GLint)positions.size(); i++) {
 		glm::mat4 model;
 
 		model = glm::translate(model, positions[i]);

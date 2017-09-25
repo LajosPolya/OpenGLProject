@@ -2,6 +2,7 @@
 
 #include "InstancedGameObject.h"
 #include "InstancedArrayTransformImpl.h"
+#include "GameObjectUtils.h"
 
 
 class InstancedArrayGameObjectImpl
