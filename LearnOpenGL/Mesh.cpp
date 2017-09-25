@@ -241,7 +241,7 @@ void Mesh::readVertexFile(GLchar* filename) {
 		file.close();
 	}
 	else {
-		std::cout << "FAILED TO OPEN FILE" << std::endl;
+		std::cout << "FAILED TO OPEN MESH FILE: " << filename << std::endl;
 		this->vertexProp_BitMap = 0;
 	}
 }

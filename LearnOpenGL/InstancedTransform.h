@@ -1,8 +1,6 @@
 #pragma once
 
 
-// TODO: Have a struct in this class which stores all properties of the class
-// Position, Rotation, Scale, and Model
 class InstancedTransform {
 public:
 
