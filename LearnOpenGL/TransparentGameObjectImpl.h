@@ -9,37 +9,37 @@ public:
 	TransparentGameObjectImpl();
 	~TransparentGameObjectImpl();
 
-	TransparentGameObjectImpl(GLchar* vertexShader, GLchar* fragmentShader, GLchar* diffuseMapLoc, GLchar* specularMapLoc, GLchar* meshLoc, GLchar* materialLoc, GLchar* transformLoc, GLchar* lightsLoc, Camera * camera, glm::mat4 projection);
+	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * specularMapLoc, GLchar * meshLoc,  GLchar* materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection);
 	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection);
 
 	void Draw();
 
-	Shader* getShader();
+	Shader * getShader();
 
-	Camera* getCamera();
+	Camera * getCamera();
 
-	TransparentTransformImpl* getTransform();
+	TransparentTransformImpl * getTransform();
 
-	Texture* getDiffuseMap();
-	Texture* getSpecularMap();
+	Texture * getDiffuseMap();
+	Texture * getSpecularMap();
 
-	LightsContainer* getLightsContainer();
+	LightsContainer * getLightsContainer();
 
 private:
-	Mesh* mesh;
+	Mesh * mesh;
 
-	Material* material;
+	Material * material;
 
-	Texture* diffuseMap;
-	Texture* specularMap;
+	Texture * diffuseMap;
+	Texture * specularMap;
 
-	Shader* shader;
+	Shader * shader;
 
-	Camera* camera;
+	Camera * camera;
 
-	TransparentTransformImpl* transform;
+	TransparentTransformImpl * transform;
 
-	LightsContainer* lightsContainer;
+	LightsContainer * lightsContainer;
 
 	glm::mat4 projection;
 };

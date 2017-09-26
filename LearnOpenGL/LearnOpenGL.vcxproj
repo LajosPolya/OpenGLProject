@@ -203,6 +203,8 @@
     <Image Include="container2_specular.png" />
     <Image Include="grass.png" />
     <Image Include="grassBlock.jpg" />
+    <Image Include="Textures\coal.jpg" />
+    <Image Include="Textures\coalSpec.jpg" />
     <Image Include="Textures\dirt.jpg" />
     <Image Include="Textures\dirtSpec.jpg" />
     <Image Include="Textures\grassBlockSpec.jpg" />

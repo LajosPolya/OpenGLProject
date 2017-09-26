@@ -28,7 +28,7 @@ public:
 	InstancedArrayTransformImpl(GLchar * fileLocation, InstancedArrayGameObjectImpl * gameObject);
 	InstancedArrayTransformImpl(std::vector<glm::vec3> positions, InstancedArrayGameObjectImpl * gameObject);
 
-	std::vector<glm::vec3>* getPositions();
+	std::vector<glm::vec3> * getPositions();
 
 	std::vector<glm::mat4> getModels();
 

@@ -42,5 +42,6 @@ public:
 
 private:
 	void sendCommonToShader(TransparentGameObjectImpl * gameObject);
+	void sendCommonToShader(InstancedGameObject * gameObject);
 
 };

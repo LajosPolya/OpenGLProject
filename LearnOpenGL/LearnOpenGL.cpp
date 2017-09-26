@@ -115,7 +115,7 @@ int main()
 
 	InstancedArrayGameObjectImpl instancedArrayGameObject("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", &camera, projection);
 	InstancedArrayGameObjectImpl grassSides("instancedArray.vert", "fragment.frag", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", &camera, projection);
-	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
+	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", &camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png", "Mesh/window.txt", "Instance/window.txt", &camera, projection);
 
 	std::vector<glm::vec3> pos2d;

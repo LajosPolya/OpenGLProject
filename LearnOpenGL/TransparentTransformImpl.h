@@ -24,7 +24,7 @@ public:
 	TransparentTransformImpl();
 	~TransparentTransformImpl();
 
-	TransparentTransformImpl(GLchar* fileLocation, TransparentGameObjectImpl * gameObject);
+	TransparentTransformImpl(GLchar * fileLocation, TransparentGameObjectImpl * gameObject);
 
 	glm::vec3* getPositions(GLuint i);
 
@@ -36,7 +36,7 @@ public:
 
 	void Draw();
 
-	TransparentGameObjectImpl* getGameObject();
+	TransparentGameObjectImpl * getGameObject();
 
 	GLuint getSize();
 
@@ -55,12 +55,12 @@ private:
 	std::vector<glm::mat4> models;
 
 	/* Reference to own GameObject instance*/
-	TransparentGameObjectImpl* gameObject;
+	TransparentGameObjectImpl * gameObject;
 
 	/* Only the file should set this */
 	std::vector<InstancedTransformProps> props;
 
-	void readFile(GLchar* filename);
+	void readFile(GLchar * filename);
 
 	GLboolean sortFunction(InstancedTransformProps const &x, InstancedTransformProps const &y);
 };
