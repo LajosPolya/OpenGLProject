@@ -13,6 +13,8 @@ TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLch
 
 	this->material = new Material(materialLoc);
 	this->transform = new TransparentTransformImpl(transformLoc, this);
+	// TODO: Meshes need to be sorted every frame, not just TransparentTransforms
+	// unless I want to make every transparent GameObject its own GameObject
 	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform, this->diffuseMap, this->specularMap);
 
 	this->camera = camera;
