@@ -188,12 +188,16 @@ void Shader::sendToShader(Material * material)
 
 void Shader::sendToShader(Mesh * mesh)
 {
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mesh->getDiffuseMap()->getTextureID());
+	if (mesh->getDiffuseMap() != nullptr) {
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mesh->getDiffuseMap()->getTextureID());
+	}
 
 	// Bind Specular Map
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, mesh->getSpecularMap()->getTextureID());
+	if (mesh->getSpecularMap() != nullptr) {
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, mesh->getSpecularMap()->getTextureID());
+	}
 }
 
 void Shader::setProjectionMatrix(glm::mat4 projection)
@@ -205,14 +209,6 @@ void Shader::setProjectionMatrix(glm::mat4 projection)
 void Shader::sendCommonToShader(TransparentGameObjectImpl * gameObject)
 {
 	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
-
-	// Bind Diffuse Map
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, gameObject->getDiffuseMap()->getTextureID());
-
-	// Bind Specular Map
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, gameObject->getSpecularMap()->getTextureID());
 	
 	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
 	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);

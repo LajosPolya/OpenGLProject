@@ -4,16 +4,17 @@ TransparentGameObjectImpl::TransparentGameObjectImpl() {}
 
 TransparentGameObjectImpl::~TransparentGameObjectImpl() {}
 
-TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * specularMapLoc, GLchar * meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
+TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
 {
 	this->shader = new Shader(vertexShader, fragmentShader);
-	this->diffuseMap = new Texture(diffuseMapLoc, true);
-	this->diffuseMap->name = "material.diffuse";
-	this->specularMap = new Texture(specularMapLoc, true);
-	this->specularMap->name = "material.specular";
+
+	this->diffuseMap = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
+	this->specularMap = GameObjectUtils::getSpecularTextures(specularMapLoc);
+
 	this->material = new Material(materialLoc);
 	this->transform = new TransparentTransformImpl(transformLoc, this);
-	this->mesh = new Mesh(meshLoc, this->transform->getSize());
+	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform, this->diffuseMap, this->specularMap);
+
 	this->camera = camera;
 	this->projection = projection;
 
@@ -25,16 +26,14 @@ TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLch
 TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
 {
 	this->shader = new Shader(vertexShader, fragmentShader);
-	this->diffuseMap = new Texture(diffuseMapLoc, true);
-	this->diffuseMap->name = "material.diffuse";
-	this->specularMap = new Texture(nullptr, true);
+
+	this->diffuseMap = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
+
 	this->transform = new TransparentTransformImpl(transformLoc, this);
-	this->mesh = new Mesh(meshLoc, this->transform->getSize());
-	this->material = new Material(nullptr);
+	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform, this->diffuseMap, this->specularMap);
+
 	this->camera = camera;
 	this->projection = projection;
-
-	this->lightsContainer = nullptr;
 
 	this->shader->setProjectionMatrix(projection);
 }
@@ -48,8 +47,16 @@ void TransparentGameObjectImpl::Draw() {
 		this->shader->sendToShader(lightsContainer->getDirLight(), lightsContainer->getSpotLight(), lightsContainer->getPointLights());
 	}
 	this->shader->sendToShader(this);
-	this->shader->sendToShader(this->material);
-	this->mesh->Draw();
+	if (this->material != nullptr) {
+		this->shader->sendToShader(this->material);
+	}
+	
+
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		// Bind Diffuse Map
+		this->shader->sendToShader(this->mesh[i]);
+		this->mesh[i]->Draw();
+	}
 }
 
 Shader * TransparentGameObjectImpl::getShader() {
@@ -64,14 +71,14 @@ TransparentTransformImpl * TransparentGameObjectImpl::getTransform() {
 	return this->transform;
 }
 
-Texture * TransparentGameObjectImpl::getDiffuseMap()
+Texture * TransparentGameObjectImpl::getDiffuseMap(GLint i)
 {
-	return this->diffuseMap;
+	return this->mesh[i]->getDiffuseMap();
 }
 
-Texture * TransparentGameObjectImpl::getSpecularMap()
+Texture * TransparentGameObjectImpl::getSpecularMap(GLint i)
 {
-	return this->specularMap;
+	return this->mesh[i]->getSpecularMap();
 }
 
 LightsContainer * TransparentGameObjectImpl::getLightsContainer()

@@ -1,7 +1,11 @@
 #pragma once
 
+#include <vector>
+#include <string>
+
 #include "InstancedGameObject.h"
 #include "TransparentTransformImpl.h"
+#include "GameObjectUtils.h"
 
 class TransparentGameObjectImpl
 {
@@ -9,7 +13,7 @@ public:
 	TransparentGameObjectImpl();
 	~TransparentGameObjectImpl();
 
-	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * specularMapLoc, GLchar * meshLoc,  GLchar* materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection);
+	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc,  GLchar* materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection);
 	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection);
 
 	void Draw();
@@ -20,18 +24,18 @@ public:
 
 	TransparentTransformImpl * getTransform();
 
-	Texture * getDiffuseMap();
-	Texture * getSpecularMap();
+	Texture * getDiffuseMap(GLint i);
+	Texture * getSpecularMap(GLint i);
 
 	LightsContainer * getLightsContainer();
 
 private:
-	Mesh * mesh;
+	std::vector<Mesh*> mesh;
 
 	Material * material;
 
-	Texture * diffuseMap;
-	Texture * specularMap;
+	std::vector<Texture*> diffuseMap;
+	std::vector<Texture*> specularMap;
 
 	Shader * shader;
 
