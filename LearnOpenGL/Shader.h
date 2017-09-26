@@ -41,6 +41,6 @@ public:
 	void setProjectionMatrix(glm::mat4 projection);
 
 private:
-	void sendCommonToShader(InstancedGameObject * gameObject);
+	void sendCommonToShader(TransparentGameObjectImpl * gameObject);
 
 };

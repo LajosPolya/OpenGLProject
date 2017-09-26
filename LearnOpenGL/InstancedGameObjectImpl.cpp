@@ -4,16 +4,18 @@ InstancedGameObjectImpl::InstancedGameObjectImpl() {}
 
 InstancedGameObjectImpl::~InstancedGameObjectImpl() {}
 
-InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * specularMapLoc, GLchar * meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
+InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
 {
 	this->shader = new Shader(vertexShader, fragmentShader);
-	this->diffuseMap = new Texture(diffuseMapLoc, true);
-	this->diffuseMap->name = "material.diffuse";
-	this->specularMap = new Texture(specularMapLoc, true);
-	this->specularMap->name = "material.specular";
-	this->material = new Material(materialLoc);
+
+	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
+	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapLoc);
+
 	this->transform = new InstancedTransformImpl(transformLoc, this);
-	this->mesh = new Mesh(meshLoc, this->transform->getSize());
+	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform, diffuseMaps, specularMaps);
+
+	this->material = new Material(materialLoc);
+
 	this->camera = camera;
 	this->projection = projection;
 
@@ -22,19 +24,16 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	this->shader->setProjectionMatrix(projection);
 }
 
-InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
+InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
 {
 	this->shader = new Shader(vertexShader, fragmentShader);
-	this->diffuseMap = new Texture(diffuseMapLoc, true);
-	this->diffuseMap->name = "material.diffuse";
-	this->specularMap = new Texture(nullptr, true);
+
+	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
+
 	this->transform = new InstancedTransformImpl(transformLoc, this);
-	this->mesh = new Mesh(meshLoc, this->transform->getSize());
-	this->material = new Material(nullptr);
+
 	this->camera = camera;
 	this->projection = projection;
-
-	this->lightsContainer = nullptr;
 
 	this->shader->setProjectionMatrix(projection);
 }
@@ -50,7 +49,12 @@ void InstancedGameObjectImpl::Draw() {
 	// TODO: Don't do this every frame, only do this if one of those vars have changed
 	this->shader->sendToShader(this);
 	this->shader->sendToShader(this->material);
-	this->mesh->Draw();
+	
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		// Bind Diffuse Map
+		this->shader->sendToShader(this->mesh[i]);
+		this->mesh[i]->Draw();
+	}
 }
 
 Shader * InstancedGameObjectImpl::getShader() {
@@ -65,14 +69,14 @@ InstancedTransformImpl * InstancedGameObjectImpl::getTransform() {
 	return this->transform;
 }
 
-Texture * InstancedGameObjectImpl::getDiffuseMap()
+Texture * InstancedGameObjectImpl::getDiffuseMap(GLint i)
 {
-	return this->diffuseMap;
+	return this->mesh[i]->getDiffuseMap();
 }
 
-Texture * InstancedGameObjectImpl::getSpecularMap()
+Texture * InstancedGameObjectImpl::getSpecularMap(GLint i)
 {
-	return this->specularMap;
+	return this->mesh[i]->getSpecularMap();
 }
 
 LightsContainer * InstancedGameObjectImpl::getLightsContainer()

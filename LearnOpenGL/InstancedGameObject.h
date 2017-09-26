@@ -17,8 +17,8 @@ public:
 
 	// virtual InstancedTransform* getTransform() = 0;
 
-	virtual Texture* getDiffuseMap() = 0;
-	virtual Texture* getSpecularMap() = 0;
+	virtual Texture* getDiffuseMap(GLint i) = 0;
+	virtual Texture* getSpecularMap(GLint i) = 0;
 
 	virtual LightsContainer* getLightsContainer() = 0;
 };

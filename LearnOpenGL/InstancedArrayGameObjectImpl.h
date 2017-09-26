@@ -5,7 +5,7 @@
 #include "GameObjectUtils.h"
 
 
-class InstancedArrayGameObjectImpl
+class InstancedArrayGameObjectImpl : public InstancedGameObject
 {
 public:
 	InstancedArrayGameObjectImpl();

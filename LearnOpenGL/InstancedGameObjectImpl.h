@@ -2,6 +2,7 @@
 
 #include "InstancedGameObject.h"
 #include "InstancedTransformImpl.h"
+#include "GameObjectUtils.h"
 
 class InstancedGameObjectImpl : public InstancedGameObject
 {
@@ -9,8 +10,8 @@ public:
 	InstancedGameObjectImpl();
 	~InstancedGameObjectImpl();
 
-	InstancedGameObjectImpl(GLchar* vertexShader, GLchar* fragmentShader, GLchar* diffuseMapLoc, GLchar* specularMapLoc, GLchar* meshLoc, GLchar* materialLoc, GLchar* transformLoc, GLchar* lightsLoc, Camera * camera, glm::mat4 projection);
-	InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection);
+	InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection);
+	InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection);
 
 	void Draw();
 
@@ -20,18 +21,16 @@ public:
 
 	InstancedTransformImpl* getTransform();
 
-	Texture* getDiffuseMap();
-	Texture* getSpecularMap();
+	Texture* getDiffuseMap(GLint i);
+	Texture* getSpecularMap(GLint i);
 
 	LightsContainer* getLightsContainer();
 
 private:
-	Mesh* mesh;
+	// Mesh* mesh;
+	std::vector<Mesh*> mesh;
 
 	Material* material;
-
-	Texture* diffuseMap;
-	Texture* specularMap;
 
 	Shader* shader;
 

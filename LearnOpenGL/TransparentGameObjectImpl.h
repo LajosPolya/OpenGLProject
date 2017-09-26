@@ -3,7 +3,7 @@
 #include "InstancedGameObject.h"
 #include "TransparentTransformImpl.h"
 
-class TransparentGameObjectImpl : public InstancedGameObject
+class TransparentGameObjectImpl
 {
 public:
 	TransparentGameObjectImpl();

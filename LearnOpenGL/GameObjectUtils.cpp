@@ -50,3 +50,19 @@ std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedArrayTr
 	}
 	return mesh;
 }
+
+std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps)
+{
+	GLchar * tokens;
+	GLchar* context = NULL;
+
+	tokens = strtok_s(&path[0], ",", &context);
+	std::vector<Mesh*> mesh;
+	GLint i = 0;
+	while (tokens != NULL) {
+		mesh.push_back(new Mesh(tokens, transform->getModels(), INSTANCED_ARRAY_SHADER, diffuseMaps[i], specularMaps[i]));
+		i++;
+		tokens = strtok_s(NULL, ",", &context);
+	}
+	return mesh;
+}
