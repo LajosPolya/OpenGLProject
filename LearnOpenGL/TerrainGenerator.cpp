@@ -15,7 +15,7 @@ void TerrainGenerator::generate(GLuint x, GLuint y, std::vector<glm::vec3> &heig
 	for (i = 0; i < x; i++) {
 		for (j = 0; j < y; j++) {
 			(*values)[i][j] = (GLfloat)(GLint)((*values)[i][j] * (GLfloat)10.0f);
-			heightValues.push_back(glm::vec3(i, (*values)[i][j] + (GLint)10, j));
+			heightValues.push_back(glm::vec3(i, (*values)[i][j] + (GLint)15, j));
 			for (k = (GLint)(*values)[i][j] - 1; k >= -5; k--) {
 				heightValues.push_back(glm::vec3(i, k + 15, j));
 			}

@@ -159,14 +159,17 @@ void Shader::sendToShader(InstancedArrayGameObjectImpl * gameObject)
 	this->sendCommonToShader(gameObject);
 }
 
+// TODO: SPIKE : All GameObjects should be equal except that they have different Transforms
+// Thus they could all have the same Shader method to send info to the shader and separate Shader methods for the Transforms
 void Shader::sendToShader(InstancedGameObjectImpl * gameObject)
 {
 	this->Use();
 
 	this->sendCommonToShader(gameObject);
 
+	std::vector<glm::mat4> models = gameObject->getTransform()->getModels();
 	for (GLuint i = 0; i < gameObject->getTransform()->getModels().size(); i++) {
-		glUniformMatrix4fv(glGetUniformLocation(this->Program, ("model[" + std::to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(gameObject->getTransform()->getModels()[i]));
+		glUniformMatrix4fv(glGetUniformLocation(this->Program, ("model[" + std::to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(models[i]));
 	}
 }
 
