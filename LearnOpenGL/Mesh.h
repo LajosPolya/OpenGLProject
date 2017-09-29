@@ -45,10 +45,10 @@ public:
 	std::vector<glm::mat4> instances;
 
 	Mesh();
-	Mesh(GLchar* vertexLocation);
-	Mesh(GLchar* vertexLocation, std::vector<glm::mat4> instances, GLuint type);
-	Mesh(GLchar* vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap);
-	Mesh(GLchar* vertexLocation, GLuint size);
+	Mesh(GLchar * vertexLocation);
+	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type);
+	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap);
+	Mesh(GLchar * vertexLocation, GLuint size);
 
 	void Draw();
 
