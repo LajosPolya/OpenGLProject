@@ -46,13 +46,50 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
 }
 
 // TODO: Create Constructor which also creates Geometry Shader
-Shader::Shader(const GLchar * vertexPath, const GLchar * fragmentPath, GLchar * geometryPath) : Shader(vertexPath, fragmentPath)
+Shader::Shader(const GLchar * vertexPath, const GLchar * fragmentPath, GLchar * geometryPath)
 {
-}
+	// 1. Retrieve the source code from filepath
+	std::string vertexCode;
+	std::string fragmentCode;
+	std::string geometryCode;
 
-// TODO: Some common method to share code between constructors
-void Shader::createShaders(GLuint & vertex, GLuint & fragment)
-{
+	this->readShaderFile(vertexPath, &vertexCode);
+	this->readShaderFile(fragmentPath, &fragmentCode);
+	this->readShaderFile(geometryPath, &geometryCode);
+	const GLchar * vShaderCode = vertexCode.c_str();
+	const GLchar * fShaderCode = fragmentCode.c_str();
+	const GLchar * gShaderCode = geometryCode.c_str();
+
+	// 2. Compile Shaders
+	GLuint vertex, fragment, geometry;
+	GLint success;
+	GLchar infoLog[512];
+
+	// Shader Program
+	this->Program = glCreateProgram();
+
+	// Vertex Shader
+	vertex = createShader(GL_VERTEX_SHADER, vShaderCode);
+
+	// Fragment Shader
+	fragment = createShader(GL_FRAGMENT_SHADER, fShaderCode);
+
+	// Geometry Shader
+	geometry = createShader(GL_FRAGMENT_SHADER, gShaderCode);
+
+	// Link the previously attached Shaders (glAttachShader) to the program (glCreateProgram)
+	glLinkProgram(this->Program);
+	// Print Linking Errors
+	glGetProgramiv(this->Program, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(this->Program, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+	}
+
+	// Delete the Shaders as they are Linked to our Program and are no Longer Necessary
+	glDeleteShader(vertex);
+	glDeleteShader(fragment);
+	glDeleteShader(geometry);
 }
 
 void Shader::readShaderFile(const GLchar * path, std::string * code)
