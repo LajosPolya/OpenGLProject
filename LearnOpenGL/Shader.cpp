@@ -75,7 +75,7 @@ Shader::Shader(const GLchar * vertexPath, const GLchar * fragmentPath, GLchar * 
 	fragment = createShader(GL_FRAGMENT_SHADER, fShaderCode);
 
 	// Geometry Shader
-	geometry = createShader(GL_FRAGMENT_SHADER, gShaderCode);
+	geometry = createShader(GL_GEOMETRY_SHADER, gShaderCode);
 
 	// Link the previously attached Shaders (glAttachShader) to the program (glCreateProgram)
 	glLinkProgram(this->Program);
