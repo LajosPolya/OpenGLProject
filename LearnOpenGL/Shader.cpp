@@ -133,7 +133,17 @@ GLuint Shader::createShader(GLint type, const GLchar * code)
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 	if (!success) {
 		glGetShaderInfoLog(shader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+		std::string shaderName = std::string("");
+		if (type == GL_VERTEX_SHADER) {
+			shaderName = std::string("Vertex");
+		}
+		else if (type == GL_FRAGMENT_SHADER) {
+			shaderName = std::string("Fragment");
+		}
+		else if (type == GL_GEOMETRY_SHADER) {
+			shaderName = std::string("Geometry");
+		}
+		std::cout << "ERROR::SHADER::" + shaderName + "::COMPILATION_FAILED\n" << infoLog << std::endl;
 	}
 	glAttachShader(this->Program, shader);
 	return shader;

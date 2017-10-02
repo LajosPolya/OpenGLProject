@@ -25,6 +25,26 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->shader->setProjectionMatrix(projection);
 }
 
+InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * geometryShader, std::string diffuseMapLoc1, std::string specularMapLoc1, std::string meshLoc1, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
+{
+	this->shader = new Shader(vertexShader, fragmentShader, geometryShader);
+
+	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc1);
+	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapLoc1);
+
+	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
+	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps);
+
+	this->material = new Material(materialLoc);
+
+	this->camera = camera;
+	this->projection = projection;
+
+	this->lightsContainer = new LightsContainer(lightsLoc);
+
+	this->shader->setProjectionMatrix(projection);
+}
+
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc1, std::string specularMapLoc1, std::string meshLoc1, GLchar * materialLoc, std::vector<glm::vec3>& positions, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
 {
 	this->shader = new Shader(vertexShader, fragmentShader);

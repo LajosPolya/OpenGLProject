@@ -311,5 +311,11 @@
     <None Include="instancedAlpha.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\passthrough.geo">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\instancedVertToGeo.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
