@@ -177,6 +177,7 @@
     <Text Include="Material\crate.txt" />
     <Text Include="Mesh\bottomSquare.txt" />
     <Text Include="Mesh\crate.txt" />
+    <Text Include="Mesh\dynamicGrass.txt" />
     <Text Include="Mesh\floorSquare.txt" />
     <Text Include="Mesh\grass.txt" />
     <Text Include="Mesh\lightBox.txt" />
@@ -216,7 +217,8 @@
     <None Include="instanced.vert" />
     <None Include="instancedAlpha.vert" />
     <None Include="instancedArray.vert" />
-    <None Include="Shaders\passthrough.geo" />
+    <None Include="Shaders\line.geom" />
+    <None Include="Shaders\passthrough.geom" />
     <None Include="Shaders\instancedVertToGeo.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

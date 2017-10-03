@@ -253,6 +253,9 @@
     <Text Include="Mesh\bottomSquare.txt">
       <Filter>Mesh</Filter>
     </Text>
+    <Text Include="Mesh\dynamicGrass.txt">
+      <Filter>Mesh</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="wall.jpg">
@@ -311,10 +314,13 @@
     <None Include="instancedAlpha.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\passthrough.geo">
+    <None Include="Shaders\instancedVertToGeo.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\instancedVertToGeo.vert">
+    <None Include="Shaders\passthrough.geom">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\line.geom">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

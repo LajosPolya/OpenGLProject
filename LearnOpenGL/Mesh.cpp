@@ -20,7 +20,7 @@ Mesh::Mesh(GLchar* vertexLocation) {
 	}
 
 	std::cout << std::endl;*/
-
+	this->primitiveType = GL_TRIANGLES;
 	this->setupMesh();
 }
 
@@ -29,6 +29,7 @@ Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint typ
 	this->readVertexFile(vertexLocation);
 	this->instances = instances;
 	this->type = type;
+	this->primitiveType = GL_TRIANGLES;
 	this->numInstances = instances.size();
 
 	this->setupMesh();
@@ -41,10 +42,16 @@ Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint typ
 	this->specularMap = specularMap;
 }
 
+Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, instances, type, diffuseMap, specularMap)
+{
+	this->primitiveType = primitiveType;
+}
+
 Mesh::Mesh(GLchar * vertexLocation, GLuint size)
 {
 	this->readVertexFile(vertexLocation);
 	this->type = INSTANCED_SHADER;
+	this->primitiveType = GL_TRIANGLES;
 	this->numInstances = size;
 
 	this->setupMesh();
@@ -75,13 +82,13 @@ void Mesh::Draw() {
 	// Draw Mesh
 	glBindVertexArray(this->VAO);
 	if (EBO == -1 && !(this->vertexProp_BitMap & INSTANCE_POSITION_BITMAP)) { // If EBO is not initialized
-		glDrawArrays(GL_TRIANGLES, 0, this->vertices.size());
+		glDrawArrays(this->primitiveType, 0, this->vertices.size());
 	}
 	else if (EBO == -1 && this->vertexProp_BitMap & INSTANCE_POSITION_BITMAP) {
-		glDrawArraysInstanced(GL_TRIANGLES, 0, this->vertices.size(), this->numInstances);
+		glDrawArraysInstanced(this->primitiveType, 0, this->vertices.size(), this->numInstances);
 	}
 	else { // If EBO is initialized
-		glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
+		glDrawElements(this->primitiveType, this->indices.size(), GL_UNSIGNED_INT, 0);
 	}
 	//glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

@@ -48,6 +48,7 @@ public:
 	Mesh(GLchar * vertexLocation);
 	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type);
 	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap);
+	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, GLuint size);
 
 	void Draw();
@@ -65,6 +66,7 @@ private:
 
 	GLuint vertexProp_BitMap;
 	GLuint type = 0;
+	GLuint primitiveType = 0;
 
 	Texture * diffuseMap;
 	Texture * specularMap;
