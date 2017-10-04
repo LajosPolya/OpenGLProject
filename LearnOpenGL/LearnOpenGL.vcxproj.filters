@@ -323,5 +323,8 @@
     <None Include="Shaders\line.geom">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\grass.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@ layout (triangle_strip, max_vertices = 3) out;
 in vec3 NormalG [3];
 in vec3 FragPosG [3];
 in vec2 TexCoordsG [3];
+in mat4 model[3];
 
 out vec3 Normal;
 out vec3 FragPos;

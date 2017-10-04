@@ -7,6 +7,7 @@ layout (location = 3) in mat4 instanceModel;
 out vec3 NormalG;
 out vec3 FragPosG;
 out vec2 TexCoordsG;
+out mat4 model;
 
 uniform mat4 projection;
 uniform mat4 view;
@@ -18,4 +19,5 @@ void main()
 	NormalG = mat3(transpose(inverse(instanceModel))) * normal; // Creates the Normal Matrix which allows non-uniform scaling on objects
 	FragPosG = vec3(instanceModel * vec4(position, 1.0f)); // Do all lighting calulations in World Space
 	TexCoordsG = texCoords;
+	model = instanceModel;
 }

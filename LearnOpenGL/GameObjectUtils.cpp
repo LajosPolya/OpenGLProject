@@ -58,9 +58,19 @@ std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedArrayTr
 
 	tokens = strtok_s(&path[0], ",", &context);
 	std::vector<Mesh*> mesh;
-	GLint i = 0;
+	GLuint i = 0;
+	Texture * tempDif;
+	Texture * tempSpec;
 	while (tokens != NULL) {
-		mesh.push_back(new Mesh(tokens, transform->getModels(), INSTANCED_ARRAY_SHADER,  primitiveType, diffuseMaps[i], specularMaps[i]));
+		tempDif = nullptr;
+		if (i < diffuseMaps.size()) {
+			tempDif = diffuseMaps[i];
+		}
+		tempSpec = nullptr;
+		if (i < specularMaps.size()) {
+			tempSpec = specularMaps[i];
+		}
+		mesh.push_back(new Mesh(tokens, transform->getModels(), INSTANCED_ARRAY_SHADER,  primitiveType, tempDif, tempSpec));
 		i++;
 		tokens = strtok_s(NULL, ",", &context);
 	}
@@ -76,7 +86,7 @@ std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedTransfo
 	std::vector<Mesh*> mesh;
 	GLint i = 0;
 	while (tokens != NULL) {
-		mesh.push_back(new Mesh(tokens, transform->getModels(), INSTANCED_ARRAY_SHADER, diffuseMaps[i], specularMaps[i]));
+		mesh.push_back(new Mesh(tokens, transform->getModels(), INSTANCED_SHADER, diffuseMaps[i], specularMaps[i]));
 		i++;
 		tokens = strtok_s(NULL, ",", &context);
 	}
@@ -104,7 +114,7 @@ std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, TransparentTrans
 			tempSpec = specularMaps[i];
 		}
 		
-		mesh.push_back(new Mesh(tokens, transform->getModels(), INSTANCED_ARRAY_SHADER, tempDif, tempSpec));
+		mesh.push_back(new Mesh(tokens, transform->getModels(), INSTANCED_SHADER, tempDif, tempSpec));
 		i++;
 		tokens = strtok_s(NULL, ",", &context);
 	}

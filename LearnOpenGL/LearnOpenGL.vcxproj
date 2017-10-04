@@ -217,6 +217,7 @@
     <None Include="instanced.vert" />
     <None Include="instancedAlpha.vert" />
     <None Include="instancedArray.vert" />
+    <None Include="Shaders\grass.frag" />
     <None Include="Shaders\line.geom" />
     <None Include="Shaders\passthrough.geom" />
     <None Include="Shaders\instancedVertToGeo.vert" />

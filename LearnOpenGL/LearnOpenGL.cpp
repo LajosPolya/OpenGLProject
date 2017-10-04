@@ -77,7 +77,7 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Locks Mouse into Screen
-	///glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -125,6 +125,10 @@ int main()
 
 	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", &camera, projection);
 	InstancedArrayGameObjectImpl perlin3d("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d, "Material/crate.txt", &camera, projection, GL_TRIANGLES);
+
+	///InstancedArrayGameObjectImpl lineGrass("Shaders/instancedVertToGeo.vert", "Shaders/grass.frag", "Shaders/line.geom", "", "", "Mesh/dynamicGrass.txt", "Material/crate.txt", pos3d, "Material/crate.txt", &camera, projection, GL_POINTS);
+	// TODO: Create a method in GameObjectUtils which'll create the Composite GameObject
+
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
