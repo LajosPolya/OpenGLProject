@@ -35,6 +35,32 @@ std::vector<Texture*> GameObjectUtils::getSpecularTextures(std::string path)
 	return specularMaps;
 }
 
+std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, Transform * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps)
+{
+	GLchar * tokens;
+	GLchar* context = NULL;
+
+	tokens = strtok_s(&path[0], ",", &context);
+	std::vector<Mesh*> mesh;
+	GLint i = 0;
+	Texture * tempDif;
+	Texture * tempSpec;
+	while (tokens != NULL) {
+		tempDif = nullptr;
+		if (i < diffuseMaps.size()) {
+			tempDif = diffuseMaps[i];
+		}
+		tempSpec = nullptr;
+		if (i < specularMaps.size()) {
+			tempSpec = specularMaps[i];
+		}
+		mesh.push_back(new Mesh(tokens, tempDif, tempSpec));
+		i++;
+		tokens = strtok_s(NULL, ",", &context);
+	}
+	return mesh;
+}
+
 std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedArrayTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps)
 {
 	GLchar * tokens;

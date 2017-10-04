@@ -24,6 +24,16 @@ Mesh::Mesh(GLchar* vertexLocation) {
 	this->setupMesh();
 }
 
+Mesh::Mesh(GLchar * vertexLocation, Texture * diffuseMap, Texture * specularMap)
+{
+	this->readVertexFile(vertexLocation);
+
+	this->diffuseMap = diffuseMap;
+	this->specularMap = specularMap;
+	this->primitiveType = GL_TRIANGLES;
+	this->setupMesh();
+}
+
 Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type)
 {
 	this->readVertexFile(vertexLocation);

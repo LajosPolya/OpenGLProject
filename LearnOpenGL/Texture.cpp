@@ -1,7 +1,7 @@
 #include "Texture.h"
 
 GLuint id;
-GLchar* name;
+GLchar * name;
 std::string type;
 
 Texture::Texture() {
@@ -11,8 +11,7 @@ Texture::Texture() {
 }
 
 Texture::Texture(GLchar * path, GLboolean alpha) {
-
-	if (path != NULL) {
+	if (path != nullptr) {
 		// Gen texture ID and load texture data
 		glGenTextures(1, &this->id);
 		int width, height;

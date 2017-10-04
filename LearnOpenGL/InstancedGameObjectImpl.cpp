@@ -24,6 +24,7 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	this->shader->setProjectionMatrix(projection);
 }
 
+// TODO: Why isn't a mesh being created here?
 InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
 {
 	this->shader = new Shader(vertexShader, fragmentShader);
