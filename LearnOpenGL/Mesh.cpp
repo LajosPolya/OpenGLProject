@@ -155,7 +155,7 @@ void Mesh::setupMesh() {
 	}
 
 	// Instancing
-	if (this->numInstances > 0 && type == INSTANCED_ARRAY_SHADER) {
+	if (this->numInstances > 0 && this->type == INSTANCED_ARRAY_SHADER) {
 		this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
 		glGenBuffers(1, &this->instanceVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
@@ -179,7 +179,7 @@ void Mesh::setupMesh() {
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
-	else if (this->numInstances > 0 && type == INSTANCED_SHADER) {
+	else if (this->numInstances > 0 && this->type == INSTANCED_SHADER) {
 		this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
 	}
 
