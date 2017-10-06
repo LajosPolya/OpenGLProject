@@ -26,7 +26,7 @@ public:
 
 	TransformImpl();
 
-	TransformImpl(GLchar* fileLocation, GameObject* gameObject);
+	TransformImpl(GLchar * fileLocation, GameObject * gameObject);
 
 	glm::vec3 getPosition();
 
@@ -46,7 +46,7 @@ public:
 
 private:
 	/* Reference to own GameObject instance*/
-	GameObject* gameObject;
+	GameObject * gameObject = nullptr;
 
 
 	/* Only the file should set this */
@@ -61,5 +61,5 @@ private:
 
 	glm::mat4 model;
 
-	void readFile(GLchar* filename);
+	void readFile(GLchar * filename);
 };

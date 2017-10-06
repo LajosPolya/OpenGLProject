@@ -26,6 +26,8 @@ public:
 	GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, std::string meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection);
 	GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection);
 	
+	~GameObjectImpl();
+
 	void Draw();
 
 	Shader * getShader();
@@ -42,15 +44,15 @@ public:
 private:
 	std::vector<Mesh*> mesh;
 
-	Material * material;
+	Material * material = nullptr;
 
-	Shader * shader;
+	Shader * shader = nullptr;
 
-	Camera * camera;
+	Camera * camera = nullptr;
 
-	Transform * transform;
+	Transform * transform = nullptr;
 
-	LightsContainer * lightsContainer;
+	LightsContainer * lightsContainer = nullptr;
 
 	glm::mat4 projection;
 };

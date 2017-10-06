@@ -26,8 +26,8 @@ public:
 
 	Shader();
 
-	Shader(const GLchar* vertexPath, const GLchar * fragmentPath);
-	Shader(const GLchar* vertexPath, const GLchar * fragmentPath, GLchar * geometryPath);
+	Shader(const GLchar * vertexPath, const GLchar * fragmentPath);
+	Shader(const GLchar * vertexPath, const GLchar * fragmentPath, GLchar * geometryPath);
 	void readShaderFile(const GLchar * path, std::string * code);
 	GLuint createShader(GLint type, const GLchar * code);
 

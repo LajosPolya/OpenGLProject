@@ -51,6 +51,34 @@ GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, G
 	this->shader->setProjectionMatrix(projection);
 }
 
+GameObjectImpl::~GameObjectImpl()
+{
+	/*std::vector<Mesh*> mesh;
+	Material * material = nullptr;
+	Shader * shader = nullptr;
+	Camera * camera = nullptr;
+	Transform * transform = nullptr;
+	LightsContainer * lightsContainer = nullptr;*/
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		delete mesh[i];
+	}
+	if (this->material != nullptr) {
+		delete this->material;
+	}
+	if (this->shader != nullptr) {
+		delete this->shader;
+	}
+	if (this->camera != nullptr) {
+		// delete this->camera;
+	}
+	if (this->transform != nullptr) {
+		delete this->transform;
+	}
+	if (this->lightsContainer != nullptr) {
+		delete this->lightsContainer;
+	}
+}
+
 void GameObjectImpl::Draw() {
 
 	this->transform->refreshModel();

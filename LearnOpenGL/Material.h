@@ -22,7 +22,7 @@ public:
 
 	Material();
 
-	Material(GLchar* materialLocation);
+	Material(GLchar * materialLocation);
 
 	GLfloat getShininess();
 
@@ -48,8 +48,8 @@ private:
 	}
 	Read Doc/Material.txt for more info
 	*/
-	void getMeshProperties(MaterialProp * material, GLchar* context, GLchar lightPropType);
+	void getMeshProperties(MaterialProp * material, GLchar * context, GLchar lightPropType);
 
 	MaterialProp material;
-	void readLightingFile(GLchar* filename);
+	void readLightingFile(GLchar * filename);
 };

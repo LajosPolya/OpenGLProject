@@ -69,12 +69,12 @@ private:
 	GLuint type = 0;
 	GLuint primitiveType = 0;
 
-	Texture * diffuseMap;
-	Texture * specularMap;
+	Texture * diffuseMap = nullptr;
+	Texture * specularMap = nullptr;
 
 	// Function
 	void setupMesh();
 
 	/* Reads in a mesh file and Processes Vertices */
-	void readVertexFile(GLchar* filename);
+	void readVertexFile(GLchar * filename);
 };

@@ -21,8 +21,8 @@ private:
 	void readLightingFile(GLchar* filename);
 
 	/* Can be initialized at the top of the .cpp */
-	static DirLight* dirLight;
-	static SpotLight* spotLight;
+	static DirLight * dirLight;
+	static SpotLight * spotLight;
 	static std::vector<PointLight> pointLights;
 
 	/*
@@ -40,7 +40,7 @@ private:
 	}
 	Read Doc/Material.txt for more info
 	*/
-	void getMeshProperties(DirLight * dirLight, GLchar* context, GLchar lightPropType);
-	void getMeshProperties(SpotLight * spotLight, GLchar* context, GLchar lightPropType);
-	void getMeshProperties(PointLight * pointLight, GLchar* context, GLchar lightPropType);
+	void getMeshProperties(DirLight * dirLight, GLchar * context, GLchar lightPropType);
+	void getMeshProperties(SpotLight * spotLight, GLchar * context, GLchar lightPropType);
+	void getMeshProperties(PointLight * pointLight, GLchar * context, GLchar lightPropType);
 };

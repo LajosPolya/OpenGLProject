@@ -26,7 +26,7 @@ public:
 
 	TransparentTransformImpl(GLchar * fileLocation, TransparentGameObjectImpl * gameObject);
 
-	glm::vec3* getPositions(GLuint i);
+	glm::vec3 * getPositions(GLuint i);
 
 	glm::mat4 getModel(GLuint i);
 
@@ -55,7 +55,7 @@ private:
 	std::vector<glm::mat4> models;
 
 	/* Reference to own GameObject instance*/
-	TransparentGameObjectImpl * gameObject;
+	TransparentGameObjectImpl * gameObject = nullptr;
 
 	/* Only the file should set this */
 	std::vector<InstancedTransformProps> props;

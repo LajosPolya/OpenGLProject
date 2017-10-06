@@ -33,15 +33,15 @@ public:
 private:
 	std::vector<Mesh*> mesh;
 
-	Material * material;
+	Material * material = nullptr;
 
-	Shader * shader;
+	Shader * shader = nullptr;
 
-	Camera * camera;
+	Camera * camera = nullptr;
 
-	InstancedArrayTransformImpl * transform;
+	InstancedArrayTransformImpl * transform = nullptr;
 
-	LightsContainer * lightsContainer;
+	LightsContainer * lightsContainer = nullptr;
 
 	glm::mat4 projection;
 };

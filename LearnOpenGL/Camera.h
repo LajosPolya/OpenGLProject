@@ -55,6 +55,7 @@ public:
 		this->updateCameraVectors();
 	}
 
+
 	glm::mat4 GetViewMatrix() {
 		return glm::lookAt(this->Position, this->Position + this->Front, this->Up);
 	}
