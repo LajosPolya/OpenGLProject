@@ -11,6 +11,7 @@
 #include "Material.h"
 #include "GameObject.h"
 #include "GameObjectUtils.h"
+#include "GameObjectMemoryManager.h"
 
 // GLM
 #include <glm/glm.hpp>
@@ -20,13 +21,11 @@
 
 class GameObjectImpl : public GameObject {
 public:
+	~GameObjectImpl();
 
-	/* In the future have a Constructor which doesn't take the lightsLoc and allow the LightsContainer to be initialized independenty */
 	GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * specularMapLoc, std::string meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection);
 	GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, std::string meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection);
 	GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection);
-	
-	~GameObjectImpl();
 
 	void Draw();
 

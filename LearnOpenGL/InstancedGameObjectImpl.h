@@ -3,6 +3,7 @@
 #include "InstancedGameObject.h"
 #include "InstancedTransformImpl.h"
 #include "GameObjectUtils.h"
+#include "GameObjectMemoryManager.h"
 
 class InstancedGameObjectImpl : public InstancedGameObject
 {
@@ -11,34 +12,32 @@ public:
 	~InstancedGameObjectImpl();
 
 	InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection);
-	InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection);
 
 	void Draw();
 
-	Shader* getShader();
+	Shader * getShader();
 
-	Camera* getCamera();
+	Camera * getCamera();
 
-	InstancedTransformImpl* getTransform();
+	InstancedTransformImpl * getTransform();
 
-	Texture* getDiffuseMap(GLint i);
-	Texture* getSpecularMap(GLint i);
+	Texture * getDiffuseMap(GLint i);
+	Texture * getSpecularMap(GLint i);
 
-	LightsContainer* getLightsContainer();
+	LightsContainer * getLightsContainer();
 
 private:
-	// Mesh* mesh;
 	std::vector<Mesh*> mesh;
 
-	Material* material;
+	Material * material = nullptr;
 
-	Shader* shader;
+	Shader * shader = nullptr;
 
-	Camera* camera;
+	Camera * camera = nullptr;
 
-	InstancedTransformImpl* transform;
+	InstancedTransformImpl * transform = nullptr;
 
-	LightsContainer* lightsContainer;
+	LightsContainer * lightsContainer = nullptr;
 
 	glm::mat4 projection;
 };

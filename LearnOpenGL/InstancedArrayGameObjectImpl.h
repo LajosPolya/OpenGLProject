@@ -3,6 +3,7 @@
 #include "InstancedGameObject.h"
 #include "InstancedArrayTransformImpl.h"
 #include "GameObjectUtils.h"
+#include "GameObjectMemoryManager.h"
 
 
 class InstancedArrayGameObjectImpl : public InstancedGameObject

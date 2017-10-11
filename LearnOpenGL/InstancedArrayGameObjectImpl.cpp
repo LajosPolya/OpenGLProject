@@ -3,7 +3,28 @@
 
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl() {}
 
-InstancedArrayGameObjectImpl::~InstancedArrayGameObjectImpl() {}
+InstancedArrayGameObjectImpl::~InstancedArrayGameObjectImpl() {
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		if (this->mesh[i] != nullptr && GameObjectMemoryManager::decrement(this->material) == 0) {
+			delete this->mesh[i];
+		}
+	}
+	if (this->material != nullptr && GameObjectMemoryManager::decrement(this->material) == 0) {
+		delete this->material;
+	}
+	if (this->shader != nullptr && GameObjectMemoryManager::decrement(this->shader) == 0) {
+		delete this->shader;
+	}
+	if (this->camera != nullptr && GameObjectMemoryManager::decrement(this->camera) == 0) {
+		delete this->camera;
+	}
+	if (this->transform != nullptr && GameObjectMemoryManager::decrement(this->transform) == 0) {
+		delete this->transform;
+	}
+	if (this->lightsContainer != nullptr && GameObjectMemoryManager::decrement(this->lightsContainer) == 0) {
+		delete this->lightsContainer;
+	}
+}
 
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc1, std::string specularMapLoc1, std::string meshLoc1, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
 {
@@ -23,6 +44,15 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->lightsContainer = new LightsContainer(lightsLoc);
 
 	this->shader->setProjectionMatrix(projection);
+
+	GameObjectMemoryManager::add(this->shader);
+	GameObjectMemoryManager::add(this->transform);
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		GameObjectMemoryManager::add(this->mesh[i]);
+	}
+	GameObjectMemoryManager::add(this->material);
+	GameObjectMemoryManager::add(this->camera, false);
+	GameObjectMemoryManager::add(this->lightsContainer);
 }
 
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * geometryShader, std::string diffuseMapLoc1, std::string specularMapLoc1, std::string meshLoc1, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
@@ -43,6 +73,15 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->lightsContainer = new LightsContainer(lightsLoc);
 
 	this->shader->setProjectionMatrix(projection);
+
+	GameObjectMemoryManager::add(this->shader);
+	GameObjectMemoryManager::add(this->transform);
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		GameObjectMemoryManager::add(this->mesh[i]);
+	}
+	GameObjectMemoryManager::add(this->material);
+	GameObjectMemoryManager::add(this->camera, false);
+	GameObjectMemoryManager::add(this->lightsContainer);
 }
 
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc1, std::string specularMapLoc1, std::string meshLoc1, GLchar * materialLoc, std::vector<glm::vec3>& positions, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
@@ -63,6 +102,15 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->lightsContainer = new LightsContainer(lightsLoc);
 
 	this->shader->setProjectionMatrix(projection);
+
+	GameObjectMemoryManager::add(this->shader);
+	GameObjectMemoryManager::add(this->transform);
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		GameObjectMemoryManager::add(this->mesh[i]);
+	}
+	GameObjectMemoryManager::add(this->material);
+	GameObjectMemoryManager::add(this->camera, false);
+	GameObjectMemoryManager::add(this->lightsContainer);
 }
 
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * geometryShader, std::string diffuseMapLoc1, std::string specularMapLoc1, std::string meshLoc1, GLchar * materialLoc, std::vector<glm::vec3>& positions, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
@@ -83,6 +131,15 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->lightsContainer = new LightsContainer(lightsLoc);
 
 	this->shader->setProjectionMatrix(projection);
+
+	GameObjectMemoryManager::add(this->shader);
+	GameObjectMemoryManager::add(this->transform);
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		GameObjectMemoryManager::add(this->mesh[i]);
+	}
+	GameObjectMemoryManager::add(this->material);
+	GameObjectMemoryManager::add(this->camera, false);
+	GameObjectMemoryManager::add(this->lightsContainer);
 }
 
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * geometryShader, std::string diffuseMapLoc1, std::string specularMapLoc1, std::string meshLoc1, GLchar * materialLoc, std::vector<glm::vec3>& positions, GLchar * lightsLoc, Camera * camera, glm::mat4 projection, GLuint primitiveType)
@@ -103,6 +160,15 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->lightsContainer = new LightsContainer(lightsLoc);
 
 	this->shader->setProjectionMatrix(projection);
+
+	GameObjectMemoryManager::add(this->shader);
+	GameObjectMemoryManager::add(this->transform);
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		GameObjectMemoryManager::add(this->mesh[i]);
+	}
+	GameObjectMemoryManager::add(this->material);
+	GameObjectMemoryManager::add(this->camera, false);
+	GameObjectMemoryManager::add(this->lightsContainer);
 }
 
 void InstancedArrayGameObjectImpl::Draw() {

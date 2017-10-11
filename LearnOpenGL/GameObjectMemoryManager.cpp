@@ -1,33 +1,53 @@
 #include "GameObjectMemoryManager.h"
 
+
 /* static member must be defiend in the .cpp file */
-std::map<void *, int> GameObjectMemoryManager::manager;
+std::map<void *, GameObjectMemoryManager::AddressProperties> GameObjectMemoryManager::manager;
 
 GameObjectMemoryManager::GameObjectMemoryManager() {}
 
-GameObjectMemoryManager::~GameObjectMemoryManager() {}
+GameObjectMemoryManager::~GameObjectMemoryManager() {
+	// TODO: This never gets called
+	for (auto const prop : manager) {
+		delete prop.first;
+	}
+
+}
 
 void GameObjectMemoryManager::add(void * ptr)
 {
-	std::map<void *, int>::iterator it = manager.find(ptr);
+	GameObjectMemoryManager::add(ptr, true);
+}
+
+void GameObjectMemoryManager::add(void * ptr, bool ownedByClass)
+{
+	std::map<void *, GameObjectMemoryManager::AddressProperties>::iterator it = manager.find(ptr);
 
 	if (it == manager.end()) {
-		manager[ptr] = 1;
+		GameObjectMemoryManager::AddressProperties prop;
+		prop.count = 1;
+		prop.ownedByClass = ownedByClass;
+		manager[ptr] = prop;
 	}
 	else {
-		manager[ptr] = ++it->second;
+		++it->second.count;
+		manager[ptr] = it->second;
 	}
 }
 
 int GameObjectMemoryManager::decrement(void * ptr)
 {
-	std::map<void *, int>::iterator it = manager.find(ptr);
+	std::map<void *, GameObjectMemoryManager::AddressProperties>::iterator it = manager.find(ptr);
 
 	if (it == manager.end()) {
 		return -1;
 	}
 	else {
-		manager[ptr] = --it->second;
-		return it->second;
+		if (it->second.ownedByClass == false) {
+			return 1;
+		}
+		--it->second.count;
+		manager[ptr] = it->second;
+		return it->second.count;
 	}
 }

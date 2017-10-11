@@ -2,7 +2,28 @@
 
 InstancedGameObjectImpl::InstancedGameObjectImpl() {}
 
-InstancedGameObjectImpl::~InstancedGameObjectImpl() {}
+InstancedGameObjectImpl::~InstancedGameObjectImpl() {
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		if (this->mesh[i] != nullptr && GameObjectMemoryManager::decrement(this->material) == 0) {
+			delete this->mesh[i];
+		}
+	}
+	if (this->material != nullptr && GameObjectMemoryManager::decrement(this->material) == 0) {
+		delete this->material;
+	}
+	if (this->shader != nullptr && GameObjectMemoryManager::decrement(this->shader) == 0) {
+		delete this->shader;
+	}
+	if (this->camera != nullptr && GameObjectMemoryManager::decrement(this->camera) == 0) {
+		delete this->camera;
+	}
+	if (this->transform != nullptr && GameObjectMemoryManager::decrement(this->transform) == 0) {
+		delete this->transform;
+	}
+	if (this->lightsContainer != nullptr && GameObjectMemoryManager::decrement(this->lightsContainer) == 0) {
+		delete this->lightsContainer;
+	}
+}
 
 InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
 {
@@ -22,21 +43,15 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	this->lightsContainer = new LightsContainer(lightsLoc);
 
 	this->shader->setProjectionMatrix(projection);
-}
 
-// TODO: Why isn't a mesh being created here?
-InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
-{
-	this->shader = new Shader(vertexShader, fragmentShader);
-
-	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
-
-	this->transform = new InstancedTransformImpl(transformLoc, this);
-
-	this->camera = camera;
-	this->projection = projection;
-
-	this->shader->setProjectionMatrix(projection);
+	GameObjectMemoryManager::add(this->shader);
+	GameObjectMemoryManager::add(this->transform);
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		GameObjectMemoryManager::add(this->mesh[i]);
+	}
+	GameObjectMemoryManager::add(this->material);
+	GameObjectMemoryManager::add(this->camera, false);
+	GameObjectMemoryManager::add(this->lightsContainer);
 }
 
 void InstancedGameObjectImpl::Draw() {

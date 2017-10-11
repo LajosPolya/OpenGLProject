@@ -127,8 +127,6 @@ int main()
 	InstancedArrayGameObjectImpl perlin3d("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d, "Material/crate.txt", &camera, projection, GL_TRIANGLES);
 
 	///InstancedArrayGameObjectImpl lineGrass("Shaders/instancedVertToGeo.vert", "Shaders/grass.frag", "Shaders/line.geom", "", "", "Mesh/dynamicGrass.txt", "Material/crate.txt", pos3d, "Material/crate.txt", &camera, projection, GL_POINTS);
-	// TODO: Create a method in GameObjectUtils which'll create the Composite GameObject
-
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))

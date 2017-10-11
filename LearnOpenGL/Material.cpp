@@ -11,7 +11,10 @@ Material::Material(GLchar* materialLocation) {
 
 GLfloat Material::getShininess()
 {
-	return material.shininess;
+	if (this != nullptr) {
+		return material.shininess;
+	}
+	return (GLfloat)0.0f;
 }
 
 /* DirLight, SpotLight and PointLights were initialized in this->readLightingFile() */

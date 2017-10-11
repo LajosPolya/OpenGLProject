@@ -6,6 +6,7 @@
 #include "InstancedGameObject.h"
 #include "TransparentTransformImpl.h"
 #include "GameObjectUtils.h"
+#include "GameObjectMemoryManager.h"
 
 class TransparentGameObjectImpl
 {
