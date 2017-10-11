@@ -42,7 +42,7 @@ std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, Transform * tran
 
 	tokens = strtok_s(&path[0], ",", &context);
 	std::vector<Mesh*> mesh;
-	GLint i = 0;
+	GLuint i = 0;
 	Texture * tempDif;
 	Texture * tempSpec;
 	while (tokens != NULL) {

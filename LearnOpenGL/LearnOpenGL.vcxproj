@@ -120,6 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameObjectImpl.cpp" />
+    <ClCompile Include="GameObjectMemoryManager.cpp" />
     <ClCompile Include="GameObjectUtils.cpp" />
     <ClCompile Include="InstancedArrayGameObjectImpl.cpp" />
     <ClCompile Include="InstancedArrayTransformImpl.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectImpl.h" />
+    <ClInclude Include="GameObjectMemoryManager.h" />
     <ClInclude Include="GameObjectUtils.h" />
     <ClInclude Include="InstancedArrayGameObjectImpl.h" />
     <ClInclude Include="InstancedArrayTransformImpl.h" />
