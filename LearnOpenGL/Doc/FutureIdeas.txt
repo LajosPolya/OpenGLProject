@@ -32,3 +32,7 @@ Create a GameObject where every one of its components
   Have a system where the every GameObject has access to a std::map of std::string paths 
   to filePointers. This way the file doesn't have to be read again and main() doesn't 
   have to worry about managing FilePointers
+
+  And if you don't want to parse the file again you can also only parse the file once, 
+  save the conents of the file and return a new instance (not pointer or reference) of the 
+  GameObject component everytime
