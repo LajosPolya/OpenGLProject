@@ -190,20 +190,22 @@ void Shader::sendToShader(DirLight * dirLight, SpotLight * spotLight, std::vecto
 // Only send data to shader when it has changed.
 void Shader::sendToShader(GameObjectImpl * gameObject)
 {
+	Camera * camera = gameObject->getCamera();
+
 	this->Use();
 
-	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
+	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), camera->Position.x, camera->Position.y, camera->Position.z);
 
 
 	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
 	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
 
-	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(gameObject->getCamera()->GetViewMatrix()));
+	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
 	glUniformMatrix4fv(glGetUniformLocation(this->Program, "model"), 1, GL_FALSE, glm::value_ptr(gameObject->getTransform()->getModel()));
 
 	// Set material properties
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), gameObject->getCamera()->Front.x, gameObject->getCamera()->Front.y, gameObject->getCamera()->Front.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), camera->Position.x, camera->Position.y, camera->Position.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), camera->Front.x, camera->Front.y, camera->Front.z);
 }
 
 void Shader::sendToShader(InstancedArrayGameObjectImpl * gameObject)
@@ -222,7 +224,7 @@ void Shader::sendToShader(InstancedGameObjectImpl * gameObject)
 	this->sendCommonToShader(gameObject);
 
 	std::vector<glm::mat4> models = gameObject->getTransform()->getModels();
-	for (GLuint i = 0; i < gameObject->getTransform()->getModels().size(); i++) {
+	for (GLuint i = 0; i < models.size(); i++) {
 		glUniformMatrix4fv(glGetUniformLocation(this->Program, ("model[" + std::to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(models[i]));
 	}
 }
@@ -232,8 +234,9 @@ void Shader::sendToShader(TransparentGameObjectImpl * gameObject)
 	this->Use();
 	sendCommonToShader(gameObject);
 
-	for (GLuint i = 0; i < gameObject->getTransform()->getModels().size(); i++) {
-		glUniformMatrix4fv(glGetUniformLocation(this->Program, ("model[" + std::to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(gameObject->getTransform()->getModel(i)));
+	std::vector<glm::mat4> models = gameObject->getTransform()->getModels();
+	for (GLuint i = 0; i < models.size(); i++) {
+		glUniformMatrix4fv(glGetUniformLocation(this->Program, ("model[" + std::to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(models[i]));
 	}
 }
 
@@ -245,15 +248,18 @@ void Shader::sendToShader(Material * material)
 
 void Shader::sendToShader(Mesh * mesh)
 {
-	if (mesh->getDiffuseMap() != nullptr) {
+	// Bind Diffuse Map
+	Texture * diffuseMap = mesh->getDiffuseMap();
+	if (diffuseMap != nullptr) {
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, mesh->getDiffuseMap()->getTextureID());
+		glBindTexture(GL_TEXTURE_2D, diffuseMap->getTextureID());
 	}
 
 	// Bind Specular Map
-	if (mesh->getSpecularMap() != nullptr) {
+	Texture * specularMap = mesh->getSpecularMap();
+	if (specularMap != nullptr) {
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, mesh->getSpecularMap()->getTextureID());
+		glBindTexture(GL_TEXTURE_2D, specularMap->getTextureID());
 	}
 }
 
@@ -265,30 +271,32 @@ void Shader::setProjectionMatrix(glm::mat4 projection)
 
 void Shader::sendCommonToShader(TransparentGameObjectImpl * gameObject)
 {
-	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
+	Camera * camera = gameObject->getCamera();
+	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), camera->Position.x, camera->Position.y, camera->Position.z);
 	
 	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
 	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
 
-	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(gameObject->getCamera()->GetViewMatrix()));
+	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
 
 	// Set material properties
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), gameObject->getCamera()->Front.x, gameObject->getCamera()->Front.y, gameObject->getCamera()->Front.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), camera->Position.x, camera->Position.y, camera->Position.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), camera->Front.x, camera->Front.y, camera->Front.z);
 }
 
 void Shader::sendCommonToShader(InstancedGameObject * gameObject)
 {
-	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
+	Camera * camera = gameObject->getCamera();
+	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), camera->Position.x, camera->Position.y, camera->Position.z);
 
 	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
 	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
 
-	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(gameObject->getCamera()->GetViewMatrix()));
+	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
 
 	// Set material properties
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), gameObject->getCamera()->Position.x, gameObject->getCamera()->Position.y, gameObject->getCamera()->Position.z);
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), gameObject->getCamera()->Front.x, gameObject->getCamera()->Front.y, gameObject->getCamera()->Front.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), camera->Position.x, camera->Position.y, camera->Position.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), camera->Front.x, camera->Front.y, camera->Front.z);
 }
 
 // TODO: This can allow Shaders to have variable amount of Textures

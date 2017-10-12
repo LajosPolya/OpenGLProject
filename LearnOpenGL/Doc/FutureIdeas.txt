@@ -10,3 +10,25 @@ the Player onto the block it just moved.
 
 This can make a really fast paced game where the player 
 has to collect objects around the map.
+
+
+
+
+Create a GameObject where every one of its components 
+  has a reference back to it. Therefore if for instance, 
+  the Transform of the GameObject changes it can set a variable in the 
+  GameObject. Since all of the GameObject's components can set this variable 
+  the GameObject can know if it has to call the Shader or not.
+
+
+  GameObjects should have Constructors which take a FilePointer instead of a 
+  std::string containing the path. This way for example, a Transform file can be 
+  read once and distributed quickly manyTime
+  
+  These GameObjects can even be a separate class with the same interface 
+  but different Constructor. This way the functionalities of the different 
+  GameObject classes can be easily distingueshed.
+
+  Have a system where the every GameObject has access to a std::map of std::string paths 
+  to filePointers. This way the file doesn't have to be read again and main() doesn't 
+  have to worry about managing FilePointers

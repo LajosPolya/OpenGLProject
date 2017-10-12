@@ -45,6 +45,13 @@ public:
 	void Draw();
 
 private:
+	// TODO: Is it a good idea to have a reference back to the GameObject?
+	/* 
+	What if this TransformImpl is is returned by its owner GameObject and assigned 
+	as the Transform of a new GameObject. This Transform will still point to its original 
+	GameObject owner. This means that through one GameObject you'd have a reference to another 
+	GameObject 
+	*/
 	/* Reference to own GameObject instance*/
 	GameObject * gameObject = nullptr;
 
