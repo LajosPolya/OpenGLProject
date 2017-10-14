@@ -2,7 +2,7 @@
 
 
 /* static member must be defiend in the .cpp file */
-std::map<void *, GameObjectMemoryManager::AddressProperties> GameObjectMemoryManager::manager;
+std::unordered_map<void *, GameObjectMemoryManager::AddressProperties> GameObjectMemoryManager::manager;
 
 GameObjectMemoryManager::GameObjectMemoryManager() {}
 
@@ -15,7 +15,7 @@ void GameObjectMemoryManager::add(void * ptr)
 
 void GameObjectMemoryManager::add(void * ptr, bool ownedByClass)
 {
-	std::map<void *, GameObjectMemoryManager::AddressProperties>::iterator it = manager.find(ptr);
+	std::unordered_map<void *, GameObjectMemoryManager::AddressProperties>::iterator it = manager.find(ptr);
 
 	if (it == manager.end()) {
 		GameObjectMemoryManager::AddressProperties prop;
@@ -31,7 +31,7 @@ void GameObjectMemoryManager::add(void * ptr, bool ownedByClass)
 
 int GameObjectMemoryManager::decrement(void * ptr)
 {
-	std::map<void *, GameObjectMemoryManager::AddressProperties>::iterator it = manager.find(ptr);
+	std::unordered_map<void *, GameObjectMemoryManager::AddressProperties>::iterator it = manager.find(ptr);
 
 	if (it == manager.end()) {
 		return -1;

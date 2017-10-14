@@ -2,11 +2,14 @@
 
 Material::Material() {}
 
-Material::Material(GLchar* materialLocation) {
+Material::Material(std::string materialLocation) {
 
-	if (materialLocation != nullptr) {
-		this->readLightingFile(materialLocation);
-	}
+	this->readLightingFile(materialLocation);
+}
+
+Material::Material(MaterialProp prop)
+{
+	this->material = prop;
 }
 
 GLfloat Material::getShininess()
@@ -15,6 +18,11 @@ GLfloat Material::getShininess()
 		return material.shininess;
 	}
 	return (GLfloat)0.0f;
+}
+
+MaterialProp Material::getMaterialProp()
+{
+	return this->material;
 }
 
 /* DirLight, SpotLight and PointLights were initialized in this->readLightingFile() */
@@ -53,7 +61,7 @@ void Material::getMeshProperties(MaterialProp * material, GLchar* context, GLcha
 	}
 }
 
-void Material::readLightingFile(GLchar* filename) {
+void Material::readLightingFile(std::string filename) {
 	std::string line;
 	std::ifstream file(filename);
 	GLint vertexProp_BitMap = 0;

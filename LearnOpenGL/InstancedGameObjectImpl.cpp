@@ -4,7 +4,7 @@ InstancedGameObjectImpl::InstancedGameObjectImpl() {}
 
 InstancedGameObjectImpl::~InstancedGameObjectImpl() {
 	for (GLuint i = 0; i < this->mesh.size(); i++) {
-		if (this->mesh[i] != nullptr && GameObjectMemoryManager::decrement(this->material) == 0) {
+		if (this->mesh[i] != nullptr && GameObjectMemoryManager::decrement(this->mesh[i]) == 0) {
 			delete this->mesh[i];
 		}
 	}
@@ -35,7 +35,7 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	this->transform = new InstancedTransformImpl(transformLoc, this);
 	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform, diffuseMaps, specularMaps);
 
-	this->material = new Material(materialLoc);
+	this->material = GameObjectUtils::getMaterial(materialLoc);
 
 	this->camera = camera;
 	this->projection = projection;

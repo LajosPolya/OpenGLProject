@@ -34,8 +34,15 @@ Texture::Texture(GLchar * path, GLboolean alpha) {
 	}
 }
 
+Texture::Texture(GLuint id, std::string name, std::string type)
+{
+	this->id = id;
+	this->name = name;
+	this->type = type;
+}
+
 /* MAKE THE MESH/MATERIALS USE THIS INSTEAD OF THE TEXTURE STRUCT IN MESH CLASS*/
-Texture::Texture(GLchar * path, GLboolean alpha, GLchar * name) {
+Texture::Texture(GLchar * path, GLboolean alpha, std::string name) {
 	this->name = name;
 	// Gen texture ID and load texture data
 	glGenTextures(1, &this->id);
@@ -61,4 +68,19 @@ Texture::Texture(GLchar * path, GLboolean alpha, GLchar * name) {
 
 GLuint Texture::getTextureID() {
 	return this->id;
+}
+
+std::string Texture::getName()
+{
+	return this->name;
+}
+
+std::string Texture::getType()
+{
+	return this->type;
+}
+
+void Texture::setName(std::string name)
+{
+	this->name = name;
 }

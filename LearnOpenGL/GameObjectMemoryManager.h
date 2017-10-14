@@ -1,6 +1,6 @@
 #pragma once
 
-#include <map>
+#include <unordered_map>
 
 class GameObjectMemoryManager
 {
@@ -18,6 +18,6 @@ private:
 		int count;
 		bool ownedByClass;
 	};
-	static std::map<void *, AddressProperties> manager;
+	static std::unordered_map<void *, AddressProperties> manager;
 };
 

@@ -17,21 +17,22 @@
  *
 */
 
+struct MaterialProp {
+	GLfloat shininess;
+};
+
 class Material {
 public:
 
 	Material();
 
-	Material(GLchar * materialLocation);
+	Material(std::string materialLocation);
+	Material(MaterialProp prop);
 
 	GLfloat getShininess();
+	MaterialProp getMaterialProp();
 
 private:
-	struct MaterialProp {
-		GLfloat shininess;
-	};
-
-
 	/* DirLight, SpotLight and PointLights were initialized in this->readLightingFile() in LightsContainer Class */
 	/*
 	Light Prop Type {
@@ -51,5 +52,5 @@ private:
 	void getMeshProperties(MaterialProp * material, GLchar * context, GLchar lightPropType);
 
 	MaterialProp material;
-	void readLightingFile(GLchar * filename);
+	void readLightingFile(std::string filename);
 };
