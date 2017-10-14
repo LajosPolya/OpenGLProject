@@ -49,7 +49,12 @@ int GameObjectMemoryManager::decrement(void * ptr)
 void GameObjectMemoryManager::deleteSharedPointers()
 {
 	for (auto it = manager.begin(); it != manager.end();) {
-		delete it->first;
-		manager.erase(it++);
+		if (it->second.ownedByClass == false) {
+			delete it->first;
+			manager.erase(it++);
+		}
+		else {
+			it++;
+		}
 	}
 }
