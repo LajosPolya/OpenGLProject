@@ -5,7 +5,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl() {}
 
 InstancedArrayGameObjectImpl::~InstancedArrayGameObjectImpl() {
 	for (GLuint i = 0; i < this->mesh.size(); i++) {
-		if (this->mesh[i] != nullptr && GameObjectMemoryManager::decrement(this->material) == 0) {
+		if (this->mesh[i] != nullptr && GameObjectMemoryManager::decrement(this->mesh[i]) == 0) {
 			delete this->mesh[i];
 		}
 	}

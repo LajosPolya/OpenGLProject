@@ -11,6 +11,7 @@ public:
 	static void add(void * ptr);
 	static void add(void * ptr, bool ownedByClass);
 	static int decrement(void * ptr);
+	static void deleteSharedPointers();
 
 private:
 	struct AddressProperties {

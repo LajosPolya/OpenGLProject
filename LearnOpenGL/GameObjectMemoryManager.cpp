@@ -6,13 +6,7 @@ std::map<void *, GameObjectMemoryManager::AddressProperties> GameObjectMemoryMan
 
 GameObjectMemoryManager::GameObjectMemoryManager() {}
 
-GameObjectMemoryManager::~GameObjectMemoryManager() {
-	// TODO: This never gets called
-	for (auto const prop : manager) {
-		delete prop.first;
-	}
-
-}
+GameObjectMemoryManager::~GameObjectMemoryManager() {}
 
 void GameObjectMemoryManager::add(void * ptr)
 {
@@ -49,5 +43,13 @@ int GameObjectMemoryManager::decrement(void * ptr)
 		--it->second.count;
 		manager[ptr] = it->second;
 		return it->second.count;
+	}
+}
+
+void GameObjectMemoryManager::deleteSharedPointers()
+{
+	for (auto it = manager.begin(); it != manager.end();) {
+		delete it->first;
+		manager.erase(it++);
 	}
 }
