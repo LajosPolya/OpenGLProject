@@ -36,11 +36,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
 	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps);
 
-	this->material = ResourceManager::getMaterial(materialLoc);
-	if (this->material == nullptr) {
-		this->material = new Material(materialLoc);
-		ResourceManager::addInstance(materialLoc, this->material);
-	}
+	this->material = GameObjectUtils::getMaterial(materialLoc);
 
 	this->camera = camera;
 	this->projection = projection;
@@ -69,11 +65,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->transform = new InstancedArrayTransformImpl(transformLoc, this);
 	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps);
 
-	this->material = ResourceManager::getMaterial(materialLoc);
-	if (this->material == nullptr) {
-		this->material = new Material(materialLoc);
-		ResourceManager::addInstance(materialLoc, this->material);
-	}
+	this->material = GameObjectUtils::getMaterial(materialLoc);
 
 	this->camera = camera;
 	this->projection = projection;
@@ -102,11 +94,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->transform = new InstancedArrayTransformImpl(positions, this);
 	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps);
 
-	this->material = ResourceManager::getMaterial(materialLoc);
-	if (this->material == nullptr) {
-		this->material = new Material(materialLoc);
-		ResourceManager::addInstance(materialLoc, this->material);
-	}
+	this->material = GameObjectUtils::getMaterial(materialLoc);
 
 	this->camera = camera;
 	this->projection = projection;
