@@ -18,6 +18,9 @@
 
 #include "LightTypes.h"
 #include "Texture.h"
+#include "Transform.h"
+#include "InstancedArrayTransformImpl.h"
+#include "InstancedTransformImpl.h"
 
 #define POSITION 0
 #define NORMAL 1
@@ -47,9 +50,14 @@ public:
 	Mesh();
 	Mesh(GLchar * vertexLocation);
 	Mesh(GLchar * vertexLocation, Texture * diffuseMap, Texture * specularMap);
+	Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type);
 	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap);
+	Mesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, Texture * diffuseMap, Texture * specularMap);
+	Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
+	Mesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
+	Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, GLuint size);
 
 	void Draw();
@@ -72,8 +80,10 @@ private:
 	Texture * diffuseMap = nullptr;
 	Texture * specularMap = nullptr;
 
-	// Function
 	void setupMesh();
+	void setupMesh(Transform * transform);
+	void setupMesh(InstancedArrayTransformImpl * transform);
+	void setupMesh(InstancedTransformImpl * transform);
 
 	/* Reads in a mesh file and Processes Vertices */
 	void readVertexFile(GLchar * filename);

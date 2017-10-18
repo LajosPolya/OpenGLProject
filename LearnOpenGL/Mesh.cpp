@@ -34,6 +34,16 @@ Mesh::Mesh(GLchar * vertexLocation, Texture * diffuseMap, Texture * specularMap)
 	this->setupMesh();
 }
 
+Mesh::Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap, Texture * specularMap)
+{
+	this->readVertexFile(vertexLocation);
+
+	this->diffuseMap = diffuseMap;
+	this->specularMap = specularMap;
+	this->primitiveType = GL_TRIANGLES;
+	this->setupMesh();
+}
+
 Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type)
 {
 	this->readVertexFile(vertexLocation);
@@ -52,7 +62,45 @@ Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint typ
 	this->specularMap = specularMap;
 }
 
+Mesh::Mesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, Texture * diffuseMap, Texture * specularMap)
+{
+	this->diffuseMap = diffuseMap;
+	this->specularMap = specularMap;
+
+	this->readVertexFile(vertexLocation);
+	this->instances = transform->getModels();
+	this->type = type;
+	this->primitiveType = GL_TRIANGLES;
+	this->numInstances = this->instances.size();
+
+	this->setupMesh(transform);
+}
+
+Mesh::Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, Texture * diffuseMap, Texture * specularMap)
+{
+	this->diffuseMap = diffuseMap;
+	this->specularMap = specularMap;
+
+	this->readVertexFile(vertexLocation);
+	this->instances = transform->getModels();
+	this->type = type;
+	this->primitiveType = GL_TRIANGLES;
+	this->numInstances = this->instances.size();
+
+	this->setupMesh(transform);
+}
+
 Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, instances, type, diffuseMap, specularMap)
+{
+	this->primitiveType = primitiveType;
+}
+
+Mesh::Mesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, transform, diffuseMap, specularMap)
+{
+	this->primitiveType = primitiveType;
+}
+
+Mesh::Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, transform, diffuseMap, specularMap)
 {
 	this->primitiveType = primitiveType;
 }
@@ -187,8 +235,149 @@ void Mesh::setupMesh() {
 	glBindVertexArray(0);
 }
 
+void Mesh::setupMesh(Transform * transform)
+{
+	glGenVertexArrays(1, &this->VAO);
+	glGenBuffers(1, &this->VBO);
+
+	glBindVertexArray(this->VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
+	glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(Vertex), &this->vertices[0], GL_STATIC_DRAW);
+
+	if (this->indices.size() != 0) {
+		glGenBuffers(1, &this->EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(GLuint), &this->indices[0], GL_STATIC_DRAW);
+	}
+
+	// Vertex Positions
+	if (this->vertexProp_BitMap & POSITION_BITMAP) {
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+	}
+
+
+	// Vertex Normals
+	if (this->vertexProp_BitMap & NORMAL_BITMAP) {
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
+	}
+
+	// Vertex Texture Coords
+	if (this->vertexProp_BitMap & TEXTURE_COORDS_BITMAP) {
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
+	}
+
+	glBindVertexArray(0);
+}
+
+void Mesh::setupMesh(InstancedArrayTransformImpl * transform)
+{
+	this->type = INSTANCED_ARRAY_SHADER;
+	glGenVertexArrays(1, &this->VAO);
+	glGenBuffers(1, &this->VBO);
+
+	glBindVertexArray(this->VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
+	glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(Vertex), &this->vertices[0], GL_STATIC_DRAW);
+
+	if (this->indices.size() != 0) {
+		glGenBuffers(1, &this->EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(GLuint), &this->indices[0], GL_STATIC_DRAW);
+	}
+
+	// Vertex Positions
+	if (this->vertexProp_BitMap & POSITION_BITMAP) {
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+	}
+
+
+	// Vertex Normals
+	if (this->vertexProp_BitMap & NORMAL_BITMAP) {
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
+	}
+
+	// Vertex Texture Coords
+	if (this->vertexProp_BitMap & TEXTURE_COORDS_BITMAP) {
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
+	}
+
+	// Instancing
+	this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
+	glGenBuffers(1, &this->instanceVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * this->instances.size(), &this->instances[0], GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
+	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
+	glEnableVertexAttribArray(5);
+	glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
+	glEnableVertexAttribArray(6);
+	glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
+
+	glVertexAttribDivisor(3, 1);
+	glVertexAttribDivisor(4, 1);
+	glVertexAttribDivisor(5, 1);
+	glVertexAttribDivisor(6, 1);
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindVertexArray(0);
+}
+
+void Mesh::setupMesh(InstancedTransformImpl * transform)
+{
+	this->type = INSTANCED_SHADER;
+
+	glGenVertexArrays(1, &this->VAO);
+	glGenBuffers(1, &this->VBO);
+
+	glBindVertexArray(this->VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
+	glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(Vertex), &this->vertices[0], GL_STATIC_DRAW);
+
+	if (this->indices.size() != 0) {
+		glGenBuffers(1, &this->EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(GLuint), &this->indices[0], GL_STATIC_DRAW);
+	}
+
+	// Vertex Positions
+	if (this->vertexProp_BitMap & POSITION_BITMAP) {
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+	}
+
+
+	// Vertex Normals
+	if (this->vertexProp_BitMap & NORMAL_BITMAP) {
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
+	}
+
+	// Vertex Texture Coords
+	if (this->vertexProp_BitMap & TEXTURE_COORDS_BITMAP) {
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
+	}
+
+	this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
+
+
+	glBindVertexArray(0);
+}
+
 /* Reads in a mesh file and Processes Vertices */
-void Mesh::readVertexFile(GLchar* filename) {
+void Mesh::readVertexFile(GLchar * filename) {
 	std::string line;
 	std::ifstream file(filename);
 	if (file.is_open()) {
