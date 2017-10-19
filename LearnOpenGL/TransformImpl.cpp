@@ -3,7 +3,7 @@
 
 TransformImpl::TransformImpl() {}
 
-TransformImpl::TransformImpl(GLchar* fileLocation, GameObject* gameObject) {
+TransformImpl::TransformImpl(std::string fileLocation, GameObject * gameObject) {
 	this->gameObject = gameObject;
 	readFile(fileLocation);
 
@@ -12,11 +12,30 @@ TransformImpl::TransformImpl(GLchar* fileLocation, GameObject* gameObject) {
 	std::cout << Rotation.x << " " << Rotation.y << " " << Rotation.z << std::endl;
 }
 
+TransformImpl::TransformImpl(glm::vec3 Position, glm::vec3 Rotation, glm::vec3 Scale, GameObject * gameObject)
+{
+	this->Position = Position;
+	this->Rotation = Rotation;
+	this->Scale = Scale;
+
+	this->gameObject = gameObject;
+}
+
 glm::vec3 TransformImpl::getPosition() {
 	return this->Position;
 }
 
-void TransformImpl::readFile(GLchar* filename) {
+glm::vec3 TransformImpl::getRotation()
+{
+	return this->Rotation;
+}
+
+glm::vec3 TransformImpl::getScale()
+{
+	return this->Scale;
+}
+
+void TransformImpl::readFile(std::string filename) {
 	std::ifstream file(filename);
 	if (file.is_open()) {
 		std::string line;
@@ -24,7 +43,7 @@ void TransformImpl::readFile(GLchar* filename) {
 		while (std::getline(file, line)) {
 			// std::cout << line << std::endl;
 			GLchar * token;
-			GLchar* context = NULL;
+			GLchar * context = NULL;
 			GLuint i = 0;
 
 			token = strtok_s(&line[0], ",", &context);

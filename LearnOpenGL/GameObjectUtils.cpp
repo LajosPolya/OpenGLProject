@@ -164,3 +164,13 @@ Material * GameObjectUtils::getMaterial(std::string path)
 	}
 	return material;
 }
+
+TransformImpl * GameObjectUtils::getTransform(std::string path, GameObject * gameObject)
+{
+	TransformImpl * transform = ResourceManager::getTransform(path, gameObject);
+	if (transform == nullptr) {
+		transform = new TransformImpl(path, gameObject);
+		ResourceManager::addInstance(path, transform);
+	}
+	return transform;
+}

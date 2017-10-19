@@ -26,9 +26,12 @@ public:
 
 	TransformImpl();
 
-	TransformImpl(GLchar * fileLocation, GameObject * gameObject);
+	TransformImpl(std::string fileLocation, GameObject * gameObject);
+	TransformImpl(glm::vec3 Position, glm::vec3 Rotation, glm::vec3 Scale, GameObject * gameObject);
 
 	glm::vec3 getPosition();
+	glm::vec3 getRotation();
+	glm::vec3 getScale();
 
 	void setPosition();
 	void setPosition(glm::vec3 pos);
@@ -68,5 +71,5 @@ private:
 
 	glm::mat4 model;
 
-	void readFile(GLchar * filename);
+	void readFile(std::string filename);
 };

@@ -37,3 +37,16 @@ Texture * ResourceManager::getTexture(std::string path)
 		return (Texture*)new Texture(tempText->getTextureID(), tempText->getName(), tempText->getType());
 	}
 }
+
+TransformImpl * ResourceManager::getTransform(std::string path, GameObject * gameObject)
+{
+	std::unordered_map<std::string, void *>::iterator it = manager.find(path);
+
+	if (it == manager.end()) {
+		return nullptr;
+	}
+	else {
+		TransformImpl * tempTransform = ((TransformImpl *)it->second);
+		return (TransformImpl*)new TransformImpl(tempTransform->getPosition(), tempTransform->getRotation(), tempTransform->getScale(), gameObject);
+	}
+}

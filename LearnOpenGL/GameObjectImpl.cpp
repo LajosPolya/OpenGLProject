@@ -28,7 +28,7 @@ GameObjectImpl::~GameObjectImpl()
 GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * specularMapLoc, std::string meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc,  Camera * camera, glm::mat4 projection) {
 	this->shader = new Shader(vertexShader, fragmentShader);
 	
-	this->transform = new TransformImpl(transformLoc, this);
+	this->transform = GameObjectUtils::getTransform(transformLoc, this);
 
 	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
 	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapLoc);
@@ -57,7 +57,7 @@ GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, G
 {
 	this->shader = new Shader(vertexShader, fragmentShader);
 
-	this->transform = new TransformImpl(transformLoc, this);
+	this->transform = GameObjectUtils::getTransform(transformLoc, this);
 
 	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
 
@@ -81,7 +81,9 @@ GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, G
 GameObjectImpl::GameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
 {
 	this->shader = new Shader(vertexShader, fragmentShader);
-	this->transform = new TransformImpl(transformLoc, this);
+
+	this->transform = GameObjectUtils::getTransform(transformLoc, this);
+
 	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform, {}, {});
 	this->material = nullptr;
 	this->camera = camera;

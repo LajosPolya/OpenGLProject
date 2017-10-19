@@ -11,6 +11,7 @@
 #include "TransparentTransformImpl.h"
 #include "TransformImpl.h"
 #include "ResourceManager.h"
+#include "GameObject.h"
 
 class GameObjectUtils
 {
@@ -23,5 +24,6 @@ public:
 	static std::vector<Mesh*> getMeshes(std::string path, InstancedTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
 	static std::vector<Mesh*> getMeshes(std::string path, TransparentTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
 	static Material * getMaterial(std::string path);
+	static TransformImpl * getTransform(std::string path, GameObject * gameObject);
 };
 
