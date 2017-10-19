@@ -35,9 +35,6 @@ private:
 
 	Material * material;
 
-	std::vector<Texture*> diffuseMap;
-	std::vector<Texture*> specularMap;
-
 	Shader * shader;
 
 	Camera * camera;
