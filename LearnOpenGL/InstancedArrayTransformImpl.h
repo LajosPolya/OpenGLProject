@@ -25,10 +25,13 @@ public:
 	~InstancedArrayTransformImpl();
 
 
-	InstancedArrayTransformImpl(GLchar * fileLocation, InstancedArrayGameObjectImpl * gameObject);
+	InstancedArrayTransformImpl(std::string fileLocation, InstancedArrayGameObjectImpl * gameObject);
 	InstancedArrayTransformImpl(std::vector<glm::vec3> positions, InstancedArrayGameObjectImpl * gameObject);
+	InstancedArrayTransformImpl(std::vector<glm::vec3> positions, std::vector<glm::vec3> rotations, std::vector<glm::vec3> scales, InstancedArrayGameObjectImpl * gameObject);
 
 	std::vector<glm::vec3> * getPositions();
+	std::vector<glm::vec3> * getRotations();
+	std::vector<glm::vec3> * getScales();
 
 	std::vector<glm::mat4> getModels();
 
@@ -47,6 +50,6 @@ private:
 
 	std::vector<glm::mat4> model;
 
-	void readFile(GLchar * filename);
+	void readFile(std::string filename);
 	void setup(std::vector<glm::vec3> positions);
 };

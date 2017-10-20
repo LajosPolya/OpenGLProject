@@ -53,6 +53,6 @@ private:
 
 	std::vector<glm::mat4> model;
 
-	void readFile(GLchar * filename);
+	void readFile(std::string filename);
 };
 

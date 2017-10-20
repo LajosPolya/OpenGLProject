@@ -18,6 +18,14 @@ TransformImpl::TransformImpl(glm::vec3 Position, glm::vec3 Rotation, glm::vec3 S
 	this->Rotation = Rotation;
 	this->Scale = Scale;
 
+	this->model = glm::rotate(this->model, this->Rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	this->model = glm::rotate(this->model, this->Rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	this->model = glm::rotate(this->model, this->Rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+	this->model = glm::translate(this->model, this->Position);
+
+	this->model = glm::scale(this->model, this->Scale);
+
 	this->gameObject = gameObject;
 }
 

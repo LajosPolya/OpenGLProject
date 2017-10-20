@@ -42,7 +42,7 @@ GLuint InstancedTransformImpl::getSize()
 }
 
 // TODO: Create a Base Class which will have this method (implemented by this and InstancedTransformImpl)
-void InstancedTransformImpl::readFile(GLchar * filename)
+void InstancedTransformImpl::readFile(std::string filename)
 {
 	std::ifstream file(filename);
 	if (file.is_open()) {

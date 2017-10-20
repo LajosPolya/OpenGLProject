@@ -174,3 +174,13 @@ TransformImpl * GameObjectUtils::getTransform(std::string path, GameObject * gam
 	}
 	return transform;
 }
+
+InstancedArrayTransformImpl * GameObjectUtils::getTransform(std::string path, InstancedArrayGameObjectImpl * gameObject)
+{
+	InstancedArrayTransformImpl * transform = ResourceManager::getTransform(path, gameObject);
+	if (transform == nullptr) {
+		transform = new InstancedArrayTransformImpl(path, gameObject);
+		ResourceManager::addInstance(path, transform);
+	}
+	return transform;
+}
