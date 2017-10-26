@@ -40,7 +40,7 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
 const GLuint WIDTH = 800, HEIGHT = 600;
 
 // Camera
-Camera * camera = new Camera(glm::vec3(0.0f, 5.0f, 3.0f));
+Camera * camera = new Camera(glm::vec3(0.0f, 0.0f, 5.0f));
 // Keep track of pressed keys
 bool keys[2048];
 
@@ -95,7 +95,9 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	// For GL_CULL_FACE
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
 
 	glm::vec3 cubePositions[WORLD_LENGTH][WORLD_LENGTH];
 	for (GLuint i = 0; i < WORLD_LENGTH; i++) {
@@ -162,6 +164,7 @@ int main()
 
 		testingGameObject.Draw();
 
+		glDisable(GL_CULL_FACE);
 		grassGameObject.Draw();
 		grassGameObject.getTransform()->setYRotation(glm::radians(90.0f));
 		grassGameObject.Draw();
@@ -169,9 +172,11 @@ int main()
 		grassGameObject.Draw();
 		grassGameObject.getTransform()->setYRotation(glm::radians(135.0f));
 		grassGameObject.Draw();
+		glEnable(GL_CULL_FACE);
 
 		instancedArrayGameObject.Draw();
 		instancedGameObject.Draw();
+		
 		grassSides.Draw();
 		perlin.Draw();
 		perlin3d.Draw();
