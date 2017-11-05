@@ -79,7 +79,7 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Locks Mouse into Screen
-	///glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -107,7 +107,7 @@ int main()
 	}
 
 	/* Calcualte Projection Here */
-	glm::mat4 projection = glm::perspective(camera->Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(camera->Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.01f, 100.0f);
 
 	std::clock_t start;
 	GLdouble duration;
@@ -142,6 +142,8 @@ int main()
 	std::cout << "Time to start: " << duration << std::endl;
 
 	// Game loop
+	GLuint64 hitCounter = 0;
+	glm::vec3 prevPosition = camera->Position;
 	while (!glfwWindowShouldClose(window))
 	{
 		GLfloat currentFrame = (GLfloat)glfwGetTime();
@@ -163,6 +165,36 @@ int main()
 		}
 
 		testingGameObject.Draw();
+
+		if (testingGameObject.getTransform()->getPosition().x - 0.7 < camera->Position.x && testingGameObject.getTransform()->getPosition().x + 0.7 > camera->Position.x
+			&& testingGameObject.getTransform()->getPosition().y - 0.7 < camera->Position.y && testingGameObject.getTransform()->getPosition().y + 0.7 > camera->Position.y
+			&& testingGameObject.getTransform()->getPosition().z - 0.7 < camera->Position.z && testingGameObject.getTransform()->getPosition().z + 0.7 > camera->Position.z) {
+			std::cout << hitCounter++ << std::endl;
+
+			if (testingGameObject.getTransform()->getPosition().x - 0.7 < camera->Position.x && testingGameObject.getTransform()->getPosition().x + 0.7 > camera->Position.x
+				&& testingGameObject.getTransform()->getPosition().y - 0.7 < prevPosition.y && testingGameObject.getTransform()->getPosition().y + 0.7 > prevPosition.y
+				&& testingGameObject.getTransform()->getPosition().z - 0.7 < prevPosition.z && testingGameObject.getTransform()->getPosition().z + 0.7 > prevPosition.z) {
+
+				camera->Position.x = prevPosition.x;
+			}
+
+			if (testingGameObject.getTransform()->getPosition().x - 0.7 < prevPosition.x && testingGameObject.getTransform()->getPosition().x + 0.7 > prevPosition.x
+				&& testingGameObject.getTransform()->getPosition().y - 0.7 < prevPosition.y && testingGameObject.getTransform()->getPosition().y + 0.7 > prevPosition.y
+				&& testingGameObject.getTransform()->getPosition().z - 0.7 < camera->Position.z && testingGameObject.getTransform()->getPosition().z + 0.7 > camera->Position.z) {
+
+				camera->Position.z = prevPosition.z;
+			}
+
+			if (testingGameObject.getTransform()->getPosition().x - 0.7 < prevPosition.x && testingGameObject.getTransform()->getPosition().x + 0.7 > prevPosition.x
+				&& testingGameObject.getTransform()->getPosition().y - 0.7 < camera->Position.y && testingGameObject.getTransform()->getPosition().y + 0.7 > camera->Position.y
+				&& testingGameObject.getTransform()->getPosition().z - 0.7 < prevPosition.z && testingGameObject.getTransform()->getPosition().z + 0.7 > prevPosition.z) {
+
+				camera->Position.y = prevPosition.y;
+			}
+
+			//camera->Position = prevPosition;
+		}
+		prevPosition = camera->Position;
 
 		glDisable(GL_CULL_FACE);
 		grassGameObject.Draw();
