@@ -36,11 +36,18 @@ void do_movement();
 
 void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
 void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
+
+//Collision
+void CheckCollision(GameObjectImpl & gameObject, Camera * camera);
+
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 
 // Camera
-Camera * camera = new Camera(glm::vec3(0.0f, 0.0f, 5.0f));
+Camera * camera = new Camera(glm::vec3(0.0f, 0.0f, 10.0f));
+// Previosu Position for Collision Detection
+glm::vec3 prevPosition = camera->Position;
+
 // Keep track of pressed keys
 bool keys[2048];
 
@@ -142,8 +149,6 @@ int main()
 	std::cout << "Time to start: " << duration << std::endl;
 
 	// Game loop
-	GLuint64 hitCounter = 0;
-	glm::vec3 prevPosition = camera->Position;
 	while (!glfwWindowShouldClose(window))
 	{
 		GLfloat currentFrame = (GLfloat)glfwGetTime();
@@ -164,36 +169,10 @@ int main()
 			}
 		}
 
+		// Do Collision before drawing
+		CheckCollision(testingGameObject, camera);
 		testingGameObject.Draw();
 
-		if (testingGameObject.getTransform()->getPosition().x - 0.7 < camera->Position.x && testingGameObject.getTransform()->getPosition().x + 0.7 > camera->Position.x
-			&& testingGameObject.getTransform()->getPosition().y - 0.7 < camera->Position.y && testingGameObject.getTransform()->getPosition().y + 0.7 > camera->Position.y
-			&& testingGameObject.getTransform()->getPosition().z - 0.7 < camera->Position.z && testingGameObject.getTransform()->getPosition().z + 0.7 > camera->Position.z) {
-			std::cout << hitCounter++ << std::endl;
-
-			if (testingGameObject.getTransform()->getPosition().x - 0.7 < camera->Position.x && testingGameObject.getTransform()->getPosition().x + 0.7 > camera->Position.x
-				&& testingGameObject.getTransform()->getPosition().y - 0.7 < prevPosition.y && testingGameObject.getTransform()->getPosition().y + 0.7 > prevPosition.y
-				&& testingGameObject.getTransform()->getPosition().z - 0.7 < prevPosition.z && testingGameObject.getTransform()->getPosition().z + 0.7 > prevPosition.z) {
-
-				camera->Position.x = prevPosition.x;
-			}
-
-			if (testingGameObject.getTransform()->getPosition().x - 0.7 < prevPosition.x && testingGameObject.getTransform()->getPosition().x + 0.7 > prevPosition.x
-				&& testingGameObject.getTransform()->getPosition().y - 0.7 < prevPosition.y && testingGameObject.getTransform()->getPosition().y + 0.7 > prevPosition.y
-				&& testingGameObject.getTransform()->getPosition().z - 0.7 < camera->Position.z && testingGameObject.getTransform()->getPosition().z + 0.7 > camera->Position.z) {
-
-				camera->Position.z = prevPosition.z;
-			}
-
-			if (testingGameObject.getTransform()->getPosition().x - 0.7 < prevPosition.x && testingGameObject.getTransform()->getPosition().x + 0.7 > prevPosition.x
-				&& testingGameObject.getTransform()->getPosition().y - 0.7 < camera->Position.y && testingGameObject.getTransform()->getPosition().y + 0.7 > camera->Position.y
-				&& testingGameObject.getTransform()->getPosition().z - 0.7 < prevPosition.z && testingGameObject.getTransform()->getPosition().z + 0.7 > prevPosition.z) {
-
-				camera->Position.y = prevPosition.y;
-			}
-
-			//camera->Position = prevPosition;
-		}
 		prevPosition = camera->Position;
 
 		glDisable(GL_CULL_FACE);
@@ -289,4 +268,33 @@ void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos) {
 
 void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
 	camera->ProcessMouseScroll((GLfloat)yoffset);
+}
+
+void CheckCollision(GameObjectImpl & gameObject, Camera * camera)
+{
+	if (gameObject.getTransform()->getPosition().x - 0.8< camera->Position.x && gameObject.getTransform()->getPosition().x + 0.8> camera->Position.x
+		&& gameObject.getTransform()->getPosition().y - 0.8< camera->Position.y && gameObject.getTransform()->getPosition().y + 0.8> camera->Position.y
+		&& gameObject.getTransform()->getPosition().z - 0.8< camera->Position.z && gameObject.getTransform()->getPosition().z + 0.8> camera->Position.z) {
+
+		if (gameObject.getTransform()->getPosition().x - 0.8< camera->Position.x && gameObject.getTransform()->getPosition().x + 0.8> camera->Position.x
+			&& gameObject.getTransform()->getPosition().y - 0.8< prevPosition.y && gameObject.getTransform()->getPosition().y + 0.8> prevPosition.y
+			&& gameObject.getTransform()->getPosition().z - 0.8< prevPosition.z && gameObject.getTransform()->getPosition().z + 0.8> prevPosition.z) {
+
+			camera->Position.x = prevPosition.x;
+		}
+
+		if (gameObject.getTransform()->getPosition().x - 0.8< prevPosition.x && gameObject.getTransform()->getPosition().x + 0.8> prevPosition.x
+			&& gameObject.getTransform()->getPosition().y - 0.8< prevPosition.y && gameObject.getTransform()->getPosition().y + 0.8> prevPosition.y
+			&& gameObject.getTransform()->getPosition().z - 0.8< camera->Position.z && gameObject.getTransform()->getPosition().z + 0.8> camera->Position.z) {
+
+			camera->Position.z = prevPosition.z;
+		}
+
+		if (gameObject.getTransform()->getPosition().x - 0.8< prevPosition.x && gameObject.getTransform()->getPosition().x + 0.8> prevPosition.x
+			&& gameObject.getTransform()->getPosition().y - 0.8< camera->Position.y && gameObject.getTransform()->getPosition().y + 0.8> camera->Position.y
+			&& gameObject.getTransform()->getPosition().z - 0.8< prevPosition.z && gameObject.getTransform()->getPosition().z + 0.8> prevPosition.z) {
+
+			camera->Position.y = prevPosition.y;
+		}
+	}
 }
