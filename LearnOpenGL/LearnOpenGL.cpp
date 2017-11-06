@@ -27,6 +27,7 @@
 #include "TransparentGameObjectImpl.h"
 #include "PerlinNoise.h"
 #include "TerrainGenerator.h"
+#include "CollisionDetector.h"
 
 #define WORLD_LENGTH 5
 
@@ -36,11 +37,6 @@ void do_movement();
 
 void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
 void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
-
-//Collision
-void CheckCollision(GameObjectImpl & gameObject, Camera * camera);
-void CheckCollision(InstancedGameObjectImpl & gameObject, Camera * camera);
-void CheckCollision(InstancedArrayGameObjectImpl & gameObject, Camera * camera);
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -150,6 +146,18 @@ int main()
 	duration = std::clock() - start;
 	std::cout << "Time to start: " << duration << std::endl;
 
+	CollisionDetector::addCamera(camera);
+	CollisionDetector::AddTransform(testingGameObject.getTransform());
+	CollisionDetector::AddTransform(lightBox1.getTransform());
+	CollisionDetector::AddTransform(lightBox2.getTransform());
+	CollisionDetector::AddTransform(lightBox3.getTransform());
+	CollisionDetector::AddTransform(lightBox4.getTransform());
+	CollisionDetector::AddTransform(instancedGameObject.getTransform());
+	CollisionDetector::AddTransform(instancedArrayGameObject.getTransform());
+	CollisionDetector::AddTransform(grassSides.getTransform());
+	CollisionDetector::AddTransform(perlin.getTransform());
+	CollisionDetector::AddTransform(perlin3d.getTransform());
+
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -172,21 +180,10 @@ int main()
 		}
 
 		// Do Collision before drawing
-		CheckCollision(testingGameObject, camera);
-		CheckCollision(lightBox1, camera);
-		CheckCollision(lightBox2, camera);
-		CheckCollision(lightBox3, camera);
-		CheckCollision(lightBox4, camera);
-		CheckCollision(instancedGameObject, camera);
-		CheckCollision(instancedArrayGameObject, camera);
-		CheckCollision(grassSides, camera);
-		CheckCollision(perlin, camera);
-		CheckCollision(perlin3d, camera);
+		CollisionDetector::CheckCollisions();
 
 		// Draw
 		testingGameObject.Draw();
-
-		prevPosition = camera->Position;
 
 		glDisable(GL_CULL_FACE);
 		grassGameObject.Draw();
@@ -218,6 +215,9 @@ int main()
 		glDisable(GL_BLEND);
 
 		glEnable(GL_DEPTH_TEST);
+
+		// Set prevPosition
+		CollisionDetector::SetPrevPosiion(camera->Position);
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
@@ -281,103 +281,4 @@ void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos) {
 
 void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
 	camera->ProcessMouseScroll((GLfloat)yoffset);
-}
-
-void CheckCollision(GameObjectImpl & gameObject, Camera * camera)
-{
-	if (gameObject.getTransform()->getPosition().x - 0.8< camera->Position.x && gameObject.getTransform()->getPosition().x + 0.8> camera->Position.x
-		&& gameObject.getTransform()->getPosition().y - 0.8< camera->Position.y && gameObject.getTransform()->getPosition().y + 0.8> camera->Position.y
-		&& gameObject.getTransform()->getPosition().z - 0.8< camera->Position.z && gameObject.getTransform()->getPosition().z + 0.8> camera->Position.z) {
-
-		if (gameObject.getTransform()->getPosition().x - 0.8< camera->Position.x && gameObject.getTransform()->getPosition().x + 0.8> camera->Position.x
-			&& gameObject.getTransform()->getPosition().y - 0.8< prevPosition.y && gameObject.getTransform()->getPosition().y + 0.8> prevPosition.y
-			&& gameObject.getTransform()->getPosition().z - 0.8< prevPosition.z && gameObject.getTransform()->getPosition().z + 0.8> prevPosition.z) {
-
-			camera->Position.x = prevPosition.x;
-		}
-
-		if (gameObject.getTransform()->getPosition().x - 0.8< prevPosition.x && gameObject.getTransform()->getPosition().x + 0.8> prevPosition.x
-			&& gameObject.getTransform()->getPosition().y - 0.8< prevPosition.y && gameObject.getTransform()->getPosition().y + 0.8> prevPosition.y
-			&& gameObject.getTransform()->getPosition().z - 0.8< camera->Position.z && gameObject.getTransform()->getPosition().z + 0.8> camera->Position.z) {
-
-			camera->Position.z = prevPosition.z;
-		}
-
-		if (gameObject.getTransform()->getPosition().x - 0.8< prevPosition.x && gameObject.getTransform()->getPosition().x + 0.8> prevPosition.x
-			&& gameObject.getTransform()->getPosition().y - 0.8< camera->Position.y && gameObject.getTransform()->getPosition().y + 0.8> camera->Position.y
-			&& gameObject.getTransform()->getPosition().z - 0.8< prevPosition.z && gameObject.getTransform()->getPosition().z + 0.8> prevPosition.z) {
-
-			camera->Position.y = prevPosition.y;
-		}
-	}
-}
-
-void CheckCollision(InstancedGameObjectImpl & gameObject, Camera * camera)
-{
-	GLuint i;
-
-	std::vector<glm::vec3> * Positions = gameObject.getTransform()->getPositions();
-	GLuint size = Positions->size();
-	for (i = 0; i < size; i++) {
-		if ((*Positions)[i].x - 0.8< camera->Position.x && (*Positions)[i].x + 0.8> camera->Position.x
-			&& (*Positions)[i].y - 0.8< camera->Position.y && (*Positions)[i].y + 0.8> camera->Position.y
-			&& (*Positions)[i].z - 0.8< camera->Position.z && (*Positions)[i].z + 0.8> camera->Position.z) {
-
-			if ((*Positions)[i].x - 0.8< camera->Position.x && (*Positions)[i].x + 0.8> camera->Position.x
-				&& (*Positions)[i].y - 0.8< prevPosition.y && (*Positions)[i].y + 0.8> prevPosition.y
-				&& (*Positions)[i].z - 0.8< prevPosition.z && (*Positions)[i].z + 0.8> prevPosition.z) {
-
-				camera->Position.x = prevPosition.x;
-			}
-
-			if ((*Positions)[i].x - 0.8< prevPosition.x && (*Positions)[i].x + 0.8> prevPosition.x
-				&& (*Positions)[i].y - 0.8< prevPosition.y && (*Positions)[i].y + 0.8> prevPosition.y
-				&& (*Positions)[i].z - 0.8< camera->Position.z && (*Positions)[i].z + 0.8> camera->Position.z) {
-
-				camera->Position.z = prevPosition.z;
-			}
-
-			if ((*Positions)[i].x - 0.8< prevPosition.x && (*Positions)[i].x + 0.8> prevPosition.x
-				&& (*Positions)[i].y - 0.8< camera->Position.y && (*Positions)[i].y + 0.8> camera->Position.y
-				&& (*Positions)[i].z - 0.8< prevPosition.z && (*Positions)[i].z + 0.8> prevPosition.z) {
-
-				camera->Position.y = prevPosition.y;
-			}
-		}
-	}
-}
-
-void CheckCollision(InstancedArrayGameObjectImpl & gameObject, Camera * camera)
-{
-	GLuint i;
-
-	std::vector<glm::vec3> * Positions = gameObject.getTransform()->getPositions();
-	GLuint size = Positions->size();
-	for (i = 0; i < size; i++) {
-		if ((*Positions)[i].x - 0.8< camera->Position.x && (*Positions)[i].x + 0.8> camera->Position.x
-			&& (*Positions)[i].y - 0.8< camera->Position.y && (*Positions)[i].y + 0.8> camera->Position.y
-			&& (*Positions)[i].z - 0.8< camera->Position.z && (*Positions)[i].z + 0.8> camera->Position.z) {
-
-			if ((*Positions)[i].x - 0.8< camera->Position.x && (*Positions)[i].x + 0.8> camera->Position.x
-				&& (*Positions)[i].y - 0.8< prevPosition.y && (*Positions)[i].y + 0.8> prevPosition.y
-				&& (*Positions)[i].z - 0.8< prevPosition.z && (*Positions)[i].z + 0.8> prevPosition.z) {
-
-				camera->Position.x = prevPosition.x;
-			}
-
-			if ((*Positions)[i].x - 0.8< prevPosition.x && (*Positions)[i].x + 0.8> prevPosition.x
-				&& (*Positions)[i].y - 0.8< prevPosition.y && (*Positions)[i].y + 0.8> prevPosition.y
-				&& (*Positions)[i].z - 0.8< camera->Position.z && (*Positions)[i].z + 0.8> camera->Position.z) {
-
-				camera->Position.z = prevPosition.z;
-			}
-
-			if ((*Positions)[i].x - 0.8< prevPosition.x && (*Positions)[i].x + 0.8> prevPosition.x
-				&& (*Positions)[i].y - 0.8< camera->Position.y && (*Positions)[i].y + 0.8> camera->Position.y
-				&& (*Positions)[i].z - 0.8< prevPosition.z && (*Positions)[i].z + 0.8> prevPosition.z) {
-
-				camera->Position.y = prevPosition.y;
-			}
-		}
-	}
 }

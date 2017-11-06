@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="GameObjectImpl.cpp" />
     <ClCompile Include="GameObjectMemoryManager.cpp" />
     <ClCompile Include="GameObjectUtils.cpp" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectImpl.h" />
     <ClInclude Include="GameObjectMemoryManager.h" />
