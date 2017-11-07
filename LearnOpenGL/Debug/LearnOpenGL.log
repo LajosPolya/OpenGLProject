@@ -1,3 +1,19 @@
-﻿  LearnOpenGL.cpp
+﻿  Shader.cpp
+  Generating Code...
+  Compiling...
+  TransparentGameObjectImpl.cpp
+  InstancedGameObjectImpl.cpp
+  InstancedArrayGameObjectImpl.cpp
+  GameObjectImpl.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  CollisionDetector.cpp
+  TransparentTransformImpl.cpp
+  TransformImpl.cpp
+  ResourceManager.cpp
+  LearnOpenGL.cpp
+  InstancedTransformImpl.cpp
+  InstancedArrayTransformImpl.cpp
+  GameObjectUtils.cpp
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)

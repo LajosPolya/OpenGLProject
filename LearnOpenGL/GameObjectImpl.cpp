@@ -110,7 +110,7 @@ void GameObjectImpl::Draw() {
 	this->transform->Draw();
 
 	if (this->lightsContainer != nullptr) {
-		this->shader->sendToShader(this->lightsContainer->getDirLight(), this->lightsContainer->getSpotLight(), this->lightsContainer->getPointLights());
+		this->shader->sendToShader(this->lightsContainer);
 	}
 	this->shader->sendToShader(this);
 	this->shader->sendToShader(this->material);

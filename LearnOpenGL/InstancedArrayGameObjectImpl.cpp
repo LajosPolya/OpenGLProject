@@ -177,7 +177,7 @@ void InstancedArrayGameObjectImpl::Draw() {
 	this->transform->Draw();
 
 	if (this->lightsContainer != nullptr) {
-		this->shader->sendToShader(lightsContainer->getDirLight(), lightsContainer->getSpotLight(), lightsContainer->getPointLights());
+		this->shader->sendToShader(lightsContainer);
 	}
 	this->shader->sendToShader(this);
 	this->shader->sendToShader(this->material);

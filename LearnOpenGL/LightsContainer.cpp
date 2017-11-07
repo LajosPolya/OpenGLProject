@@ -37,7 +37,6 @@ std::vector<PointLight>* LightsContainer::getPointLights()
 	return &this->pointLights;
 }
 
-
 /*
 Light Prop Type {
 0 : Position      (PointLight, maybe SpotLight in the future)

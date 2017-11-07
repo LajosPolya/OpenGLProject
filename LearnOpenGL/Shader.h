@@ -11,6 +11,7 @@
 
 #include "Material.h"
 #include "Mesh.h"
+#include "LightsContainer.h"
 
 class GameObjectImpl;
 class InstancedArrayGameObjectImpl;
@@ -33,7 +34,7 @@ public:
 
 	void Use();
 
-	void sendToShader(DirLight * dirLight, SpotLight * spotLight, std::vector<PointLight> * pointLights);
+	void sendToShader(LightsContainer * lightsContainer);
 	void sendToShader(GameObjectImpl * gameObject);
 	void sendToShader(InstancedArrayGameObjectImpl * gameObject);
 	void sendToShader(InstancedGameObjectImpl * gameObject);

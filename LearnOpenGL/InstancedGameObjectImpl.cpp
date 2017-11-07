@@ -60,7 +60,7 @@ void InstancedGameObjectImpl::Draw() {
 	this->transform->Draw();
 
 	if (this->lightsContainer != nullptr) {
-		this->shader->sendToShader(lightsContainer->getDirLight(), lightsContainer->getSpotLight(), lightsContainer->getPointLights());
+		this->shader->sendToShader(lightsContainer);
 	}
 	// TODO: Don't do this every frame, only do this if one of those vars have changed
 	this->shader->sendToShader(this);
