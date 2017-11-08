@@ -5,17 +5,21 @@
 
 #include "PerlinNoise.h"
 
+#define T_2D 2
+#define T_3D 3
+
 class TerrainGenerator
 {
 public:
-	TerrainGenerator();
+	TerrainGenerator(GLuint x, GLuint y, GLuint z, GLuint terrainType);
 	~TerrainGenerator();
 
-	static void generate(GLuint x, GLuint y, std::vector<glm::vec3> &heightValues);
-	static void generate(GLuint x, GLuint y, GLuint z, std::vector<glm::vec3> &position);
+	std::vector<glm::vec3> generate(GLuint x, GLuint z);
+	std::vector<glm::vec3> generate(GLuint x, GLuint y, GLuint z);
 
-	static void generate(GLuint x, GLuint y, GLchar * filename);
-	static void generate(GLuint x, GLuint y, GLuint z, GLchar * filename);
+private:
+	GLuint x, y, z;
+	PerlinNoise * perlinNoise;
 
 	// TODO: TerrainGenerator
 	/* This class will generate the positions for the landscape 

@@ -17,25 +17,30 @@
 /*static*/class PerlinNoise
 {
 public:
-	static GLfloat **  generate(GLuint x, GLuint y);
-	static GLfloat *** generate(GLuint x, GLuint y, GLuint z);
+	PerlinNoise(GLuint x, GLuint y);
+	PerlinNoise(GLuint x, GLuint y, GLuint z);
+	GLfloat **  generate(GLuint x, GLuint y);
+	GLfloat *** generate(GLuint x, GLuint y, GLuint z);
 
 private:
-	static const GLdouble PI;
-	static glm::vec2 ** gradients;
-	static glm::vec3 *** gradients3d;
+	// Size of chunck
+	GLuint x, y, z;
+	
+	const GLdouble PI = 3.141592653589793;
+	glm::vec2 ** gradients;
+	glm::vec3 *** gradients3d;
 
-	static void genGradients(GLuint x, GLuint y);
-	static void genGradients3d(GLuint x, GLuint y, GLuint z);
+	void genGradients(GLuint x, GLuint y);
+	void genGradients3d(GLuint x, GLuint y, GLuint z);
 
-	static GLfloat perlin(GLfloat x, GLfloat y);
-	static GLfloat perlin(GLfloat x, GLfloat y, GLfloat z);
+	GLfloat perlin(GLfloat x, GLfloat y);
+	GLfloat perlin(GLfloat x, GLfloat y, GLfloat z);
 
-	static glm::vec2 randomVector(GLfloat length);
-	static glm::vec3 random3DVector(GLfloat length);
+	glm::vec2 randomVector(GLfloat length);
+	glm::vec3 random3DVector(GLfloat length);
 
-	static GLfloat fade(GLfloat val);
+	GLfloat fade(GLfloat val);
 
-	static GLfloat lerp(GLfloat x, GLfloat y, GLfloat w);
+	GLfloat lerp(GLfloat x, GLfloat y, GLfloat w);
 };
 

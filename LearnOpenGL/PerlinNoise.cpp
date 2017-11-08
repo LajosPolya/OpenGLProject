@@ -1,9 +1,18 @@
 #include "PerlinNoise.h"
 
-glm::vec2 ** PerlinNoise::gradients;
-glm::vec3 *** PerlinNoise::gradients3d;
+PerlinNoise::PerlinNoise(GLuint x, GLuint y)
+{
+	this->x = x;
+	this->y = y;
+}
 
-const double PerlinNoise::PI = 3.141592653589793;
+// The parameters are the size of the chunck it should produce on each axis
+PerlinNoise::PerlinNoise(GLuint x, GLuint y, GLuint z)
+{
+	this->x = x;
+	this->y = y;
+	this->z = z;
+}
 
 GLfloat **  PerlinNoise::generate(GLuint x, GLuint y)
 {

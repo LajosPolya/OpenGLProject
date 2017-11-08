@@ -134,9 +134,11 @@ int main()
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection);
 
 	std::vector<glm::vec3> pos2d;
-	TerrainGenerator::generate(50, 50, pos2d);
+	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
+	pos2d = terrainGenerator2d.generate(50, 50);
 	std::vector<glm::vec3> pos3d;
-	TerrainGenerator::generate(50, 25, 50 , pos3d);
+	TerrainGenerator terrainGenerator3d(50, 25, 50, T_3D);
+	pos3d = terrainGenerator3d.generate(0, 0, 50);
 
 	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
 	InstancedArrayGameObjectImpl perlin3d("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d, "Material/crate.txt", camera, projection, GL_TRIANGLES);
