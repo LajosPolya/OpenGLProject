@@ -14,41 +14,61 @@ PerlinNoise::PerlinNoise(GLuint x, GLuint y, GLuint z)
 	this->z = z;
 }
 
-GLfloat **  PerlinNoise::generate(GLuint x, GLuint y)
+GLfloat **  PerlinNoise::generate(GLint x, GLint y)
 {
 	GLuint i, j;
 	GLfloat ** values;
 
 	genGradients(64, 64);
 
-	values = new GLfloat*[x];
-	for (i = 0; i < x; i++) {
-		values[i] = new GLfloat[y];
-		for (j = 0; j < y; j++) {
-			values[i][j] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)6.0, (GLfloat)j / (GLfloat)y * (GLfloat)6.0);
+	values = new GLfloat*[this->x];
+	for (i = 0; i < this->x; i++) {
+		values[i] = new GLfloat[this->y];
+		for (j = 0; j < this->y; j++) {
+			values[i][j] = perlin((GLfloat)i / (GLfloat)this->x * (GLfloat)6.0, (GLfloat)j / (GLfloat)this->y * (GLfloat)6.0);
 		}
 	}
 
 	return values;
 }
 
-GLfloat *** PerlinNoise::generate(GLuint x, GLuint y, GLuint z)
+GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z)
 {
 	GLuint i, j, k;
 	GLfloat *** values3d;
 
-	genGradients3d(64, 64, 64);
+	if (this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks] == nullptr) {
+		genGradients3d(64, 64, 64);
+	}
 
-	values3d = new GLfloat**[x];
-	for (i = 0; i < x; i++) {
-		values3d[i] = new GLfloat*[y];
-		for (j = 0; j < y; j++) {
-			values3d[i][j] = new GLfloat[z];
-			for (k = 0; k < z; k++) {
-				values3d[i][j][k] = perlin((GLfloat)i / (GLfloat)x * (GLfloat)3.0, (GLfloat)j / (GLfloat)y * (GLfloat)1.0, (GLfloat)k / (GLfloat)z * (GLfloat)4.0);
+	if (this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks - 1] != nullptr) {
+		for (i = 0; i < 64; i++) {
+			for (j = 0; j < 64; j++) {
+				this->gradients3d[i][j][0] = this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks - 1][i][j][1 * 1];
 			}
 		}
 	}
+
+	if (this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks + 1] != nullptr) {
+		for (i = 0; i < 64; i++) {
+			for (j = 0; j < 64; j++) {
+				this->gradients3d[i][j][1 * 1] = this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks + 1][i][j][0];
+			}
+		}
+	}
+
+	values3d = new GLfloat**[this->x];
+	for (i = 0; i < this->x; i++) {
+		values3d[i] = new GLfloat*[this->y];
+		for (j = 0; j < this->y; j++) {
+			values3d[i][j] = new GLfloat[this->z];
+			for (k = 0; k < this->z; k++) {
+				values3d[i][j][k] = perlin((GLfloat)i / (GLfloat)this->x * (GLfloat)1.0, (GLfloat)j / (GLfloat)this->y * (GLfloat)1.0, (GLfloat)k / (GLfloat)this->z * (GLfloat)1.0);
+			}
+		}
+	}
+
+	this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks] = this->gradients3d;
 
 	return values3d;
 }

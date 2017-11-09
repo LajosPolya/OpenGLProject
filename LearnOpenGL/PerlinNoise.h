@@ -13,18 +13,23 @@
 #include <random>
 #include <math.h>
 
-/* No need to make class static since static keyword doesn't do anything on classes */
-/*static*/class PerlinNoise
+
+class PerlinNoise
 {
 public:
 	PerlinNoise(GLuint x, GLuint y);
 	PerlinNoise(GLuint x, GLuint y, GLuint z);
-	GLfloat **  generate(GLuint x, GLuint y);
-	GLfloat *** generate(GLuint x, GLuint y, GLuint z);
+	GLfloat **  generate(GLint x, GLint y);
+	GLfloat *** generate(GLint x, GLint y, GLint z);
 
 private:
 	// Size of chunck
 	GLuint x, y, z;
+
+	const GLuint maxChuncks = 100;
+	const GLuint halfMaxChuncks = ((maxChuncks / 2) - 1);
+	// Store each chuncks gradients
+	glm::vec3 *** chunckGrads[100][100][100];
 	
 	const GLdouble PI = 3.141592653589793;
 	glm::vec2 ** gradients;

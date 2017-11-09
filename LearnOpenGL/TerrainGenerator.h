@@ -11,14 +11,14 @@
 class TerrainGenerator
 {
 public:
-	TerrainGenerator(GLuint x, GLuint y, GLuint z, GLuint terrainType);
+	TerrainGenerator(GLint x, GLint y, GLint z, GLuint terrainType);
 	~TerrainGenerator();
 
-	std::vector<glm::vec3> generate(GLuint x, GLuint z);
-	std::vector<glm::vec3> generate(GLuint x, GLuint y, GLuint z);
+	std::vector<glm::vec3> generate(GLint x, GLint z);
+	std::vector<glm::vec3> generate(GLint x, GLint y, GLint z);
 
 private:
-	GLuint x, y, z;
+	GLint x, y, z;
 	PerlinNoise * perlinNoise;
 
 	// TODO: TerrainGenerator
