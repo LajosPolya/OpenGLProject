@@ -148,7 +148,7 @@ int main()
 	InstancedArrayGameObjectImpl perlin3d2("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d2, "Material/crate.txt", camera, projection, GL_TRIANGLES);
 
 	std::vector<glm::vec3> pos3d3;
-	pos3d3 = terrainGenerator3d.generate(0, 0, -50);
+	pos3d3 = terrainGenerator3d.generate(-50, 0, 0);
 	InstancedArrayGameObjectImpl perlin3d3("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d3, "Material/crate.txt", camera, projection, GL_TRIANGLES);
 
 	///InstancedArrayGameObjectImpl lineGrass("Shaders/instancedVertToGeo.vert", "Shaders/grass.frag", "Shaders/line.geom", "", "", "Mesh/dynamicGrass.txt", "Material/crate.txt", pos3d, "Material/crate.txt", camera, projection, GL_POINTS);

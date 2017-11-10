@@ -57,6 +57,22 @@ GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z)
 		}
 	}
 
+	if (this->chunckGrads[x + halfMaxChuncks - 1][y + halfMaxChuncks][z + halfMaxChuncks] != nullptr) {
+		for (i = 0; i < 64; i++) {
+			for (j = 0; j < 64; j++) {
+				this->gradients3d[0][i][j] = this->chunckGrads[x + halfMaxChuncks - 1][y + halfMaxChuncks][z + halfMaxChuncks][1 * 1][i][j];
+			}
+		}
+	}
+
+	if (this->chunckGrads[x + halfMaxChuncks + 1][y + halfMaxChuncks][z + halfMaxChuncks] != nullptr) {
+		for (i = 0; i < 64; i++) {
+			for (j = 0; j < 64; j++) {
+				this->gradients3d[1 * 1][i][j] = this->chunckGrads[x + halfMaxChuncks + 1][y + halfMaxChuncks][z + halfMaxChuncks][0][i][j];
+			}
+		}
+	}
+
 	values3d = new GLfloat**[this->x];
 	for (i = 0; i < this->x; i++) {
 		values3d[i] = new GLfloat*[this->y];
