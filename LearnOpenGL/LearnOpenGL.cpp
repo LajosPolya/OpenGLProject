@@ -3,6 +3,10 @@
 #include <map>
 #include <ctime>
 #include <cstdio>
+#include <queue>
+#include <thread>
+#include <chrono>
+#include <mutex>
 
 // Windows
 #include <Windows.h>
@@ -37,6 +41,14 @@ void do_movement();
 
 void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
 void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
+
+// Multithreaded Functions
+byte killAll = 0;
+std::queue<int> q;
+std::mutex pc_m;
+void Producer();
+void Consumer(int * done);
+int * done = new int(-1);
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -84,7 +96,7 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Locks Mouse into Screen
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	///glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -168,12 +180,21 @@ int main()
 	CollisionDetector::AddTransform(perlin.getTransform());
 	CollisionDetector::AddTransform(perlin3d.getTransform());
 
+	std::thread t1(Producer);
+	std::thread t2(Consumer, done);
+	int * item = new int(0);
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
 		GLfloat currentFrame = (GLfloat)glfwGetTime();
 		deltaTime = (GLfloat)(currentFrame - lastFrame);
 		lastFrame = (GLfloat)currentFrame;
+
+		if (*item != *done) {
+			std::cout << *done << std::endl;
+			*item = *done;
+		}
+
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 		do_movement();
@@ -234,10 +255,12 @@ int main()
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
 	}
-
 	// Delete Pointers shared by multiple GameObjects
 	GameObjectMemoryManager::deleteSharedPointers();
 
+	killAll = 1;
+	t1.detach();
+	t2.detach();
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
 	return 0;
@@ -293,4 +316,29 @@ void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos) {
 
 void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
 	camera->ProcessMouseScroll((GLfloat)yoffset);
+}
+
+void Producer()
+{
+	while (killAll != 1) {
+		pc_m.lock();
+		//std::this_thread::sleep_for(std::chrono::seconds(5));
+		//std::cout << "Slept for 5 Seconds" << std::endl;
+		q.push(10);
+		pc_m.unlock();
+	}
+}
+
+void Consumer(int * done)
+{
+	while (killAll != 1) {
+		pc_m.lock();
+		//std::cout << "LOCK" << std::endl;
+		if (!q.empty()) {
+			*done = q.front();
+			//std::cout << "Done: in thread: " << *done << std::endl;
+			q.pop();
+		}
+		pc_m.unlock();
+	}
 }
