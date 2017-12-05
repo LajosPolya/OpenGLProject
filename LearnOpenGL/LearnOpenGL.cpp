@@ -146,11 +146,11 @@ int main()
 	std::vector<glm::vec3> pos2d;
 	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
 	pos2d = terrainGenerator2d.generate(-50, 0);
+	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
+	
 	std::vector<glm::vec3> pos3d;
 	TerrainGenerator terrainGenerator3d(50, 25, 50, T_3D);
 	pos3d = terrainGenerator3d.generate(0, 0, 0);
-
-	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
 	InstancedArrayGameObjectImpl perlin3d("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d, "Material/crate.txt", camera, projection, GL_TRIANGLES);
 
 	std::vector<glm::vec3> pos3d2;
@@ -175,10 +175,11 @@ int main()
 	CollisionDetector::AddTransform(instancedGameObject.getTransform());
 	CollisionDetector::AddTransform(instancedArrayGameObject.getTransform());
 	CollisionDetector::AddTransform(grassSides.getTransform());
-	CollisionDetector::AddTransform(perlin.getTransform());
+	///CollisionDetector::AddTransform(perlin.getTransform());
 	CollisionDetector::AddTransform(perlin3d.getTransform());
 
 	std::thread t1(Producer);
+	chunks.push_back(perlin);
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -201,6 +202,10 @@ int main()
 			}
 		}
 
+		for (GLuint i = 0; i < chunks.size(); i++) {
+			chunks[i].Draw();
+		}
+
 		// Do Collision before drawing
 		CollisionDetector::CheckCollisions();
 
@@ -221,7 +226,7 @@ int main()
 		instancedGameObject.Draw();
 		
 		grassSides.Draw();
-		perlin.Draw();
+		///perlin.Draw();
 		perlin3d.Draw();
 		perlin3d2.Draw();
 		perlin3d3.Draw();
