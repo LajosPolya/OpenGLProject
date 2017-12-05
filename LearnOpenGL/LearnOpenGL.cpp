@@ -44,11 +44,9 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
 
 // Multithreaded Functions
 byte killAll = 0;
-std::queue<int> q;
+std::vector<InstancedArrayGameObjectImpl> chunks;
 std::mutex pc_m;
 void Producer();
-void Consumer(int * done);
-int * done = new int(-1);
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -57,6 +55,9 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 Camera * camera = new Camera(glm::vec3(0.0f, 0.0f, -10.0f));
 // Previosu Position for Collision Detection
 glm::vec3 prevPosition = camera->Position;
+
+/* Calcualte Projection Here */
+glm::mat4 projection = glm::perspective(camera->Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.01f, 100.0f);
 
 // Keep track of pressed keys
 bool keys[2048];
@@ -123,9 +124,6 @@ int main()
 		}
 	}
 
-	/* Calcualte Projection Here */
-	glm::mat4 projection = glm::perspective(camera->Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.01f, 100.0f);
-
 	std::clock_t start;
 	GLdouble duration;
 
@@ -181,19 +179,12 @@ int main()
 	CollisionDetector::AddTransform(perlin3d.getTransform());
 
 	std::thread t1(Producer);
-	std::thread t2(Consumer, done);
-	int * item = new int(0);
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
 		GLfloat currentFrame = (GLfloat)glfwGetTime();
 		deltaTime = (GLfloat)(currentFrame - lastFrame);
 		lastFrame = (GLfloat)currentFrame;
-
-		if (*item != *done) {
-			std::cout << *done << std::endl;
-			*item = *done;
-		}
 
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
@@ -260,7 +251,6 @@ int main()
 
 	killAll = 1;
 	t1.detach();
-	t2.detach();
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
 	return 0;
@@ -320,25 +310,10 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
 
 void Producer()
 {
-	while (killAll != 1) {
+	///while (killAll != 1) {
 		pc_m.lock();
 		//std::this_thread::sleep_for(std::chrono::seconds(5));
 		//std::cout << "Slept for 5 Seconds" << std::endl;
-		q.push(10);
 		pc_m.unlock();
-	}
-}
-
-void Consumer(int * done)
-{
-	while (killAll != 1) {
-		pc_m.lock();
-		//std::cout << "LOCK" << std::endl;
-		if (!q.empty()) {
-			*done = q.front();
-			//std::cout << "Done: in thread: " << *done << std::endl;
-			q.pop();
-		}
-		pc_m.unlock();
-	}
+	///}
 }
