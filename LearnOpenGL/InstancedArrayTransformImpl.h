@@ -23,11 +23,13 @@ class InstancedArrayTransformImpl : public InstancedTransform
 public:
 	InstancedArrayTransformImpl();
 	~InstancedArrayTransformImpl();
-
+	InstancedArrayTransformImpl(const InstancedArrayTransformImpl & toCopy);
 
 	InstancedArrayTransformImpl(std::string fileLocation, InstancedArrayGameObjectImpl * gameObject);
 	InstancedArrayTransformImpl(std::vector<glm::vec3> positions, InstancedArrayGameObjectImpl * gameObject);
 	InstancedArrayTransformImpl(std::vector<glm::vec3> positions, std::vector<glm::vec3> rotations, std::vector<glm::vec3> scales, InstancedArrayGameObjectImpl * gameObject);
+
+	void setGameObject(InstancedArrayGameObjectImpl * instancedArrayGameObject);
 
 	std::vector<glm::vec3> * getPositions();
 	std::vector<glm::vec3> * getRotations();

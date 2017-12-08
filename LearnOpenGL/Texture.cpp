@@ -10,6 +10,12 @@ Texture::Texture() {
 	this->type = std::string();
 }
 
+Texture::Texture(const Texture & toCopy) {
+	this->id = toCopy.id;
+	this->name = toCopy.name;
+	this->type = toCopy.type;
+}
+
 Texture::Texture(GLchar * path, GLboolean alpha) {
 	if (path != nullptr) {
 		// Gen texture ID and load texture data

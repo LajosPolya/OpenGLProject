@@ -48,6 +48,7 @@ public:
 	std::vector<glm::mat4> instances;
 
 	Mesh();
+	Mesh(const Mesh & toCopy);
 	Mesh(GLchar * vertexLocation);
 	Mesh(GLchar * vertexLocation, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap, Texture * specularMap);

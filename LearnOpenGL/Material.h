@@ -18,6 +18,8 @@
 */
 
 struct MaterialProp {
+	MaterialProp();
+	MaterialProp(const MaterialProp & toCopy);
 	GLfloat shininess;
 };
 
@@ -25,6 +27,7 @@ class Material {
 public:
 
 	Material();
+	Material(const Material & toCopy); // Copy Constructor
 
 	Material(std::string materialLocation);
 	Material(MaterialProp prop);

@@ -5,6 +5,16 @@ InstancedArrayTransformImpl::InstancedArrayTransformImpl() {}
 
 InstancedArrayTransformImpl::~InstancedArrayTransformImpl() {}
 
+InstancedArrayTransformImpl::InstancedArrayTransformImpl(const InstancedArrayTransformImpl & toCopy) {
+	// this->gameObject = new InstancedArrayGameObjectImpl(*toCopy.gameObject);
+
+	this->Position = toCopy.Position;
+	this->Rotation = toCopy.Rotation;
+	this->Scale = toCopy.Scale;
+
+	this->model = toCopy.model;
+}
+
 InstancedArrayTransformImpl::InstancedArrayTransformImpl(std::string fileLocation, InstancedArrayGameObjectImpl * gameObject) {
 	this->gameObject = gameObject;
 	this->readFile(fileLocation);
@@ -39,6 +49,10 @@ InstancedArrayTransformImpl::InstancedArrayTransformImpl(std::vector<glm::vec3> 
 	}
 
 	this->gameObject = gameObject;
+}
+
+void InstancedArrayTransformImpl::setGameObject(InstancedArrayGameObjectImpl * instancedArrayGameObject) {
+	this->gameObject = instancedArrayGameObject;
 }
 
 std::vector<glm::vec3>* InstancedArrayTransformImpl::getPositions()

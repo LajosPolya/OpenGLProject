@@ -202,10 +202,6 @@ int main()
 			}
 		}
 
-		for (GLuint i = 0; i < chunks.size(); i++) {
-			chunks[i].Draw();
-		}
-
 		// Do Collision before drawing
 		CollisionDetector::CheckCollisions();
 
@@ -237,6 +233,12 @@ int main()
 		lightBox2.Draw();
 		lightBox3.Draw();
 		lightBox4.Draw();
+
+		/* Copy Constructor doesn't yet copy LightsContainer */
+		for (GLuint i = 0; i < chunks.size(); i++) {
+			//perlin.Draw();
+			chunks[i].Draw();
+		}
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -313,8 +315,7 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
 	camera->ProcessMouseScroll((GLfloat)yoffset);
 }
 
-void Producer()
-{
+void Producer() {
 	///while (killAll != 1) {
 		pc_m.lock();
 		//std::this_thread::sleep_for(std::chrono::seconds(5));

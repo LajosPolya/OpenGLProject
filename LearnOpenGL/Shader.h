@@ -26,6 +26,7 @@ public:
 	GLuint Program;
 
 	Shader();
+	Shader(const Shader & toCopy);
 
 	Shader(const GLchar * vertexPath, const GLchar * fragmentPath);
 	Shader(const GLchar * vertexPath, const GLchar * fragmentPath, GLchar * geometryPath);

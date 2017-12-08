@@ -5,6 +5,8 @@
 #include <string>
 #include <fstream>
 
+
+// TODO: Since the members are static, should I consider redesigning LightsContainer to not be a part of the GameObject
 class LightsContainer
 {
 public:

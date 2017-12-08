@@ -13,6 +13,7 @@
 class Texture {
 public:
 	Texture();
+	Texture(const Texture & toCopy);
 
 	Texture(GLchar * path, GLboolean alpha);
 	Texture(GLuint id, std::string name, std::string type);

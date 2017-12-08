@@ -26,6 +26,20 @@ InstancedArrayGameObjectImpl::~InstancedArrayGameObjectImpl() {
 	}
 }
 
+// TODO: Do I need to copy LightsContainer
+/* Since the members are static, should I consider redesigning LightsContainer to not be a part of the GameObject */
+InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(const InstancedArrayGameObjectImpl & toCopy) {
+	this->mesh = toCopy.mesh; // std::vector has a Copy Construct which will call Mesh's Copy Constructor
+	this->material = new Material(*toCopy.material);
+	this->shader = new Shader(*toCopy.shader);
+	this->camera = toCopy.camera;
+	this->transform = new InstancedArrayTransformImpl(*toCopy.transform);
+	this->transform->setGameObject(this); // TODO: Need better way to assigned forward declared reference
+	this->lightsContainer = toCopy.lightsContainer;
+
+	GameObjectMemoryManager::add(toCopy.camera, false);
+}
+
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc1, std::string specularMapLoc1, std::string meshLoc1, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
 {
 	this->shader = new Shader(vertexShader, fragmentShader);

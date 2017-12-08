@@ -2,26 +2,27 @@
 
 Material::Material() {}
 
+Material::Material(const Material & toCopy) {
+	this->material = toCopy.material;
+}
+
 Material::Material(std::string materialLocation) {
 
 	this->readLightingFile(materialLocation);
 }
 
-Material::Material(MaterialProp prop)
-{
+Material::Material(MaterialProp prop) {
 	this->material = prop;
 }
 
-GLfloat Material::getShininess()
-{
+GLfloat Material::getShininess() {
 	if (this != nullptr) {
 		return material.shininess;
 	}
 	return (GLfloat)0.0f;
 }
 
-MaterialProp Material::getMaterialProp()
-{
+MaterialProp Material::getMaterialProp() {
 	return this->material;
 }
 
@@ -80,4 +81,10 @@ void Material::readLightingFile(std::string filename) {
 			}
 		}
 	}
+}
+
+MaterialProp::MaterialProp() {}
+
+MaterialProp::MaterialProp(const MaterialProp & toCopy) {
+	this->shininess = toCopy.shininess;
 }

@@ -2,6 +2,35 @@
 
 Mesh::Mesh() {}
 
+Mesh::Mesh(const Mesh & toCopy) {
+	/*
+	GLuint VAO, VBO, EBO = -1;
+	GLuint instanceVBO = -1;
+	GLuint numInstances = 0;
+
+	GLuint vertexProp_BitMap;
+	GLuint type = 0;
+	GLuint primitiveType = 0;
+
+	Texture * diffuseMap = nullptr;
+	Texture * specularMap = nullptr;
+	*/
+
+	this->VAO = toCopy.VAO;
+	this->VBO = toCopy.VBO;
+	this->EBO = toCopy.EBO;
+
+	this->instanceVBO = toCopy.instanceVBO;
+	this->numInstances = toCopy.numInstances;
+
+	this->vertexProp_BitMap = toCopy.vertexProp_BitMap;
+	this->type = toCopy.type;
+	this->primitiveType = toCopy.primitiveType;
+
+	this->diffuseMap = new Texture(*toCopy.diffuseMap);
+	this->specularMap = new Texture(*toCopy.specularMap);
+}
+
 Mesh::Mesh(GLchar* vertexLocation) {
 	this->readVertexFile(vertexLocation);
 
