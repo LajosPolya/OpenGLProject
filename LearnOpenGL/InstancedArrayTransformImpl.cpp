@@ -6,7 +6,6 @@ InstancedArrayTransformImpl::InstancedArrayTransformImpl() {}
 InstancedArrayTransformImpl::~InstancedArrayTransformImpl() {}
 
 InstancedArrayTransformImpl::InstancedArrayTransformImpl(const InstancedArrayTransformImpl & toCopy) {
-	// this->gameObject = new InstancedArrayGameObjectImpl(*toCopy.gameObject);
 
 	this->Position = toCopy.Position;
 	this->Rotation = toCopy.Rotation;

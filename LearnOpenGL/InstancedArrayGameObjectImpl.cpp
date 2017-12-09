@@ -29,7 +29,10 @@ InstancedArrayGameObjectImpl::~InstancedArrayGameObjectImpl() {
 // TODO: Do I need to copy LightsContainer
 /* Since the members are static, should I consider redesigning LightsContainer to not be a part of the GameObject */
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(const InstancedArrayGameObjectImpl & toCopy) {
-	this->mesh = toCopy.mesh; // std::vector has a Copy Construct which will call Mesh's Copy Constructor
+	//this->mesh = toCopy.mesh; // std::vector has a Copy Construct which will call Mesh's Copy Constructor
+	for (GLuint i = 0; i < toCopy.mesh.size(); i++) {
+		this->mesh.push_back(new Mesh(*toCopy.mesh[i]));
+	}
 	this->material = new Material(*toCopy.material);
 	this->shader = new Shader(*toCopy.shader);
 	this->camera = toCopy.camera;

@@ -3,18 +3,9 @@
 Mesh::Mesh() {}
 
 Mesh::Mesh(const Mesh & toCopy) {
-	/*
-	GLuint VAO, VBO, EBO = -1;
-	GLuint instanceVBO = -1;
-	GLuint numInstances = 0;
-
-	GLuint vertexProp_BitMap;
-	GLuint type = 0;
-	GLuint primitiveType = 0;
-
-	Texture * diffuseMap = nullptr;
-	Texture * specularMap = nullptr;
-	*/
+	this->vertices = toCopy.vertices;
+	this->indices = toCopy.indices;
+	this->instances = toCopy.instances;
 
 	this->VAO = toCopy.VAO;
 	this->VBO = toCopy.VBO;

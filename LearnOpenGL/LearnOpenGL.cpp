@@ -143,11 +143,7 @@ int main()
 	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection);
 
-	std::vector<glm::vec3> pos2d;
-	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
-	pos2d = terrainGenerator2d.generate(-50, 0);
-	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
-	
+		
 	std::vector<glm::vec3> pos3d;
 	TerrainGenerator terrainGenerator3d(50, 25, 50, T_3D);
 	pos3d = terrainGenerator3d.generate(0, 0, 0);
@@ -178,8 +174,13 @@ int main()
 	///CollisionDetector::AddTransform(perlin.getTransform());
 	CollisionDetector::AddTransform(perlin3d.getTransform());
 
-	std::thread t1(Producer);
+	std::vector<glm::vec3> pos2d;
+	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
+	pos2d = terrainGenerator2d.generate(-50, 0);
+	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
 	chunks.push_back(perlin);
+
+	std::thread t1(Producer);
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -318,7 +319,7 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
 void Producer() {
 	///while (killAll != 1) {
 		pc_m.lock();
-		//std::this_thread::sleep_for(std::chrono::seconds(5));
+		///std::this_thread::sleep_for(std::chrono::seconds(5));
 		//std::cout << "Slept for 5 Seconds" << std::endl;
 		pc_m.unlock();
 	///}

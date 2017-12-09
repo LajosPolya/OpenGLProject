@@ -10,7 +10,6 @@ c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\instancedgam
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\instancedtransformimpl.obj
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\learnopengl.obj
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\lightscontainer.obj
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\material.obj
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\mesh.obj
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\perlinnoise.obj
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\resourcemanager.obj
@@ -20,6 +19,7 @@ c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\texture.obj
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\transformimpl.obj
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\transparentgameobjectimpl.obj
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\transparenttransformimpl.obj
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\debug\material.obj
 c:\users\lajos polya\documents\github\learnopengl\debug\learnopengl.ilk
 c:\users\lajos polya\documents\github\learnopengl\debug\learnopengl.exe
 c:\users\lajos polya\documents\github\learnopengl\debug\learnopengl.pdb
