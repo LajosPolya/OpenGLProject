@@ -177,6 +177,7 @@
     <Text Include="Instance\crate.txt" />
     <Text Include="Instance\crate1.txt" />
     <Text Include="Instance\crate2.txt" />
+    <Text Include="Instance\crate3.txt" />
     <Text Include="Instance\window.txt" />
     <Text Include="lamp.frag" />
     <Text Include="lamp.vert" />

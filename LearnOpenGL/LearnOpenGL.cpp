@@ -142,8 +142,8 @@ int main()
 	InstancedArrayGameObjectImpl grassSides("instancedArray.vert", "fragment.frag", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", camera, projection);
 	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection);
+	InstancedTransformImpl newInstancedTransform("Instance/crate3.txt");
 
-		
 	std::vector<glm::vec3> pos3d;
 	TerrainGenerator terrainGenerator3d(50, 25, 50, T_3D);
 	pos3d = terrainGenerator3d.generate(0, 0, 0);
@@ -181,9 +181,11 @@ int main()
 	chunks.push_back(perlin);
 
 	std::thread t1(Producer);
+	GLuint numFrames = 0;
 	// Game loop
-	while (!glfwWindowShouldClose(window))
-	{
+	while (!glfwWindowShouldClose(window)) {
+		numFrames++;
+
 		GLfloat currentFrame = (GLfloat)glfwGetTime();
 		deltaTime = (GLfloat)(currentFrame - lastFrame);
 		lastFrame = (GLfloat)currentFrame;
@@ -220,6 +222,9 @@ int main()
 		glEnable(GL_CULL_FACE);
 
 		instancedArrayGameObject.Draw();
+		if (numFrames == 250) {
+			instancedGameObject.setTransform(&newInstancedTransform);
+		}
 		instancedGameObject.Draw();
 		
 		grassSides.Draw();
@@ -265,8 +270,7 @@ int main()
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode)
-{
+void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode) {
 
 	if (action == GLFW_PRESS) {
 		keys[key] = true;

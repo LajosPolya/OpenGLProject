@@ -29,6 +29,7 @@ public:
 	~InstancedTransformImpl();
 
 	InstancedTransformImpl(GLchar * fileLocation, InstancedGameObjectImpl * gameObject);
+	InstancedTransformImpl(GLchar * fileLocation);
 
 	std::vector<glm::vec3> * getPositions();
 
@@ -39,12 +40,13 @@ public:
 	void Draw();
 	
 	InstancedGameObjectImpl * getGameObject();
+	void setGameObject(InstancedGameObjectImpl * gameObject);
 
 	GLuint getSize();
 
 private:
 	/* Reference to own GameObject instance*/
-	InstancedGameObjectImpl * gameObject;
+	InstancedGameObjectImpl * gameObject = nullptr;
 
 	/* Only the file should set this */
 	std::vector<glm::vec3> Position;

@@ -20,6 +20,7 @@ public:
 	Camera * getCamera();
 
 	InstancedTransformImpl * getTransform();
+	void setTransform(InstancedTransformImpl * transform);
 
 	Texture * getDiffuseMap(GLint i);
 	Texture * getSpecularMap(GLint i);

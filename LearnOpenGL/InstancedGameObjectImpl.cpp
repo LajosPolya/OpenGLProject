@@ -85,17 +85,22 @@ InstancedTransformImpl * InstancedGameObjectImpl::getTransform() {
 	return this->transform;
 }
 
-Texture * InstancedGameObjectImpl::getDiffuseMap(GLint i)
-{
+void InstancedGameObjectImpl::setTransform(InstancedTransformImpl * transform) {
+	this->transform = transform;
+	this->transform->setGameObject(this);
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		this->mesh[i]->setInstance(transform->getModels());
+	}
+}
+
+Texture * InstancedGameObjectImpl::getDiffuseMap(GLint i) {
 	return this->mesh[i]->getDiffuseMap();
 }
 
-Texture * InstancedGameObjectImpl::getSpecularMap(GLint i)
-{
+Texture * InstancedGameObjectImpl::getSpecularMap(GLint i) {
 	return this->mesh[i]->getSpecularMap();
 }
 
-LightsContainer * InstancedGameObjectImpl::getLightsContainer()
-{
+LightsContainer * InstancedGameObjectImpl::getLightsContainer() {
 	return this->lightsContainer;
 }

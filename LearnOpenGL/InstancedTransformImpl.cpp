@@ -5,18 +5,20 @@ InstancedTransformImpl::InstancedTransformImpl() {}
 
 InstancedTransformImpl::~InstancedTransformImpl() {}
 
-InstancedTransformImpl::InstancedTransformImpl(GLchar* fileLocation, InstancedGameObjectImpl * gameObject) {
+InstancedTransformImpl::InstancedTransformImpl(GLchar * fileLocation, InstancedGameObjectImpl * gameObject) {
 	this->gameObject = gameObject;
 	this->readFile(fileLocation);
 }
 
-std::vector<glm::vec3>* InstancedTransformImpl::getPositions()
-{
+InstancedTransformImpl::InstancedTransformImpl(GLchar * fileLocation) {
+	this->readFile(fileLocation);
+}
+
+std::vector<glm::vec3> * InstancedTransformImpl::getPositions() {
 	return &this->Position;
 }
 
-std::vector<glm::mat4> InstancedTransformImpl::getModels()
-{
+std::vector<glm::mat4> InstancedTransformImpl::getModels() {
 	return this->model;
 }
 
@@ -31,19 +33,20 @@ void InstancedTransformImpl::Draw() {
 	// this->newScale = this->Scale;
 }
 
-InstancedGameObjectImpl * InstancedTransformImpl::getGameObject()
-{
+InstancedGameObjectImpl * InstancedTransformImpl::getGameObject() {
 	return this->gameObject;
 }
 
-GLuint InstancedTransformImpl::getSize()
-{
+void InstancedTransformImpl::setGameObject(InstancedGameObjectImpl * gameObject) {
+	this->gameObject = gameObject;
+}
+
+GLuint InstancedTransformImpl::getSize() {
 	return this->model.size();
 }
 
 // TODO: Create a Base Class which will have this method (implemented by this and InstancedTransformImpl)
-void InstancedTransformImpl::readFile(std::string filename)
-{
+void InstancedTransformImpl::readFile(std::string filename) {
 	std::ifstream file(filename);
 	if (file.is_open()) {
 		std::string line;

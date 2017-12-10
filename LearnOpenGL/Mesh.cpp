@@ -44,8 +44,7 @@ Mesh::Mesh(GLchar* vertexLocation) {
 	this->setupMesh();
 }
 
-Mesh::Mesh(GLchar * vertexLocation, Texture * diffuseMap, Texture * specularMap)
-{
+Mesh::Mesh(GLchar * vertexLocation, Texture * diffuseMap, Texture * specularMap) {
 	this->readVertexFile(vertexLocation);
 
 	this->diffuseMap = diffuseMap;
@@ -54,8 +53,7 @@ Mesh::Mesh(GLchar * vertexLocation, Texture * diffuseMap, Texture * specularMap)
 	this->setupMesh();
 }
 
-Mesh::Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap, Texture * specularMap)
-{
+Mesh::Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap, Texture * specularMap) {
 	this->readVertexFile(vertexLocation);
 
 	this->diffuseMap = diffuseMap;
@@ -64,8 +62,7 @@ Mesh::Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap,
 	this->setupMesh();
 }
 
-Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type)
-{
+Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type) {
 	this->readVertexFile(vertexLocation);
 	this->instances = instances;
 	this->type = type;
@@ -75,29 +72,13 @@ Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint typ
 	this->setupMesh();
 }
 
-// Constructor Delegation (a consteuctor can't be called from another constructor)
-Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, instances, type)
-{
+// Constructor Delegation (a constructor can't be called from another constructor)
+Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, instances, type) {
 	this->diffuseMap = diffuseMap;
 	this->specularMap = specularMap;
 }
 
-Mesh::Mesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, Texture * diffuseMap, Texture * specularMap)
-{
-	this->diffuseMap = diffuseMap;
-	this->specularMap = specularMap;
-
-	this->readVertexFile(vertexLocation);
-	this->instances = transform->getModels();
-	this->type = type;
-	this->primitiveType = GL_TRIANGLES;
-	this->numInstances = this->instances.size();
-
-	this->setupMesh(transform);
-}
-
-Mesh::Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, Texture * diffuseMap, Texture * specularMap)
-{
+Mesh::Mesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, Texture * diffuseMap, Texture * specularMap) {
 	this->diffuseMap = diffuseMap;
 	this->specularMap = specularMap;
 
@@ -110,23 +91,32 @@ Mesh::Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, Texture 
 	this->setupMesh(transform);
 }
 
-Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, instances, type, diffuseMap, specularMap)
-{
+Mesh::Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, Texture * diffuseMap, Texture * specularMap) {
+	this->diffuseMap = diffuseMap;
+	this->specularMap = specularMap;
+
+	this->readVertexFile(vertexLocation);
+	this->instances = transform->getModels();
+	this->type = type;
+	this->primitiveType = GL_TRIANGLES;
+	this->numInstances = this->instances.size();
+
+	this->setupMesh(transform);
+}
+
+Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, instances, type, diffuseMap, specularMap) {
 	this->primitiveType = primitiveType;
 }
 
-Mesh::Mesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, transform, diffuseMap, specularMap)
-{
+Mesh::Mesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, transform, diffuseMap, specularMap) {
 	this->primitiveType = primitiveType;
 }
 
-Mesh::Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, transform, diffuseMap, specularMap)
-{
+Mesh::Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, transform, diffuseMap, specularMap) {
 	this->primitiveType = primitiveType;
 }
 
-Mesh::Mesh(GLchar * vertexLocation, GLuint size)
-{
+Mesh::Mesh(GLchar * vertexLocation, GLuint size) {
 	this->readVertexFile(vertexLocation);
 	this->type = INSTANCED_SHADER;
 	this->primitiveType = GL_TRIANGLES;
@@ -172,19 +162,16 @@ void Mesh::Draw() {
 	glBindVertexArray(0);
 }
 
-void Mesh::setInstance(std::vector<glm::mat4> instances)
-{
+void Mesh::setInstance(std::vector<glm::mat4> instances) {
 	this->instances = instances;
 	this->numInstances = instances.size();
 }
 
-Texture * Mesh::getDiffuseMap()
-{
+Texture * Mesh::getDiffuseMap() {
 	return this->diffuseMap;
 }
 
-Texture * Mesh::getSpecularMap()
-{
+Texture * Mesh::getSpecularMap() {
 	return this->specularMap;
 }
 
@@ -255,8 +242,7 @@ void Mesh::setupMesh() {
 	glBindVertexArray(0);
 }
 
-void Mesh::setupMesh(Transform * transform)
-{
+void Mesh::setupMesh(Transform * transform) {
 	glGenVertexArrays(1, &this->VAO);
 	glGenBuffers(1, &this->VBO);
 
@@ -292,8 +278,7 @@ void Mesh::setupMesh(Transform * transform)
 	glBindVertexArray(0);
 }
 
-void Mesh::setupMesh(InstancedArrayTransformImpl * transform)
-{
+void Mesh::setupMesh(InstancedArrayTransformImpl * transform) {
 	this->type = INSTANCED_ARRAY_SHADER;
 	glGenVertexArrays(1, &this->VAO);
 	glGenBuffers(1, &this->VBO);
@@ -354,8 +339,7 @@ void Mesh::setupMesh(InstancedArrayTransformImpl * transform)
 	glBindVertexArray(0);
 }
 
-void Mesh::setupMesh(InstancedTransformImpl * transform)
-{
+void Mesh::setupMesh(InstancedTransformImpl * transform) {
 	this->type = INSTANCED_SHADER;
 
 	glGenVertexArrays(1, &this->VAO);

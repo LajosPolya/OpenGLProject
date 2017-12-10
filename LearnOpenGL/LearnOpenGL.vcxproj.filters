@@ -274,6 +274,9 @@
     <Text Include="Mesh\dynamicGrass.txt">
       <Filter>Mesh</Filter>
     </Text>
+    <Text Include="Instance\crate3.txt">
+      <Filter>Instance</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="wall.jpg">

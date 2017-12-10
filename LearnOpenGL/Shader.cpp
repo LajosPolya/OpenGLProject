@@ -50,8 +50,7 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
 }
 
 // TODO: Create Constructor which also creates Geometry Shader
-Shader::Shader(const GLchar * vertexPath, const GLchar * fragmentPath, GLchar * geometryPath)
-{
+Shader::Shader(const GLchar * vertexPath, const GLchar * fragmentPath, GLchar * geometryPath) {
 	// 1. Retrieve the source code from filepath
 	std::string vertexCode;
 	std::string fragmentCode;
@@ -96,8 +95,7 @@ Shader::Shader(const GLchar * vertexPath, const GLchar * fragmentPath, GLchar * 
 	glDeleteShader(geometry);
 }
 
-void Shader::readShaderFile(const GLchar * path, std::string * code)
-{
+void Shader::readShaderFile(const GLchar * path, std::string * code) {
 	std::ifstream shaderFile;
 
 	// Ensure ifstream objects can throw exceptions
@@ -122,8 +120,7 @@ void Shader::readShaderFile(const GLchar * path, std::string * code)
 	}
 }
 
-GLuint Shader::createShader(GLint type, const GLchar * code)
-{
+GLuint Shader::createShader(GLint type, const GLchar * code) {
 	// 2. Compile Shaders
 	GLuint shader;
 	GLint success;
@@ -157,8 +154,7 @@ void Shader::Use() {
 	glUseProgram(this->Program);
 }
 
-void Shader::sendToShader(LightsContainer * lightsContainer)
-{
+void Shader::sendToShader(LightsContainer * lightsContainer) {
 	DirLight * dirLight = lightsContainer->getDirLight();
 	SpotLight * spotLight = lightsContainer->getSpotLight();
 	std::vector<PointLight> * pointLights = lightsContainer->getPointLights();
@@ -198,8 +194,7 @@ void Shader::sendToShader(LightsContainer * lightsContainer)
 
 // TODO: Don't send data to Shader every frame.
 // Only send data to shader when it has changed.
-void Shader::sendToShader(GameObjectImpl * gameObject)
-{
+void Shader::sendToShader(GameObjectImpl * gameObject) {
 	Camera * camera = gameObject->getCamera();
 
 	this->Use();
@@ -218,8 +213,7 @@ void Shader::sendToShader(GameObjectImpl * gameObject)
 	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), camera->Front.x, camera->Front.y, camera->Front.z);
 }
 
-void Shader::sendToShader(InstancedArrayGameObjectImpl * gameObject)
-{
+void Shader::sendToShader(InstancedArrayGameObjectImpl * gameObject) {
 	this->Use();
 	
 	this->sendCommonToShader(gameObject);
@@ -227,8 +221,7 @@ void Shader::sendToShader(InstancedArrayGameObjectImpl * gameObject)
 
 // TODO: SPIKE : All GameObjects should be equal except that they have different Transforms
 // Thus they could all have the same Shader method to send info to the shader and separate Shader methods for the Transforms
-void Shader::sendToShader(InstancedGameObjectImpl * gameObject)
-{
+void Shader::sendToShader(InstancedGameObjectImpl * gameObject) {
 	this->Use();
 
 	this->sendCommonToShader(gameObject);
@@ -239,8 +232,7 @@ void Shader::sendToShader(InstancedGameObjectImpl * gameObject)
 	}
 }
 
-void Shader::sendToShader(TransparentGameObjectImpl * gameObject)
-{
+void Shader::sendToShader(TransparentGameObjectImpl * gameObject) {
 	this->Use();
 	sendCommonToShader(gameObject);
 
@@ -250,14 +242,12 @@ void Shader::sendToShader(TransparentGameObjectImpl * gameObject)
 	}
 }
 
-void Shader::sendToShader(Material * material)
-{
+void Shader::sendToShader(Material * material) {
 	this->Use();
 	glUniform1f(glGetUniformLocation(this->Program, "material.shininess"), material->getShininess());
 }
 
-void Shader::sendToShader(Mesh * mesh)
-{
+void Shader::sendToShader(Mesh * mesh) {
 	// Bind Diffuse Map
 	Texture * diffuseMap = mesh->getDiffuseMap();
 	if (diffuseMap != nullptr) {
@@ -273,14 +263,12 @@ void Shader::sendToShader(Mesh * mesh)
 	}
 }
 
-void Shader::setProjectionMatrix(glm::mat4 projection)
-{
+void Shader::setProjectionMatrix(glm::mat4 projection) {
 	this->Use();
 	glUniformMatrix4fv(glGetUniformLocation(this->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 }
 
-void Shader::sendCommonToShader(TransparentGameObjectImpl * gameObject)
-{
+void Shader::sendCommonToShader(TransparentGameObjectImpl * gameObject) {
 	Camera * camera = gameObject->getCamera();
 	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), camera->Position.x, camera->Position.y, camera->Position.z);
 	
@@ -294,8 +282,7 @@ void Shader::sendCommonToShader(TransparentGameObjectImpl * gameObject)
 	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), camera->Front.x, camera->Front.y, camera->Front.z);
 }
 
-void Shader::sendCommonToShader(InstancedGameObject * gameObject)
-{
+void Shader::sendCommonToShader(InstancedGameObject * gameObject) {
 	Camera * camera = gameObject->getCamera();
 	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), camera->Position.x, camera->Position.y, camera->Position.z);
 
