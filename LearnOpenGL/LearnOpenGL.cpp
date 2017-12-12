@@ -174,6 +174,11 @@ int main()
 	///CollisionDetector::AddTransform(perlin.getTransform());
 	CollisionDetector::AddTransform(perlin3d.getTransform());
 
+	GLint maxVertUniformsVect;
+	glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &maxVertUniformsVect);
+	std::cout << maxVertUniformsVect << std::endl;
+
+
 	std::vector<glm::vec3> pos2d;
 	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
 	pos2d = terrainGenerator2d.generate(-50, 0);

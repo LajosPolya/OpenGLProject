@@ -46,6 +46,7 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint z)
 	return heightValues;
 }
 
+// x, y, z % this->x, this->y, this->z should be 0, otherwise throw an error
 std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint y, GLint z)
 {
 	GLint i, j, k;
