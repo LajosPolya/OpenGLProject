@@ -97,7 +97,7 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Locks Mouse into Screen
-	///glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -140,7 +140,7 @@ int main()
 
 	InstancedArrayGameObjectImpl instancedArrayGameObject("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", camera, projection);
 	InstancedArrayGameObjectImpl grassSides("instancedArray.vert", "fragment.frag", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", camera, projection);
-	InstancedGameObjectImpl instancedGameObject("instanced.vert", "fragment.frag", "Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", camera, projection);
+	InstancedGameObjectImpl instancedGameObject = InstancedGameObjectImpl("instanced.vert", "fragment.frag", "Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", camera, projection);
 	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection);
 	InstancedTransformImpl newInstancedTransform("Instance/crate3.txt");
 
@@ -150,11 +150,10 @@ int main()
 	InstancedArrayGameObjectImpl perlin3d("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d, "Material/crate.txt", camera, projection, GL_TRIANGLES);
 
 	std::vector<glm::vec3> pos3d2;
-	pos3d2 = terrainGenerator3d.generate(0, 0, 50);
+	pos3d2 = terrainGenerator3d.generate(0, 0, -50);
 	InstancedArrayGameObjectImpl perlin3d2("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d2, "Material/crate.txt", camera, projection, GL_TRIANGLES);
-
 	std::vector<glm::vec3> pos3d3;
-	pos3d3 = terrainGenerator3d.generate(-50, 0, 0);
+	pos3d3 = terrainGenerator3d.generate(50, 0, 0);
 	InstancedArrayGameObjectImpl perlin3d3("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d3, "Material/crate.txt", camera, projection, GL_TRIANGLES);
 
 	///InstancedArrayGameObjectImpl lineGrass("Shaders/instancedVertToGeo.vert", "Shaders/grass.frag", "Shaders/line.geom", "", "", "Mesh/dynamicGrass.txt", "Material/crate.txt", pos3d, "Material/crate.txt", camera, projection, GL_POINTS);
@@ -182,7 +181,7 @@ int main()
 	std::vector<glm::vec3> pos2d;
 	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
 	pos2d = terrainGenerator2d.generate(-50, 0);
-	InstancedArrayGameObjectImpl perlin("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
+	InstancedArrayGameObjectImpl perlin = InstancedArrayGameObjectImpl("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
 	chunks.push_back(perlin);
 
 	std::thread t1(Producer);
@@ -234,9 +233,27 @@ int main()
 		
 		grassSides.Draw();
 		///perlin.Draw();
+		if (numFrames == 250) {
+			std::cout << "Switch" << std::endl;
+			for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
+				glBindVertexArray(perlin3d.getMeshes()[i]->getVAO());
+				glBindBuffer(GL_ARRAY_BUFFER, perlin3d.getMeshes()[i]->getInstancedVBO());
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * perlin3d2.getTransform()->getModels().size(), &perlin3d2.getTransform()->getModels()[0], GL_DYNAMIC_DRAW);
+
+			}
+		}
+		else if (numFrames == 500) {
+			std::cout << "Switch" << std::endl;
+			for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
+				glBindVertexArray(perlin3d.getMeshes()[i]->getVAO());
+				glBindBuffer(GL_ARRAY_BUFFER, perlin3d.getMeshes()[i]->getInstancedVBO());
+				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * perlin3d3.getTransform()->getModels().size(), &perlin3d3.getTransform()->getModels()[0], GL_DYNAMIC_DRAW);
+
+			}
+		}
 		perlin3d.Draw();
-		perlin3d2.Draw();
-		perlin3d3.Draw();
+		//perlin3d2.Draw();
+		//perlin3d3.Draw();
 
 		// TODO: These should be one isntancedArrayGameObject
 		// TODO: The Lights should be getting their transform from the Material object or vice versa

@@ -175,6 +175,16 @@ Texture * Mesh::getSpecularMap() {
 	return this->specularMap;
 }
 
+GLuint Mesh::getInstancedVBO()
+{
+	return this->instanceVBO;
+}
+
+GLuint Mesh::getVAO()
+{
+	return this->VAO;
+}
+
 // Function
 void Mesh::setupMesh() {
 	glGenVertexArrays(1, &this->VAO);
@@ -316,7 +326,7 @@ void Mesh::setupMesh(InstancedArrayTransformImpl * transform) {
 	this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
 	glGenBuffers(1, &this->instanceVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * this->instances.size(), &this->instances[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * this->instances.size(), &this->instances[0], GL_DYNAMIC_DRAW);
 
 	glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
 	glEnableVertexAttribArray(3);

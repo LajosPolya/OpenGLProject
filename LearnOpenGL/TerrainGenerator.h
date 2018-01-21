@@ -14,11 +14,17 @@ public:
 	TerrainGenerator(GLint x, GLint y, GLint z, GLuint terrainType);
 	~TerrainGenerator();
 
+	/* Params: a position in 2D or 3D space
+
+	   The chunk of which the position is in will be generated
+	*/
 	std::vector<glm::vec3> generate(GLint x, GLint z);
 	std::vector<glm::vec3> generate(GLint x, GLint y, GLint z);
 
 private:
+	// Size of one chunk of terrain
 	GLint x, y, z;
+
 	PerlinNoise * perlinNoise;
 
 	// TODO: TerrainGenerator

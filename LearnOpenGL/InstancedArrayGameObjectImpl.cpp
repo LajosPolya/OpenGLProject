@@ -232,3 +232,8 @@ LightsContainer * InstancedArrayGameObjectImpl::getLightsContainer()
 {
 	return this->lightsContainer;
 }
+
+std::vector<Mesh*> InstancedArrayGameObjectImpl::getMeshes()
+{
+	return this->mesh;
+}

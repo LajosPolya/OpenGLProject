@@ -68,6 +68,9 @@ public:
 	Texture * getDiffuseMap();
 	Texture * getSpecularMap();
 
+	GLuint getInstancedVBO();
+	GLuint getVAO();
+
 private:
 	// Render Data
 	GLuint VAO, VBO, EBO = -1;
