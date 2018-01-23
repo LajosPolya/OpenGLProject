@@ -233,22 +233,41 @@ int main()
 		
 		grassSides.Draw();
 		///perlin.Draw();
-		if (numFrames == 250) {
+		if (numFrames == 600) {
+			int increase = 0;
+			if (perlin3d2.getTransform()->getModels().size() < perlin3d.getTransform()->getModels().size()) {
+				increase = 1;
+			}
 			std::cout << "Switch" << std::endl;
 			for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
+				perlin3d.getMeshes()[i]->setInstance(perlin3d2.getTransform()->getModels());
 				glBindVertexArray(perlin3d.getMeshes()[i]->getVAO());
 				glBindBuffer(GL_ARRAY_BUFFER, perlin3d.getMeshes()[i]->getInstancedVBO());
-				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * perlin3d2.getTransform()->getModels().size(), &perlin3d2.getTransform()->getModels()[0], GL_DYNAMIC_DRAW);
+				if (increase == 0) {
+					glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::mat4) * perlin3d2.getTransform()->getModels().size(), &perlin3d2.getTransform()->getModels()[0]);
+				}
+				else {
+					glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * perlin3d2.getTransform()->getModels().size(), &perlin3d2.getTransform()->getModels()[0], GL_DYNAMIC_DRAW);
+				}
 
 			}
 		}
-		else if (numFrames == 500) {
+		else if (numFrames == 800) {
+			int increase = 0;
+			if (perlin3d3.getTransform()->getModels().size() < perlin3d.getTransform()->getModels().size()) {
+				increase = 1;
+			}
 			std::cout << "Switch" << std::endl;
 			for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
+				perlin3d.getMeshes()[i]->setInstance(perlin3d3.getTransform()->getModels());
 				glBindVertexArray(perlin3d.getMeshes()[i]->getVAO());
 				glBindBuffer(GL_ARRAY_BUFFER, perlin3d.getMeshes()[i]->getInstancedVBO());
-				glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * perlin3d3.getTransform()->getModels().size(), &perlin3d3.getTransform()->getModels()[0], GL_DYNAMIC_DRAW);
-
+				if (increase == 0) {
+					glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::mat4) * perlin3d3.getTransform()->getModels().size(), &perlin3d3.getTransform()->getModels()[0]);
+				}
+				else {
+					glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * perlin3d3.getTransform()->getModels().size(), &perlin3d3.getTransform()->getModels()[0], GL_DYNAMIC_DRAW);
+				}
 			}
 		}
 		perlin3d.Draw();
