@@ -22,6 +22,10 @@ std::vector<glm::mat4> InstancedTransformImpl::getModels() {
 	return this->model;
 }
 
+void InstancedTransformImpl::setModels(std::vector<glm::mat4> models) {
+	this->model = models;
+}
+
 void InstancedTransformImpl::refreshModel() {
 	// this->model = glm::mat4();
 }

@@ -2,6 +2,13 @@ If a GameObject is redrawn in a difference Position (crates, or grass objects) t
 Each GameObject should have a unique Id which is checked before data is sent to the Shader to improve performance.
 
 
+
+IMPORTANT:
+Should the Positions/Instances be stored in GameObject and handed down to Transform/Meshes.
+Now, depending on the {Instanced{Array}}GameObject the Position may be stored in Transform or Mesh.
+This is very messy.
+
+
 Have a game played on a randomly Perlin Noise generated map.
 The Player can move around in the world, but if the Player 
 holds a button (like ctrl) and pushes the move button then 

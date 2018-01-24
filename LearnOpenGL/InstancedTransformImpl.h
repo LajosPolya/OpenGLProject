@@ -34,6 +34,7 @@ public:
 	std::vector<glm::vec3> * getPositions();
 
 	std::vector<glm::mat4> getModels();
+	void setModels(std::vector<glm::mat4> models);
 
 	void refreshModel();
 

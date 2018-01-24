@@ -86,9 +86,13 @@ InstancedTransformImpl * InstancedGameObjectImpl::getTransform() {
 }
 
 // TODO: REMOVE THIS AND DEAL WITH MESH DIRECTLY
+// TODO: Decouple Positions/Instances from Transform and Mesh
+/* NOTE: Transform Reference is Immutable
+         Meaning the reference should never change
+*/
 void InstancedGameObjectImpl::setTransform(InstancedTransformImpl * transform) {
-	this->transform = transform;
-	this->transform->setGameObject(this);
+	this->transform->setModels(transform->getModels());
+
 	for (GLuint i = 0; i < this->mesh.size(); i++) {
 		this->mesh[i]->setInstance(transform->getModels());
 	}
@@ -104,4 +108,9 @@ Texture * InstancedGameObjectImpl::getSpecularMap(GLint i) {
 
 LightsContainer * InstancedGameObjectImpl::getLightsContainer() {
 	return this->lightsContainer;
+}
+
+std::vector<Mesh*> InstancedGameObjectImpl::getMeshes()
+{
+	return this->mesh;
 }

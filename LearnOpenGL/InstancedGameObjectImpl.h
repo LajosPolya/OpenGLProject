@@ -27,6 +27,8 @@ public:
 
 	LightsContainer * getLightsContainer();
 
+	std::vector<Mesh*> getMeshes();
+
 private:
 	std::vector<Mesh*> mesh;
 
