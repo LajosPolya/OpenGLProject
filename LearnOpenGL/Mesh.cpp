@@ -163,8 +163,29 @@ void Mesh::Draw() {
 }
 
 void Mesh::setInstance(std::vector<glm::mat4> instances) {
-	this->instances = instances;
-	this->numInstances = instances.size();
+
+	if (this->type == INSTANCED_ARRAY_SHADER) {
+		/* VAO does't need to be bound since VBO is bound to a VAO Vertex Attribute Array */
+		//glBindVertexArray(perlin3d.getMeshes()[i]->getVAO());
+		glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
+		if (instances.size() <= this->numInstances) {
+			this->instances = instances;
+			this->numInstances = this->instances.size();
+			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::mat4) * numInstances, &this->instances[0]);
+		}
+		else {
+			this->instances = instances;
+			this->numInstances = this->instances.size();
+			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * this->numInstances, &this->instances[0], GL_DYNAMIC_DRAW);
+		}
+	}
+	else if (this->type == INSTANCED_SHADER) {
+		this->instances = instances;
+		this->numInstances = instances.size();
+	}
+	else {
+		std::cout << "MESH::SETINSTANCE: ERROR" << std::endl;
+	}
 }
 
 Texture * Mesh::getDiffuseMap() {

@@ -85,6 +85,7 @@ InstancedTransformImpl * InstancedGameObjectImpl::getTransform() {
 	return this->transform;
 }
 
+// TODO: REMOVE THIS AND DEAL WITH MESH DIRECTLY
 void InstancedGameObjectImpl::setTransform(InstancedTransformImpl * transform) {
 	this->transform = transform;
 	this->transform->setGameObject(this);

@@ -97,7 +97,7 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Locks Mouse into Screen
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	///glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -233,41 +233,16 @@ int main()
 		
 		grassSides.Draw();
 		///perlin.Draw();
-		if (numFrames == 600) {
-			int increase = 0;
-			if (perlin3d2.getTransform()->getModels().size() < perlin3d.getTransform()->getModels().size()) {
-				increase = 1;
-			}
-			std::cout << "Switch" << std::endl;
+		if (numFrames == 500) {
+			std::cout << "Switch ";
 			for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
 				perlin3d.getMeshes()[i]->setInstance(perlin3d2.getTransform()->getModels());
-				glBindVertexArray(perlin3d.getMeshes()[i]->getVAO());
-				glBindBuffer(GL_ARRAY_BUFFER, perlin3d.getMeshes()[i]->getInstancedVBO());
-				if (increase == 0) {
-					glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::mat4) * perlin3d2.getTransform()->getModels().size(), &perlin3d2.getTransform()->getModels()[0]);
-				}
-				else {
-					glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * perlin3d2.getTransform()->getModels().size(), &perlin3d2.getTransform()->getModels()[0], GL_DYNAMIC_DRAW);
-				}
-
 			}
 		}
-		else if (numFrames == 800) {
-			int increase = 0;
-			if (perlin3d3.getTransform()->getModels().size() < perlin3d.getTransform()->getModels().size()) {
-				increase = 1;
-			}
-			std::cout << "Switch" << std::endl;
+		else if (numFrames == 700) {
+			std::cout << "Switch " << std::endl;
 			for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
 				perlin3d.getMeshes()[i]->setInstance(perlin3d3.getTransform()->getModels());
-				glBindVertexArray(perlin3d.getMeshes()[i]->getVAO());
-				glBindBuffer(GL_ARRAY_BUFFER, perlin3d.getMeshes()[i]->getInstancedVBO());
-				if (increase == 0) {
-					glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::mat4) * perlin3d3.getTransform()->getModels().size(), &perlin3d3.getTransform()->getModels()[0]);
-				}
-				else {
-					glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * perlin3d3.getTransform()->getModels().size(), &perlin3d3.getTransform()->getModels()[0], GL_DYNAMIC_DRAW);
-				}
 			}
 		}
 		perlin3d.Draw();
