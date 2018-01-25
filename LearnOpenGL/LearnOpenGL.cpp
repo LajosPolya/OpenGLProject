@@ -336,6 +336,11 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
 	camera->ProcessMouseScroll((GLfloat)yoffset);
 }
 
+
+/* Consider having a queue of messages to do work. If message says do work then do the work
+   and return the end result in another queue but sleep the working thread to allow for the main thread to grab from the queue
+*/
+// This should create transforms, then a GameObjects transform can be set, including the Mesh's instances
 void Producer() {
 	///while (killAll != 1) {
 		pc_m.lock();

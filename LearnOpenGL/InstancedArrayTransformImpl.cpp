@@ -46,6 +46,9 @@ InstancedArrayTransformImpl::InstancedArrayTransformImpl(std::vector<glm::vec3> 
 			this->model.push_back(model);
 		}
 	}
+	else {
+		std::cout << "ERROR:: Instanced_Array_Transform:: MODEL NOT CREATED" << std::endl;
+	}
 
 	this->gameObject = gameObject;
 }
