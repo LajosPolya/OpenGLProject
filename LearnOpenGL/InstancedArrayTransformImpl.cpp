@@ -72,8 +72,23 @@ std::vector<glm::vec3>* InstancedArrayTransformImpl::getScales()
 	return &(this->Scale);
 }
 
-std::vector<glm::mat4> InstancedArrayTransformImpl::getModels()
-{
+void InstancedArrayTransformImpl::setPositions(std::vector<glm::vec3> positions) {
+	this->Position = positions;
+}
+
+void InstancedArrayTransformImpl::setRotations(std::vector<glm::vec3> rotations) {
+	this->Rotation = rotations;
+}
+
+void InstancedArrayTransformImpl::setScales(std::vector<glm::vec3> scales) {
+	this->Scale = scales;
+}
+
+void InstancedArrayTransformImpl::setModels(std::vector<glm::mat4> models) {
+	this->model = models;
+}
+
+std::vector<glm::mat4> InstancedArrayTransformImpl::getModels() {
 	return this->model;
 }
 

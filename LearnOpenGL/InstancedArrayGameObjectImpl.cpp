@@ -237,3 +237,14 @@ std::vector<Mesh*> InstancedArrayGameObjectImpl::getMeshes()
 {
 	return this->mesh;
 }
+
+void InstancedArrayGameObjectImpl::setTransform(InstancedArrayTransformImpl * transform) {
+	this->transform->setModels(transform->getModels());
+	this->transform->setPositions(*transform->getPositions());
+	this->transform->setRotations(*transform->getRotations());
+	this->transform->setScales(*transform->getScales());
+
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		this->mesh[i]->setInstance(transform->getModels());
+	}
+}

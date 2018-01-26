@@ -35,6 +35,10 @@
 
 #define WORLD_LENGTH 5
 
+#define CHUNK_X 50
+#define CHUNK_Y 25
+#define CHUNK_Z 50
+
 // Function prototypes
 void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode);
 void do_movement();
@@ -42,14 +46,18 @@ void do_movement();
 void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
 void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
 
-// Multithreaded Functions
-byte killAll = 0;
-std::vector<InstancedArrayGameObjectImpl> chunks;
-std::mutex pc_m;
-void Producer();
-
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
+
+// Multithreaded Functions
+byte killAll = 0;
+std::vector<glm::vec3> messageQ;
+std::vector<InstancedArrayTransformImpl> returnQ;
+std::vector<InstancedArrayGameObjectImpl> chunks;
+std::mutex pc_m;
+std::mutex returnQ_m;
+void Producer(TerrainGenerator& terrainGenerator);
+InstancedArrayGameObjectImpl * perlin3d2;
 
 // Camera
 Camera * camera = new Camera(glm::vec3(0.0f, 0.0f, -10.0f));
@@ -145,13 +153,13 @@ int main()
 	InstancedTransformImpl newInstancedTransform("Instance/crate3.txt");
 
 	std::vector<glm::vec3> pos3d;
-	TerrainGenerator terrainGenerator3d(50, 25, 50, T_3D);
+	TerrainGenerator terrainGenerator3d(CHUNK_X, CHUNK_Y, CHUNK_Z, T_3D);
 	pos3d = terrainGenerator3d.generate(0, 0, 0);
 	InstancedArrayGameObjectImpl perlin3d("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d, "Material/crate.txt", camera, projection, GL_TRIANGLES);
 
 	std::vector<glm::vec3> pos3d2;
 	pos3d2 = terrainGenerator3d.generate(0, 0, -50);
-	InstancedArrayGameObjectImpl perlin3d2("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d2, "Material/crate.txt", camera, projection, GL_TRIANGLES);
+	perlin3d2 = new InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d2, "Material/crate.txt", camera, projection, GL_TRIANGLES);
 	std::vector<glm::vec3> pos3d3;
 	pos3d3 = terrainGenerator3d.generate(50, 0, 0);
 	InstancedArrayGameObjectImpl perlin3d3("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", pos3d3, "Material/crate.txt", camera, projection, GL_TRIANGLES);
@@ -184,7 +192,7 @@ int main()
 	InstancedArrayGameObjectImpl perlin = InstancedArrayGameObjectImpl("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
 	chunks.push_back(perlin);
 
-	std::thread t1(Producer);
+	std::thread t1(Producer, std::ref(terrainGenerator3d));
 	GLuint numFrames = 0;
 	// Game loop
 	while (!glfwWindowShouldClose(window)) {
@@ -233,18 +241,26 @@ int main()
 		
 		grassSides.Draw();
 		///perlin.Draw();
-		if (numFrames == 500) {
+		if (numFrames == 400) {
 			std::cout << "Switch ";
-			for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
+			//perlin3d.setTransform(perlin3d2.getTransform());
+			/*for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
 				perlin3d.getMeshes()[i]->setInstance(perlin3d2.getTransform()->getModels());
-			}
+			}*/
 		}
-		else if (numFrames == 700) {
+		else if (numFrames == 550) {
 			std::cout << "Switch " << std::endl;
-			for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
+			//perlin3d.setTransform(perlin3d3.getTransform());
+			/*for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
 				perlin3d.getMeshes()[i]->setInstance(perlin3d3.getTransform()->getModels());
-			}
+			}*/
 		}
+		returnQ_m.lock();
+		if (returnQ.size() > 0) {
+			perlin3d.setTransform(&returnQ[returnQ.size()-1]);
+			returnQ.pop_back();
+		}
+		returnQ_m.unlock();
 		perlin3d.Draw();
 		//perlin3d2.Draw();
 		//perlin3d3.Draw();
@@ -341,11 +357,37 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
    and return the end result in another queue but sleep the working thread to allow for the main thread to grab from the queue
 */
 // This should create transforms, then a GameObjects transform can be set, including the Mesh's instances
-void Producer() {
-	///while (killAll != 1) {
+/* Is it possible to send a list of references to GameObjects and just set the transforms here? */
+void Producer(TerrainGenerator& terrainGenerator3d) {
+	int size = 0;
+	int done = 0;
+
+	std::this_thread::sleep_for(std::chrono::seconds(5));
+
+	while (killAll != 1) {
 		pc_m.lock();
-		///std::this_thread::sleep_for(std::chrono::seconds(5));
-		//std::cout << "Slept for 5 Seconds" << std::endl;
+		size = messageQ.size();
 		pc_m.unlock();
-	///}
+
+		if (size > 0) {
+			// Ignore original positions which are drawn
+			if (!((GLint)camera->Position.x / CHUNK_X == 0 || (GLint)camera->Position.x / CHUNK_X == 50)) {
+				if (!((GLint)camera->Position.y / CHUNK_Y == 0)) {
+					if (!((GLint)camera->Position.z / CHUNK_Z == 0 || (GLint)camera->Position.z / CHUNK_Z == -50)) {
+
+					}
+				}
+			}
+		}
+		else {
+			if (done == 0) {
+				done = 1;
+				returnQ_m.lock();
+				returnQ.push_back(*perlin3d2->getTransform());
+				returnQ_m.unlock();
+			}
+		}
+		std::this_thread::sleep_for(std::chrono::seconds(5));
+		std::cout << "Slept for 5 Seconds" << std::endl;
+	}
 }

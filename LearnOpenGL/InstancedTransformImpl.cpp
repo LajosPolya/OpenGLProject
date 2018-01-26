@@ -18,12 +18,34 @@ std::vector<glm::vec3> * InstancedTransformImpl::getPositions() {
 	return &this->Position;
 }
 
+std::vector<glm::vec3>* InstancedTransformImpl::getRotations()
+{
+	return &this->Rotation;
+}
+
+std::vector<glm::vec3>* InstancedTransformImpl::getScales()
+{
+	return &this->Scale;
+}
+
 std::vector<glm::mat4> InstancedTransformImpl::getModels() {
 	return this->model;
 }
 
 void InstancedTransformImpl::setModels(std::vector<glm::mat4> models) {
 	this->model = models;
+}
+
+void InstancedTransformImpl::setPositions(std::vector<glm::vec3> positions) {
+	this->Position = positions;
+}
+
+void InstancedTransformImpl::setRotations(std::vector<glm::vec3> rotations) {
+	this->Rotation = rotations;
+}
+
+void InstancedTransformImpl::setScales(std::vector<glm::vec3> scales) {
+	this->Scale = scales;
 }
 
 void InstancedTransformImpl::refreshModel() {
@@ -43,10 +65,6 @@ InstancedGameObjectImpl * InstancedTransformImpl::getGameObject() {
 
 void InstancedTransformImpl::setGameObject(InstancedGameObjectImpl * gameObject) {
 	this->gameObject = gameObject;
-}
-
-GLuint InstancedTransformImpl::getSize() {
-	return this->model.size();
 }
 
 // TODO: Create a Base Class which will have this method (implemented by this and InstancedTransformImpl)

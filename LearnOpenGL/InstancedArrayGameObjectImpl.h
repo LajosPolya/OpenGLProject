@@ -34,6 +34,8 @@ public:
 
 	std::vector<Mesh*> getMeshes();
 
+	void setTransform(InstancedArrayTransformImpl * transform);
+
 private:
 	std::vector<Mesh*> mesh;
 

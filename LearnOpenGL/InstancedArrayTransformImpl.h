@@ -35,6 +35,11 @@ public:
 	std::vector<glm::vec3> * getRotations();
 	std::vector<glm::vec3> * getScales();
 
+	void setPositions(std::vector<glm::vec3> positions);
+	void setRotations(std::vector<glm::vec3> rotations);
+	void setScales(std::vector<glm::vec3> scales);
+
+	void setModels(std::vector<glm::mat4> models);
 	std::vector<glm::mat4> getModels();
 
 	void refreshModel();

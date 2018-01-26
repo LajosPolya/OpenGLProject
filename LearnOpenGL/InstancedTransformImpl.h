@@ -32,9 +32,15 @@ public:
 	InstancedTransformImpl(GLchar * fileLocation);
 
 	std::vector<glm::vec3> * getPositions();
+	std::vector<glm::vec3> * getRotations();
+	std::vector<glm::vec3> * getScales();
 
 	std::vector<glm::mat4> getModels();
 	void setModels(std::vector<glm::mat4> models);
+
+	void setPositions(std::vector<glm::vec3> positions);
+	void setRotations(std::vector<glm::vec3> rotations);
+	void setScales(std::vector<glm::vec3> scales);
 
 	void refreshModel();
 
@@ -42,8 +48,6 @@ public:
 	
 	InstancedGameObjectImpl * getGameObject();
 	void setGameObject(InstancedGameObjectImpl * gameObject);
-
-	GLuint getSize();
 
 private:
 	/* Reference to own GameObject instance*/
