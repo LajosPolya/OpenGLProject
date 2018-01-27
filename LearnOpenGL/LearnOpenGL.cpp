@@ -192,6 +192,8 @@ int main()
 	InstancedArrayGameObjectImpl perlin = InstancedArrayGameObjectImpl("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
 	chunks.push_back(perlin);
 	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
+	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
+	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
 
 	std::thread t1(Producer, std::ref(terrainGenerator3d));
 	GLuint numFrames = 0;
@@ -246,6 +248,8 @@ int main()
 		if (numFrames == 300) {
 			std::cout << "Switch ";
 			pc_m.lock();
+			messageQ.push_back(glm::vec3(0, 0, 0));
+			messageQ.push_back(glm::vec3(50, 0, -50));
 			messageQ.push_back(glm::vec3(50, 0, 0));
 			pc_m.unlock();
 			//perlin3d.setTransform(perlin3d2.getTransform());
@@ -253,8 +257,8 @@ int main()
 				perlin3d.getMeshes()[i]->setInstance(perlin3d2.getTransform()->getModels());
 			}*/
 		}
-		else if (numFrames == 550) {
-			std::cout << "Switch " << std::endl;
+		else if (numFrames == 400) {
+			
 			//perlin3d.setTransform(perlin3d3.getTransform());
 			/*for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
 				perlin3d.getMeshes()[i]->setInstance(perlin3d3.getTransform()->getModels());
@@ -392,13 +396,7 @@ void Producer(TerrainGenerator& terrainGenerator3d) {
 
 		if (empty == 0) {
 			empty = 1;
-			// Ignore original positions which are drawn
-			if (!((GLint)pos.x / CHUNK_X == 0)) {
-				if (!((GLint)pos.z / CHUNK_Z == -50)) {
-
-					returnQ.push_back(InstancedArrayTransformImpl(terrainGenerator3d.generate(pos.x, pos.y, pos.z), nullptr));
-				}
-			}
+			returnQ.push_back(InstancedArrayTransformImpl(terrainGenerator3d.generate(pos.x, pos.y, pos.z), nullptr));
 		}
 		else {
 			if (done == 0) {
@@ -408,7 +406,7 @@ void Producer(TerrainGenerator& terrainGenerator3d) {
 				returnQ_m.unlock();
 			}
 		}
-		std::this_thread::sleep_for(std::chrono::seconds(5));
-		std::cout << "Slept for 5 Seconds" << std::endl;
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+		std::cout << "Slept for 1 Second" << std::endl;
 	}
 }

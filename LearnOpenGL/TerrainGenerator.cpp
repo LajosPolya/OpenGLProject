@@ -57,7 +57,7 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint y, GLint z) {
 	for (i = x; i < upperX; i++) {
 		for (j = y; j < upperY; j++) {
 			for (k = z; k < upperZ; k++) {
-				if (values[i-x][j-y][k-z] >(GLfloat)0.06) {
+				if (values[i-x][j-y][k-z] >(GLfloat)0.1) {
 					position.push_back(glm::vec3(i, j, k));
 				}
 			}
