@@ -347,7 +347,9 @@ void Mesh::setupMesh(InstancedArrayTransformImpl * transform) {
 	this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
 	glGenBuffers(1, &this->instanceVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * this->instances.size(), &this->instances[0], GL_DYNAMIC_DRAW);
+	if (this->instances.size() > 0) {
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4) * this->instances.size(), &this->instances[0], GL_DYNAMIC_DRAW);
+	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
 	glEnableVertexAttribArray(3);

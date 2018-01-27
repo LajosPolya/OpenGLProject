@@ -189,6 +189,10 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 }
 
 void InstancedArrayGameObjectImpl::Draw() {
+	// GameObject waiting to be filled
+	if (transform->getModels().size() == 0) {
+		return;
+	}
 
 	this->transform->refreshModel();
 	this->transform->Draw();

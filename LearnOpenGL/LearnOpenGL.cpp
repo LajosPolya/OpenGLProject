@@ -191,9 +191,11 @@ int main()
 	pos2d = terrainGenerator2d.generate(-50, 0);
 	InstancedArrayGameObjectImpl perlin = InstancedArrayGameObjectImpl("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
 	chunks.push_back(perlin);
+	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
 
 	std::thread t1(Producer, std::ref(terrainGenerator3d));
 	GLuint numFrames = 0;
+	GLuint firstReplace = 0;
 	// Game loop
 	while (!glfwWindowShouldClose(window)) {
 		numFrames++;
@@ -241,8 +243,11 @@ int main()
 		
 		grassSides.Draw();
 		///perlin.Draw();
-		if (numFrames == 400) {
+		if (numFrames == 300) {
 			std::cout << "Switch ";
+			pc_m.lock();
+			messageQ.push_back(glm::vec3(50, 0, 0));
+			pc_m.unlock();
 			//perlin3d.setTransform(perlin3d2.getTransform());
 			/*for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
 				perlin3d.getMeshes()[i]->setInstance(perlin3d2.getTransform()->getModels());
@@ -257,8 +262,20 @@ int main()
 		}
 		returnQ_m.lock();
 		if (returnQ.size() > 0) {
-			perlin3d.setTransform(&returnQ[returnQ.size()-1]);
-			returnQ.pop_back();
+			if (firstReplace == 0) {
+				firstReplace = 1;
+				perlin3d.setTransform(&returnQ[returnQ.size() - 1]);
+				returnQ.pop_back();
+			}
+			else {
+				for (GLuint i = 0; i < chunks.size(); i++) {
+					if (chunks[i].getTransform()->getModels().size() == 0) {
+						chunks[i].setTransform(&returnQ[returnQ.size() - 1]);
+						returnQ.pop_back();
+						break;
+					}
+				}
+			}
 		}
 		returnQ_m.unlock();
 		perlin3d.Draw();
@@ -359,23 +376,27 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
 // This should create transforms, then a GameObjects transform can be set, including the Mesh's instances
 /* Is it possible to send a list of references to GameObjects and just set the transforms here? */
 void Producer(TerrainGenerator& terrainGenerator3d) {
-	int size = 0;
+	int empty = 1;
 	int done = 0;
-
-	std::this_thread::sleep_for(std::chrono::seconds(5));
+	glm::vec3 pos;
+	std::this_thread::sleep_for(std::chrono::seconds(8));
 
 	while (killAll != 1) {
 		pc_m.lock();
-		size = messageQ.size();
+		if (messageQ.size() > 0) {
+			empty = 0;
+			pos = messageQ[messageQ.size() - 1];
+			messageQ.pop_back();
+		}
 		pc_m.unlock();
 
-		if (size > 0) {
+		if (empty == 0) {
+			empty = 1;
 			// Ignore original positions which are drawn
-			if (!((GLint)camera->Position.x / CHUNK_X == 0 || (GLint)camera->Position.x / CHUNK_X == 50)) {
-				if (!((GLint)camera->Position.y / CHUNK_Y == 0)) {
-					if (!((GLint)camera->Position.z / CHUNK_Z == 0 || (GLint)camera->Position.z / CHUNK_Z == -50)) {
+			if (!((GLint)pos.x / CHUNK_X == 0)) {
+				if (!((GLint)pos.z / CHUNK_Z == -50)) {
 
-					}
+					returnQ.push_back(InstancedArrayTransformImpl(terrainGenerator3d.generate(pos.x, pos.y, pos.z), nullptr));
 				}
 			}
 		}
