@@ -1,5 +1,4 @@
 #include "InstancedArrayTransformImpl.h"
-#include "InstancedArrayGameObjectImpl.h"
 
 InstancedArrayTransformImpl::InstancedArrayTransformImpl() {}
 
@@ -14,19 +13,15 @@ InstancedArrayTransformImpl::InstancedArrayTransformImpl(const InstancedArrayTra
 	this->model = toCopy.model;
 }
 
-InstancedArrayTransformImpl::InstancedArrayTransformImpl(std::string fileLocation, InstancedArrayGameObjectImpl * gameObject) {
-	this->gameObject = gameObject;
+InstancedArrayTransformImpl::InstancedArrayTransformImpl(std::string fileLocation) {
 	this->readFile(fileLocation);
 }
 
-InstancedArrayTransformImpl::InstancedArrayTransformImpl(std::vector<glm::vec3> positions, InstancedArrayGameObjectImpl * gameObject)
-{
-	this->gameObject = gameObject;
+InstancedArrayTransformImpl::InstancedArrayTransformImpl(std::vector<glm::vec3> positions) {
 	this->setup(positions);
 }
 
-InstancedArrayTransformImpl::InstancedArrayTransformImpl(std::vector<glm::vec3> positions, std::vector<glm::vec3> rotations, std::vector<glm::vec3> scales, InstancedArrayGameObjectImpl * gameObject)
-{
+InstancedArrayTransformImpl::InstancedArrayTransformImpl(std::vector<glm::vec3> positions, std::vector<glm::vec3> rotations, std::vector<glm::vec3> scales) {
 	this->Position = positions;
 	this->Rotation = rotations;
 	this->Scale = scales;
@@ -49,26 +44,17 @@ InstancedArrayTransformImpl::InstancedArrayTransformImpl(std::vector<glm::vec3> 
 	else {
 		std::cout << "ERROR:: Instanced_Array_Transform:: MODEL NOT CREATED" << std::endl;
 	}
-
-	this->gameObject = gameObject;
 }
 
-void InstancedArrayTransformImpl::setGameObject(InstancedArrayGameObjectImpl * instancedArrayGameObject) {
-	this->gameObject = instancedArrayGameObject;
-}
-
-std::vector<glm::vec3>* InstancedArrayTransformImpl::getPositions()
-{
+std::vector<glm::vec3>* InstancedArrayTransformImpl::getPositions() {
 	return &(this->Position);
 }
 
-std::vector<glm::vec3>* InstancedArrayTransformImpl::getRotations()
-{
+std::vector<glm::vec3>* InstancedArrayTransformImpl::getRotations() {
 	return &(this->Rotation);
 }
 
-std::vector<glm::vec3>* InstancedArrayTransformImpl::getScales()
-{
+std::vector<glm::vec3>* InstancedArrayTransformImpl::getScales() {
 	return &(this->Scale);
 }
 
@@ -103,8 +89,7 @@ void InstancedArrayTransformImpl::Draw() {
 	// this->newScale = this->Scale;
 }
 
-void InstancedArrayTransformImpl::readFile(std::string filename)
-{
+void InstancedArrayTransformImpl::readFile(std::string filename) {
 	std::ifstream file(filename);
 	if (file.is_open()) {
 		std::string line;
@@ -166,8 +151,7 @@ void InstancedArrayTransformImpl::readFile(std::string filename)
 	}
 }
 
-void InstancedArrayTransformImpl::setup(std::vector<glm::vec3> positions)
-{
+void InstancedArrayTransformImpl::setup(std::vector<glm::vec3> positions) {
 	this->Position = positions;
 	for (GLint i = 0; i < (GLint)positions.size(); i++) {
 		glm::mat4 model;

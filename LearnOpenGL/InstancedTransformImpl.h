@@ -16,8 +16,6 @@
 
 #include "InstancedTransform.h"
 
-class InstancedGameObjectImpl;
-
 // TODO: Create a TransparentTransformImpl which derives from this class.
 // But the difference is that in sorts the Transform vector in the Draw Method
 // And Send an extra param to InstancedGameObjecImpl to instantiate the Transparent class
@@ -28,7 +26,6 @@ public:
 	InstancedTransformImpl();
 	~InstancedTransformImpl();
 
-	InstancedTransformImpl(GLchar * fileLocation, InstancedGameObjectImpl * gameObject);
 	InstancedTransformImpl(GLchar * fileLocation);
 
 	std::vector<glm::vec3> * getPositions();
@@ -45,13 +42,8 @@ public:
 	void refreshModel();
 
 	void Draw();
-	
-	InstancedGameObjectImpl * getGameObject();
-	void setGameObject(InstancedGameObjectImpl * gameObject);
 
 private:
-	/* Reference to own GameObject instance*/
-	InstancedGameObjectImpl * gameObject = nullptr;
 
 	/* Only the file should set this */
 	std::vector<glm::vec3> Position;

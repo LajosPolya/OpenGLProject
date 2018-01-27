@@ -1,10 +1,8 @@
 #include "TransformImpl.h"
-#include "GameObjectImpl.h"
 
 TransformImpl::TransformImpl() {}
 
-TransformImpl::TransformImpl(std::string fileLocation, GameObject * gameObject) {
-	this->gameObject = gameObject;
+TransformImpl::TransformImpl(std::string fileLocation) {
 	readFile(fileLocation);
 
 	std::cout << Position.x << " " << Position.y << " " << Position.z << std::endl;
@@ -12,8 +10,7 @@ TransformImpl::TransformImpl(std::string fileLocation, GameObject * gameObject) 
 	std::cout << Rotation.x << " " << Rotation.y << " " << Rotation.z << std::endl;
 }
 
-TransformImpl::TransformImpl(glm::vec3 Position, glm::vec3 Rotation, glm::vec3 Scale, GameObject * gameObject)
-{
+TransformImpl::TransformImpl(glm::vec3 Position, glm::vec3 Rotation, glm::vec3 Scale) {
 	this->Position = Position;
 	this->Rotation = Rotation;
 	this->Scale = Scale;
@@ -25,21 +22,17 @@ TransformImpl::TransformImpl(glm::vec3 Position, glm::vec3 Rotation, glm::vec3 S
 	this->model = glm::translate(this->model, this->Position);
 
 	this->model = glm::scale(this->model, this->Scale);
-
-	this->gameObject = gameObject;
 }
 
 glm::vec3 TransformImpl::getPosition() {
 	return this->Position;
 }
 
-glm::vec3 TransformImpl::getRotation()
-{
+glm::vec3 TransformImpl::getRotation() {
 	return this->Rotation;
 }
 
-glm::vec3 TransformImpl::getScale()
-{
+glm::vec3 TransformImpl::getScale() {
 	return this->Scale;
 }
 
@@ -96,8 +89,7 @@ void TransformImpl::setPosition(glm::vec3 pos) {
 	this->newPosition = pos;
 }
 
-void TransformImpl::setYRotation(GLfloat radians)
-{
+void TransformImpl::setYRotation(GLfloat radians) {
 	this->newRotation.y = radians;
 }
 

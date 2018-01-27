@@ -1,27 +1,22 @@
 #include "TransparentTransformImpl.h"
-#include "TransparentGameObjectImpl.h"
 
 TransparentTransformImpl::TransparentTransformImpl() {}
 
 TransparentTransformImpl::~TransparentTransformImpl() {}
 
-TransparentTransformImpl::TransparentTransformImpl(GLchar* fileLocation, TransparentGameObjectImpl * gameObject) {
-	this->gameObject = gameObject;
+TransparentTransformImpl::TransparentTransformImpl(GLchar* fileLocation) {
 	this->readFile(fileLocation);
 }
 
-glm::vec3* TransparentTransformImpl::getPositions(GLuint i)
-{
+glm::vec3* TransparentTransformImpl::getPositions(GLuint i) {
 	return &this->props[i].Position;
 }
 
-glm::mat4 TransparentTransformImpl::getModel(GLuint i)
-{
+glm::mat4 TransparentTransformImpl::getModel(GLuint i) {
 	return this->props[i].model;
 }
 
-std::vector<glm::mat4> TransparentTransformImpl::getModels()
-{
+std::vector<glm::mat4> TransparentTransformImpl::getModels() {
 	return this->models;
 }
 
@@ -36,18 +31,12 @@ void TransparentTransformImpl::Draw() {
 	// this->newScale = this->Scale;
 }
 
-TransparentGameObjectImpl * TransparentTransformImpl::getGameObject()
-{
-	return this->gameObject;
-}
 
-GLuint TransparentTransformImpl::getSize()
-{
+GLuint TransparentTransformImpl::getSize() {
 	return this->props.size();
 }
 
-void TransparentTransformImpl::readFile(GLchar * filename)
-{
+void TransparentTransformImpl::readFile(GLchar * filename) {
 	std::ifstream file(filename);
 	GLint vertexProp_BitMap = 0;
 	if (file.is_open()) {
@@ -113,11 +102,11 @@ void TransparentTransformImpl::readFile(GLchar * filename)
 	}
 }
 
-
+// TODO: This needs to be fixed since Transform doesn't have reference back to GameObject
 /* Note this sort returns the opposite of what a sort function is supposed to */
-GLboolean TransparentTransformImpl::sortFunction(InstancedTransformProps const &x, InstancedTransformProps const &y)
-{
-	GLfloat dist1 = glm::length(this->gameObject->getCamera()->Position - x.Position);
-	GLfloat dist2 = glm::length(this->gameObject->getCamera()->Position - y.Position);
-	return dist1 > dist2;
+GLboolean TransparentTransformImpl::sortFunction(InstancedTransformProps const &x, InstancedTransformProps const &y) {
+	//GLfloat dist1 = glm::length(this->gameObject->getCamera()->Position - x.Position);
+	//GLfloat dist2 = glm::length(this->gameObject->getCamera()->Position - y.Position);
+	//return dist1 > dist2;
+	return false;
 }

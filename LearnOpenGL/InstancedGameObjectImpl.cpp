@@ -32,7 +32,7 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
 	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapLoc);
 
-	this->transform = new InstancedTransformImpl(transformLoc, this);
+	this->transform = new InstancedTransformImpl(transformLoc);
 	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform, diffuseMaps, specularMaps);
 
 	this->material = GameObjectUtils::getMaterial(materialLoc);

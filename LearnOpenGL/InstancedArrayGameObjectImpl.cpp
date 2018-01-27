@@ -37,7 +37,6 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(const InstancedArrayG
 	this->shader = new Shader(*toCopy.shader);
 	this->camera = toCopy.camera;
 	this->transform = new InstancedArrayTransformImpl(*toCopy.transform);
-	this->transform->setGameObject(this); // TODO: Need better way to assigned forward declared reference
 	this->lightsContainer = toCopy.lightsContainer;
 
 	GameObjectMemoryManager::add(toCopy.camera, false);
@@ -108,7 +107,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc1);
 	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapLoc1);
 
-	this->transform = new InstancedArrayTransformImpl(positions, this);
+	this->transform = new InstancedArrayTransformImpl(positions);
 	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps);
 
 	this->material = GameObjectUtils::getMaterial(materialLoc);
@@ -137,7 +136,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc1);
 	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapLoc1);
 
-	this->transform = new InstancedArrayTransformImpl(positions, this);
+	this->transform = new InstancedArrayTransformImpl(positions);
 	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps);
 
 	this->material = GameObjectUtils::getMaterial(materialLoc);
@@ -166,7 +165,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc1);
 	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapLoc1);
 
-	this->transform = new InstancedArrayTransformImpl(positions, this);
+	this->transform = new InstancedArrayTransformImpl(positions);
 	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps, primitiveType);
 
 	this->material = GameObjectUtils::getMaterial(materialLoc);

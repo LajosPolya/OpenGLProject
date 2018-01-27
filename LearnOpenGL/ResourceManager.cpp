@@ -7,13 +7,11 @@ ResourceManager::ResourceManager() {}
 
 ResourceManager::~ResourceManager() {}
 
-void ResourceManager::addInstance(std::string path, void * ptr)
-{
+void ResourceManager::addInstance(std::string path, void * ptr) {
 	manager[path] = ptr;
 }
 
-Material * ResourceManager::getMaterial(std::string path)
-{
+Material * ResourceManager::getMaterial(std::string path) {
 	std::unordered_map<std::string, void *>::iterator it = manager.find(path);
 
 	if (it == manager.end()) {
@@ -25,8 +23,7 @@ Material * ResourceManager::getMaterial(std::string path)
 	
 }
 
-Texture * ResourceManager::getTexture(std::string path)
-{
+Texture * ResourceManager::getTexture(std::string path) {
 	std::unordered_map<std::string, void *>::iterator it = manager.find(path);
 
 	if (it == manager.end()) {
@@ -38,8 +35,8 @@ Texture * ResourceManager::getTexture(std::string path)
 	}
 }
 
-TransformImpl * ResourceManager::getTransform(std::string path, GameObject * gameObject)
-{
+// TODO: GameOBject is no longer needed here
+TransformImpl * ResourceManager::getTransform(std::string path, GameObject * gameObject) {
 	std::unordered_map<std::string, void *>::iterator it = manager.find(path);
 
 	if (it == manager.end()) {
@@ -47,12 +44,12 @@ TransformImpl * ResourceManager::getTransform(std::string path, GameObject * gam
 	}
 	else {
 		TransformImpl * tempTransform = ((TransformImpl *)it->second);
-		return (TransformImpl*)new TransformImpl(tempTransform->getPosition(), tempTransform->getRotation(), tempTransform->getScale(), gameObject);
+		return (TransformImpl*)new TransformImpl(tempTransform->getPosition(), tempTransform->getRotation(), tempTransform->getScale());
 	}
 }
 
-InstancedArrayTransformImpl * ResourceManager::getTransform(std::string path, InstancedArrayGameObjectImpl * gameObject)
-{
+// TODO: GameOBject is no longer needed here
+InstancedArrayTransformImpl * ResourceManager::getTransform(std::string path, InstancedArrayGameObjectImpl * gameObject) {
 	std::unordered_map<std::string, void *>::iterator it = manager.find(path);
 
 	if (it == manager.end()) {
@@ -73,7 +70,7 @@ InstancedArrayTransformImpl * ResourceManager::getTransform(std::string path, In
 				tempRotations.push_back((*rotations)[i]);
 				tempScales.push_back((*scales)[i]);
 			}
-			return (InstancedArrayTransformImpl*)new InstancedArrayTransformImpl(tempPositions, tempRotations, tempScales, gameObject);
+			return (InstancedArrayTransformImpl*)new InstancedArrayTransformImpl(tempPositions, tempRotations, tempScales);
 		}
 		else {
 			std::cout << "ERROR:: RESOURCE_MANAGER_INSTNACED_ARRAY_TRANSFORM_IMPL" << std::endl;

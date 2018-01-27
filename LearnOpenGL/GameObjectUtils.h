@@ -25,6 +25,7 @@ public:
 	static std::vector<Mesh*> getMeshes(std::string path, InstancedTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
 	static std::vector<Mesh*> getMeshes(std::string path, TransparentTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
 	static Material * getMaterial(std::string path);
+	// TODO: GameOBject is no longer needed here
 	static TransformImpl * getTransform(std::string path, GameObject * gameObject);
 	static InstancedArrayTransformImpl * getTransform(std::string path, InstancedArrayGameObjectImpl * gameObject);
 };

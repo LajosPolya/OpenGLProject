@@ -1,4 +1,26 @@
-﻿LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+﻿  TransparentTransformImpl.cpp
+  TransparentGameObjectImpl.cpp
+  TransformImpl.cpp
+  Texture.cpp
+  TerrainGenerator.cpp
+  Shader.cpp
+  ResourceManager.cpp
+  PerlinNoise.cpp
+  Mesh.cpp
+  Material.cpp
+  LightsContainer.cpp
+  LearnOpenGL.cpp
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(399): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+  InstancedTransformImpl.cpp
+  InstancedGameObjectImpl.cpp
+  InstancedArrayTransformImpl.cpp
+  InstancedArrayGameObjectImpl.cpp
+  GameObjectUtils.cpp
+  GameObjectMemoryManager.cpp
+  GameObjectImpl.cpp
+  CollisionDetector.cpp
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
 glfw3.lib(context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(context.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
 glfw3.lib(init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(init.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
 glfw3.lib(input.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(input.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info

@@ -18,6 +18,7 @@ public:
 	static void addInstance(std::string, void * ptr);
 	static Material  * getMaterial(std::string path);
 	static Texture * getTexture(std::string path);
+	// TODO: GameOBject is no longer needed here
 	static TransformImpl * getTransform(std::string path, GameObject * gameObject);
 	static InstancedArrayTransformImpl * getTransform(std::string path, InstancedArrayGameObjectImpl * gameObject);
 

@@ -1,14 +1,8 @@
 #include "InstancedTransformImpl.h"
-#include "InstancedGameObjectImpl.h"
 
 InstancedTransformImpl::InstancedTransformImpl() {}
 
 InstancedTransformImpl::~InstancedTransformImpl() {}
-
-InstancedTransformImpl::InstancedTransformImpl(GLchar * fileLocation, InstancedGameObjectImpl * gameObject) {
-	this->gameObject = gameObject;
-	this->readFile(fileLocation);
-}
 
 InstancedTransformImpl::InstancedTransformImpl(GLchar * fileLocation) {
 	this->readFile(fileLocation);
@@ -18,13 +12,11 @@ std::vector<glm::vec3> * InstancedTransformImpl::getPositions() {
 	return &this->Position;
 }
 
-std::vector<glm::vec3>* InstancedTransformImpl::getRotations()
-{
+std::vector<glm::vec3>* InstancedTransformImpl::getRotations() {
 	return &this->Rotation;
 }
 
-std::vector<glm::vec3>* InstancedTransformImpl::getScales()
-{
+std::vector<glm::vec3>* InstancedTransformImpl::getScales() {
 	return &this->Scale;
 }
 
@@ -57,14 +49,6 @@ void InstancedTransformImpl::Draw() {
 	// this->newRotation = this->Rotation;
 	// this->newPosition = this->Position;
 	// this->newScale = this->Scale;
-}
-
-InstancedGameObjectImpl * InstancedTransformImpl::getGameObject() {
-	return this->gameObject;
-}
-
-void InstancedTransformImpl::setGameObject(InstancedGameObjectImpl * gameObject) {
-	this->gameObject = gameObject;
 }
 
 // TODO: Create a Base Class which will have this method (implemented by this and InstancedTransformImpl)

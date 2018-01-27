@@ -16,8 +16,6 @@
 
 #include "InstancedTransform.h"
 
-class InstancedArrayGameObjectImpl;
-
 class InstancedArrayTransformImpl : public InstancedTransform
 {
 public:
@@ -25,11 +23,9 @@ public:
 	~InstancedArrayTransformImpl();
 	InstancedArrayTransformImpl(const InstancedArrayTransformImpl & toCopy);
 
-	InstancedArrayTransformImpl(std::string fileLocation, InstancedArrayGameObjectImpl * gameObject);
-	InstancedArrayTransformImpl(std::vector<glm::vec3> positions, InstancedArrayGameObjectImpl * gameObject);
-	InstancedArrayTransformImpl(std::vector<glm::vec3> positions, std::vector<glm::vec3> rotations, std::vector<glm::vec3> scales, InstancedArrayGameObjectImpl * gameObject);
-
-	void setGameObject(InstancedArrayGameObjectImpl * instancedArrayGameObject);
+	InstancedArrayTransformImpl(std::string fileLocation);
+	InstancedArrayTransformImpl(std::vector<glm::vec3> positions);
+	InstancedArrayTransformImpl(std::vector<glm::vec3> positions, std::vector<glm::vec3> rotations, std::vector<glm::vec3> scales);
 
 	std::vector<glm::vec3> * getPositions();
 	std::vector<glm::vec3> * getRotations();
@@ -47,9 +43,6 @@ public:
 	void Draw();
 
 private:
-	/* Reference to own GameObject instance*/
-	InstancedArrayGameObjectImpl * gameObject;
-
 	/* Only the file should set this */
 	std::vector<glm::vec3> Position;
 	std::vector<glm::vec3> Rotation;

@@ -396,7 +396,7 @@ void Producer(TerrainGenerator& terrainGenerator3d) {
 
 		if (empty == 0) {
 			empty = 1;
-			returnQ.push_back(InstancedArrayTransformImpl(terrainGenerator3d.generate(pos.x, pos.y, pos.z), nullptr));
+			returnQ.push_back(InstancedArrayTransformImpl(terrainGenerator3d.generate(pos.x, pos.y, pos.z)));
 		}
 		else {
 			if (done == 0) {

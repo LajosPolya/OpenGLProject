@@ -1,7 +1,6 @@
 #include "GameObjectUtils.h"
 
-std::vector<Texture*> GameObjectUtils::getDiffuseTextures(std::string path)
-{
+std::vector<Texture*> GameObjectUtils::getDiffuseTextures(std::string path) {
 	Texture * diffuseMap;
 	GLchar * tokens;
 	GLchar* context = NULL;
@@ -22,8 +21,7 @@ std::vector<Texture*> GameObjectUtils::getDiffuseTextures(std::string path)
 	return diffuseMaps;
 }
 
-std::vector<Texture*> GameObjectUtils::getSpecularTextures(std::string path)
-{
+std::vector<Texture*> GameObjectUtils::getSpecularTextures(std::string path) {
 	Texture * specularMap;
 	GLchar * tokens;
 	GLchar* context = NULL;
@@ -43,8 +41,7 @@ std::vector<Texture*> GameObjectUtils::getSpecularTextures(std::string path)
 	return specularMaps;
 }
 
-std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, Transform * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps)
-{
+std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, Transform * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
 	GLchar * tokens;
 	GLchar* context = NULL;
 
@@ -69,8 +66,7 @@ std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, Transform * tran
 	return mesh;
 }
 
-std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedArrayTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps)
-{
+std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedArrayTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
 	GLchar * tokens;
 	GLchar* context = NULL;
 
@@ -85,8 +81,7 @@ std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedArrayTr
 	return mesh;
 }
 
-std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedArrayTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps, GLuint primitiveType)
-{
+std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedArrayTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps, GLuint primitiveType) {
 	GLchar * tokens;
 	GLchar* context = NULL;
 
@@ -111,8 +106,7 @@ std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedArrayTr
 	return mesh;
 }
 
-std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps)
-{
+std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
 	GLchar * tokens;
 	GLchar* context = NULL;
 
@@ -127,8 +121,7 @@ std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, InstancedTransfo
 	return mesh;
 }
 
-std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, TransparentTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps)
-{
+std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, TransparentTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
 	GLchar * tokens;
 	GLchar* context = NULL;
 
@@ -155,8 +148,7 @@ std::vector<Mesh*> GameObjectUtils::getMeshes(std::string path, TransparentTrans
 	return mesh;
 }
 
-Material * GameObjectUtils::getMaterial(std::string path)
-{
+Material * GameObjectUtils::getMaterial(std::string path) {
 	Material * material = ResourceManager::getMaterial(path);
 	if (material == nullptr) {
 		material = new Material(path);
@@ -165,21 +157,21 @@ Material * GameObjectUtils::getMaterial(std::string path)
 	return material;
 }
 
-TransformImpl * GameObjectUtils::getTransform(std::string path, GameObject * gameObject)
-{
+// TODO: GameOBject is no longer needed here
+TransformImpl * GameObjectUtils::getTransform(std::string path, GameObject * gameObject) {
 	TransformImpl * transform = ResourceManager::getTransform(path, gameObject);
 	if (transform == nullptr) {
-		transform = new TransformImpl(path, gameObject);
+		transform = new TransformImpl(path);
 		ResourceManager::addInstance(path, transform);
 	}
 	return transform;
 }
 
-InstancedArrayTransformImpl * GameObjectUtils::getTransform(std::string path, InstancedArrayGameObjectImpl * gameObject)
-{
+// TODO: GameOBject is no longer needed here
+InstancedArrayTransformImpl * GameObjectUtils::getTransform(std::string path, InstancedArrayGameObjectImpl * gameObject) {
 	InstancedArrayTransformImpl * transform = ResourceManager::getTransform(path, gameObject);
 	if (transform == nullptr) {
-		transform = new InstancedArrayTransformImpl(path, gameObject);
+		transform = new InstancedArrayTransformImpl(path);
 		ResourceManager::addInstance(path, transform);
 	}
 	return transform;
