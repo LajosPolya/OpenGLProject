@@ -85,8 +85,7 @@ GLfloat fov = glm::radians(45.0f);
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 // The MAIN function, from here we start the application and run the game loop
-int main()
-{
+int main() {
 	// Init GLFW
 	glfwInit();
 	// Set all the required options for GLFW
@@ -406,7 +405,7 @@ void Producer(TerrainGenerator& terrainGenerator3d) {
 				returnQ_m.unlock();
 			}
 		}
+		// Sleep to allow for Main Loop to grab mutexes if needed
 		std::this_thread::sleep_for(std::chrono::seconds(1));
-		std::cout << "Slept for 1 Second" << std::endl;
 	}
 }

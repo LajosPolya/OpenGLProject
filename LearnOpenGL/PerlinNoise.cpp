@@ -1,21 +1,18 @@
 #include "PerlinNoise.h"
 
-PerlinNoise::PerlinNoise(GLuint x, GLuint y)
-{
+PerlinNoise::PerlinNoise(GLuint x, GLuint y) {
 	this->x = x;
 	this->y = y;
 }
 
 // The parameters are the size of the chunck it should produce on each axis
-PerlinNoise::PerlinNoise(GLuint x, GLuint y, GLuint z)
-{
+PerlinNoise::PerlinNoise(GLuint x, GLuint y, GLuint z) {
 	this->x = x;
 	this->y = y;
 	this->z = z;
 }
 
-GLfloat **  PerlinNoise::generate(GLint x, GLint y)
-{
+GLfloat **  PerlinNoise::generate(GLint x, GLint y) {
 	GLuint i, j;
 	GLfloat ** values;
 
@@ -32,43 +29,42 @@ GLfloat **  PerlinNoise::generate(GLint x, GLint y)
 	return values;
 }
 
-GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z)
-{
+GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z) {
 	GLuint i, j, k;
 	GLfloat *** values3d;
 
-	if (this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks] == nullptr) {
+	if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] == nullptr) {
 		genGradients3d(64, 64, 64);
 	}
 
-	if (this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks - 1] != nullptr) {
+	if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks - 1] != nullptr) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
-				this->gradients3d[i][j][0] = this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks - 1][i][j][1 * 1];
+				this->gradients3d[i][j][0] = this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks - 1][i][j][1 * 1];
 			}
 		}
 	}
 
-	if (this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks + 1] != nullptr) {
+	if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks + 1] != nullptr) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
-				this->gradients3d[i][j][1 * 1] = this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks + 1][i][j][0];
+				this->gradients3d[i][j][1 * 1] = this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks + 1][i][j][0];
 			}
 		}
 	}
 
-	if (this->chunckGrads[x + halfMaxChuncks - 1][y + halfMaxChuncks][z + halfMaxChuncks] != nullptr) {
+	if (this->chunkGrads[x + halfMaxChunks - 1][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
-				this->gradients3d[0][i][j] = this->chunckGrads[x + halfMaxChuncks - 1][y + halfMaxChuncks][z + halfMaxChuncks][1 * 1][i][j];
+				this->gradients3d[0][i][j] = this->chunkGrads[x + halfMaxChunks - 1][y + halfMaxChunks][z + halfMaxChunks][1 * 1][i][j];
 			}
 		}
 	}
 
-	if (this->chunckGrads[x + halfMaxChuncks + 1][y + halfMaxChuncks][z + halfMaxChuncks] != nullptr) {
+	if (this->chunkGrads[x + halfMaxChunks + 1][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
-				this->gradients3d[1 * 1][i][j] = this->chunckGrads[x + halfMaxChuncks + 1][y + halfMaxChuncks][z + halfMaxChuncks][0][i][j];
+				this->gradients3d[1 * 1][i][j] = this->chunkGrads[x + halfMaxChunks + 1][y + halfMaxChunks][z + halfMaxChunks][0][i][j];
 			}
 		}
 	}
@@ -84,13 +80,12 @@ GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z)
 		}
 	}
 
-	this->chunckGrads[x + halfMaxChuncks][y + halfMaxChuncks][z + halfMaxChuncks] = this->gradients3d;
+	this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] = this->gradients3d;
 
 	return values3d;
 }
 
-void PerlinNoise::genGradients(GLuint x, GLuint y)
-{
+void PerlinNoise::genGradients(GLuint x, GLuint y) {
 	GLuint i, j;
 
 	gradients = new glm::vec2*[x];
@@ -107,8 +102,7 @@ void PerlinNoise::genGradients(GLuint x, GLuint y)
 	gradients[1][1] = glm::vec2(0.0, -1.0);
 }
 
-void PerlinNoise::genGradients3d(GLuint x, GLuint y, GLuint z)
-{
+void PerlinNoise::genGradients3d(GLuint x, GLuint y, GLuint z) {
 	gradients3d = new glm::vec3**[x];
 	for (GLuint i = 0; i < x; i++) {
 		gradients3d[i] = new glm::vec3*[y];
@@ -121,8 +115,7 @@ void PerlinNoise::genGradients3d(GLuint x, GLuint y, GLuint z)
 	}
 }
 
-GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y)
-{
+GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y) {
 	// Turn param into vector
 	glm::vec2 xy = glm::vec2(x, y);
 
@@ -149,8 +142,7 @@ GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y)
 	return value;
 }
 
-GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y, GLfloat z)
-{
+GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y, GLfloat z) {
 	// Turn param into vector
 	glm::vec3 xyz = glm::vec3(x, y, z);
 
@@ -191,8 +183,7 @@ Generates random vector by generating a random angle
 Having the length of the vector we can convert these polar coordinates into
 Cartesian coordinates
 */
-glm::vec2 PerlinNoise::randomVector(GLfloat length)
-{
+glm::vec2 PerlinNoise::randomVector(GLfloat length) {
 	std::random_device rd;
 	std::uniform_real_distribution<GLdouble> dist(0.0, 2.0 * PI);
 	GLfloat angle = (GLfloat)dist(rd);
@@ -204,8 +195,7 @@ glm::vec2 PerlinNoise::randomVector(GLfloat length)
 	return glm::vec2(x, y);
 }
 
-glm::vec3 PerlinNoise::random3DVector(GLfloat length)
-{
+glm::vec3 PerlinNoise::random3DVector(GLfloat length) {
 	std::random_device rd;
 	std::uniform_real_distribution<GLdouble> dist(0.0, 2.0 * PI);
 	std::uniform_real_distribution<GLfloat> randomCostheta(-1.0, 1.0);
@@ -225,12 +215,10 @@ glm::vec3 PerlinNoise::random3DVector(GLfloat length)
 	return glm::vec3(x, y, z);
 }
 
-GLfloat PerlinNoise::fade(GLfloat val)
-{
+GLfloat PerlinNoise::fade(GLfloat val) {
 	return val * val * val * (val * (val * 6 - 15) + 10);
 }
 
-GLfloat PerlinNoise::lerp(GLfloat x, GLfloat y, GLfloat w)
-{
+GLfloat PerlinNoise::lerp(GLfloat x, GLfloat y, GLfloat w) {
 	return (1.0f - w)*x + w*y;
 }

@@ -23,13 +23,13 @@ public:
 	GLfloat *** generate(GLint x, GLint y, GLint z);
 
 private:
-	// Size of chunck
+	// Size of chunk
 	GLuint x, y, z;
 
-	const GLuint maxChuncks = 100;
-	const GLuint halfMaxChuncks = ((maxChuncks / 2) - 1);
-	// Store each chuncks gradients
-	glm::vec3 *** chunckGrads[100][100][100];
+	const GLuint maxChunks = 100;
+	const GLuint halfMaxChunks = ((maxChunks / 2) - 1);
+	// Store each chunk's gradients
+	glm::vec3 *** chunkGrads[100][100][100];
 	
 	const GLdouble PI = 3.141592653589793;
 	glm::vec2 ** gradients;
