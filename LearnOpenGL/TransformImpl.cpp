@@ -4,10 +4,6 @@ TransformImpl::TransformImpl() {}
 
 TransformImpl::TransformImpl(std::string fileLocation) {
 	readFile(fileLocation);
-
-	std::cout << Position.x << " " << Position.y << " " << Position.z << std::endl;
-	std::cout << Scale.x << " " << Scale.y << " " << Scale.z << std::endl;
-	std::cout << Rotation.x << " " << Rotation.y << " " << Rotation.z << std::endl;
 }
 
 TransformImpl::TransformImpl(glm::vec3 Position, glm::vec3 Rotation, glm::vec3 Scale) {
@@ -96,10 +92,7 @@ void TransformImpl::setYRotation(GLfloat radians) {
 
 /* Only on x-axis currently */
 void TransformImpl::setRotation() {
-	//std::cout << this->model[0][0] << " " << this->model[0][1] << " " << this->model[0][2] << " " << std::endl;
-	//model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	this->model = glm::rotate(this->model, this->newRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	//std::cout << this->model[0][0] << " " << this->model[0][1] << " " << this->model[0][2] << " " << std::endl;
 }
 
 glm::mat4 TransformImpl::getModel() {

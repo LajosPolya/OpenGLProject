@@ -180,16 +180,13 @@ int main() {
 	///CollisionDetector::AddTransform(perlin.getTransform());
 	CollisionDetector::AddTransform(perlin3d.getTransform());
 
-	GLint maxVertUniformsVect;
-	glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &maxVertUniformsVect);
-	std::cout << maxVertUniformsVect << std::endl;
-
-
 	std::vector<glm::vec3> pos2d;
 	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
 	pos2d = terrainGenerator2d.generate(-50, 0);
 	InstancedArrayGameObjectImpl perlin = InstancedArrayGameObjectImpl("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
 	chunks.push_back(perlin);
+	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
+	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
 	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
 	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
 	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
@@ -244,25 +241,21 @@ int main() {
 		
 		grassSides.Draw();
 		///perlin.Draw();
-		if (numFrames == 300) {
+		if (numFrames == 350) {
 			std::cout << "Switch ";
 			pc_m.lock();
+			messageQ.push_back(glm::vec3(100, 0, -50));
+			messageQ.push_back(glm::vec3(100, 0, 0));
+			messageQ.push_back(glm::vec3(50, 0, 0));
 			messageQ.push_back(glm::vec3(0, 0, 0));
 			messageQ.push_back(glm::vec3(50, 0, -50));
-			messageQ.push_back(glm::vec3(50, 0, 0));
 			pc_m.unlock();
 			//perlin3d.setTransform(perlin3d2.getTransform());
 			/*for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
 				perlin3d.getMeshes()[i]->setInstance(perlin3d2.getTransform()->getModels());
 			}*/
 		}
-		else if (numFrames == 400) {
-			
-			//perlin3d.setTransform(perlin3d3.getTransform());
-			/*for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
-				perlin3d.getMeshes()[i]->setInstance(perlin3d3.getTransform()->getModels());
-			}*/
-		}
+
 		returnQ_m.lock();
 		if (returnQ.size() > 0) {
 			if (firstReplace == 0) {

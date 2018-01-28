@@ -25,21 +25,6 @@ Mesh::Mesh(const Mesh & toCopy) {
 Mesh::Mesh(GLchar* vertexLocation) {
 	this->readVertexFile(vertexLocation);
 
-	/*for (GLuint i = 0; i < vertices.size(); i++) {
-		std::cout << vertices[i].Position.x << " ";
-		std::cout << vertices[i].Position.y << " ";
-		std::cout << vertices[i].Position.z << " ";
-
-		std::cout << vertices[i].Normal.x << " ";
-		std::cout << vertices[i].Normal.y << " ";
-		std::cout << vertices[i].Normal.z << " ";
-
-		std::cout << vertices[i].TexCoords.x << " ";
-		std::cout << vertices[i].TexCoords.y << " ";
-		std::cout << std::endl;
-	}
-
-	std::cout << std::endl;*/
 	this->primitiveType = GL_TRIANGLES;
 	this->setupMesh();
 }
@@ -425,15 +410,12 @@ void Mesh::readVertexFile(GLchar * filename) {
 		std::getline(file, line);
 		if (line[POSITION] != NULL && line[POSITION] == '1') {
 			this->vertexProp_BitMap = this->vertexProp_BitMap | POSITION_BITMAP; // 00000001
-			//std::cout << position << std::endl;
 		}
 		if (line[NORMAL] != NULL && line[NORMAL] == '1') {
 			this->vertexProp_BitMap = this->vertexProp_BitMap | NORMAL_BITMAP; // 00000010
-			//std::cout << normal << std::endl;
 		}
 		if (line[TEXT_COORDS] != NULL && line[TEXT_COORDS] == '1') {
 			this->vertexProp_BitMap = this->vertexProp_BitMap | TEXTURE_COORDS_BITMAP; // 00000100
-			//std::cout << textCoords << std::endl;
 		}
 
 		// Get each vertex

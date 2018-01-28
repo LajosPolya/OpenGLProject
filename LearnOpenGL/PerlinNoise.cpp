@@ -80,7 +80,18 @@ GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z) {
 		}
 	}
 
-	this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] = this->gradients3d;
+	//this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] = this->gradients3d;
+
+	this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] = new glm::vec3**[64];
+	for (GLuint i = 0; i < 64; i++) {
+		this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks][i] = new glm::vec3*[64];
+		for (GLuint j = 0; j < 64; j++) {
+			this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks][i][j] = new glm::vec3[64];
+			for (GLuint k = 0; k < 64; k++) {
+				this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks][i][j][k] = this->gradients3d[i][j][k];
+			}
+		}
+	}
 
 	return values3d;
 }
@@ -88,28 +99,28 @@ GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z) {
 void PerlinNoise::genGradients(GLuint x, GLuint y) {
 	GLuint i, j;
 
-	gradients = new glm::vec2*[x];
+	this->gradients = new glm::vec2*[x];
 	for (i = 0; i < x; i++) {
-		gradients[i] = new glm::vec2[y];
+		this->gradients[i] = new glm::vec2[y];
 		for (j = 0; j < y; j++) {
-			gradients[i][j] = randomVector((GLfloat)1.0);
+			this->gradients[i][j] = randomVector((GLfloat)1.0);
 		}
 	}
 
-	gradients[0][0] = glm::vec2(1.0, 0.0);
-	gradients[1][0] = glm::vec2(0.0, 1.0);
-	gradients[0][1] = glm::vec2(-1.0, 0.0);
-	gradients[1][1] = glm::vec2(0.0, -1.0);
+	this->gradients[0][0] = glm::vec2(1.0, 0.0);
+	this->gradients[1][0] = glm::vec2(0.0, 1.0);
+	this->gradients[0][1] = glm::vec2(-1.0, 0.0);
+	this->gradients[1][1] = glm::vec2(0.0, -1.0);
 }
 
 void PerlinNoise::genGradients3d(GLuint x, GLuint y, GLuint z) {
-	gradients3d = new glm::vec3**[x];
+	this->gradients3d = new glm::vec3**[x];
 	for (GLuint i = 0; i < x; i++) {
-		gradients3d[i] = new glm::vec3*[y];
+		this->gradients3d[i] = new glm::vec3*[y];
 		for (GLuint j = 0; j < y; j++) {
-			gradients3d[i][j] = new glm::vec3[z];
+			this->gradients3d[i][j] = new glm::vec3[z];
 			for (GLuint k = 0; k < z; k++) {
-				gradients3d[i][j][k] = random3DVector((GLfloat)1.0);
+				this->gradients3d[i][j][k] = random3DVector((GLfloat)1.0);
 			}
 		}
 	}
@@ -128,13 +139,13 @@ GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y) {
 	GLfloat sx = x - bottomLeft.x;
 	GLfloat sy = y - bottomLeft.y;
 
-	GLfloat bottomLeftDot = glm::dot(gradients[(GLint)bottomLeft.x][(GLint)bottomLeft.y], xy - bottomLeft);
-	GLfloat bottomRightDot = glm::dot(gradients[(GLint)topRight.x][(GLint)bottomLeft.y], xy - glm::vec2(topRight.x, bottomLeft.y));
+	GLfloat bottomLeftDot = glm::dot(this->gradients[(GLint)bottomLeft.x][(GLint)bottomLeft.y], xy - bottomLeft);
+	GLfloat bottomRightDot = glm::dot(this->gradients[(GLint)topRight.x][(GLint)bottomLeft.y], xy - glm::vec2(topRight.x, bottomLeft.y));
 
 	GLfloat smooth1 = lerp(bottomLeftDot, bottomRightDot, glm::smoothstep((GLfloat)0.0, (GLfloat)1.0, sx));
 
-	GLfloat topLeftDot = glm::dot(gradients[(GLint)bottomLeft.x][(GLint)topRight.y], xy - glm::vec2(bottomLeft.x, topRight.y));
-	GLfloat topRightDot = glm::dot(gradients[(GLint)topRight.x][(GLint)topRight.y], xy - topRight);
+	GLfloat topLeftDot = glm::dot(this->gradients[(GLint)bottomLeft.x][(GLint)topRight.y], xy - glm::vec2(bottomLeft.x, topRight.y));
+	GLfloat topRightDot = glm::dot(this->gradients[(GLint)topRight.x][(GLint)topRight.y], xy - topRight);
 
 	GLfloat smooth2 = lerp(topLeftDot, topRightDot, glm::smoothstep((GLfloat)0.0, (GLfloat)1.0, sx));
 
@@ -153,20 +164,20 @@ GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y, GLfloat z) {
 	glm::vec3 diff = (xyz - lowerLattice) / (upperLattice - lowerLattice);
 
 	// Bottom Left Front Dot Product and Bottom Right Front Dot
-	GLfloat blfDot = glm::dot(gradients3d[(GLint)lowerLattice.x][(GLint)lowerLattice.y][(GLint)lowerLattice.z], xyz - lowerLattice);
-	GLfloat brfDot = glm::dot(gradients3d[(GLint)upperLattice.x][(GLint)lowerLattice.y][(GLint)lowerLattice.z], xyz - glm::vec3(upperLattice.x, lowerLattice.y, lowerLattice.z));
+	GLfloat blfDot = glm::dot(this->gradients3d[(GLint)lowerLattice.x][(GLint)lowerLattice.y][(GLint)lowerLattice.z], xyz - lowerLattice);
+	GLfloat brfDot = glm::dot(this->gradients3d[(GLint)upperLattice.x][(GLint)lowerLattice.y][(GLint)lowerLattice.z], xyz - glm::vec3(upperLattice.x, lowerLattice.y, lowerLattice.z));
 	GLfloat c00 = lerp(blfDot, brfDot, glm::smoothstep((GLfloat)0.0, (GLfloat)1.0, diff.x));
 
-	GLfloat blbDot = glm::dot(gradients3d[(GLint)lowerLattice.x][(GLint)lowerLattice.y][(GLint)upperLattice.z], xyz - glm::vec3(lowerLattice.x, lowerLattice.y, upperLattice.z));
-	GLfloat brbDot = glm::dot(gradients3d[(GLint)upperLattice.x][(GLint)lowerLattice.y][(GLint)upperLattice.z], xyz - glm::vec3(upperLattice.x, lowerLattice.y, upperLattice.z));
+	GLfloat blbDot = glm::dot(this->gradients3d[(GLint)lowerLattice.x][(GLint)lowerLattice.y][(GLint)upperLattice.z], xyz - glm::vec3(lowerLattice.x, lowerLattice.y, upperLattice.z));
+	GLfloat brbDot = glm::dot(this->gradients3d[(GLint)upperLattice.x][(GLint)lowerLattice.y][(GLint)upperLattice.z], xyz - glm::vec3(upperLattice.x, lowerLattice.y, upperLattice.z));
 	GLfloat c01 = lerp(blbDot, brbDot, glm::smoothstep((GLfloat)0.0, (GLfloat)1.0, diff.x));
 
-	GLfloat tlfDot = glm::dot(gradients3d[(GLint)lowerLattice.x][(GLint)upperLattice.y][(GLint)lowerLattice.z], xyz - glm::vec3(lowerLattice.x, upperLattice.y, lowerLattice.z));
-	GLfloat trfDot = glm::dot(gradients3d[(GLint)upperLattice.x][(GLint)upperLattice.y][(GLint)lowerLattice.z], xyz - glm::vec3(upperLattice.x, upperLattice.y, lowerLattice.z));
+	GLfloat tlfDot = glm::dot(this->gradients3d[(GLint)lowerLattice.x][(GLint)upperLattice.y][(GLint)lowerLattice.z], xyz - glm::vec3(lowerLattice.x, upperLattice.y, lowerLattice.z));
+	GLfloat trfDot = glm::dot(this->gradients3d[(GLint)upperLattice.x][(GLint)upperLattice.y][(GLint)lowerLattice.z], xyz - glm::vec3(upperLattice.x, upperLattice.y, lowerLattice.z));
 	GLfloat c10 = lerp(tlfDot, trfDot, glm::smoothstep((GLfloat)0.0, (GLfloat)1.0, diff.x));
 
-	GLfloat tlbDot = glm::dot(gradients3d[(GLint)lowerLattice.x][(GLint)upperLattice.y][(GLint)upperLattice.z], xyz - glm::vec3(lowerLattice.x, upperLattice.y, upperLattice.z));
-	GLfloat trbDot = glm::dot(gradients3d[(GLint)upperLattice.x][(GLint)upperLattice.y][(GLint)upperLattice.z], xyz - glm::vec3(upperLattice.x, upperLattice.y, upperLattice.z));
+	GLfloat tlbDot = glm::dot(this->gradients3d[(GLint)lowerLattice.x][(GLint)upperLattice.y][(GLint)upperLattice.z], xyz - glm::vec3(lowerLattice.x, upperLattice.y, upperLattice.z));
+	GLfloat trbDot = glm::dot(this->gradients3d[(GLint)upperLattice.x][(GLint)upperLattice.y][(GLint)upperLattice.z], xyz - glm::vec3(upperLattice.x, upperLattice.y, upperLattice.z));
 	GLfloat c11 = lerp(tlbDot, trbDot, glm::smoothstep((GLfloat)0.0, (GLfloat)1.0, diff.x));
 
 	GLfloat c0 = lerp(c00, c10, glm::smoothstep((GLfloat)0.0, (GLfloat)1.0, diff.y));

@@ -72,7 +72,6 @@ void Material::readLightingFile(std::string filename) {
 		while (std::getline(file, line)) {
 			GLchar * token;
 			GLchar* context = NULL;
-			//std::cout << line << std::endl;
 
 			// TODO: The Material file is still the Lighting file but only one field is used
 			token = strtok_s(&line[0], ",", &context);

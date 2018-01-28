@@ -58,7 +58,6 @@ void InstancedTransformImpl::readFile(std::string filename) {
 		std::string line;
 
 		while (std::getline(file, line)) {
-			// std::cout << line << std::endl;
 			GLchar * token;
 			GLchar* context = NULL;
 			GLuint i = 0;

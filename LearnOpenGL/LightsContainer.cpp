@@ -76,8 +76,6 @@ void LightsContainer::getMeshProperties(DirLight * dirLight, GLchar* context, GL
 	else if (lightPropType == '4') {
 		dirLight->specular = prop;
 	}
-
-	///std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 }
 
 void LightsContainer::getMeshProperties(SpotLight * spotLight, GLchar* context, GLchar lightPropType) {
@@ -94,43 +92,33 @@ void LightsContainer::getMeshProperties(SpotLight * spotLight, GLchar* context, 
 
 	if (lightPropType == '0') {
 		spotLight->position = prop;
-		///std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 	}
 	else if (lightPropType == '1') {
 		spotLight->direction = prop;
-		///std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 	}
 	else if (lightPropType == '2') {
 		spotLight->ambient = prop;
-		///std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 	}
 	else if (lightPropType == '3') {
 		spotLight->diffuse = prop;
-		///std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 	}
 	else if (lightPropType == '4') {
 		spotLight->specular = prop;
-		///std::cout << prop.x << ", " << prop.y << ", " << prop.z << std::endl;
 	}
 	else if (lightPropType == '5') {
 		spotLight->constant = prop[0];
-		///std::cout << prop.x << std::endl;
 	}
 	else if (lightPropType == '6') {
 		spotLight->linear = prop[0];
-		///std::cout << prop.x << std::endl;
 	}
 	else if (lightPropType == '7') {
 		spotLight->quadratic = prop[0];
-		///std::cout << prop.x << std::endl;
 	}
 	else if (lightPropType == '8') {
 		spotLight->cutOff = prop[0];
-		///std::cout << prop.x << std::endl;
 	}
 	else if (lightPropType == '9') {
 		spotLight->outerCutOff = prop[0];
-		///std::cout << prop.x << std::endl;
 	}
 }
 
@@ -179,7 +167,6 @@ void LightsContainer::readLightingFile(GLchar* filename) {
 		while (std::getline(file, line)) {
 			GLchar * token;
 			GLchar* context = NULL;
-			//std::cout << line << std::endl;
 
 			token = strtok_s(&line[0], ",", &context);
 			if (token[0] == '1') { // Directional Light
