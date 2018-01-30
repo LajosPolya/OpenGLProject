@@ -1,3 +1,8 @@
-﻿  TerrainGenerator.cpp
+﻿  LearnOpenGL.cpp
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(397): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+  Generating Code...
+  Compiling...
+  TerrainGenerator.cpp
+  Generating Code...
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)

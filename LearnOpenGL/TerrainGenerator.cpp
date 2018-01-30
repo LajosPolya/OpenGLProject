@@ -33,9 +33,9 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint z) {
 
 	for (i = x; i < upperX; i++) {
 		for (j = z; j < upperZ; j++) {
-			(*values)[i-x][j-z] = (GLfloat)(GLint)((*values)[i-x][j-z] * (GLfloat)this->y);
-			heightValues.push_back(glm::vec3(i, (*values)[i-x][j-z] + (GLint)15, j));
-			for (k = (GLint)(*values)[i-x][j-z] - 1; k >= -5; k--) {
+			(*values)[i - x][j - z] = (GLfloat)(GLint)((*values)[i - x][j - z] * (GLfloat)this->y);
+			heightValues.push_back(glm::vec3(i, (*values)[i - x][j - z] + (GLint)15, j));
+			for (k = (GLint)(*values)[i - x][j - z] - 1; k >= -5; k--) {
 				heightValues.push_back(glm::vec3(i, k + 15, j));
 			}
 		}
@@ -57,7 +57,7 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint y, GLint z) {
 	for (i = x; i < upperX; i++) {
 		for (j = y; j < upperY; j++) {
 			for (k = z; k < upperZ; k++) {
-				if (values[i-x][j-y][k-z] >(GLfloat)0.08) {
+				if (values[i - x][j - y][k - z] >(GLfloat)GRAN) {
 					position.push_back(glm::vec3(i, j, k));
 				}
 			}
@@ -68,4 +68,51 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint y, GLint z) {
 		std::cout << "Terrain Generator ERROR: Zero Positions Generated" << std::endl;
 	}
 	return position;
+}
+
+ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
+	ComplexPosition CoPo;
+	GLint i, j, k;
+	GLint upperX = x + this->x;
+	GLint upperY = y + this->y;
+	GLint upperZ = z + this->z;
+	std::vector<glm::vec3> position;
+	std::vector<glm::vec3> drawablePosition;
+
+	GLfloat *** values;
+	// Generate positions for the chunk the input parameters are in
+	values = perlinNoise->generate(x / this->x, y / this->y, z / this->z);
+	for (i = x; i < upperX; i++) {
+		for (j = y; j < upperY; j++) {
+			for (k = z; k < upperZ; k++) {
+				if (values[i - x][j - y][k - z] >(GLfloat)GRAN) {
+					position.push_back(glm::vec3(i, j, k));
+
+					if (i == x || i == upperX - 1 || j == y || j == upperY - 1 || k == z || k == upperZ - 1) {
+						drawablePosition.push_back(glm::vec3(i, j, k));
+					}
+				}
+			}
+		}
+	}
+
+	for (i = x + 1; i < upperX - 1; i++) {
+		for (j = y + 1; j < upperY - 1; j++) {
+			for (k = z + 1; k < upperZ - 1; k++) {
+				if (values[i - x][j - y][k - z] >(GLfloat)GRAN) {
+					// Top																																																																																																																													// Bottom																																																																																																																											   // Middle
+					if ((!(values[i - x][j - y + 1][k - z] >(GLfloat)GRAN && values[i - x + 1][j - y + 1][k - z] >(GLfloat)GRAN && values[i - x - 1][j - y + 1][k - z] >(GLfloat)GRAN && values[i - x][j - y + 1][k - z + 1] >(GLfloat)GRAN && values[i - x][j - y + 1][k - z - 1] >(GLfloat)GRAN && values[i - x + 1][j - y + 1][k - z + 1] >(GLfloat)GRAN && values[i - x + 1][j - y + 1][k - z - 1] >(GLfloat)GRAN && values[i - x - 1][j - y + 1][k - z + 1] >(GLfloat)GRAN && values[i - x - 1][j - y + 1][k - z - 1] >(GLfloat)GRAN)) || (!(values[i - x][j - y - 1][k - z] >(GLfloat)GRAN && values[i - x + 1][j - y - 1][k - z] >(GLfloat)GRAN && values[i - x - 1][j - y - 1][k - z] >(GLfloat)GRAN && values[i - x][j - y - 1][k - z + 1] >(GLfloat)GRAN && values[i - x][j - y - 1][k - z - 1] >(GLfloat)GRAN && values[i - x + 1][j - y - 1][k - z + 1] >(GLfloat)GRAN && values[i - x + 1][j - y - 1][k - z - 1] >(GLfloat)GRAN && values[i - x - 1][j - y - 1][k - z + 1] >(GLfloat)GRAN && values[i - x - 1][j - y - 1][k - z - 1] >(GLfloat)GRAN)) || (!(values[i - x + 1][j - y][k - z] > (GLfloat)GRAN && values[i - x - 1][j - y][k - z] > (GLfloat)GRAN && values[i - x][j - y][k - z + 1] > (GLfloat)GRAN && values[i - x][j - y][k - z - 1] > (GLfloat)GRAN && values[i - x + 1][j - y][k - z + 1] > (GLfloat)GRAN && values[i - x + 1][j - y][k - z - 1] > (GLfloat)GRAN && values[i - x - 1][j - y][k - z + 1] > (GLfloat)GRAN && values[i - x - 1][j - y][k - z + 1] > (GLfloat)GRAN))) {
+						drawablePosition.push_back(glm::vec3(i, j, k));
+					}
+				}
+			}
+		}
+	}
+
+	if (position.size() == 0) {
+		std::cout << "Terrain Generator ERROR: Zero Positions Generated" << std::endl;
+	}
+	CoPo.setPositions(position);
+	CoPo.setDrawablePositions(drawablePosition);
+	return CoPo;
 }

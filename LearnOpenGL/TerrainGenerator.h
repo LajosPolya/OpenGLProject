@@ -4,9 +4,11 @@
 #include <fstream>
 
 #include "PerlinNoise.h"
+#include "ComplexPosition.h"
 
 #define T_2D 2
 #define T_3D 3
+#define GRAN 0.01 // Granularity
 
 class TerrainGenerator
 {
@@ -20,6 +22,7 @@ public:
 	*/
 	std::vector<glm::vec3> generate(GLint x, GLint z);
 	std::vector<glm::vec3> generate(GLint x, GLint y, GLint z);
+	ComplexPosition generateComplex(GLint x, GLint y, GLint z);
 
 private:
 	// Size of one chunk of terrain

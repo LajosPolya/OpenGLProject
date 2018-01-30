@@ -120,6 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CollisionDetector.cpp" />
+    <ClCompile Include="ComplexPosition.cpp" />
     <ClCompile Include="GameObjectImpl.cpp" />
     <ClCompile Include="GameObjectMemoryManager.cpp" />
     <ClCompile Include="GameObjectUtils.cpp" />
@@ -143,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionDetector.h" />
+    <ClInclude Include="ComplexPosition.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectImpl.h" />
     <ClInclude Include="GameObjectMemoryManager.h" />
