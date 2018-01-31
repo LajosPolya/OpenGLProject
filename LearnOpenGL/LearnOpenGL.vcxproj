@@ -121,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="ComplexPosition.cpp" />
+    <ClCompile Include="ComplexShader.cpp" />
     <ClCompile Include="GameObjectImpl.cpp" />
     <ClCompile Include="GameObjectMemoryManager.cpp" />
     <ClCompile Include="GameObjectUtils.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SimpleInstancedArrayGameObject.cpp" />
     <ClCompile Include="TerrainGenerator.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TransformImpl.cpp" />
@@ -145,6 +147,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="ComplexPosition.h" />
+    <ClInclude Include="ComplexShader.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectImpl.h" />
     <ClInclude Include="GameObjectMemoryManager.h" />
@@ -162,6 +165,7 @@
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SimpleInstancedArrayGameObject.h" />
     <ClInclude Include="TerrainGenerator.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TransformImpl.h" />
