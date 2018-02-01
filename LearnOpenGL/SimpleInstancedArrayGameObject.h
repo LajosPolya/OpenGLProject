@@ -5,11 +5,14 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "LightsContainer.h"
+#include "GameObjectUtils.h"
 
 class SimpleInstancedArrayGameObject
 {
 public:
 	SimpleInstancedArrayGameObject();
+	SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, GLchar * materialPath, GLchar * transformPath);
+
 	~SimpleInstancedArrayGameObject();
 
 private:

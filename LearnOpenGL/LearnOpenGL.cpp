@@ -32,6 +32,7 @@
 #include "PerlinNoise.h"
 #include "TerrainGenerator.h"
 #include "CollisionDetector.h"
+#include "ComplexShader.h"
 
 #define WORLD_LENGTH 5
 
@@ -196,6 +197,11 @@ int main() {
 	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
 	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
 	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
+
+	// ComplexShader and SimpleGameObject Testing
+	LightsContainer globalLightsContainer("Material/crate.txt");
+	ComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "instancedArray.vert", "fragment.frag");
+
 
 	std::thread t1(Producer, std::ref(terrainGenerator3d));
 	GLuint numFrames = 0;

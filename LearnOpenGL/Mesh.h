@@ -34,6 +34,11 @@
 #define INSTANCED_ARRAY_SHADER 1
 #define INSTANCED_SHADER  2
 
+// TODO: Don't send Transform to Constructor
+/* It doesn't make sense to send the constructor over because it's only used 
+   to see if it's instanced or not. The Mesh should have isntanced children 
+*/
+
 struct Vertex {
 	glm::vec3 Position;
 	glm::vec3 Normal;

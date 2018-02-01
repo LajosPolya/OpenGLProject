@@ -1,7 +1,7 @@
 #include "GameObjectUtils.h"
 
 std::vector<Texture*> GameObjectUtils::getDiffuseTextures(std::string path) {
-	Texture * diffuseMap;
+	Texture * diffuseMap = nullptr;
 	GLchar * tokens;
 	GLchar* context = NULL;
 
@@ -9,12 +9,12 @@ std::vector<Texture*> GameObjectUtils::getDiffuseTextures(std::string path) {
 	tokens = strtok_s(&path[0], ",", &context);
 	std::vector<Texture*> diffuseMaps;
 	while (tokens != nullptr) {
-		diffuseMap = ResourceManager::getTexture(tokens);
-		if (diffuseMap == nullptr) {
+		///diffuseMap = ResourceManager::getTexture(tokens);
+		///if (diffuseMap == nullptr) {
 			diffuseMap = new Texture(tokens, true);
 			diffuseMap->setName("material.diffuse");
-			ResourceManager::addInstance(tokens, diffuseMap);
-		}
+			///ResourceManager::addInstance(tokens, diffuseMap);
+		///}
 		diffuseMaps.push_back(diffuseMap);
 		tokens = strtok_s(NULL, ",", &context);
 	}
