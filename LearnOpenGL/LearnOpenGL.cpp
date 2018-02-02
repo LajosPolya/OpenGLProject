@@ -33,6 +33,7 @@
 #include "TerrainGenerator.h"
 #include "CollisionDetector.h"
 #include "ComplexShader.h"
+#include "SimpleInstancedArrayGameObject.h"
 
 #define WORLD_LENGTH 5
 
@@ -201,6 +202,7 @@ int main() {
 	// ComplexShader and SimpleGameObject Testing
 	LightsContainer globalLightsContainer("Material/crate.txt");
 	ComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "instancedArray.vert", "fragment.frag");
+	SimpleInstancedArrayGameObject simpleGO("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>());
 
 
 	std::thread t1(Producer, std::ref(terrainGenerator3d));
