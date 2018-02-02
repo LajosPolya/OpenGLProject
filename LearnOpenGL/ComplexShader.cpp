@@ -1,13 +1,34 @@
 #include "ComplexShader.h"
 
-ComplexShader::ComplexShader(Camera * camera, LightsContainer * lightsContainer, glm::mat4 projection, const GLchar* vertexPath, const GLchar* fragmentPath) {
+ComplexShader::ComplexShader(Camera * camera, LightsContainer * lightsContainer, glm::mat4 projection, const GLchar * vertexPath, const GLchar * fragmentPath) {
 	this->camera = camera;
-	this->lighstContainer = lightsContainer;
+	this->lightsContainer = lightsContainer;
 	this->projection = projection;
 	buildShaders(vertexPath, fragmentPath);
 }
 
 ComplexShader::~ComplexShader() {}
+
+void ComplexShader::sendToShader(Material * material) {
+	this->use();
+	glUniform1f(glGetUniformLocation(this->shaderId, "material.shininess"), material->getShininess());
+}
+
+void ComplexShader::sendToShader(Mesh * mesh) {
+	// Bind Diffuse Map
+	Texture * diffuseMap = mesh->getDiffuseMap();
+	if (diffuseMap != nullptr) {
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseMap->getTextureID());
+	}
+
+	// Bind Specular Map
+	Texture * specularMap = mesh->getSpecularMap();
+	if (specularMap != nullptr) {
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, specularMap->getTextureID());
+	}
+}
 
 void ComplexShader::buildShaders(const GLchar * vertexPath, const GLchar * fragmentPath) {
 	// 1. Retrieve the source code from filepath
@@ -100,4 +121,64 @@ GLuint ComplexShader::createShader(GLint type, const GLchar * code) {
 	}
 	glAttachShader(this->shaderId, shader);
 	return shader;
+}
+
+void ComplexShader::sendLightsContainerToShader() {
+	DirLight * dirLight = this->lightsContainer->getDirLight();
+	SpotLight * spotLight = this->lightsContainer->getSpotLight();
+	std::vector<PointLight> * pointLights = this->lightsContainer->getPointLights();
+
+	this->use();
+	// Directional light
+	glUniform3f(glGetUniformLocation(this->shaderId, "dirLight.direction"), dirLight->direction.x, dirLight->direction.y, dirLight->direction.z);
+	glUniform3f(glGetUniformLocation(this->shaderId, "dirLight.ambient"), dirLight->ambient.x, dirLight->ambient.y, dirLight->ambient.z);
+	glUniform3f(glGetUniformLocation(this->shaderId, "dirLight.diffuse"), dirLight->diffuse.x, dirLight->diffuse.y, dirLight->diffuse.z);
+	glUniform3f(glGetUniformLocation(this->shaderId, "dirLight.specular"), dirLight->specular.x, dirLight->specular.y, dirLight->specular.z);
+
+	// Point Light
+	glUniform1i(glGetUniformLocation(this->shaderId, "size"), pointLights->size());
+	std::string iString;
+	for (GLuint i = 0; i < pointLights->size(); i++) {
+		iString = std::to_string(i);
+		std::string pointLightString = "pointLights[" + iString + "].";
+		glUniform3f(glGetUniformLocation(this->shaderId, (pointLightString + "position").c_str()), (*pointLights)[i].position.x, (*pointLights)[i].position.y, (*pointLights)[i].position.z);
+		glUniform3f(glGetUniformLocation(this->shaderId, (pointLightString + "ambient").c_str()), (*pointLights)[i].ambient.x, (*pointLights)[i].ambient.y, (*pointLights)[i].ambient.z);
+		glUniform3f(glGetUniformLocation(this->shaderId, (pointLightString + "diffuse").c_str()), (*pointLights)[i].diffuse.x, (*pointLights)[i].diffuse.y, (*pointLights)[i].diffuse.z);
+		glUniform3f(glGetUniformLocation(this->shaderId, (pointLightString + "specular").c_str()), (*pointLights)[i].specular.x, (*pointLights)[i].specular.y, (*pointLights)[i].specular.z);
+		glUniform1f(glGetUniformLocation(this->shaderId, (pointLightString + "constant").c_str()), (*pointLights)[i].constant);
+		glUniform1f(glGetUniformLocation(this->shaderId, (pointLightString + "linear").c_str()), (*pointLights)[i].linear);
+		glUniform1f(glGetUniformLocation(this->shaderId, (pointLightString + "quadratic").c_str()), (*pointLights)[i].quadratic);
+	}
+
+	// SpotLight
+	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.ambient"), spotLight->ambient.x, spotLight->ambient.y, spotLight->ambient.z);
+	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.diffuse"), spotLight->diffuse.x, spotLight->diffuse.y, spotLight->diffuse.z);
+	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.specular"), spotLight->specular.x, spotLight->specular.y, spotLight->specular.z);
+	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.constant"), spotLight->constant);
+	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.linear"), spotLight->linear);
+	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.quadratic"), spotLight->quadratic);
+	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.cutOff"), glm::cos(glm::radians(spotLight->cutOff)));
+	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.outerCutOff"), glm::cos(glm::radians(spotLight->outerCutOff)));
+}
+
+void ComplexShader::sendProjectionMatrixToShader() {
+	this->use();
+	glUniformMatrix4fv(glGetUniformLocation(this->shaderId, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+}
+
+void ComplexShader::sendCameraToShader() {
+	glUniform3f(glGetUniformLocation(this->shaderId, "viewPos"), this->camera->Position.x, this->camera->Position.y, this->camera->Position.z);
+
+	glUniform1i(glGetUniformLocation(this->shaderId, "material.diffuse"), 0);
+	glUniform1i(glGetUniformLocation(this->shaderId, "material.specular"), 1);
+
+	glUniformMatrix4fv(glGetUniformLocation(this->shaderId, "view"), 1, GL_FALSE, glm::value_ptr(this->camera->GetViewMatrix()));
+
+	// Set material properties
+	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.position"), this->camera->Position.x, this->camera->Position.y, this->camera->Position.z);
+	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.direction"), this->camera->Front.x, this->camera->Front.y, this->camera->Front.z);
+}
+
+void ComplexShader::use() {
+	glUseProgram(this->shaderId);
 }

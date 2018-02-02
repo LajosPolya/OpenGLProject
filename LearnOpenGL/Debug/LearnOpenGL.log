@@ -1,16 +1,9 @@
-﻿  SimpleInstancedArrayGameObject.cpp
-  Mesh.cpp
-  GameObjectUtils.cpp
+﻿  Shader.cpp
+  ComplexShader.cpp
   Generating Code...
   Compiling...
-  TransparentGameObjectImpl.cpp
-  Shader.cpp
-  ResourceManager.cpp
   LearnOpenGL.cpp
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(403): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-  InstancedGameObjectImpl.cpp
-  InstancedArrayGameObjectImpl.cpp
-  GameObjectImpl.cpp
   Generating Code...
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)

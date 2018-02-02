@@ -11,7 +11,7 @@ class SimpleInstancedArrayGameObject
 {
 public:
 	SimpleInstancedArrayGameObject();
-	SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, GLchar * materialPath, GLchar * transformPath);
+	SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, GLchar * materialPath, std::vector<glm::vec3> positions);
 
 	~SimpleInstancedArrayGameObject();
 
