@@ -19,6 +19,7 @@ public:
 	void sendToShader(Material * material);
 	void sendToShader(Mesh * mesh);
 
+	void setSamplers();
 	void sendLightsContainerToShader();
 	void sendProjectionMatrixToShader();
 	void sendCameraToShader();

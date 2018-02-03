@@ -17,6 +17,8 @@ public:
 
 	void Draw();
 
+	Material * getMaterial();
+
 private:
 	std::vector<Mesh*> mesh;
 

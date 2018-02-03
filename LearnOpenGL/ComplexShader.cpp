@@ -123,6 +123,13 @@ GLuint ComplexShader::createShader(GLint type, const GLchar * code) {
 	return shader;
 }
 
+// This only has to be done once
+void ComplexShader::setSamplers() {
+	this->use();
+	glUniform1i(glGetUniformLocation(this->shaderId, "material.diffuse"), 0);
+	glUniform1i(glGetUniformLocation(this->shaderId, "material.specular"), 1);
+}
+
 void ComplexShader::sendLightsContainerToShader() {
 	DirLight * dirLight = this->lightsContainer->getDirLight();
 	SpotLight * spotLight = this->lightsContainer->getSpotLight();
@@ -169,9 +176,6 @@ void ComplexShader::sendProjectionMatrixToShader() {
 void ComplexShader::sendCameraToShader() {
 	this->use();
 	glUniform3f(glGetUniformLocation(this->shaderId, "viewPos"), this->camera->Position.x, this->camera->Position.y, this->camera->Position.z);
-
-	glUniform1i(glGetUniformLocation(this->shaderId, "material.diffuse"), 0);
-	glUniform1i(glGetUniformLocation(this->shaderId, "material.specular"), 1);
 
 	glUniformMatrix4fv(glGetUniformLocation(this->shaderId, "view"), 1, GL_FALSE, glm::value_ptr(this->camera->GetViewMatrix()));
 

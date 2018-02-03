@@ -205,7 +205,7 @@ int main() {
 	LightsContainer globalLightsContainer("Material/crate.txt");
 	ComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "instancedArray.vert", "fragment.frag");
 	SimpleInstancedArrayGameObject simpleGO("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo4.getDrawablePositions());
-
+	globalInstancedArrayShader.setSamplers();
 
 	std::thread t1(Producer, std::ref(terrainGenerator3d));
 	GLuint numFrames = 0;
@@ -309,10 +309,11 @@ int main() {
 
 
 		// Testing ComplexShader and SimpleGameObject
-		simpleGO.Draw();
 		globalInstancedArrayShader.sendCameraToShader();
 		globalInstancedArrayShader.sendLightsContainerToShader();
 		globalInstancedArrayShader.sendProjectionMatrixToShader();
+		globalInstancedArrayShader.sendToShader(simpleGO.getMaterial());
+		simpleGO.Draw();
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

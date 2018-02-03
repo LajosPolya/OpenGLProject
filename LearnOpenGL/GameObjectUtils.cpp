@@ -29,12 +29,12 @@ std::vector<Texture*> GameObjectUtils::getSpecularTextures(std::string path) {
 	tokens = strtok_s(&path[0], ",", &context);
 	std::vector<Texture*> specularMaps;
 	while (tokens != nullptr) {
-		specularMap = ResourceManager::getTexture(tokens);
-		if (specularMap == nullptr) {
+		///specularMap = ResourceManager::getTexture(tokens);
+		///if (specularMap == nullptr) {
 			specularMap = new Texture(tokens, true);
 			specularMap->setName("material.specular");
-			ResourceManager::addInstance(tokens, specularMap);
-		}
+			///ResourceManager::addInstance(tokens, specularMap);
+		///}
 		specularMaps.push_back(specularMap);
 		tokens = strtok_s(NULL, ",", &context);
 	}

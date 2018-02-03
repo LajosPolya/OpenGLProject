@@ -23,3 +23,7 @@ void SimpleInstancedArrayGameObject::Draw() {
 		this->mesh[i]->Draw();
 	}
 }
+
+Material * SimpleInstancedArrayGameObject::getMaterial() {
+	return this->material;
+}
