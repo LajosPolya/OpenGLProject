@@ -19,6 +19,10 @@ public:
 	void sendToShader(Material * material);
 	void sendToShader(Mesh * mesh);
 
+	void sendLightsContainerToShader();
+	void sendProjectionMatrixToShader();
+	void sendCameraToShader();
+
 private:
 	GLuint shaderId;
 	LightsContainer * lightsContainer;
@@ -28,10 +32,6 @@ private:
 	void buildShaders(const GLchar* vertexPath, const GLchar* fragmentPath);
 	void readShaderFile(const GLchar * path, std::string * code);
 	GLuint createShader(GLint type, const GLchar * code);
-
-	void sendLightsContainerToShader();
-	void sendProjectionMatrixToShader();
-	void sendCameraToShader();
 	
 	void use();
 };

@@ -200,9 +200,11 @@ int main() {
 	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
 
 	// ComplexShader and SimpleGameObject Testing
+	ComplexPosition CoPo4;
+	CoPo4 = terrainGenerator3d.generateComplex(-50, 0, -50);
 	LightsContainer globalLightsContainer("Material/crate.txt");
 	ComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "instancedArray.vert", "fragment.frag");
-	SimpleInstancedArrayGameObject simpleGO("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>());
+	SimpleInstancedArrayGameObject simpleGO("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo4.getDrawablePositions());
 
 
 	std::thread t1(Producer, std::ref(terrainGenerator3d));
@@ -304,6 +306,13 @@ int main() {
 			//perlin.Draw();
 			chunks[i].Draw();
 		}
+
+
+		// Testing ComplexShader and SimpleGameObject
+		simpleGO.Draw();
+		globalInstancedArrayShader.sendCameraToShader();
+		globalInstancedArrayShader.sendLightsContainerToShader();
+		globalInstancedArrayShader.sendProjectionMatrixToShader();
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

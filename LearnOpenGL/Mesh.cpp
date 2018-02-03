@@ -114,6 +114,20 @@ void Mesh::Draw() {
 	GLuint diffuseNr = 1;
 	GLuint specularNr = 1;
 
+	// Bind Diffuse Map
+	Texture * diffuseMap = getDiffuseMap();
+	if (diffuseMap != nullptr) {
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseMap->getTextureID());
+	}
+
+	// Bind Specular Map
+	Texture * specularMap = getSpecularMap();
+	if (specularMap != nullptr) {
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, specularMap->getTextureID());
+	}
+
 	/*for (GLuint i = 0; i < this->textures.size(); i++) {
 	glActiveTexture(GL_TEXTURE0 + i); // Activate Texture Unit
 

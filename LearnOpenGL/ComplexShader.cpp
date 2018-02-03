@@ -167,6 +167,7 @@ void ComplexShader::sendProjectionMatrixToShader() {
 }
 
 void ComplexShader::sendCameraToShader() {
+	this->use();
 	glUniform3f(glGetUniformLocation(this->shaderId, "viewPos"), this->camera->Position.x, this->camera->Position.y, this->camera->Position.z);
 
 	glUniform1i(glGetUniformLocation(this->shaderId, "material.diffuse"), 0);

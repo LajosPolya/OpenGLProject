@@ -17,3 +17,9 @@ SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffu
 
 
 SimpleInstancedArrayGameObject::~SimpleInstancedArrayGameObject() {}
+
+void SimpleInstancedArrayGameObject::Draw() {
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		this->mesh[i]->Draw();
+	}
+}

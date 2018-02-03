@@ -15,6 +15,8 @@ public:
 
 	~SimpleInstancedArrayGameObject();
 
+	void Draw();
+
 private:
 	std::vector<Mesh*> mesh;
 

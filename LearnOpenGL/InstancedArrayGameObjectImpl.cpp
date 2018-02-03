@@ -184,7 +184,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 
 void InstancedArrayGameObjectImpl::Draw() {
 	// GameObject waiting to be filled if it has no models
-	if (transform->getModels().size() == 0) {
+	if (this->transform->getModels().size() == 0) {
 		return;
 	}
 
