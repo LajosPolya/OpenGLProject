@@ -55,7 +55,7 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 byte killAll = 0;
 std::vector<glm::vec3> messageQ;
 std::vector<InstancedArrayTransformImpl> returnQ;
-std::vector<InstancedArrayGameObjectImpl> chunks;
+std::vector<SimpleInstancedArrayGameObject> chunks;
 std::mutex pc_m;
 std::mutex returnQ_m;
 void Producer(TerrainGenerator& terrainGenerator);
@@ -158,7 +158,7 @@ int main() {
 	TerrainGenerator terrainGenerator3d(CHUNK_X, CHUNK_Y, CHUNK_Z, T_3D);
 	pos3d = terrainGenerator3d.generate(0, 0, 0);
 	CoPo = terrainGenerator3d.generateComplex(0, 0, 0);
-	InstancedArrayGameObjectImpl perlin3d("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo.getDrawablePositions(), "Material/crate.txt", camera, projection, GL_TRIANGLES);
+	SimpleInstancedArrayGameObject perlin3d("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo.getDrawablePositions());
 
 	std::vector<glm::vec3> pos3d2;
 	ComplexPosition CoPo2;
@@ -191,13 +191,13 @@ int main() {
 	std::vector<glm::vec3> pos2d;
 	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
 	pos2d = terrainGenerator2d.generate(-50, 0);
-	InstancedArrayGameObjectImpl perlin = InstancedArrayGameObjectImpl("instancedArray.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d, "Material/crate.txt", camera, projection);
+	SimpleInstancedArrayGameObject perlin = SimpleInstancedArrayGameObject("container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", pos2d);
 	chunks.push_back(perlin);
-	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
-	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
-	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
-	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
-	chunks.push_back(InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>(), "Material/crate.txt", camera, projection, GL_TRIANGLES));
+	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
+	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
+	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
+	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
+	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
 
 	// ComplexShader and SimpleGameObject Testing
 	ComplexPosition CoPo4;
@@ -206,6 +206,9 @@ int main() {
 	ComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "instancedArray.vert", "fragment.frag");
 	SimpleInstancedArrayGameObject simpleGO("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo4.getDrawablePositions());
 	globalInstancedArrayShader.setSamplers();
+	globalInstancedArrayShader.sendLightsContainerToShader();
+	globalInstancedArrayShader.sendProjectionMatrixToShader();
+	globalInstancedArrayShader.sendToShader(simpleGO.getMaterial());
 
 	std::thread t1(Producer, std::ref(terrainGenerator3d));
 	GLuint numFrames = 0;
@@ -276,13 +279,13 @@ int main() {
 		if (returnQ.size() > 0) {
 			if (firstReplace == 0) {
 				firstReplace = 1;
-				perlin3d.setTransform(&returnQ[returnQ.size() - 1]);
+				perlin3d.setInstances(&returnQ[returnQ.size() - 1]);
 				returnQ.pop_back();
 			}
 			else {
 				for (GLuint i = 0; i < chunks.size(); i++) {
 					if (chunks[i].getTransform()->getModels().size() == 0) {
-						chunks[i].setTransform(&returnQ[returnQ.size() - 1]);
+						chunks[i].setInstances(&returnQ[returnQ.size() - 1]);
 						returnQ.pop_back();
 						break;
 					}
@@ -290,7 +293,6 @@ int main() {
 			}
 		}
 		returnQ_m.unlock();
-		perlin3d.Draw();
 		//perlin3d2.Draw();
 		//perlin3d3.Draw();
 
@@ -301,19 +303,16 @@ int main() {
 		lightBox3.Draw();
 		lightBox4.Draw();
 
+		// Testing ComplexShader and SimpleGameObject
+		globalInstancedArrayShader.sendCameraToShader();
 		/* Copy Constructor doesn't yet copy LightsContainer */
 		for (GLuint i = 0; i < chunks.size(); i++) {
 			//perlin.Draw();
 			chunks[i].Draw();
 		}
 
-
-		// Testing ComplexShader and SimpleGameObject
-		globalInstancedArrayShader.sendCameraToShader();
-		globalInstancedArrayShader.sendLightsContainerToShader();
-		globalInstancedArrayShader.sendProjectionMatrixToShader();
-		globalInstancedArrayShader.sendToShader(simpleGO.getMaterial());
 		simpleGO.Draw();
+		perlin3d.Draw();
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
