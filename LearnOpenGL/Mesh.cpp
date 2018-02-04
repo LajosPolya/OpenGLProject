@@ -197,13 +197,11 @@ Texture * Mesh::getSpecularMap() {
 	return this->specularMap;
 }
 
-GLuint Mesh::getInstancedVBO()
-{
+GLuint Mesh::getInstancedVBO() {
 	return this->instanceVBO;
 }
 
-GLuint Mesh::getVAO()
-{
+GLuint Mesh::getVAO() {
 	return this->VAO;
 }
 

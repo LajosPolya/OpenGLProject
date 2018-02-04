@@ -173,9 +173,6 @@ int main() {
 
 	///InstancedArrayGameObjectImpl lineGrass("Shaders/instancedVertToGeo.vert", "Shaders/grass.frag", "Shaders/line.geom", "", "", "Mesh/dynamicGrass.txt", "Material/crate.txt", pos3d, "Material/crate.txt", camera, projection, GL_POINTS);
 
-	duration = std::clock() - start;
-	std::cout << "Time to start: " << duration << std::endl;
-
 	CollisionDetector::addCamera(camera);
 	CollisionDetector::AddTransform(testingGameObject.getTransform());
 	CollisionDetector::AddTransform(lightBox1.getTransform());
@@ -211,15 +208,26 @@ int main() {
 	globalInstancedArrayShader.sendToShader(simpleGO.getMaterial());
 
 	std::thread t1(Producer, std::ref(terrainGenerator3d));
+	duration = std::clock() - start;
+	std::cout << "Time to start: " << duration << std::endl;
 	GLuint numFrames = 0;
+	GLuint framesPerSec = 0;
 	GLuint firstReplace = 0;
+	GLfloat totalTime = 0;
 	// Game loop
 	while (!glfwWindowShouldClose(window)) {
 		numFrames++;
+		framesPerSec++;
 
 		GLfloat currentFrame = (GLfloat)glfwGetTime();
 		deltaTime = (GLfloat)(currentFrame - lastFrame);
 		lastFrame = (GLfloat)currentFrame;
+		totalTime += deltaTime;
+		if (totalTime > (GLfloat)1.0) {
+			std::cout << (GLfloat)framesPerSec / totalTime << std::endl;
+			totalTime = (GLfloat)0.0;
+			framesPerSec = 0;
+		}
 
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
@@ -269,10 +277,6 @@ int main() {
 			messageQ.push_back(glm::vec3(0, 0, 0));
 			messageQ.push_back(glm::vec3(50, 0, -50));
 			pc_m.unlock();
-			//perlin3d.setTransform(perlin3d2.getTransform());
-			/*for (GLuint i = 0; i < perlin3d.getMeshes().size(); i++) {
-				perlin3d.getMeshes()[i]->setInstance(perlin3d2.getTransform()->getModels());
-			}*/
 		}
 
 		returnQ_m.lock();
