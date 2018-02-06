@@ -30,7 +30,7 @@ InstancedArrayGameObjectImpl::~InstancedArrayGameObjectImpl() {
 /* Since the members are static, should I consider redesigning LightsContainer to not be a part of the GameObject */
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(const InstancedArrayGameObjectImpl & toCopy) {
 	for (GLuint i = 0; i < toCopy.mesh.size(); i++) {
-		this->mesh.push_back(new Mesh(*toCopy.mesh[i]));
+		this->mesh.push_back(new InstancedArrayMesh(*toCopy.mesh[i]));
 	}
 	this->material = new Material(*toCopy.material);
 	this->shader = new Shader(*toCopy.shader);
@@ -39,62 +39,6 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(const InstancedArrayG
 	this->lightsContainer = toCopy.lightsContainer;
 
 	GameObjectMemoryManager::add(toCopy.camera, false);
-}
-
-InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc1, std::string specularMapLoc1, std::string meshLoc1, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection) {
-	this->shader = new Shader(vertexShader, fragmentShader);
-	
-	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc1);
-	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapLoc1);
-
-	this->transform = GameObjectUtils::getTransform(transformLoc, this);
-	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps);
-
-	this->material = GameObjectUtils::getMaterial(materialLoc);
-
-	this->camera = camera;
-	this->projection = projection;
-
-	this->lightsContainer = new LightsContainer(lightsLoc);
-
-	this->shader->setProjectionMatrix(projection);
-
-	GameObjectMemoryManager::add(this->shader);
-	GameObjectMemoryManager::add(this->transform);
-	for (GLuint i = 0; i < this->mesh.size(); i++) {
-		GameObjectMemoryManager::add(this->mesh[i]);
-	}
-	GameObjectMemoryManager::add(this->material);
-	GameObjectMemoryManager::add(this->camera, false);
-	GameObjectMemoryManager::add(this->lightsContainer);
-}
-
-InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * geometryShader, std::string diffuseMapLoc1, std::string specularMapLoc1, std::string meshLoc1, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection) {
-	this->shader = new Shader(vertexShader, fragmentShader, geometryShader);
-
-	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapLoc1);
-	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapLoc1);
-
-	this->transform = GameObjectUtils::getTransform(transformLoc, this);
-	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps);
-
-	this->material = GameObjectUtils::getMaterial(materialLoc);
-
-	this->camera = camera;
-	this->projection = projection;
-
-	this->lightsContainer = new LightsContainer(lightsLoc);
-
-	this->shader->setProjectionMatrix(projection);
-
-	GameObjectMemoryManager::add(this->shader);
-	GameObjectMemoryManager::add(this->transform);
-	for (GLuint i = 0; i < this->mesh.size(); i++) {
-		GameObjectMemoryManager::add(this->mesh[i]);
-	}
-	GameObjectMemoryManager::add(this->material);
-	GameObjectMemoryManager::add(this->camera, false);
-	GameObjectMemoryManager::add(this->lightsContainer);
 }
 
 InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc1, std::string specularMapLoc1, std::string meshLoc1, GLchar * materialLoc, std::vector<glm::vec3>& positions, GLchar * lightsLoc, Camera * camera, glm::mat4 projection) {
@@ -197,8 +141,6 @@ void InstancedArrayGameObjectImpl::Draw() {
 	this->shader->sendToShader(this->material);
 
 	for (GLuint i = 0; i < this->mesh.size(); i++) {
-		// Bind Diffuse Map
-		this->shader->sendToShader(this->mesh[i]);
 		this->mesh[i]->Draw();
 	}
 }
@@ -215,22 +157,12 @@ InstancedArrayTransformImpl * InstancedArrayGameObjectImpl::getTransform() {
 	return this->transform;
 }
 
-Texture * InstancedArrayGameObjectImpl::getDiffuseMap(GLint i)
-{
-	return this->mesh[i]->getDiffuseMap();
-}
-
-Texture * InstancedArrayGameObjectImpl::getSpecularMap(GLint i)
-{
-	return this->mesh[i]->getSpecularMap();
-}
-
 LightsContainer * InstancedArrayGameObjectImpl::getLightsContainer()
 {
 	return this->lightsContainer;
 }
 
-std::vector<Mesh*> InstancedArrayGameObjectImpl::getMeshes()
+std::vector<InstancedArrayMesh*> InstancedArrayGameObjectImpl::getMeshes()
 {
 	return this->mesh;
 }

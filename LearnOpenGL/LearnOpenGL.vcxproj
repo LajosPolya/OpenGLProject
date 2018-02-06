@@ -74,7 +74,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
@@ -126,6 +126,7 @@
     <ClCompile Include="GameObjectMemoryManager.cpp" />
     <ClCompile Include="GameObjectUtils.cpp" />
     <ClCompile Include="InstancedArrayGameObjectImpl.cpp" />
+    <ClCompile Include="InstancedArrayMesh.cpp" />
     <ClCompile Include="InstancedArrayTransformImpl.cpp" />
     <ClCompile Include="InstancedGameObjectImpl.cpp" />
     <ClCompile Include="InstancedTransformImpl.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="GameObjectMemoryManager.h" />
     <ClInclude Include="GameObjectUtils.h" />
     <ClInclude Include="InstancedArrayGameObjectImpl.h" />
+    <ClInclude Include="InstancedArrayMesh.h" />
     <ClInclude Include="InstancedArrayTransformImpl.h" />
     <ClInclude Include="InstancedGameObject.h" />
     <ClInclude Include="InstancedGameObjectImpl.h" />

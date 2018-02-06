@@ -9,6 +9,9 @@
 #include "GameObject.h"
 #include "InstancedArrayGameObjectImpl.h"
 
+// TODO: Use Copy Constructor
+/* I'm not sure yet if I wan't to keep this class but if I do it should really use the CopyConstructor(const &) instead of the normal Constructor */
+
 class ResourceManager
 {
 public:

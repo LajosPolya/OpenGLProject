@@ -41,7 +41,6 @@ void TransformImpl::readFile(std::string filename) {
 			// std::cout << line << std::endl;
 			GLchar * token;
 			GLchar * context = NULL;
-			GLuint i = 0;
 
 			token = strtok_s(&line[0], ",", &context);
 			this->Position.x = std::stof(token);

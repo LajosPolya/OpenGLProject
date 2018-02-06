@@ -27,7 +27,6 @@
 #include "Camera.h"
 #include "GameObjectImpl.h"
 #include "InstancedGameObjectImpl.h"
-#include "InstancedArrayGameObjectImpl.h"
 #include "TransparentGameObjectImpl.h"
 #include "PerlinNoise.h"
 #include "TerrainGenerator.h"
@@ -59,7 +58,7 @@ std::vector<SimpleInstancedArrayGameObject> chunks;
 std::mutex pc_m;
 std::mutex returnQ_m;
 void Producer(TerrainGenerator& terrainGenerator);
-InstancedArrayGameObjectImpl * perlin3d2;
+SimpleInstancedArrayGameObject * perlin3d2;
 
 // Camera
 Camera * camera = new Camera(glm::vec3(0.0f, 0.0f, -10.0f));
@@ -147,10 +146,11 @@ int main() {
 	GameObjectImpl lightBox3("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox3.txt", camera, projection);
 	GameObjectImpl lightBox4("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox4.txt", camera, projection);
 
-	InstancedArrayGameObjectImpl instancedArrayGameObject("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt", "Material/crate.txt", camera, projection);
-	InstancedArrayGameObjectImpl grassSides("instancedArray.vert", "fragment.frag", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt", "Material/crate.txt", camera, projection);
+	SimpleInstancedArrayGameObject instancedArrayGameObject = SimpleInstancedArrayGameObject("container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt");
+	SimpleInstancedArrayGameObject grassSides("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt");
 	InstancedGameObjectImpl instancedGameObject = InstancedGameObjectImpl("instanced.vert", "fragment.frag", "Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", camera, projection);
-	TransparentGameObjectImpl instancedWimdowGameObject("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection);
+	// TransparentGameObject is currently broken because it calls setupMesh() which is currently being altered
+	TransparentGameObjectImpl instancedWimdowGameObject = TransparentGameObjectImpl("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection);
 	InstancedTransformImpl newInstancedTransform("Instance/crate3.txt");
 
 	std::vector<glm::vec3> pos3d;
@@ -164,13 +164,7 @@ int main() {
 	ComplexPosition CoPo2;
 	pos3d2 = terrainGenerator3d.generate(0, 0, -50);
 	CoPo2 = terrainGenerator3d.generateComplex(0, 0, -50);
-	perlin3d2 = new InstancedArrayGameObjectImpl("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo2.getDrawablePositions(), "Material/crate.txt", camera, projection, GL_TRIANGLES);
-	std::vector<glm::vec3> pos3d3;
-	ComplexPosition CoPo3;
-	pos3d3 = terrainGenerator3d.generate(50, 0, 0);
-	CoPo3 = terrainGenerator3d.generateComplex(50, 0, 0);
-	InstancedArrayGameObjectImpl perlin3d3("Shaders/instancedVertToGeo.vert", "fragment.frag", "Shaders/passthrough.geom", "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo3.getDrawablePositions(), "Material/crate.txt", camera, projection, GL_TRIANGLES);
-
+	perlin3d2 = new SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo2.getDrawablePositions(), GL_TRIANGLES);
 	///InstancedArrayGameObjectImpl lineGrass("Shaders/instancedVertToGeo.vert", "Shaders/grass.frag", "Shaders/line.geom", "", "", "Mesh/dynamicGrass.txt", "Material/crate.txt", pos3d, "Material/crate.txt", camera, projection, GL_POINTS);
 
 	CollisionDetector::addCamera(camera);
@@ -260,14 +254,11 @@ int main() {
 		grassGameObject.Draw();
 		glEnable(GL_CULL_FACE);
 
-		instancedArrayGameObject.Draw();
 		if (numFrames == 250) {
 			instancedGameObject.setTransform(&newInstancedTransform);
 		}
 		instancedGameObject.Draw();
-		
-		grassSides.Draw();
-		///perlin.Draw();
+
 		if (numFrames == 350) {
 			std::cout << "Switch ";
 			pc_m.lock();
@@ -297,8 +288,6 @@ int main() {
 			}
 		}
 		returnQ_m.unlock();
-		//perlin3d2.Draw();
-		//perlin3d3.Draw();
 
 		// TODO: These should be one isntancedArrayGameObject
 		// TODO: The Lights should be getting their transform from the Material object or vice versa
@@ -314,7 +303,8 @@ int main() {
 			//perlin.Draw();
 			chunks[i].Draw();
 		}
-
+		instancedArrayGameObject.Draw();
+		grassSides.Draw();
 		simpleGO.Draw();
 		perlin3d.Draw();
 

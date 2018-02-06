@@ -31,7 +31,6 @@
 #define TEXTURE_COORDS_BITMAP 4
 #define INSTANCE_POSITION_BITMAP 8
 
-#define INSTANCED_ARRAY_SHADER 1
 #define INSTANCED_SHADER  2
 
 // TODO: Don't send Transform to Constructor
@@ -47,11 +46,6 @@ struct Vertex {
 
 class Mesh {
 public:
-	// Mesh Data
-	std::vector<Vertex> vertices;
-	std::vector<GLuint> indices;
-	std::vector<glm::mat4> instances;
-
 	Mesh();
 	Mesh(const Mesh & toCopy);
 	Mesh(GLchar * vertexLocation);
@@ -59,16 +53,14 @@ public:
 	Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type);
 	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap);
-	Mesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
-	Mesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, GLuint size);
 
-	void Draw();
+	virtual void Draw();
 
-	void setInstance(std::vector<glm::mat4> instances);
+	virtual void setInstance(std::vector<glm::mat4> instances);
 
 	Texture * getDiffuseMap();
 	Texture * getSpecularMap();
@@ -76,24 +68,35 @@ public:
 	GLuint getInstancedVBO();
 	GLuint getVAO();
 
-private:
+protected:
+	// Mesh Data
+	std::vector<Vertex> vertices;
+	std::vector<GLuint> indices;
+	std::vector<glm::mat4> instances;
+
 	// Render Data
-	GLuint VAO, VBO, EBO = -1;
-	GLuint instanceVBO = -1;
-	GLuint numInstances = 0;
+	GLuint numInstances = (GLuint)0;
+	GLuint VAO = (GLuint)-1, EBO = (GLuint)-1, VBO = (GLuint)-1;
+	GLuint instanceVBO = (GLuint)-1;
 
 	GLuint vertexProp_BitMap;
-	GLuint type = 0;
-	GLuint primitiveType = 0;
 
 	Texture * diffuseMap = nullptr;
 	Texture * specularMap = nullptr;
 
-	void setupMesh();
-	void setupMesh(Transform * transform);
-	void setupMesh(InstancedArrayTransformImpl * transform);
-	void setupMesh(InstancedTransformImpl * transform);
+	// Initialize to GL_TRIANGLES
+	GLuint primitiveType = GL_TRIANGLES;
+
+	virtual void setupMesh();
 
 	/* Reads in a mesh file and Processes Vertices */
 	void readVertexFile(GLchar * filename);
+
+private:
+
+	// Instanced or InstancedArray
+	GLuint type = 0;
+
+	void setupMesh(Transform * transform);
+	void setupMesh(InstancedTransformImpl * transform);
 };

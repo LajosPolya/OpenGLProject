@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Mesh.h"
+#include "InstancedArrayMesh.h"
 #include "Texture.h"
 #include "Shader.h"
 #include "Camera.h"
@@ -10,10 +10,13 @@
 class SimpleInstancedArrayGameObject
 {
 public:
-	SimpleInstancedArrayGameObject();
-	SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, GLchar * materialPath, std::vector<glm::vec3> positions);
 	SimpleInstancedArrayGameObject(const SimpleInstancedArrayGameObject & toCopy);
 	~SimpleInstancedArrayGameObject();
+
+	SimpleInstancedArrayGameObject();
+	SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::string transformPath);
+	SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::vector<glm::vec3> positions);
+	SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::vector<glm::vec3> positions, GLuint primitiveType);
 
 	void Draw();
 
@@ -24,7 +27,7 @@ public:
 	void setInstances(InstancedArrayTransformImpl * transform);
 
 private:
-	std::vector<Mesh*> mesh;
+	std::vector<InstancedArrayMesh*> mesh;
 
 	Material * material = nullptr;
 

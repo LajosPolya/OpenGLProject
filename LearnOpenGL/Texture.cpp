@@ -6,7 +6,7 @@ std::string type;
 
 Texture::Texture() {
 	this->name = "";
-	this->id = -1;
+	this->id = (GLuint)-1;
 	this->type = std::string();
 }
 
@@ -76,17 +76,14 @@ GLuint Texture::getTextureID() {
 	return this->id;
 }
 
-std::string Texture::getName()
-{
+std::string Texture::getName() {
 	return this->name;
 }
 
-std::string Texture::getType()
-{
+std::string Texture::getType() {
 	return this->type;
 }
 
-void Texture::setName(std::string name)
-{
+void Texture::setName(std::string name) {
 	this->name = name;
 }

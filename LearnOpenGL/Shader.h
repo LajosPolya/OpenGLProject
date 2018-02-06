@@ -13,6 +13,7 @@
 #include "Mesh.h"
 #include "LightsContainer.h"
 
+// TODO: Why are these Forward Declared?
 class GameObjectImpl;
 class InstancedArrayGameObjectImpl;
 class InstancedGameObjectImpl;
