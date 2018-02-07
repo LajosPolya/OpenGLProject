@@ -13,7 +13,7 @@
 class ComplexShader
 {
 public:
-	ComplexShader(Camera * camera, LightsContainer * lightsContainer, glm::mat4 projection, const GLchar* vertexPath, const GLchar* fragmentPath);
+	ComplexShader(Camera * camera, LightsContainer * lightsContainer, glm::mat4 projection, const GLchar * vertexPath, const GLchar * fragmentPath);
 	~ComplexShader();
 
 	void sendToShader(Material * material);
@@ -24,8 +24,10 @@ public:
 	void sendProjectionMatrixToShader();
 	void sendCameraToShader();
 
-private:
+protected:
 	GLuint shaderId;
+
+private:
 	LightsContainer * lightsContainer;
 	Camera * camera;
 	glm::mat4 projection;

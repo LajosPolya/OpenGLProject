@@ -128,6 +128,7 @@
     <ClCompile Include="InstancedArrayGameObjectImpl.cpp" />
     <ClCompile Include="InstancedArrayMesh.cpp" />
     <ClCompile Include="InstancedArrayTransformImpl.cpp" />
+    <ClCompile Include="InstancedComplexShader.cpp" />
     <ClCompile Include="InstancedGameObjectImpl.cpp" />
     <ClCompile Include="InstancedTransformImpl.cpp" />
     <ClCompile Include="LearnOpenGL.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SimpleInstancedArrayGameObject.cpp" />
+    <ClCompile Include="SimpleInstancedGameObject.cpp" />
     <ClCompile Include="TerrainGenerator.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TransformImpl.cpp" />
@@ -156,6 +158,7 @@
     <ClInclude Include="InstancedArrayGameObjectImpl.h" />
     <ClInclude Include="InstancedArrayMesh.h" />
     <ClInclude Include="InstancedArrayTransformImpl.h" />
+    <ClInclude Include="InstancedComplexShader.h" />
     <ClInclude Include="InstancedGameObject.h" />
     <ClInclude Include="InstancedGameObjectImpl.h" />
     <ClInclude Include="InstancedTransform.h" />
@@ -168,6 +171,7 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SimpleInstancedArrayGameObject.h" />
+    <ClInclude Include="SimpleInstancedGameObject.h" />
     <ClInclude Include="TerrainGenerator.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TransformImpl.h" />

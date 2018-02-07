@@ -38,14 +38,12 @@ GLuint TransparentTransformImpl::getSize() {
 
 void TransparentTransformImpl::readFile(GLchar * filename) {
 	std::ifstream file(filename);
-	GLint vertexProp_BitMap = 0;
 	if (file.is_open()) {
 		std::string line;
 
 		while (std::getline(file, line)) {
 			GLchar * token;
-			GLchar* context = NULL;
-			GLuint i = 0;
+			GLchar * context = NULL;
 			glm::vec3 position;
 			glm::vec3 rotation;
 			glm::vec3 scale;

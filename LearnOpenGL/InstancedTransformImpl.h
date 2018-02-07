@@ -26,7 +26,7 @@ public:
 	InstancedTransformImpl();
 	~InstancedTransformImpl();
 
-	InstancedTransformImpl(GLchar * fileLocation);
+	InstancedTransformImpl(std::string fileLocation);
 
 	std::vector<glm::vec3> * getPositions();
 	std::vector<glm::vec3> * getRotations();

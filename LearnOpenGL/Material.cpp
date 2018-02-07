@@ -65,10 +65,8 @@ void Material::getMeshProperties(MaterialProp * material, GLchar* context, GLcha
 void Material::readLightingFile(std::string filename) {
 	std::string line;
 	std::ifstream file(filename);
-	GLint vertexProp_BitMap = 0;
 	if (file.is_open()) {
 		PointLight pointLight;
-		GLchar prevPointLight = ' ';
 		while (std::getline(file, line)) {
 			GLchar * token;
 			GLchar* context = NULL;

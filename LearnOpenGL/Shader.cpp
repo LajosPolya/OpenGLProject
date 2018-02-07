@@ -49,7 +49,6 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
 	glDeleteShader(fragment);
 }
 
-// TODO: Create Constructor which also creates Geometry Shader
 Shader::Shader(const GLchar * vertexPath, const GLchar * fragmentPath, GLchar * geometryPath) {
 	// 1. Retrieve the source code from filepath
 	std::string vertexCode;

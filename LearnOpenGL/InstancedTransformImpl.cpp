@@ -4,7 +4,7 @@ InstancedTransformImpl::InstancedTransformImpl() {}
 
 InstancedTransformImpl::~InstancedTransformImpl() {}
 
-InstancedTransformImpl::InstancedTransformImpl(GLchar * fileLocation) {
+InstancedTransformImpl::InstancedTransformImpl(std::string fileLocation) {
 	this->readFile(fileLocation);
 }
 

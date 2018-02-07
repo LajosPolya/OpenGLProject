@@ -26,13 +26,14 @@
 // My Code
 #include "Camera.h"
 #include "GameObjectImpl.h"
-#include "InstancedGameObjectImpl.h"
 #include "TransparentGameObjectImpl.h"
 #include "PerlinNoise.h"
 #include "TerrainGenerator.h"
 #include "CollisionDetector.h"
 #include "ComplexShader.h"
+#include "InstancedComplexShader.h"
 #include "SimpleInstancedArrayGameObject.h"
+#include "SimpleInstancedGameObject.h"
 
 #define WORLD_LENGTH 5
 
@@ -148,7 +149,6 @@ int main() {
 
 	SimpleInstancedArrayGameObject instancedArrayGameObject = SimpleInstancedArrayGameObject("container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt");
 	SimpleInstancedArrayGameObject grassSides("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt");
-	InstancedGameObjectImpl instancedGameObject = InstancedGameObjectImpl("instanced.vert", "fragment.frag", "Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt", "Material/crate.txt", camera, projection);
 	// TransparentGameObject is currently broken because it calls setupMesh() which is currently being altered
 	TransparentGameObjectImpl instancedWimdowGameObject = TransparentGameObjectImpl("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection);
 	InstancedTransformImpl newInstancedTransform("Instance/crate3.txt");
@@ -167,18 +167,6 @@ int main() {
 	perlin3d2 = new SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo2.getDrawablePositions(), GL_TRIANGLES);
 	///InstancedArrayGameObjectImpl lineGrass("Shaders/instancedVertToGeo.vert", "Shaders/grass.frag", "Shaders/line.geom", "", "", "Mesh/dynamicGrass.txt", "Material/crate.txt", pos3d, "Material/crate.txt", camera, projection, GL_POINTS);
 
-	CollisionDetector::addCamera(camera);
-	CollisionDetector::AddTransform(testingGameObject.getTransform());
-	CollisionDetector::AddTransform(lightBox1.getTransform());
-	CollisionDetector::AddTransform(lightBox2.getTransform());
-	CollisionDetector::AddTransform(lightBox3.getTransform());
-	CollisionDetector::AddTransform(lightBox4.getTransform());
-	CollisionDetector::AddTransform(instancedGameObject.getTransform());
-	CollisionDetector::AddTransform(instancedArrayGameObject.getTransform());
-	CollisionDetector::AddTransform(grassSides.getTransform());
-	///CollisionDetector::AddTransform(perlin.getTransform());
-	CollisionDetector::AddTransform(perlin3d.getTransform());
-
 	std::vector<glm::vec3> pos2d;
 	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
 	pos2d = terrainGenerator2d.generate(-50, 0);
@@ -190,16 +178,40 @@ int main() {
 	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
 	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
 
+
+	// Global Lights Container
+	LightsContainer globalLightsContainer("Material/crate.txt");
+	// InstancedComplexShader
+	InstancedComplexShader globalInstancedShader(camera, &globalLightsContainer, projection, "instanced.vert", "fragment.frag");
+	SimpleInstancedGameObject instancedGameObject = SimpleInstancedGameObject("Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt");
+	globalInstancedShader.setSamplers();
+	globalInstancedShader.sendLightsContainerToShader();
+	globalInstancedShader.sendProjectionMatrixToShader();
+	globalInstancedShader.sendToShader(instancedGameObject.getMaterial());
+
 	// ComplexShader and SimpleGameObject Testing
 	ComplexPosition CoPo4;
 	CoPo4 = terrainGenerator3d.generateComplex(-50, 0, -50);
-	LightsContainer globalLightsContainer("Material/crate.txt");
 	ComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "instancedArray.vert", "fragment.frag");
 	SimpleInstancedArrayGameObject simpleGO("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo4.getDrawablePositions());
 	globalInstancedArrayShader.setSamplers();
 	globalInstancedArrayShader.sendLightsContainerToShader();
 	globalInstancedArrayShader.sendProjectionMatrixToShader();
 	globalInstancedArrayShader.sendToShader(simpleGO.getMaterial());
+
+
+	// Collision Detection
+	CollisionDetector::addCamera(camera);
+	CollisionDetector::AddTransform(testingGameObject.getTransform());
+	CollisionDetector::AddTransform(lightBox1.getTransform());
+	CollisionDetector::AddTransform(lightBox2.getTransform());
+	CollisionDetector::AddTransform(lightBox3.getTransform());
+	CollisionDetector::AddTransform(lightBox4.getTransform());
+	CollisionDetector::AddTransform(instancedGameObject.getTransform());
+	CollisionDetector::AddTransform(instancedArrayGameObject.getTransform());
+	CollisionDetector::AddTransform(grassSides.getTransform());
+	///CollisionDetector::AddTransform(perlin.getTransform());
+	CollisionDetector::AddTransform(perlin3d.getTransform());
 
 	std::thread t1(Producer, std::ref(terrainGenerator3d));
 	duration = std::clock() - start;
@@ -254,11 +266,6 @@ int main() {
 		grassGameObject.Draw();
 		glEnable(GL_CULL_FACE);
 
-		if (numFrames == 250) {
-			instancedGameObject.setTransform(&newInstancedTransform);
-		}
-		instancedGameObject.Draw();
-
 		if (numFrames == 350) {
 			std::cout << "Switch ";
 			pc_m.lock();
@@ -295,6 +302,16 @@ int main() {
 		lightBox2.Draw();
 		lightBox3.Draw();
 		lightBox4.Draw();
+
+		// InstancedComplexShader
+		globalInstancedShader.sendCameraToShader();
+		if (numFrames == 250) {
+			instancedGameObject.setInstances(&newInstancedTransform);
+		}
+		if (instancedGameObject.hasInstancesChangedAndSetFalse() > 0) {
+			globalInstancedShader.sendInstancesToShader(instancedGameObject.getTransform()->getModels());
+		}
+		instancedGameObject.Draw();
 
 		// Testing ComplexShader and SimpleGameObject
 		globalInstancedArrayShader.sendCameraToShader();
