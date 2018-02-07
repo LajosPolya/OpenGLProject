@@ -2,6 +2,12 @@ If a GameObject is redrawn in a difference Position (crates, or grass objects) t
 Each GameObject should have a unique Id which is checked before data is sent to the Shader to improve performance.
 
 
+Important:
+Do we really need to create an InstancedMesh. Look at Mesh code again...
+I think that Mesh::setInstances isn't need for and InstancedMesh since the instances 
+are sent by Uniform to Shader using shader class.
+Actually, it might be needed to Override the Draw function to draw Instanced
+
 
 IMPORTANT:
 Should the Positions/Instances be stored in GameObject and handed down to Transform/Meshes.
