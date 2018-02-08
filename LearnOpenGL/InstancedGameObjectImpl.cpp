@@ -67,8 +67,6 @@ void InstancedGameObjectImpl::Draw() {
 	this->shader->sendToShader(this->material);
 	
 	for (GLuint i = 0; i < this->mesh.size(); i++) {
-		// Bind Diffuse Map
-		this->shader->sendToShader(this->mesh[i]);
 		this->mesh[i]->Draw();
 	}
 }
@@ -97,23 +95,15 @@ void InstancedGameObjectImpl::setTransform(InstancedTransformImpl * transform) {
 	this->transform->setScales(*transform->getScales());
 
 	for (GLuint i = 0; i < this->mesh.size(); i++) {
-		this->mesh[i]->setInstance(transform->getModels());
+		this->mesh[i]->setInstances(transform->getModels());
 	}
-}
-
-Texture * InstancedGameObjectImpl::getDiffuseMap(GLint i) {
-	return this->mesh[i]->getDiffuseMap();
-}
-
-Texture * InstancedGameObjectImpl::getSpecularMap(GLint i) {
-	return this->mesh[i]->getSpecularMap();
 }
 
 LightsContainer * InstancedGameObjectImpl::getLightsContainer() {
 	return this->lightsContainer;
 }
 
-std::vector<Mesh*> InstancedGameObjectImpl::getMeshes()
+std::vector<InstancedMesh*> InstancedGameObjectImpl::getMeshes()
 {
 	return this->mesh;
 }

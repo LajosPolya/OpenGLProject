@@ -174,6 +174,6 @@ void InstancedArrayGameObjectImpl::setTransform(InstancedArrayTransformImpl * tr
 	this->transform->setScales(*transform->getScales());
 
 	for (GLuint i = 0; i < this->mesh.size(); i++) {
-		this->mesh[i]->setInstance(transform->getModels());
+		this->mesh[i]->setInstances(transform->getModels());
 	}
 }

@@ -130,6 +130,7 @@
     <ClCompile Include="InstancedArrayTransformImpl.cpp" />
     <ClCompile Include="InstancedComplexShader.cpp" />
     <ClCompile Include="InstancedGameObjectImpl.cpp" />
+    <ClCompile Include="InstancedMesh.cpp" />
     <ClCompile Include="InstancedTransformImpl.cpp" />
     <ClCompile Include="LearnOpenGL.cpp" />
     <ClCompile Include="LightsContainer.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="InstancedComplexShader.h" />
     <ClInclude Include="InstancedGameObject.h" />
     <ClInclude Include="InstancedGameObjectImpl.h" />
+    <ClInclude Include="InstancedMesh.h" />
     <ClInclude Include="InstancedTransform.h" />
     <ClInclude Include="InstancedTransformImpl.h" />
     <ClInclude Include="LightsContainer.h" />

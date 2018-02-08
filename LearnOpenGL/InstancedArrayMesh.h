@@ -14,7 +14,7 @@ public:
 
 	virtual void Draw() override;
 
-	virtual void setInstance(std::vector<glm::mat4> instances) override;
+	void setInstances(std::vector<glm::mat4> instances);
 
 private:
 	virtual void setupMesh() override;

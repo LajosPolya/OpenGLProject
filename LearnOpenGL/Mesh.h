@@ -60,8 +60,6 @@ public:
 
 	virtual void Draw();
 
-	virtual void setInstance(std::vector<glm::mat4> instances);
-
 	Texture * getDiffuseMap();
 	Texture * getSpecularMap();
 

@@ -1,4 +1,4 @@
-﻿  LearnOpenGL.cpp
+﻿  InstancedMesh.cpp
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
@@ -13,12 +13,11 @@ c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_v
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(352): warning C4100: 'mode': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(352): warning C4100: 'scancode': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(366): warning C4189: 'cameraSpeed': local variable is initialized but not referenced
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(382): warning C4100: 'window': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(398): warning C4100: 'xoffset': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(398): warning C4100: 'window': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(425): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedmesh.cpp(21): warning C4458: declaration of 'diffuseMap' hides class member
+  c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.h(82): note: see declaration of 'Mesh::diffuseMap'
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedmesh.cpp(28): warning C4458: declaration of 'specularMap' hides class member
+  c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.h(83): note: see declaration of 'Mesh::specularMap'
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedmesh.cpp(44): warning C4458: declaration of 'instances' hides class member
+  c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.h(73): note: see declaration of 'Mesh::instances'
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)

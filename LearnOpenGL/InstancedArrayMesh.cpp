@@ -64,7 +64,7 @@ void InstancedArrayMesh::Draw() {
 	glBindVertexArray(0);
 }
 
-void InstancedArrayMesh::setInstance(std::vector<glm::mat4> instances) {
+void InstancedArrayMesh::setInstances(std::vector<glm::mat4> instances) {
 	/* VAO does't need to be bound since VBO is bound to a VAO Vertex Attribute Array */
 	//glBindVertexArray(perlin3d.getMeshes()[i]->getVAO());
 	glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);

@@ -22,15 +22,12 @@ public:
 	InstancedTransformImpl * getTransform();
 	void setTransform(InstancedTransformImpl * transform);
 
-	Texture * getDiffuseMap(GLint i);
-	Texture * getSpecularMap(GLint i);
-
 	LightsContainer * getLightsContainer();
 
-	std::vector<Mesh*> getMeshes();
+	std::vector<InstancedMesh*> getMeshes();
 
 private:
-	std::vector<Mesh*> mesh;
+	std::vector<InstancedMesh*> mesh;
 
 	Material * material = nullptr;
 

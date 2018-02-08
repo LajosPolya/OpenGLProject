@@ -136,17 +136,6 @@ void Mesh::Draw() {
 	glBindVertexArray(0);
 }
 
-void Mesh::setInstance(std::vector<glm::mat4> instances) {
-
-	if (this->type == INSTANCED_SHADER) {
-		this->instances = instances;
-		this->numInstances = instances.size();
-	}
-	else {
-		std::cout << "MESH::SETINSTANCE: ERROR" << std::endl;
-	}
-}
-
 Texture * Mesh::getDiffuseMap() {
 	return this->diffuseMap;
 }

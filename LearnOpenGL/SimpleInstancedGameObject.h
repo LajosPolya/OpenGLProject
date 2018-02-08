@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "Mesh.h"
+#include "InstancedMesh.h"
 #include "Material.h"
 #include "GameObjectUtils.h"
 
@@ -26,7 +26,7 @@ public:
 private:
 	GLuint instancesUpdated = 1;
 
-	std::vector<Mesh*> mesh;
+	std::vector<InstancedMesh*> mesh;
 
 	Material * material = nullptr;
 
