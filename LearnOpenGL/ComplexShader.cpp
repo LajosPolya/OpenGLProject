@@ -14,22 +14,6 @@ void ComplexShader::sendToShader(Material * material) {
 	glUniform1f(glGetUniformLocation(this->shaderId, "material.shininess"), material->getShininess());
 }
 
-void ComplexShader::sendToShader(Mesh * mesh) {
-	// Bind Diffuse Map
-	Texture * diffuseMap = mesh->getDiffuseMap();
-	if (diffuseMap != nullptr) {
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, diffuseMap->getTextureID());
-	}
-
-	// Bind Specular Map
-	Texture * specularMap = mesh->getSpecularMap();
-	if (specularMap != nullptr) {
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, specularMap->getTextureID());
-	}
-}
-
 void ComplexShader::buildShaders(const GLchar * vertexPath, const GLchar * fragmentPath) {
 	// 1. Retrieve the source code from filepath
 	std::string vertexCode;

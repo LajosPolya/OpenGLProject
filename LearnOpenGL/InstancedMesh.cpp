@@ -12,23 +12,31 @@ InstancedMesh::InstancedMesh(GLchar * vertexLocation, InstancedTransformImpl * t
 	this->setupMesh();
 }
 
+InstancedMesh::InstancedMesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, Texture * diffuseMap, Texture * specularMap) {
+	this->diffuseMap = diffuseMap;
+	this->specularMap = specularMap;
+
+	this->readVertexFile(vertexLocation);
+	this->numInstances = instances.size();
+
+	this->setupMesh();
+}
+
 
 InstancedMesh::~InstancedMesh() {}
 
 void InstancedMesh::Draw() {
 
 	// Bind Diffuse Map
-	Texture * diffuseMap = getDiffuseMap();
-	if (diffuseMap != nullptr) {
+	if (this->diffuseMap != nullptr) {
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, diffuseMap->getTextureID());
+		glBindTexture(GL_TEXTURE_2D, this->diffuseMap->getTextureID());
 	}
 
 	// Bind Specular Map
-	Texture * specularMap = getSpecularMap();
-	if (specularMap != nullptr) {
+	if (this->specularMap != nullptr) {
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, specularMap->getTextureID());
+		glBindTexture(GL_TEXTURE_2D, this->specularMap->getTextureID());
 	}
 
 	glBindVertexArray(this->VAO);

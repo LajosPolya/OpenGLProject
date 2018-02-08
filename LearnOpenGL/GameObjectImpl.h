@@ -35,9 +35,6 @@ public:
 
 	Transform * getTransform();
 
-	Texture * getDiffuseMap(GLuint i);
-	Texture * getSpecularMap(GLuint i);
-
 	LightsContainer * getLightsContainer();
 
 private:

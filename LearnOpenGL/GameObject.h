@@ -26,8 +26,5 @@ public:
 
 	virtual Transform * getTransform() = 0;
 
-	virtual Texture * getDiffuseMap(GLuint i) = 0;
-	virtual Texture * getSpecularMap(GLuint i) = 0;
-
 	virtual LightsContainer * getLightsContainer() = 0;
 };

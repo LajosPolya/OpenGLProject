@@ -116,8 +116,6 @@ void GameObjectImpl::Draw() {
 	this->shader->sendToShader(this->material);
 
 	for (GLuint i = 0; i < this->mesh.size(); i++) {
-		// Bind Diffuse Map
-		this->shader->sendToShader(this->mesh[i]);
 		this->mesh[i]->Draw();
 	}
 }
@@ -132,16 +130,6 @@ Camera * GameObjectImpl::getCamera() {
 
 Transform * GameObjectImpl::getTransform() {
 	return this->transform;
-}
-
-Texture * GameObjectImpl::getDiffuseMap(GLuint i)
-{
-	return this->mesh[i]->getDiffuseMap();
-}
-
-Texture * GameObjectImpl::getSpecularMap(GLuint i)
-{
-	return this->mesh[i]->getSpecularMap();
 }
 
 LightsContainer * GameObjectImpl::getLightsContainer()

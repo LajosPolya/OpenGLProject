@@ -17,7 +17,6 @@ public:
 	~ComplexShader();
 
 	void sendToShader(Material * material);
-	void sendToShader(Mesh * mesh);
 
 	void setSamplers();
 	void sendLightsContainerToShader();

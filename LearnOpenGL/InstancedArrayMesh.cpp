@@ -43,17 +43,15 @@ InstancedArrayMesh::InstancedArrayMesh(GLchar * vertexLocation, InstancedArrayTr
 void InstancedArrayMesh::Draw() {
 
 	// Bind Diffuse Map
-	Texture * diffuseMap = getDiffuseMap();
-	if (diffuseMap != nullptr) {
+	if (this->diffuseMap != nullptr) {
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, diffuseMap->getTextureID());
+		glBindTexture(GL_TEXTURE_2D, this->diffuseMap->getTextureID());
 	}
 
 	// Bind Specular Map
-	Texture * specularMap = getSpecularMap();
-	if (specularMap != nullptr) {
+	if (this->specularMap != nullptr) {
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, specularMap->getTextureID());
+		glBindTexture(GL_TEXTURE_2D, this->specularMap->getTextureID());
 	}
 
 	// Draw Mesh
@@ -87,8 +85,6 @@ void InstancedArrayMesh::setupMesh() {
 	// VAO created in Mesh::setupMesh()
 	glBindVertexArray(this->VAO);
 
-	// Instancing
-	this->vertexProp_BitMap = this->vertexProp_BitMap | INSTANCE_POSITION_BITMAP;
 	glGenBuffers(1, &this->instanceVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, this->instanceVBO);
 	if (this->instances.size() > 0) {

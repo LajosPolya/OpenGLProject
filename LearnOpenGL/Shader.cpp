@@ -246,22 +246,6 @@ void Shader::sendToShader(Material * material) {
 	glUniform1f(glGetUniformLocation(this->Program, "material.shininess"), material->getShininess());
 }
 
-void Shader::sendToShader(Mesh * mesh) {
-	// Bind Diffuse Map
-	Texture * diffuseMap = mesh->getDiffuseMap();
-	if (diffuseMap != nullptr) {
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, diffuseMap->getTextureID());
-	}
-
-	// Bind Specular Map
-	Texture * specularMap = mesh->getSpecularMap();
-	if (specularMap != nullptr) {
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, specularMap->getTextureID());
-	}
-}
-
 void Shader::setProjectionMatrix(glm::mat4 projection) {
 	this->Use();
 	glUniformMatrix4fv(glGetUniformLocation(this->Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));

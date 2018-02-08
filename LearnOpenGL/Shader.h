@@ -42,7 +42,6 @@ public:
 	void sendToShader(InstancedGameObjectImpl * gameObject);
 	void sendToShader(TransparentGameObjectImpl * gameObject);
 	void sendToShader(Material * material);
-	void sendToShader(Mesh * mesh);
 
 	void setProjectionMatrix(glm::mat4 projection);
 

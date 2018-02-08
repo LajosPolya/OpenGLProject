@@ -25,13 +25,10 @@ public:
 
 	TransparentTransformImpl * getTransform();
 
-	Texture * getDiffuseMap(GLint i);
-	Texture * getSpecularMap(GLint i);
-
 	LightsContainer * getLightsContainer();
 
 private:
-	std::vector<Mesh*> mesh;
+	std::vector<InstancedMesh*> mesh;
 
 	Material * material;
 

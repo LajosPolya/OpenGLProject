@@ -29,9 +29,6 @@
 #define POSITION_BITMAP 1
 #define NORMAL_BITMAP 2
 #define TEXTURE_COORDS_BITMAP 4
-#define INSTANCE_POSITION_BITMAP 8
-
-#define INSTANCED_SHADER  2
 
 // TODO: Don't send Transform to Constructor
 /* It doesn't make sense to send the constructor over because it's only used 
@@ -53,15 +50,10 @@ public:
 	Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type);
 	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap);
-	Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
-	Mesh(GLchar * vertexLocation, InstancedTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, GLuint size);
 
 	virtual void Draw();
-
-	Texture * getDiffuseMap();
-	Texture * getSpecularMap();
 
 	GLuint getInstancedVBO();
 	GLuint getVAO();
@@ -91,10 +83,5 @@ protected:
 	void readVertexFile(GLchar * filename);
 
 private:
-
-	// Instanced or InstancedArray
-	GLuint type = 0;
-
 	void setupMesh(Transform * transform);
-	void setupMesh(InstancedTransformImpl * transform);
 };
