@@ -5,14 +5,10 @@ Mesh::Mesh() {}
 Mesh::Mesh(const Mesh & toCopy) {
 	this->vertices = toCopy.vertices;
 	this->indices = toCopy.indices;
-	this->instances = toCopy.instances;
 
 	this->VAO = toCopy.VAO;
 	this->VBO = toCopy.VBO;
 	this->EBO = toCopy.EBO;
-
-	this->instanceVBO = toCopy.instanceVBO;
-	this->numInstances = toCopy.numInstances;
 
 	this->vertexProp_BitMap = toCopy.vertexProp_BitMap;
 	this->primitiveType = toCopy.primitiveType;
@@ -21,7 +17,7 @@ Mesh::Mesh(const Mesh & toCopy) {
 	this->specularMap = new Texture(*toCopy.specularMap);
 }
 
-Mesh::Mesh(GLchar* vertexLocation) {
+Mesh::Mesh(GLchar * vertexLocation) {
 	this->readVertexFile(vertexLocation);
 	this->setupMesh();
 }
@@ -39,31 +35,6 @@ Mesh::Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap,
 
 	this->diffuseMap = diffuseMap;
 	this->specularMap = specularMap;
-	this->setupMesh();
-}
-
-Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type) {
-	this->readVertexFile(vertexLocation);
-	this->instances = instances;
-	this->numInstances = instances.size();
-
-	this->setupMesh();
-}
-
-// Constructor Delegation (a constructor can't be called from another constructor)
-Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, instances, type) {
-	this->diffuseMap = diffuseMap;
-	this->specularMap = specularMap;
-}
-
-Mesh::Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : Mesh(vertexLocation, instances, type, diffuseMap, specularMap) {
-	this->primitiveType = primitiveType;
-}
-
-Mesh::Mesh(GLchar * vertexLocation, GLuint size) {
-	this->readVertexFile(vertexLocation);
-	this->numInstances = size;
-
 	this->setupMesh();
 }
 
@@ -111,10 +82,6 @@ void Mesh::Draw() {
 		glDrawElements(this->primitiveType, this->indices.size(), GL_UNSIGNED_INT, 0);
 	}
 	glBindVertexArray(0);
-}
-
-GLuint Mesh::getInstancedVBO() {
-	return this->instanceVBO;
 }
 
 GLuint Mesh::getVAO() {

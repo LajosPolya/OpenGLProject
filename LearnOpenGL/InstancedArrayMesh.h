@@ -5,6 +5,8 @@
 class InstancedArrayMesh : private Mesh
 {
 public:
+	// TODO: Create CopyConsructor
+	InstancedArrayMesh(const Mesh & InstancedArrayMesh);
 	InstancedArrayMesh();
 	~InstancedArrayMesh();
 	InstancedArrayMesh(const InstancedArrayMesh & toCopy);
@@ -17,6 +19,11 @@ public:
 	void setInstances(std::vector<glm::mat4> instances);
 
 private:
+	GLuint instanceVBO = (GLuint)-1;
+
+	std::vector<glm::mat4> instances;
+	GLuint numInstances = (GLuint)0;
+
 	virtual void setupMesh() override;
 };
 

@@ -48,26 +48,20 @@ public:
 	Mesh(GLchar * vertexLocation);
 	Mesh(GLchar * vertexLocation, Texture * diffuseMap, Texture * specularMap);
 	Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap, Texture * specularMap);
-	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type);
-	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, Texture * diffuseMap, Texture * specularMap);
-	Mesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint type, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
-	Mesh(GLchar * vertexLocation, GLuint size);
 
 	virtual void Draw();
 
-	GLuint getInstancedVBO();
 	GLuint getVAO();
 
 protected:
 	// Mesh Data
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
-	std::vector<glm::mat4> instances;
 
 	// Render Data
-	GLuint numInstances = (GLuint)0;
-	GLuint VAO = (GLuint)-1, EBO = (GLuint)-1, VBO = (GLuint)-1;
-	GLuint instanceVBO = (GLuint)-1;
+	GLuint VAO = (GLuint)-1;
+	GLuint EBO = (GLuint)-1;
+	GLuint VBO = (GLuint)-1;
 
 	GLuint vertexProp_BitMap;
 

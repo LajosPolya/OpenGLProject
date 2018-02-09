@@ -1,4 +1,4 @@
-﻿  TransparentTransformImpl.cpp
+﻿  GameObjectImpl.cpp
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
@@ -13,89 +13,8 @@ c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_v
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\transparenttransformimpl.cpp(104): warning C4100: 'y': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\transparenttransformimpl.cpp(104): warning C4100: 'x': unreferenced formal parameter
-  TransparentGameObjectImpl.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-  TransformImpl.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-  Texture.cpp
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\texture.cpp(87): warning C4458: declaration of 'name' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\texture.h(32): note: see declaration of 'Texture::name'
-  TerrainGenerator.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.cpp(24): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.h(29): note: see declaration of 'TerrainGenerator::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.cpp(24): warning C4458: declaration of 'z' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.h(29): note: see declaration of 'TerrainGenerator::z'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.cpp(47): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.h(29): note: see declaration of 'TerrainGenerator::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.cpp(47): warning C4458: declaration of 'y' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.h(29): note: see declaration of 'TerrainGenerator::y'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.cpp(47): warning C4458: declaration of 'z' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.h(29): note: see declaration of 'TerrainGenerator::z'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.cpp(73): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.h(29): note: see declaration of 'TerrainGenerator::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.cpp(73): warning C4458: declaration of 'y' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.h(29): note: see declaration of 'TerrainGenerator::y'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.cpp(73): warning C4458: declaration of 'z' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.h(29): note: see declaration of 'TerrainGenerator::z'
-  SimpleInstancedGameObject.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\simpleinstancedgameobject.cpp(30): warning C4458: declaration of 'transform' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\simpleinstancedgameobject.h(33): note: see declaration of 'SimpleInstancedGameObject::transform'
+  Generating Code...
+  Compiling...
   SimpleInstancedArrayGameObject.cpp
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
@@ -113,204 +32,6 @@ c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternio
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\simpleinstancedarraygameobject.cpp(68): warning C4458: declaration of 'transform' hides class member
   c:\users\lajos polya\documents\github\learnopengl\learnopengl\simpleinstancedarraygameobject.h(34): note: see declaration of 'SimpleInstancedArrayGameObject::transform'
-  Shader.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-  ResourceManager.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\resourcemanager.cpp(39): warning C4100: 'gameObject': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\resourcemanager.cpp(52): warning C4100: 'gameObject': unreferenced formal parameter
-  PerlinNoise.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(15): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(15): warning C4458: declaration of 'y' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::y'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(15): warning C4100: 'y': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(15): warning C4100: 'x': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(32): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(32): warning C4458: declaration of 'y' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::y'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(32): warning C4458: declaration of 'z' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::z'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(86): warning C4456: declaration of 'i' hides previous local declaration
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(33): note: see declaration of 'i'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(88): warning C4456: declaration of 'j' hides previous local declaration
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(33): note: see declaration of 'j'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(90): warning C4456: declaration of 'k' hides previous local declaration
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(33): note: see declaration of 'k'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(99): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(99): warning C4458: declaration of 'y' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::y'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(116): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(116): warning C4458: declaration of 'y' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::y'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(116): warning C4458: declaration of 'z' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::z'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(129): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(129): warning C4458: declaration of 'y' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::y'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(156): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(156): warning C4458: declaration of 'y' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::y'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(156): warning C4458: declaration of 'z' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::z'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(204): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(205): warning C4458: declaration of 'y' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::y'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(223): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(224): warning C4458: declaration of 'y' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::y'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(225): warning C4458: declaration of 'z' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::z'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(233): warning C4458: declaration of 'x' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::x'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.cpp(233): warning C4458: declaration of 'y' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\perlinnoise.h(27): note: see declaration of 'PerlinNoise::y'
-  Mesh.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.cpp(37): warning C4100: 'transform': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.cpp(45): warning C4100: 'type': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.cpp(72): warning C4189: 'specularNr': local variable is initialized but not referenced
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.cpp(71): warning C4189: 'diffuseNr': local variable is initialized but not referenced
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.cpp(161): warning C4100: 'transform': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.cpp(216): warning C4458: declaration of 'vertices' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.h(63): note: see declaration of 'Mesh::vertices'
-  Material.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\material.cpp(45): warning C4458: declaration of 'material' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\material.h(57): note: see declaration of 'Material::material'
-  LightsContainer.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\lightscontainer.cpp(55): warning C4458: declaration of 'dirLight' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\lightscontainer.h(26): note: see declaration of 'LightsContainer::dirLight'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\lightscontainer.cpp(81): warning C4458: declaration of 'spotLight' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\lightscontainer.h(27): note: see declaration of 'LightsContainer::spotLight'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\lightscontainer.cpp(163): warning C4189: 'vertexProp_BitMap': local variable is initialized but not referenced
-  LearnOpenGL.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(352): warning C4100: 'mode': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(352): warning C4100: 'scancode': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(366): warning C4189: 'cameraSpeed': local variable is initialized but not referenced
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(382): warning C4100: 'window': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(398): warning C4100: 'xoffset': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(398): warning C4100: 'window': unreferenced formal parameter
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(425): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-  InstancedTransformImpl.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedtransformimpl.cpp(67): warning C4458: declaration of 'model' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedtransformimpl.h(53): note: see declaration of 'InstancedTransformImpl::model'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedtransformimpl.cpp(63): warning C4189: 'i': local variable is initialized but not referenced
   InstancedMesh.cpp
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
@@ -326,62 +47,6 @@ c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_v
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedmesh.cpp(52): warning C4458: declaration of 'instances' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.h(65): note: see declaration of 'Mesh::instances'
-  InstancedGameObjectImpl.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedgameobjectimpl.cpp(91): warning C4458: declaration of 'transform' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedgameobjectimpl.h(38): note: see declaration of 'InstancedGameObjectImpl::transform'
-  InstancedComplexShader.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-  InstancedArrayTransformImpl.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedarraytransformimpl.cpp(30): warning C4458: declaration of 'model' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedarraytransformimpl.h(51): note: see declaration of 'InstancedArrayTransformImpl::model'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedarraytransformimpl.cpp(104): warning C4458: declaration of 'model' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedarraytransformimpl.h(51): note: see declaration of 'InstancedArrayTransformImpl::model'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedarraytransformimpl.cpp(100): warning C4189: 'i': local variable is initialized but not referenced
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedarraytransformimpl.cpp(156): warning C4458: declaration of 'model' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedarraytransformimpl.h(51): note: see declaration of 'InstancedArrayTransformImpl::model'
   InstancedArrayMesh.cpp
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
@@ -398,9 +63,7 @@ c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_v
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
 c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedarraymesh.cpp(65): warning C4458: declaration of 'instances' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\mesh.h(65): note: see declaration of 'Mesh::instances'
-  Generating Code...
-  Compiling...
+  c:\users\lajos polya\documents\github\learnopengl\learnopengl\instancedarraymesh.h(24): note: see declaration of 'InstancedArrayMesh::instances'
   InstancedArrayGameObjectImpl.cpp
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
@@ -433,89 +96,13 @@ c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_v
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
 c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
   c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-  GameObjectMemoryManager.cpp
-  GameObjectImpl.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-  ComplexShader.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-  ComplexPosition.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\complexposition.cpp(11): warning C4458: declaration of 'positions' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\complexposition.h(23): note: see declaration of 'ComplexPosition::positions'
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\complexposition.cpp(19): warning C4458: declaration of 'drawablePositions' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\complexposition.h(24): note: see declaration of 'ComplexPosition::drawablePositions'
-  CollisionDetector.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(206): note: see reference to class template instantiation 'glm::tvec2<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec2.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(227): note: see reference to class template instantiation 'glm::tvec3<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec3.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(45): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(272): note: see reference to class template instantiation 'glm::tvec4<T,P>' being compiled
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(46): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\detail\type_vec4.hpp(47): warning C4201: nonstandard extension used: nameless struct/union
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(56): warning C4201: nonstandard extension used: nameless struct/union
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\glm\gtc\quaternion.hpp(132): note: see reference to class template instantiation 'glm::tquat<T,P>' being compiled
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\collisiondetector.cpp(33): warning C4458: declaration of 'camera' hides class member
-  c:\users\lajos polya\documents\github\learnopengl\learnopengl\collisiondetector.h(21): note: see declaration of 'CollisionDetector::camera'
   Generating Code...
-LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
-glfw3.lib(context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(context.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(init.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(input.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(input.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(monitor.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(monitor.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(vulkan.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(vulkan.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(window.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(window.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_init.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_joystick.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_joystick.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_monitor.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_monitor.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_time.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_time.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_tls.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_tls.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(win32_window.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(win32_window.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(wgl_context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(wgl_context.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glfw3.lib(egl_context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3.lib(egl_context.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\glfw.pdb'; linking object as if no debug info
-glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\vc120.pdb'; linking object as if no debug info
+  Skipping... (no relevant changes detected)
+  TransparentGameObjectImpl.cpp
+  SimpleInstancedGameObject.cpp
+  Shader.cpp
+  ResourceManager.cpp
+  LearnOpenGL.cpp
+  InstancedGameObjectImpl.cpp
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)
