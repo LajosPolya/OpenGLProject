@@ -363,7 +363,6 @@ void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, G
 }
 
 void do_movement() {
-	GLfloat cameraSpeed = 5.f * deltaTime;
 	if (keys[GLFW_KEY_W]) {
 		camera->ProcessKeyboard(FORWARD, deltaTime);
 	}
@@ -422,7 +421,7 @@ void Producer(TerrainGenerator& terrainGenerator3d) {
 
 		if (empty == 0) {
 			empty = 1;
-			returnQ.push_back(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x, pos.y, pos.z).getDrawablePositions()));
+			returnQ.push_back(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex((GLint)pos.x, (GLint)pos.y, (GLint)pos.z).getDrawablePositions()));
 		}
 		else {
 			if (done == 0) {

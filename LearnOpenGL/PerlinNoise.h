@@ -30,6 +30,8 @@ private:
 	const GLuint halfMaxChunks = ((maxChunks / 2) - 1);
 	// Store each chunk's gradients
 	glm::vec3 *** chunkGrads[100][100][100];
+	// Store pregenerated values
+	GLfloat *** chunkPositions[100][100][100];
 	
 	const GLdouble PI = 3.141592653589793;
 	glm::vec2 ** gradients;

@@ -96,6 +96,8 @@ ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
 		}
 	}
 
+	// TODO: First check if there are cubes touching the faces of the cube
+	// And if there's one of each face then you don't have to check the rest because it'll be hiddem
 	for (i = x + 1; i < upperX - 1; i++) {
 		for (j = y + 1; j < upperY - 1; j++) {
 			for (k = z + 1; k < upperZ - 1; k++) {

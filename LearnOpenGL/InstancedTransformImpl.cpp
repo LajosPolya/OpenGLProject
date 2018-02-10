@@ -60,7 +60,6 @@ void InstancedTransformImpl::readFile(std::string filename) {
 		while (std::getline(file, line)) {
 			GLchar * token;
 			GLchar* context = NULL;
-			GLuint i = 0;
 			glm::vec3 position;
 			glm::vec3 rotation;
 			glm::vec3 scale;

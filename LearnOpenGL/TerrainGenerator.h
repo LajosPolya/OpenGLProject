@@ -8,7 +8,7 @@
 
 #define T_2D 2
 #define T_3D 3
-#define GRAN 0.01 // Granularity
+#define GRAN 0.1 // Granularity
 
 class TerrainGenerator
 {

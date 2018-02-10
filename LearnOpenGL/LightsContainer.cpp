@@ -160,7 +160,7 @@ void LightsContainer::getMeshProperties(PointLight * pointLight, GLchar* context
 void LightsContainer::readLightingFile(GLchar* filename) {
 	std::string line;
 	std::ifstream file(filename);
-	GLint vertexProp_BitMap = 0;
+
 	if (file.is_open()) {
 		PointLight pointLight;
 		GLchar prevPointLight = ' ';
