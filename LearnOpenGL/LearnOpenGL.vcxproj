@@ -139,6 +139,7 @@
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SimpleGameObject.cpp" />
     <ClCompile Include="SimpleInstancedArrayGameObject.cpp" />
     <ClCompile Include="SimpleInstancedGameObject.cpp" />
     <ClCompile Include="TerrainGenerator.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SimpleGameObject.h" />
     <ClInclude Include="SimpleInstancedArrayGameObject.h" />
     <ClInclude Include="SimpleInstancedGameObject.h" />
     <ClInclude Include="TerrainGenerator.h" />

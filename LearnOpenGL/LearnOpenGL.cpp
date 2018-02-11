@@ -138,7 +138,7 @@ int main() {
 
 	start = std::clock();
 
-	GameObjectImpl testingGameObject("vertex.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Transform/crate.txt", "Material/crate.txt", camera, projection);
+	GameObjectImpl testingGameObject = GameObjectImpl("vertex.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Transform/crate.txt", "Material/crate.txt", camera, projection);
 	/* I think the grass Transform.z is 0.5 so it can be rotated properly on the y-axis (so it doesn't rotate along a corner */
 	GameObjectImpl grassGameObject("alpha.vert", "alpha.frag", "grass.png", "Mesh/grass.txt", "Transform/grass.txt", camera, projection);
 	/* "vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", Transform/crate.txt */
@@ -390,8 +390,8 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
 
 /* Is it possible to send a list of references to GameObjects and just set the transforms here? */
 void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
-	int empty = 1;
-	int done = 0;
+	GLint empty = 1;
+	GLint done = 0;
 	glm::vec3 pos;
 
 	pc_m.lock();
