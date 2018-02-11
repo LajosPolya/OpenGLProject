@@ -22,6 +22,8 @@ public:
 	GLfloat **  generate(GLint x, GLint y);
 	GLfloat *** generate(GLint x, GLint y, GLint z);
 
+	GLboolean hasGenerated(GLint x, GLint y, GLint z);
+
 private:
 	// Size of chunk
 	GLuint x, y, z;

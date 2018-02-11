@@ -123,3 +123,7 @@ ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
 	CoPo.setDrawablePositions(drawablePosition);
 	return CoPo;
 }
+
+GLboolean TerrainGenerator::hasGenerated(GLint x, GLint y, GLint z) {
+	return perlinNoise->hasGenerated(x / this->x, y / this->y, z / this->z);;
+}

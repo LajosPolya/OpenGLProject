@@ -24,6 +24,8 @@ public:
 	std::vector<glm::vec3> generate(GLint x, GLint y, GLint z);
 	ComplexPosition generateComplex(GLint x, GLint y, GLint z);
 
+	GLboolean hasGenerated(GLint x, GLint y, GLint z);
+
 private:
 	// Size of one chunk of terrain
 	GLint x, y, z;

@@ -58,7 +58,7 @@ std::vector<InstancedArrayTransformImpl> returnQ;
 std::vector<SimpleInstancedArrayGameObject> chunks;
 std::mutex pc_m;
 std::mutex returnQ_m;
-void Producer(TerrainGenerator& terrainGenerator);
+void Producer(TerrainGenerator& terrainGenerator, Camera * camera);
 SimpleInstancedArrayGameObject * perlin3d2;
 
 // Camera
@@ -106,7 +106,7 @@ int main() {
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Locks Mouse into Screen
-	///glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -213,7 +213,7 @@ int main() {
 	///CollisionDetector::AddTransform(perlin.getTransform());
 	CollisionDetector::AddTransform(perlin3d.getTransform());
 
-	std::thread t1(Producer, std::ref(terrainGenerator3d));
+	std::thread t1(Producer, std::ref(terrainGenerator3d), camera);
 	duration = std::clock() - start;
 	std::cout << "Time to start: " << duration << std::endl;
 	GLuint numFrames = 0;
@@ -265,17 +265,6 @@ int main() {
 		grassGameObject.getTransform()->setYRotation(glm::radians(135.0f));
 		grassGameObject.Draw();
 		glEnable(GL_CULL_FACE);
-
-		if (numFrames == 350) {
-			std::cout << "Switch ";
-			pc_m.lock();
-			messageQ.push_back(glm::vec3(100, 0, -50));
-			messageQ.push_back(glm::vec3(100, 0, 0));
-			messageQ.push_back(glm::vec3(50, 0, 0));
-			messageQ.push_back(glm::vec3(0, 0, 0));
-			messageQ.push_back(glm::vec3(50, 0, -50));
-			pc_m.unlock();
-		}
 
 		returnQ_m.lock();
 		if (returnQ.size() > 0) {
@@ -349,7 +338,7 @@ int main() {
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode) {
+void key_callback(GLFWwindow * window, GLint key, GLint scancode, GLint action, GLint mode) {
 
 	if (action == GLFW_PRESS) {
 		keys[key] = true;
@@ -399,18 +388,43 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
 }
 
 
-/* Consider having a queue of messages to do work. If message says do work then do the work
-   and return the end result in another queue but sleep the working thread to allow for the main thread to grab from the queue
-*/
-// This should create transforms, then a GameObjects transform can be set, including the Mesh's instances
 /* Is it possible to send a list of references to GameObjects and just set the transforms here? */
-void Producer(TerrainGenerator& terrainGenerator3d) {
+void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	int empty = 1;
 	int done = 0;
 	glm::vec3 pos;
-	std::this_thread::sleep_for(std::chrono::seconds(8));
+
+	pc_m.lock();
+	messageQ.push_back(glm::vec3(100, 0, 100));
+	messageQ.push_back(glm::vec3(50, 0, 100));
+	messageQ.push_back(glm::vec3(0, 0, 100));
+	messageQ.push_back(glm::vec3(-50, 0, 100));
+	messageQ.push_back(glm::vec3(-100, 0, 100));
+	messageQ.push_back(glm::vec3(-100, 0, 50));
+	messageQ.push_back(glm::vec3(-100, 0, 50));
+	messageQ.push_back(glm::vec3(-100, 0, 0));
+	messageQ.push_back(glm::vec3(-100, 0, -50));
+	messageQ.push_back(glm::vec3(-100, 0, -100));
+	messageQ.push_back(glm::vec3(-50, 0, -100));
+	messageQ.push_back(glm::vec3(0, 0, -100));
+	messageQ.push_back(glm::vec3(50, 0, -100));
+	messageQ.push_back(glm::vec3(100, 0, -100));
+	messageQ.push_back(glm::vec3(100, 0, -50));
+	messageQ.push_back(glm::vec3(100, 0, 0));
+	messageQ.push_back(glm::vec3(100, 0, 50));
+	messageQ.push_back(glm::vec3(50, 0, 50));
+	messageQ.push_back(glm::vec3(0, 0, 50));
+	messageQ.push_back(glm::vec3(-50, 0, 50));
+	messageQ.push_back(glm::vec3(-50, 0, 0));
+	messageQ.push_back(glm::vec3(-50, 0, -50));
+	messageQ.push_back(glm::vec3(0, 0, -50));
+	messageQ.push_back(glm::vec3(50, 0, -50));
+	messageQ.push_back(glm::vec3(50, 0, 0));
+	messageQ.push_back(glm::vec3(0, 0, 0));
+	pc_m.unlock();
 
 	while (killAll != 1) {
+
 		pc_m.lock();
 		if (messageQ.size() > 0) {
 			empty = 0;

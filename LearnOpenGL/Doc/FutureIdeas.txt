@@ -2,13 +2,6 @@ If a GameObject is redrawn in a difference Position (crates, or grass objects) t
 Each GameObject should have a unique Id which is checked before data is sent to the Shader to improve performance.
 
 
-Important:
-Do we really need to create an InstancedMesh. Look at Mesh code again...
-I think that Mesh::setInstances isn't need for and InstancedMesh since the instances 
-are sent by Uniform to Shader using shader class.
-Actually, it might be needed to Override the Draw function to draw Instanced
-
-
 IMPORTANT:
 Should the Positions/Instances be stored in GameObject and handed down to Transform/Meshes.
 Now, depending on the {Instanced{Array}}GameObject the Position may be stored in Transform or Mesh.
@@ -25,27 +18,6 @@ This can make a really fast paced game where the player
 has to collect objects around the map.
 
 
-
-
-Create a GameObject where every one of its components 
-  has a reference back to it. Therefore if for instance, 
-  the Transform of the GameObject changes it can set a variable in the 
-  GameObject. Since all of the GameObject's components can set this variable 
-  the GameObject can know if it has to call the Shader or not.
-
-
-  GameObjects should have Constructors which take a FilePointer instead of a 
-  std::string containing the path. This way for example, a Transform file can be 
-  read once and distributed quickly manyTime
-  
-  These GameObjects can even be a separate class with the same interface 
-  but different Constructor. This way the functionalities of the different 
-  GameObject classes can be easily distingueshed.
-
-  Have a system where the every GameObject has access to a std::map of std::string paths 
-  to filePointers. This way the file doesn't have to be read again and main() doesn't 
-  have to worry about managing FilePointers
-
-  And if you don't want to parse the file again you can also only parse the file once, 
-  save the conents of the file and return a new instance (not pointer or reference) of the 
-  GameObject component everytime
+GameObjects should have Constructors which take a FilePointer instead of a 
+std::string containing the path. This way for example, a Transform file can be 
+read once and distributed quickly manyTime

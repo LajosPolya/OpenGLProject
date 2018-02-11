@@ -104,6 +104,15 @@ GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z) {
 	return values3d;
 }
 
+GLboolean PerlinNoise::hasGenerated(GLint x, GLint y, GLint z) {
+
+	if (this->chunkPositions[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
+		return 1;
+	}
+
+	return 0;
+}
+
 void PerlinNoise::genGradients(GLuint x, GLuint y) {
 	GLuint i, j;
 
