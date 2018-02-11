@@ -106,7 +106,7 @@ int main() {
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Locks Mouse into Screen
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	///glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -422,6 +422,14 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	messageQ.push_back(glm::vec3(50, 0, 0));
 	messageQ.push_back(glm::vec3(0, 0, 0));
 	pc_m.unlock();
+
+	std::cout << "Starting Init Generation" << std::endl;
+	for (GLuint i = 0; i < messageQ.size(); i++) {
+		glm::vec3 initPos = messageQ[messageQ.size() - 1];
+		messageQ.pop_back();
+		terrainGenerator3d.generateComplex((GLint)initPos.x, (GLint)initPos.y, (GLint)initPos.z);
+	}
+	std::cout << "Ending Init Generation" << std::endl;
 
 	while (killAll != 1) {
 

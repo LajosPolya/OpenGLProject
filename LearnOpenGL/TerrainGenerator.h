@@ -26,11 +26,15 @@ public:
 
 	GLboolean hasGenerated(GLint x, GLint y, GLint z);
 
+	GLboolean shouldGetNewChunks(glm::vec3 position);
+
 private:
 	// Size of one chunk of terrain
 	GLint x, y, z;
 
 	PerlinNoise * perlinNoise;
+
+	glm::vec3 prevChunkPosition = glm::vec3(0, 0, 0);
 
 	// TODO: TerrainGenerator
 	/* This class will generate the positions for the landscape 
