@@ -1,7 +1,7 @@
 #include "InstancedComplexShader.h"
 
 
-InstancedComplexShader::InstancedComplexShader(Camera * camera, LightsContainer * lightsContainer, glm::mat4 projection, const GLchar* vertexPath, const GLchar* fragmentPath) : ComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
+InstancedComplexShader::InstancedComplexShader(Camera * camera, LightsContainer * lightsContainer, glm::mat4 projection, const GLchar* vertexPath, const GLchar* fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
 	// Calls the Base Class' Constructor
 }
 

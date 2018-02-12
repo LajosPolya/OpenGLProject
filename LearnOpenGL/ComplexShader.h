@@ -1,40 +1,13 @@
 #pragma once
+#include "InstancedArrayComplexShader.h"
 
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
 
-#include "LightsContainer.h"
-#include "Camera.h"
-#include "Material.h"
-#include "Mesh.h"
-
-class ComplexShader
+class ComplexShader : public InstancedArrayComplexShader
 {
 public:
 	ComplexShader(Camera * camera, LightsContainer * lightsContainer, glm::mat4 projection, const GLchar * vertexPath, const GLchar * fragmentPath);
 	~ComplexShader();
 
-	void sendToShader(Material * material);
-
-	void setSamplers();
-	void sendLightsContainerToShader();
-	void sendProjectionMatrixToShader();
-	void sendCameraToShader();
-
-protected:
-	GLuint shaderId;
-
-private:
-	LightsContainer * lightsContainer;
-	Camera * camera;
-	glm::mat4 projection;
-
-	void buildShaders(const GLchar* vertexPath, const GLchar* fragmentPath);
-	void readShaderFile(const GLchar * path, std::string * code);
-	GLuint createShader(GLint type, const GLchar * code);
-	
-	void use();
+	void sendModelToShader(glm::mat4 model);
 };
 

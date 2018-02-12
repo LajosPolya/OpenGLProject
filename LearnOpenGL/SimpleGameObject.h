@@ -14,6 +14,15 @@ public:
 	SimpleGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::string transformPath);
 	~SimpleGameObject();
 
+	void Draw();
+
+	Material * getMaterial();
+
+	Transform * getTransform();
+
+	// TODO: Add this
+	/// GLuint hasInstancesChangedAndSetFalse();
+
 private:
 	std::vector<Mesh*> mesh;
 

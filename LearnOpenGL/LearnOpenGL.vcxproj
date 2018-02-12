@@ -122,6 +122,7 @@
     <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="ComplexPosition.cpp" />
     <ClCompile Include="ComplexShader.cpp" />
+    <ClCompile Include="InstancedArrayComplexShader.cpp" />
     <ClCompile Include="GameObjectImpl.cpp" />
     <ClCompile Include="GameObjectMemoryManager.cpp" />
     <ClCompile Include="GameObjectUtils.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="ComplexPosition.h" />
     <ClInclude Include="ComplexShader.h" />
+    <ClInclude Include="InstancedArrayComplexShader.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectImpl.h" />
     <ClInclude Include="GameObjectMemoryManager.h" />

@@ -14,3 +14,23 @@ SimpleGameObject::SimpleGameObject(std::string diffuseMapPath, std::string specu
 
 
 SimpleGameObject::~SimpleGameObject() {}
+
+void SimpleGameObject::Draw() {
+	this->transform->refreshModel();
+	this->transform->setRotation();
+	this->transform->setPosition();
+	this->transform->setScale();
+	this->transform->Draw();
+
+	for (GLuint i = 0; i < this->mesh.size(); i++) {
+		this->mesh[i]->Draw();
+	}
+}
+
+Material * SimpleGameObject::getMaterial() {
+	return this->material;
+}
+
+Transform * SimpleGameObject::getTransform() {
+	return this->transform;
+}

@@ -31,7 +31,9 @@
 #include "TerrainGenerator.h"
 #include "CollisionDetector.h"
 #include "ComplexShader.h"
+#include "InstancedArrayComplexShader.h"
 #include "InstancedComplexShader.h"
+#include "SimpleGameObject.h"
 #include "SimpleInstancedArrayGameObject.h"
 #include "SimpleInstancedGameObject.h"
 
@@ -137,8 +139,6 @@ int main() {
 	GLdouble duration;
 
 	start = std::clock();
-
-	GameObjectImpl testingGameObject = GameObjectImpl("vertex.vert", "fragment.frag", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Transform/crate.txt", "Material/crate.txt", camera, projection);
 	/* I think the grass Transform.z is 0.5 so it can be rotated properly on the y-axis (so it doesn't rotate along a corner */
 	GameObjectImpl grassGameObject("alpha.vert", "alpha.frag", "grass.png", "Mesh/grass.txt", "Transform/grass.txt", camera, projection);
 	/* "vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", Transform/crate.txt */
@@ -181,6 +181,14 @@ int main() {
 
 	// Global Lights Container
 	LightsContainer globalLightsContainer("Material/crate.txt");
+	// ComplexShader
+	ComplexShader globalComplexShader(camera, &globalLightsContainer, projection, "vertex.vert", "fragment.frag");
+	SimpleGameObject testingGameObject = SimpleGameObject("container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Transform/crate.txt");
+	globalComplexShader.setSamplers();
+	globalComplexShader.sendLightsContainerToShader();
+	globalComplexShader.sendProjectionMatrixToShader();
+	globalComplexShader.sendToShader(testingGameObject.getMaterial());
+
 	// InstancedComplexShader
 	InstancedComplexShader globalInstancedShader(camera, &globalLightsContainer, projection, "instanced.vert", "fragment.frag");
 	SimpleInstancedGameObject instancedGameObject = SimpleInstancedGameObject("Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt");
@@ -189,10 +197,10 @@ int main() {
 	globalInstancedShader.sendProjectionMatrixToShader();
 	globalInstancedShader.sendToShader(instancedGameObject.getMaterial());
 
-	// ComplexShader and SimpleGameObject Testing
+	// InstancedArrayComplexShader and SimpleGameObject Testing
 	ComplexPosition CoPo4;
 	CoPo4 = terrainGenerator3d.generateComplex(-50, 0, -50);
-	ComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "instancedArray.vert", "fragment.frag");
+	InstancedArrayComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "instancedArray.vert", "fragment.frag");
 	SimpleInstancedArrayGameObject simpleGO("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo4.getDrawablePositions());
 	globalInstancedArrayShader.setSamplers();
 	globalInstancedArrayShader.sendLightsContainerToShader();
@@ -243,9 +251,12 @@ int main() {
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		globalComplexShader.sendCameraToShader();
+		globalComplexShader.sendModelToShader(testingGameObject.getTransform()->getModel());
 		for (GLuint i = 0; i < WORLD_LENGTH; i++) {
 			for (GLuint j = 0; j < WORLD_LENGTH; j++) {
 				testingGameObject.getTransform()->setPosition(cubePositions[i][j]);
+				globalComplexShader.sendModelToShader(testingGameObject.getTransform()->getModel());
 				testingGameObject.Draw();
 			}
 		}
@@ -254,6 +265,7 @@ int main() {
 		CollisionDetector::CheckCollisions();
 
 		// Draw
+		globalComplexShader.sendModelToShader(testingGameObject.getTransform()->getModel());
 		testingGameObject.Draw();
 
 		glDisable(GL_CULL_FACE);
@@ -302,7 +314,7 @@ int main() {
 		}
 		instancedGameObject.Draw();
 
-		// Testing ComplexShader and SimpleGameObject
+		// Testing InstancedArrayComplexShader and SimpleGameObject
 		globalInstancedArrayShader.sendCameraToShader();
 		/* Copy Constructor doesn't yet copy LightsContainer */
 		for (GLuint i = 0; i < chunks.size(); i++) {

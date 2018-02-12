@@ -1,8 +1,8 @@
 #pragma once
-#include "ComplexShader.h"
+#include "InstancedArrayComplexShader.h"
 
 
-class InstancedComplexShader : public ComplexShader
+class InstancedComplexShader : public InstancedArrayComplexShader
 {
 public:
 	InstancedComplexShader(Camera * camera, LightsContainer * lightsContainer, glm::mat4 projection, const GLchar * vertexPath, const GLchar * fragmentPath);

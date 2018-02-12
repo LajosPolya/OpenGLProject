@@ -102,9 +102,6 @@
     <ClCompile Include="SimpleInstancedArrayGameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ComplexShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InstancedArrayMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -118,6 +115,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SimpleGameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InstancedArrayComplexShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -203,9 +206,6 @@
     <ClInclude Include="SimpleInstancedArrayGameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ComplexShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="InstancedArrayMesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -219,6 +219,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SimpleGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InstancedArrayComplexShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ComplexShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
