@@ -2,30 +2,17 @@
 
 
 
+// Also call bass class' Copy Constructor
+InstancedArrayMesh::InstancedArrayMesh(const InstancedArrayMesh & toCopy) : Mesh(toCopy) {
+	this->instanceVBO = toCopy.instanceVBO;
+	this->instances = toCopy.instances;
+	this->numInstances = toCopy.numInstances;
+}
+
 InstancedArrayMesh::InstancedArrayMesh() {}
 InstancedArrayMesh::~InstancedArrayMesh() {}
 
-InstancedArrayMesh::InstancedArrayMesh(const InstancedArrayMesh & toCopy) {
-	this->vertices = toCopy.vertices;
-	this->indices = toCopy.indices;
-	this->instances = toCopy.instances;
-
-	this->VAO = toCopy.VAO;
-	this->VBO = toCopy.VBO;
-	this->EBO = toCopy.EBO;
-
-	this->instanceVBO = toCopy.instanceVBO;
-	this->numInstances = toCopy.numInstances;
-
-	this->vertexProp_BitMap = toCopy.vertexProp_BitMap;
-	this->primitiveType = toCopy.primitiveType;
-
-	this->diffuseMap = new Texture(*toCopy.diffuseMap);
-	this->specularMap = new Texture(*toCopy.specularMap);
-}
-
-InstancedArrayMesh::InstancedArrayMesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, Texture * diffuseMap, Texture * specularMap)
-{
+InstancedArrayMesh::InstancedArrayMesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, Texture * diffuseMap, Texture * specularMap) {
 	this->diffuseMap = diffuseMap;
 	this->specularMap = specularMap;
 

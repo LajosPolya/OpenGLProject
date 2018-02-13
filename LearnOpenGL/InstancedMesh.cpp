@@ -2,6 +2,11 @@
 
 
 
+InstancedMesh::InstancedMesh(const InstancedMesh & instancedMesh) : Mesh(instancedMesh) {
+	this->instanceVBO = instancedMesh.instanceVBO;
+	this->numInstances = instancedMesh.numInstances;
+}
+
 InstancedMesh::InstancedMesh(GLchar * vertexLocation, InstancedTransformImpl * transform, Texture * diffuseMap, Texture * specularMap) {
 	this->diffuseMap = diffuseMap;
 	this->specularMap = specularMap;

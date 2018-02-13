@@ -153,16 +153,12 @@ int main() {
 	TransparentGameObjectImpl instancedWimdowGameObject = TransparentGameObjectImpl("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection);
 	InstancedTransformImpl newInstancedTransform("Instance/crate3.txt");
 
-	std::vector<glm::vec3> pos3d;
 	ComplexPosition CoPo;
 	TerrainGenerator terrainGenerator3d(CHUNK_X, CHUNK_Y, CHUNK_Z, T_3D);
-	pos3d = terrainGenerator3d.generate(0, 0, 0);
 	CoPo = terrainGenerator3d.generateComplex(0, 0, 0);
 	SimpleInstancedArrayGameObject perlin3d("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo.getDrawablePositions());
 
-	std::vector<glm::vec3> pos3d2;
 	ComplexPosition CoPo2;
-	pos3d2 = terrainGenerator3d.generate(0, 0, -50);
 	CoPo2 = terrainGenerator3d.generateComplex(0, 0, -50);
 	perlin3d2 = new SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo2.getDrawablePositions(), GL_TRIANGLES);
 	///InstancedArrayGameObjectImpl lineGrass("Shaders/instancedVertToGeo.vert", "Shaders/grass.frag", "Shaders/line.geom", "", "", "Mesh/dynamicGrass.txt", "Material/crate.txt", pos3d, "Material/crate.txt", camera, projection, GL_POINTS);

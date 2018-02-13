@@ -5,11 +5,9 @@
 class InstancedArrayMesh : private Mesh
 {
 public:
-	// TODO: Create CopyConsructor
-	InstancedArrayMesh(const Mesh & InstancedArrayMesh);
+	InstancedArrayMesh(const InstancedArrayMesh & toCopy);
 	InstancedArrayMesh();
 	~InstancedArrayMesh();
-	InstancedArrayMesh(const InstancedArrayMesh & toCopy);
 
 	InstancedArrayMesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, Texture * diffuseMap, Texture * specularMap);
 	InstancedArrayMesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
