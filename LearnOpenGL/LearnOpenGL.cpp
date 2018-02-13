@@ -36,6 +36,7 @@
 #include "SimpleGameObject.h"
 #include "SimpleInstancedArrayGameObject.h"
 #include "SimpleInstancedGameObject.h"
+#include "PositionRelativeCamera.h"
 
 #define WORLD_LENGTH 5
 
@@ -57,6 +58,7 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 byte killAll = 0;
 std::vector<glm::vec3> messageQ;
 std::vector<InstancedArrayTransformImpl> returnQ;
+std::vector<PositionRelativeCamera> newReturnQ;
 std::vector<SimpleInstancedArrayGameObject> chunks;
 std::mutex pc_m;
 std::mutex returnQ_m;
@@ -401,6 +403,7 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	GLint empty = 1;
 	GLint done = 0;
 	glm::vec3 pos;
+	GLuint messageQSize = 0;
 
 	pc_m.lock();
 	messageQ.push_back(glm::vec3(100, 0, 100));
@@ -432,7 +435,9 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	pc_m.unlock();
 
 	std::cout << "Starting Init Generation" << std::endl;
-	for (GLuint i = 0; i < messageQ.size(); i++) {
+	messageQSize = messageQ.size();
+	for (GLuint i = 0; i < messageQSize; i++) {
+		std::cout << i << std::endl;
 		glm::vec3 initPos = messageQ[messageQ.size() - 1];
 		messageQ.pop_back();
 		terrainGenerator3d.generateComplex((GLint)initPos.x, (GLint)initPos.y, (GLint)initPos.z);
@@ -451,7 +456,9 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 
 		if (empty == 0) {
 			empty = 1;
+			returnQ_m.lock();
 			returnQ.push_back(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex((GLint)pos.x, (GLint)pos.y, (GLint)pos.z).getDrawablePositions()));
+			returnQ_m.unlock();
 		}
 		else {
 			if (done == 0) {
