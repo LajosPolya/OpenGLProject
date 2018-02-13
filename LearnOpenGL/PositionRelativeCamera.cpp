@@ -1,7 +1,10 @@
 #include "PositionRelativeCamera.h"
 
 
-PositionRelativeCamera::PositionRelativeCamera() {}
+PositionRelativeCamera::PositionRelativeCamera(InstancedArrayTransformImpl transform, GLuint index) {
+	this->transform = transform;
+	this->index = index;
+}
 PositionRelativeCamera::~PositionRelativeCamera() {}
 
 InstancedArrayTransformImpl PositionRelativeCamera::getTransform() {

@@ -12,7 +12,7 @@
 class PositionRelativeCamera
 {
 public:
-	PositionRelativeCamera();
+	PositionRelativeCamera(InstancedArrayTransformImpl transform, GLuint index);
 	~PositionRelativeCamera();
 
 	InstancedArrayTransformImpl getTransform();
