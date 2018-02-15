@@ -73,22 +73,25 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint y, GLint z) {
 ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
 	ComplexPosition CoPo;
 	GLint i, j, k;
-	GLint upperX = x + this->x;
-	GLint upperY = y + this->y;
-	GLint upperZ = z + this->z;
+	GLint lowerX = getLowerVal(x, this->x);
+	GLint lowerY = getLowerVal(y, this->y);
+	GLint lowerZ = getLowerVal(z, this->z);
+	GLint upperX = lowerX + this->x;
+	GLint upperY = lowerY + this->y;
+	GLint upperZ = lowerZ + this->z;
 	std::vector<glm::vec3> position;
 	std::vector<glm::vec3> drawablePosition;
 
 	GLfloat *** values;
 	// Generate positions for the chunk the input parameters are in
 	values = perlinNoise->generate(x / this->x, y / this->y, z / this->z);
-	for (i = x; i < upperX; i++) {
-		for (j = y; j < upperY; j++) {
-			for (k = z; k < upperZ; k++) {
-				if (values[i - x][j - y][k - z] >(GLfloat)GRAN) {
+	for (i = lowerX; i < upperX; i++) {
+		for (j = lowerY; j < upperY; j++) {
+			for (k = lowerZ; k < upperZ; k++) {
+				if (values[i - lowerX][j - lowerY][k - lowerZ] >(GLfloat)GRAN) {
 					position.push_back(glm::vec3(i, j, k));
 
-					if (i == x || i == upperX - 1 || j == y || j == upperY - 1 || k == z || k == upperZ - 1) {
+					if (i == lowerX || i == upperX - 1 || j == lowerY || j == upperY - 1 || k == lowerZ || k == upperZ - 1) {
 						drawablePosition.push_back(glm::vec3(i, j, k));
 					}
 				}
@@ -98,12 +101,12 @@ ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
 
 	// TODO: First check if there are cubes touching the faces of the cube
 	// And if there's one of each face then you don't have to check the rest because it'll be hiddem
-	for (i = x + 1; i < upperX - 1; i++) {
-		for (j = y + 1; j < upperY - 1; j++) {
-			for (k = z + 1; k < upperZ - 1; k++) {
-				if (values[i - x][j - y][k - z] >(GLfloat)GRAN) {
+	for (i = lowerX + 1; i < upperX - 1; i++) {
+		for (j = lowerY + 1; j < upperY - 1; j++) {
+			for (k = lowerZ + 1; k < upperZ - 1; k++) {
+				if (values[i - lowerX][j - lowerY][k - lowerZ] >(GLfloat)GRAN) {
 
-					if (!(values[i - x][j - y + 1][k - z] >(GLfloat)GRAN && values[i - x][j - y - 1][k - z] >(GLfloat)GRAN && values[i - x + 1][j - y][k - z] > (GLfloat)GRAN && values[i - x - 1][j - y][k - z] > (GLfloat)GRAN && values[i - x][j - y][k - z + 1] > (GLfloat)GRAN && values[i - x][j - y][k - z - 1] > (GLfloat)GRAN)) {
+					if (!(values[i - lowerX][j - lowerY + 1][k - lowerZ] >(GLfloat)GRAN && values[i - lowerX][j - lowerY - 1][k - lowerZ] >(GLfloat)GRAN && values[i - lowerX + 1][j - lowerY][k - lowerZ] > (GLfloat)GRAN && values[i - lowerX - 1][j - lowerY][k - lowerZ] > (GLfloat)GRAN && values[i - lowerX][j - lowerY][k - lowerZ + 1] > (GLfloat)GRAN && values[i - lowerX][j - lowerY][k - lowerZ - 1] > (GLfloat)GRAN)) {
 						drawablePosition.push_back(glm::vec3(i, j, k));
 					}
 					// Top																																																																																																																	   // Bottom																																																																																																															// Middle
@@ -136,4 +139,15 @@ GLboolean TerrainGenerator::shouldGetNewChunks(glm::vec3 position) {
 	}
 	this->prevChunkPosition = position;
 	return 1;
+}
+
+GLint TerrainGenerator::getLowerVal(GLint val, GLint range) {
+	GLint mod = val % range;
+	
+	if (val >= 0) {
+		return val - mod;
+	}
+	else {
+		return val + mod;
+	}
 }

@@ -454,15 +454,15 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 		terrainGenerator3d.generateComplex((GLint)initPos.x, (GLint)initPos.y, (GLint)initPos.z);
 	}
 	std::cout << "Ending Init Generation" << std::endl;
-
+	std::cout << camera->Position.x << " " << camera->Position.y << " " << camera->Position.z << std::endl;
 
 	returnQ_m.lock();
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(-50, 0, 0).getDrawablePositions()), 5));
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(0, 0, 50).getDrawablePositions()), 4));
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(0, 0, -50).getDrawablePositions()), 3));
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(50, 0, -50).getDrawablePositions()), 2));
-	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(50, 0, 0).getDrawablePositions()), 0));
-	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(0, 0, 0).getDrawablePositions()), 1));
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(50, 0, 0).getDrawablePositions()), 1));
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(3, 19, 9).getDrawablePositions()), 0));
 	returnQ_m.unlock();
 	readyToGrab = 1;
 	//while (killAll != 1) {

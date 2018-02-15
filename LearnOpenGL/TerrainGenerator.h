@@ -28,6 +28,8 @@ public:
 
 	GLboolean shouldGetNewChunks(glm::vec3 position);
 
+	GLint getLowerVal(GLint val, GLint range);
+
 private:
 	// Size of one chunk of terrain
 	GLint x, y, z;
