@@ -62,6 +62,7 @@ std::vector<PositionRelativeCamera> newReturnQ;
 std::vector<SimpleInstancedArrayGameObject> chunks;
 std::mutex pc_m;
 std::mutex returnQ_m;
+GLuint readyToGrab = 0;
 void Producer(TerrainGenerator& terrainGenerator, Camera * camera);
 SimpleInstancedArrayGameObject * perlin3d2;
 
@@ -276,8 +277,8 @@ int main() {
 		grassGameObject.Draw();
 		glEnable(GL_CULL_FACE);
 
-		returnQ_m.lock();
-		if (returnQ.size() > 0) {
+		///returnQ_m.lock();
+		/*if (returnQ.size() > 0) {
 			if (firstReplace == 0) {
 				firstReplace = 1;
 				perlin3d.setInstances(&returnQ[returnQ.size() - 1]);
@@ -292,8 +293,18 @@ int main() {
 					}
 				}
 			}
+		}*/
+		if (readyToGrab != 0) {
+			returnQ_m.lock();
+			GLint returnQSize = newReturnQ.size();
+			for (GLuint i = 0; i < returnQSize; i++) {
+				chunks[newReturnQ[i].getIndex()].setInstances(&newReturnQ[i].getTransform());
+			}
+			newReturnQ.clear();
+			returnQ_m.unlock();
+			readyToGrab = 0;
 		}
-		returnQ_m.unlock();
+		///returnQ_m.unlock();
 
 		// TODO: These should be one isntancedArrayGameObject
 		// TODO: The Lights should be getting their transform from the Material object or vice versa
@@ -406,7 +417,7 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	GLuint messageQSize = 0;
 
 	pc_m.lock();
-	messageQ.push_back(glm::vec3(100, 0, 100));
+	/*messageQ.push_back(glm::vec3(100, 0, 100));
 	messageQ.push_back(glm::vec3(50, 0, 100));
 	messageQ.push_back(glm::vec3(0, 0, 100));
 	messageQ.push_back(glm::vec3(-50, 0, 100));
@@ -425,9 +436,9 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	messageQ.push_back(glm::vec3(100, 0, 50));
 	messageQ.push_back(glm::vec3(50, 0, 50));
 	messageQ.push_back(glm::vec3(0, 0, 50));
-	messageQ.push_back(glm::vec3(-50, 0, 50));
+	messageQ.push_back(glm::vec3(-50, 0, 50));*/
 	messageQ.push_back(glm::vec3(-50, 0, 0));
-	messageQ.push_back(glm::vec3(-50, 0, -50));
+	messageQ.push_back(glm::vec3(0, 0, 50));
 	messageQ.push_back(glm::vec3(0, 0, -50));
 	messageQ.push_back(glm::vec3(50, 0, -50));
 	messageQ.push_back(glm::vec3(50, 0, 0));
@@ -444,31 +455,41 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	}
 	std::cout << "Ending Init Generation" << std::endl;
 
-	while (killAll != 1) {
 
-		pc_m.lock();
-		if (messageQ.size() > 0) {
-			empty = 0;
-			pos = messageQ[messageQ.size() - 1];
-			messageQ.pop_back();
-		}
-		pc_m.unlock();
+	returnQ_m.lock();
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(-50, 0, 0).getDrawablePositions()), 5));
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(0, 0, 50).getDrawablePositions()), 4));
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(0, 0, -50).getDrawablePositions()), 3));
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(50, 0, -50).getDrawablePositions()), 2));
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(50, 0, 0).getDrawablePositions()), 0));
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(0, 0, 0).getDrawablePositions()), 1));
+	returnQ_m.unlock();
+	readyToGrab = 1;
+	//while (killAll != 1) {
 
-		if (empty == 0) {
-			empty = 1;
-			returnQ_m.lock();
-			returnQ.push_back(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex((GLint)pos.x, (GLint)pos.y, (GLint)pos.z).getDrawablePositions()));
-			returnQ_m.unlock();
-		}
-		else {
-			if (done == 0) {
-				done = 1;
-				returnQ_m.lock();
-				returnQ.push_back(*perlin3d2->getTransform());
-				returnQ_m.unlock();
-			}
-		}
-		// Sleep to allow for Main Loop to grab mutexes if needed
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-	}
+	//	pc_m.lock();
+	//	if (messageQ.size() > 0) {
+	//		empty = 0;
+	//		pos = messageQ[messageQ.size() - 1];
+	//		messageQ.pop_back();
+	//	}
+	//	pc_m.unlock();
+
+	//	if (empty == 0) {
+	//		empty = 1;
+	//		returnQ_m.lock();
+	//		returnQ.push_back(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex((GLint)pos.x, (GLint)pos.y, (GLint)pos.z).getDrawablePositions()));
+	//		returnQ_m.unlock();
+	//	}
+	//	else {
+	//		if (done == 0) {
+	//			done = 1;
+	//			returnQ_m.lock();
+	//			returnQ.push_back(*perlin3d2->getTransform());
+	//			returnQ_m.unlock();
+	//		}
+	//	}
+	//	// Sleep to allow for Main Loop to grab mutexes if needed
+	//	std::this_thread::sleep_for(std::chrono::seconds(1));
+	//}
 }
