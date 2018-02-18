@@ -46,18 +46,21 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint z) {
 
 std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint y, GLint z) {
 	GLint i, j, k;
-	GLint upperX = x + this->x;
-	GLint upperY = y + this->y;
-	GLint upperZ = z + this->z;
+	GLint lowerX = getLowerVal(x, this->x);
+	GLint lowerY = getLowerVal(y, this->y);
+	GLint lowerZ = getLowerVal(z, this->z);
+	GLint upperX = lowerX + this->x;
+	GLint upperY = lowerY + this->y;
+	GLint upperZ = lowerZ + this->z;
 	std::vector<glm::vec3> position;
 
 	GLfloat *** values;
 	// Generate positions for the chunk the input parameters are in
 	values = perlinNoise->generate(x / this->x, y / this->y, z / this->z);
-	for (i = x; i < upperX; i++) {
-		for (j = y; j < upperY; j++) {
-			for (k = z; k < upperZ; k++) {
-				if (values[i - x][j - y][k - z] >(GLfloat)GRAN) {
+	for (i = lowerX; i < upperX; i++) {
+		for (j = lowerY; j < upperY; j++) {
+			for (k = lowerZ; k < upperZ; k++) {
+				if (values[i - lowerX][j - lowerY][k - lowerZ] >(GLfloat)GRAN) {
 					position.push_back(glm::vec3(i, j, k));
 				}
 			}
@@ -99,8 +102,6 @@ ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
 		}
 	}
 
-	// TODO: First check if there are cubes touching the faces of the cube
-	// And if there's one of each face then you don't have to check the rest because it'll be hiddem
 	for (i = lowerX + 1; i < upperX - 1; i++) {
 		for (j = lowerY + 1; j < upperY - 1; j++) {
 			for (k = lowerZ + 1; k < upperZ - 1; k++) {
