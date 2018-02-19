@@ -279,35 +279,19 @@ int main() {
 		grassGameObject.Draw();
 		glEnable(GL_CULL_FACE);
 
-		///returnQ_m.lock();
-		/*if (returnQ.size() > 0) {
-			if (firstReplace == 0) {
-				firstReplace = 1;
-				perlin3d.setInstances(&returnQ[returnQ.size() - 1]);
-				returnQ.pop_back();
-			}
-			else {
-				for (GLuint i = 0; i < chunks.size(); i++) {
-					if (chunks[i].getTransform()->getModels().size() == 0) {
-						chunks[i].setInstances(&returnQ[returnQ.size() - 1]);
-						returnQ.pop_back();
-						break;
-					}
-				}
-			}
-		}*/
+		// TODO: Consider switching chunks out every 5 or 10 frames to reduce performance hit
 		if (readyToGrab != 0) {
 			returnQ_m.lock();
 			GLint returnQSize = newReturnQ.size();
-			for (GLuint i = 0; i < returnQSize; i++) {
-				chunks[newReturnQ[i].getIndex()].setInstances(&newReturnQ[i].getTransform());
-			}
-			newReturnQ.clear();
+			chunks[newReturnQ[returnQSize - 1].getIndex()].setInstances(&newReturnQ[returnQSize - 1].getTransform());
+			newReturnQ.pop_back();
 			returnQ_m.unlock();
-			readyToGrab = 0;
+			if (newReturnQ.size() == 0) {
+				readyToGrab = 0;
+			}
 		}
-		///returnQ_m.unlock();
 
+		// TODO: Create LightGameObject so light info is stored withing GameObject
 		// TODO: These should be one isntancedArrayGameObject
 		// TODO: The Lights should be getting their transform from the Material object or vice versa
 		lightBox1.Draw();
@@ -473,33 +457,4 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 		}
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
-
-
-	//while (killAll != 1) {
-
-	//	pc_m.lock();
-	//	if (messageQ.size() > 0) {
-	//		empty = 0;
-	//		pos = messageQ[messageQ.size() - 1];
-	//		messageQ.pop_back();
-	//	}
-	//	pc_m.unlock();
-
-	//	if (empty == 0) {
-	//		empty = 1;
-	//		returnQ_m.lock();
-	//		returnQ.push_back(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex((GLint)pos.x, (GLint)pos.y, (GLint)pos.z).getDrawablePositions()));
-	//		returnQ_m.unlock();
-	//	}
-	//	else {
-	//		if (done == 0) {
-	//			done = 1;
-	//			returnQ_m.lock();
-	//			returnQ.push_back(*perlin3d2->getTransform());
-	//			returnQ_m.unlock();
-	//		}
-	//	}
-	//	// Sleep to allow for Main Loop to grab mutexes if needed
-	//	std::this_thread::sleep_for(std::chrono::seconds(1));
-	//}
 }
