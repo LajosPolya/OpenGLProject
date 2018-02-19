@@ -133,22 +133,15 @@ GLboolean TerrainGenerator::hasGenerated(GLint x, GLint y, GLint z) {
 }
 
 GLboolean TerrainGenerator::shouldGetNewChunks(glm::vec3 position) {
+	glm::vec3 chunkPos = glm::vec3((GLint)(position.x / this->x), (GLint)(position.y / this->y), (GLint)(position.z / this->z));
 
-	if (position.x / this->x == this->prevChunkPosition.x && position.y / this->y == this->prevChunkPosition.y && position.z / this->z == this->prevChunkPosition.z) {
-		this->prevChunkPosition = position;
+	if (chunkPos.x == this->prevChunkPosition.x && chunkPos.y == this->prevChunkPosition.y && chunkPos.z == this->prevChunkPosition.z) {
 		return 0;
 	}
-	this->prevChunkPosition = position;
+	this->prevChunkPosition = chunkPos;
 	return 1;
 }
 
 GLint TerrainGenerator::getLowerVal(GLint val, GLint range) {
-	GLint mod = val % range;
-	
-	if (val >= 0) {
-		return val - mod;
-	}
-	else {
-		return val + mod;
-	}
+	return (val / range) * range;
 }

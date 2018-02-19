@@ -40,9 +40,9 @@
 
 #define WORLD_LENGTH 5
 
-#define CHUNK_X 50
-#define CHUNK_Y 25
-#define CHUNK_Z 50
+#define CHUNK_X (GLfloat)50
+#define CHUNK_Y (GLfloat)25
+#define CHUNK_Z (GLfloat)50
 
 // Function prototypes
 void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode);
@@ -176,7 +176,9 @@ int main() {
 	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
 	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
 	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
-
+	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
+	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
+	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
 
 	// Global Lights Container
 	LightsContainer globalLightsContainer("Material/crate.txt");
@@ -417,26 +419,13 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	GLuint messageQSize = 0;
 
 	pc_m.lock();
-	/*messageQ.push_back(glm::vec3(100, 0, 100));
-	messageQ.push_back(glm::vec3(50, 0, 100));
-	messageQ.push_back(glm::vec3(0, 0, 100));
 	messageQ.push_back(glm::vec3(-50, 0, 100));
-	messageQ.push_back(glm::vec3(-100, 0, 100));
-	messageQ.push_back(glm::vec3(-100, 0, 50));
-	messageQ.push_back(glm::vec3(-100, 0, 50));
-	messageQ.push_back(glm::vec3(-100, 0, 0));
-	messageQ.push_back(glm::vec3(-100, 0, -50));
-	messageQ.push_back(glm::vec3(-100, 0, -100));
-	messageQ.push_back(glm::vec3(-50, 0, -100));
-	messageQ.push_back(glm::vec3(0, 0, -100));
-	messageQ.push_back(glm::vec3(50, 0, -100));
-	messageQ.push_back(glm::vec3(100, 0, -100));
-	messageQ.push_back(glm::vec3(100, 0, -50));
-	messageQ.push_back(glm::vec3(100, 0, 0));
-	messageQ.push_back(glm::vec3(100, 0, 50));
+	messageQ.push_back(glm::vec3(0, 0, 100));
+	messageQ.push_back(glm::vec3(50, 0, 100));
+
+	messageQ.push_back(glm::vec3(-50, 0, -50));
+	messageQ.push_back(glm::vec3(-50, 0, 50));
 	messageQ.push_back(glm::vec3(50, 0, 50));
-	messageQ.push_back(glm::vec3(0, 0, 50));
-	messageQ.push_back(glm::vec3(-50, 0, 50));*/
 	messageQ.push_back(glm::vec3(-50, 0, 0));
 	messageQ.push_back(glm::vec3(0, 0, 50));
 	messageQ.push_back(glm::vec3(0, 0, -50));
@@ -457,6 +446,9 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	std::cout << camera->Position.x << " " << camera->Position.y << " " << camera->Position.z << std::endl;
 
 	returnQ_m.lock();
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(-50, 0, -50).getDrawablePositions()), 8));
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(-50, 0, 50).getDrawablePositions()), 7));
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(50, 0, 50).getDrawablePositions()), 6));
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(-50, 0, 0).getDrawablePositions()), 5));
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(0, 0, 50).getDrawablePositions()), 4));
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(0, 0, -50).getDrawablePositions()), 3));
@@ -465,6 +457,24 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(3, 19, 9).getDrawablePositions()), 0));
 	returnQ_m.unlock();
 	readyToGrab = 1;
+
+	while (killAll != 1) {
+		if (terrainGenerator3d.shouldGetNewChunks(camera->Position) == 1 && readyToGrab == 0) {
+			newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x, camera->Position.y, camera->Position.z).getDrawablePositions()), 0));
+			newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x + CHUNK_X, camera->Position.y, camera->Position.z).getDrawablePositions()), 1));
+			newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x - CHUNK_X, camera->Position.y, camera->Position.z).getDrawablePositions()), 2));
+			newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x, camera->Position.y, camera->Position.z + CHUNK_Z).getDrawablePositions()), 3));
+			newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x, camera->Position.y, camera->Position.z - CHUNK_Z).getDrawablePositions()), 4));
+			newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x + CHUNK_X, camera->Position.y, camera->Position.z + CHUNK_Z).getDrawablePositions()), 5));
+			newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x + CHUNK_X, camera->Position.y, camera->Position.z - CHUNK_Z).getDrawablePositions()), 6));
+			newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x - CHUNK_X, camera->Position.y, camera->Position.z + CHUNK_Z).getDrawablePositions()), 7));
+			newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x - CHUNK_X, camera->Position.y, camera->Position.z - CHUNK_Z).getDrawablePositions()), 8));
+			readyToGrab = 1;
+		}
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
+
+
 	//while (killAll != 1) {
 
 	//	pc_m.lock();
