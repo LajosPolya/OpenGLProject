@@ -28,6 +28,8 @@ private:
 	// Size of chunk
 	GLuint x, y, z;
 
+	// TODO: This should take care of  storing the gradients and generating PerlinNoise values while TerrainGenerator should take care of storing all of the chunks and Positions
+	// TODO: This was copied to TerrainGenerator.h. This should only be in one place
 	const GLuint maxChunks = 100;
 	const GLuint halfMaxChunks = ((maxChunks / 2) - 1);
 	// Store each chunk's gradients

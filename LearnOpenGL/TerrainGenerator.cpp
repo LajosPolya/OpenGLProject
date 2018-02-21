@@ -10,6 +10,16 @@ TerrainGenerator::TerrainGenerator(GLint x, GLint y, GLint z, GLuint terrainType
 		this->perlinNoise = new PerlinNoise(x, z);
 	}
 	else if (terrainType == T_3D) {
+		this->chunkPositions = new ComplexPosition***[maxChunks];
+		for (GLuint i = 0; i < maxChunks; i++) {
+			this->chunkPositions[i] = new ComplexPosition**[maxChunks];
+			for (GLuint j = 0; j < maxChunks; j++) {
+				this->chunkPositions[i][j] = new ComplexPosition*[maxChunks];
+				for (GLuint k = 0; k < maxChunks; k++) {
+					this->chunkPositions[i][j][k] = nullptr;
+				}
+			}
+		}
 		this->perlinNoise = new PerlinNoise(x, y, z);
 	}
 	else {
@@ -56,7 +66,7 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint y, GLint z) {
 
 	GLfloat *** values;
 	// Generate positions for the chunk the input parameters are in
-	values = perlinNoise->generate(x / this->x, y / this->y, z / this->z);
+	values = perlinNoise->generate(lowerX / this->x, lowerY / this->y, lowerZ / this->z);
 	for (i = lowerX; i < upperX; i++) {
 		for (j = lowerY; j < upperY; j++) {
 			for (k = lowerZ; k < upperZ; k++) {
@@ -74,7 +84,7 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint y, GLint z) {
 }
 
 ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
-	ComplexPosition CoPo;
+	ComplexPosition * CoPo = nullptr;
 	GLint i, j, k;
 	GLint lowerX = getLowerVal(x, this->x);
 	GLint lowerY = getLowerVal(y, this->y);
@@ -84,6 +94,18 @@ ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
 	GLint upperZ = lowerZ + this->z;
 	std::vector<glm::vec3> position;
 	std::vector<glm::vec3> drawablePosition;
+
+	if (this->chunkPositions[lowerX / this->x + halfMaxChunks][lowerY / this->y + halfMaxChunks][lowerZ / this->z + halfMaxChunks] != nullptr) {
+		return *this->chunkPositions[lowerX / this->x + halfMaxChunks][lowerY / this->y + halfMaxChunks][lowerZ / this->z + halfMaxChunks];
+	}
+	else {
+		this->chunkPositions[lowerX / this->x + halfMaxChunks][lowerY / this->y + halfMaxChunks][lowerZ / this->z + halfMaxChunks] = new ComplexPosition();
+		CoPo = this->chunkPositions[lowerX / this->x + halfMaxChunks][lowerY / this->y + halfMaxChunks][lowerZ / this->z + halfMaxChunks];
+	}
+
+	/*if (this->chunkPositions[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
+		return *this->chunkPositions[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks];
+	}*/
 
 	GLfloat *** values;
 	// Generate positions for the chunk the input parameters are in
@@ -123,13 +145,9 @@ ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
 	if (position.size() == 0) {
 		std::cout << "Terrain Generator ERROR: Zero Positions Generated" << std::endl;
 	}
-	CoPo.setPositions(position);
-	CoPo.setDrawablePositions(drawablePosition);
-	return CoPo;
-}
-
-GLboolean TerrainGenerator::hasGenerated(GLint x, GLint y, GLint z) {
-	return perlinNoise->hasGenerated(x / this->x, y / this->y, z / this->z);;
+	(*CoPo).setPositions(position);
+	(*CoPo).setDrawablePositions(drawablePosition);
+	return *CoPo;
 }
 
 GLboolean TerrainGenerator::shouldGetNewChunks(glm::vec3 position) {
@@ -143,5 +161,8 @@ GLboolean TerrainGenerator::shouldGetNewChunks(glm::vec3 position) {
 }
 
 GLint TerrainGenerator::getLowerVal(GLint val, GLint range) {
+	if (val < 0 && val % range != 0) {
+		val -= range;
+	}
 	return (val / range) * range;
 }
