@@ -87,7 +87,7 @@ ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
 
 	GLfloat *** values;
 	// Generate positions for the chunk the input parameters are in
-	values = perlinNoise->generate(x / this->x, y / this->y, z / this->z);
+	values = perlinNoise->generate(lowerX / this->x, lowerY / this->y, lowerZ / this->z);
 	for (i = lowerX; i < upperX; i++) {
 		for (j = lowerY; j < upperY; j++) {
 			for (k = lowerZ; k < upperZ; k++) {
@@ -133,7 +133,7 @@ GLboolean TerrainGenerator::hasGenerated(GLint x, GLint y, GLint z) {
 }
 
 GLboolean TerrainGenerator::shouldGetNewChunks(glm::vec3 position) {
-	glm::vec3 chunkPos = glm::vec3((GLint)(position.x / this->x), (GLint)(position.y / this->y), (GLint)(position.z / this->z));
+	glm::vec3 chunkPos = glm::vec3(getLowerVal(position.x, this->x), getLowerVal(position.y, this->y), getLowerVal(position.z, this->z));
 
 	if (chunkPos.x == this->prevChunkPosition.x && chunkPos.y == this->prevChunkPosition.y && chunkPos.z == this->prevChunkPosition.z) {
 		return 0;
