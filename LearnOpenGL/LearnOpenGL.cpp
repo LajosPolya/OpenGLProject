@@ -455,6 +455,6 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 			newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x - CHUNK_X, camera->Position.y, camera->Position.z - CHUNK_Z).getDrawablePositions()), 8));
 			readyToGrab = 1;
 		}
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 }

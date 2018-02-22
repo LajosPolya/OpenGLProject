@@ -103,10 +103,6 @@ ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
 		CoPo = this->chunkPositions[lowerX / this->x + halfMaxChunks][lowerY / this->y + halfMaxChunks][lowerZ / this->z + halfMaxChunks];
 	}
 
-	/*if (this->chunkPositions[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
-		return *this->chunkPositions[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks];
-	}*/
-
 	GLfloat *** values;
 	// Generate positions for the chunk the input parameters are in
 	values = perlinNoise->generate(lowerX / this->x, lowerY / this->y, lowerZ / this->z);
@@ -160,9 +156,10 @@ GLboolean TerrainGenerator::shouldGetNewChunks(glm::vec3 position) {
 	return 1;
 }
 
+/// https://stackoverflow.com/questions/48897886/clamping-to-next-lowest-value-in-a-series?noredirect=1#comment84802282_48897886
 GLint TerrainGenerator::getLowerVal(GLint val, GLint range) {
-	if (val < 0 && val % range != 0) {
-		val -= range;
+	if (val < 0) {
+		val = val - range + 1;
 	}
 	return (val / range) * range;
 }
