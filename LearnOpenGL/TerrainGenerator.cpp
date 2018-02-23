@@ -54,35 +54,6 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint z) {
 	return heightValues;
 }
 
-std::vector<glm::vec3> TerrainGenerator::generate(GLfloat x, GLfloat y, GLfloat z) {
-	GLint i, j, k;
-	GLint lowerX = getLowerVal(x, this->x);
-	GLint lowerY = getLowerVal(y, this->y);
-	GLint lowerZ = getLowerVal(z, this->z);
-	GLint upperX = lowerX + this->x;
-	GLint upperY = lowerY + this->y;
-	GLint upperZ = lowerZ + this->z;
-	std::vector<glm::vec3> position;
-
-	GLfloat *** values;
-	// Generate positions for the chunk the input parameters are in
-	values = perlinNoise->generate(lowerX / this->x, lowerY / this->y, lowerZ / this->z);
-	for (i = lowerX; i < upperX; i++) {
-		for (j = lowerY; j < upperY; j++) {
-			for (k = lowerZ; k < upperZ; k++) {
-				if (values[i - lowerX][j - lowerY][k - lowerZ] >(GLfloat)GRAN) {
-					position.push_back(glm::vec3(i, j, k));
-				}
-			}
-		}
-	}
-
-	if (position.size() == 0) {
-		std::cout << "Terrain Generator ERROR: Zero Positions Generated" << std::endl;
-	}
-	return position;
-}
-
 ComplexPosition TerrainGenerator::generateComplex(GLfloat x, GLfloat y, GLfloat z) {
 	ComplexPosition * CoPo = nullptr;
 	GLint i, j, k;

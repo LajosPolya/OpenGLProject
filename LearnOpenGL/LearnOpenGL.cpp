@@ -216,11 +216,11 @@ int main() {
 	CollisionDetector::AddTransform(lightBox2.getTransform());
 	CollisionDetector::AddTransform(lightBox3.getTransform());
 	CollisionDetector::AddTransform(lightBox4.getTransform());
-	CollisionDetector::AddTransform(instancedGameObject.getTransform());
-	CollisionDetector::AddTransform(instancedArrayGameObject.getTransform());
-	CollisionDetector::AddTransform(grassSides.getTransform());
+	//CollisionDetector::AddTransform(instancedGameObject.getTransform());
+	//CollisionDetector::AddTransform(instancedArrayGameObject.getTransform());
+	//CollisionDetector::AddTransform(grassSides.getTransform());
 	///CollisionDetector::AddTransform(perlin.getTransform());
-	CollisionDetector::AddTransform(perlin3d.getTransform());
+	//CollisionDetector::AddTransform(perlin3d.getTransform());
 
 	std::thread t1(Producer, std::ref(terrainGenerator3d), camera);
 	duration = std::clock() - start;
@@ -413,18 +413,18 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	GLuint messageQSize = 0;
 
 	pc_m.lock();
-	messageQ.push_back(glm::vec3(camera->Position.x -50, camera->Position.y, camera->Position.z + 100));
-	messageQ.push_back(glm::vec3(camera->Position.x, camera->Position.y, camera->Position.z +100));
-	messageQ.push_back(glm::vec3(camera->Position.x +50, camera->Position.y, camera->Position.z +100));
+	messageQ.push_back(glm::vec3(camera->Position.x -50.0, camera->Position.y, camera->Position.z + 100.0));
+	messageQ.push_back(glm::vec3(camera->Position.x, camera->Position.y, camera->Position.z +100.0));
+	messageQ.push_back(glm::vec3(camera->Position.x +50.0, camera->Position.y, camera->Position.z +100.0));
 
-	messageQ.push_back(glm::vec3(camera->Position.x  -50, camera->Position.y, camera->Position.z -50));
-	messageQ.push_back(glm::vec3(camera->Position.x -50, camera->Position.y, camera->Position.z +50));
-	messageQ.push_back(glm::vec3(camera->Position.x +50, camera->Position.y, camera->Position.z +50));
-	messageQ.push_back(glm::vec3(camera->Position.x  -50, camera->Position.y, camera->Position.z));
-	messageQ.push_back(glm::vec3(camera->Position.x, camera->Position.y, camera->Position.z +50));
-	messageQ.push_back(glm::vec3(camera->Position.x, camera->Position.y, camera->Position.z -50));
-	messageQ.push_back(glm::vec3(camera->Position.x +50, camera->Position.y, camera->Position.z -50));
-	messageQ.push_back(glm::vec3(camera->Position.x +50, camera->Position.y, camera->Position.z));
+	messageQ.push_back(glm::vec3(camera->Position.x  -50.0, camera->Position.y, camera->Position.z -50.0));
+	messageQ.push_back(glm::vec3(camera->Position.x -50.0, camera->Position.y, camera->Position.z +50.0));
+	messageQ.push_back(glm::vec3(camera->Position.x +50.0, camera->Position.y, camera->Position.z +50.0));
+	messageQ.push_back(glm::vec3(camera->Position.x  -50.0, camera->Position.y, camera->Position.z));
+	messageQ.push_back(glm::vec3(camera->Position.x, camera->Position.y, camera->Position.z +50.0));
+	messageQ.push_back(glm::vec3(camera->Position.x, camera->Position.y, camera->Position.z -50.0));
+	messageQ.push_back(glm::vec3(camera->Position.x +50.0, camera->Position.y, camera->Position.z -50.0));
+	messageQ.push_back(glm::vec3(camera->Position.x +50.0, camera->Position.y, camera->Position.z));
 	messageQ.push_back(glm::vec3(camera->Position.x, camera->Position.y, camera->Position.z));
 	pc_m.unlock();
 
@@ -434,7 +434,7 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 		std::cout << i << std::endl;
 		glm::vec3 initPos = messageQ[messageQ.size() - 1];
 		messageQ.pop_back();
-		terrainGenerator3d.generateComplex((GLint)initPos.x, (GLint)initPos.y, (GLint)initPos.z);
+		terrainGenerator3d.generateComplex(initPos.x, initPos.y, initPos.z);
 	}
 	std::cout << "Ending Init Generation" << std::endl;
 	std::cout << camera->Position.x << " " << camera->Position.y << " " << camera->Position.z << std::endl;
@@ -442,7 +442,7 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	returnQ_m.lock();
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x -50, camera->Position.y, camera->Position.z +50).getDrawablePositions()), 8));
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x -50, camera->Position.y, camera->Position.z ).getDrawablePositions()), 7));
-	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x -50, camera->Position.y, camera->Position.x -50).getDrawablePositions()), 6));
+	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x -50, camera->Position.y, camera->Position.z -50).getDrawablePositions()), 6));
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x, camera->Position.y, camera->Position.z +50).getDrawablePositions()), 5));
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x, camera->Position.y, camera->Position.z).getDrawablePositions()), 4));
 	newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(camera->Position.x, camera->Position.y, camera->Position.z -50).getDrawablePositions()), 3));
@@ -456,7 +456,7 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 		glm::vec3 chunkPos = terrainGenerator3d.getChunkPos(camera->Position);
 		// Let's assume positive x is forward
 		if (terrainGenerator3d.shouldGetNewChunks(pos) == 1 && readyToGrab == 0) {
-			std::cout << "  BEFORE  " <<  pos.x << " " << pos.z <<  " Chunk: " << chunkPos.x << " " << chunkPos.y << std::endl;
+			std::cout << "  BEFORE  " <<  pos.x << " " << pos.z <<  " Chunk: " << chunkPos.x << " " << chunkPos.z << std::endl;
 			std::cout << FRONT_LEFT << " " << FRONT << " " << FRONT_RIGHT << std::endl;
 			std::cout << LEFT << " " << MIDDLE << " " << RIGHT << std::endl;
 			std::cout << BACK_LEFT << " " << BACK << " " << BACK_RIGHT << std::endl;
@@ -504,6 +504,54 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 				returnQ_m.lock();
 				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z).getDrawablePositions()), BACK));
 				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), BACK_RIGHT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), BACK_LEFT));
+				returnQ_m.unlock();
+				readyToGrab = 1;
+			}
+			else if (chunkPos.z > prevPos.z) {
+				GLint tempFrontLeft = FRONT_LEFT;
+				GLint tempLeft = LEFT;
+				GLint tempBackLeft = BACK_LEFT;
+
+				FRONT_LEFT = FRONT;
+				LEFT = MIDDLE;
+				BACK_LEFT = BACK;
+
+				FRONT = FRONT_RIGHT;
+				MIDDLE = RIGHT;
+				BACK = BACK_RIGHT;
+
+				FRONT_RIGHT = tempFrontLeft;
+				RIGHT = tempLeft;
+				BACK_RIGHT = tempBackLeft;
+
+				returnQ_m.lock();
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), FRONT_RIGHT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), RIGHT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), BACK_RIGHT));
+				returnQ_m.unlock();
+				readyToGrab = 1;
+			}
+			else if (chunkPos.z < prevPos.z) {
+				GLint tempFrontRight = FRONT_RIGHT;
+				GLint tempRight = RIGHT;
+				GLint tempBackRight = BACK_RIGHT;
+
+				FRONT_RIGHT = FRONT;
+				RIGHT = MIDDLE;
+				BACK_RIGHT = BACK;
+
+				FRONT = FRONT_LEFT;
+				MIDDLE = LEFT;
+				BACK = BACK_LEFT;
+
+				FRONT_LEFT = tempFrontRight;
+				LEFT = tempRight;
+				BACK_LEFT = tempBackRight;
+
+				returnQ_m.lock();
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), FRONT_LEFT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), LEFT));
 				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), BACK_LEFT));
 				returnQ_m.unlock();
 				readyToGrab = 1;

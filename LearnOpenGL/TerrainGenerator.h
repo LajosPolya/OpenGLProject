@@ -22,7 +22,6 @@ public:
 	   The chunk of which the position is in will be generated
 	*/
 	std::vector<glm::vec3> generate(GLint x, GLint z);
-	std::vector<glm::vec3> generate(GLfloat x, GLfloat y, GLfloat z);
 	ComplexPosition generateComplex(GLfloat x, GLfloat y, GLfloat z);
 
 	GLboolean shouldGetNewChunks(glm::vec3 position);
