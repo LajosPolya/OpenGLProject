@@ -54,7 +54,7 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint z) {
 	return heightValues;
 }
 
-std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint y, GLint z) {
+std::vector<glm::vec3> TerrainGenerator::generate(GLfloat x, GLfloat y, GLfloat z) {
 	GLint i, j, k;
 	GLint lowerX = getLowerVal(x, this->x);
 	GLint lowerY = getLowerVal(y, this->y);
@@ -83,7 +83,7 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint y, GLint z) {
 	return position;
 }
 
-ComplexPosition TerrainGenerator::generateComplex(GLint x, GLint y, GLint z) {
+ComplexPosition TerrainGenerator::generateComplex(GLfloat x, GLfloat y, GLfloat z) {
 	ComplexPosition * CoPo = nullptr;
 	GLint i, j, k;
 	GLint lowerX = getLowerVal(x, this->x);
@@ -157,9 +157,17 @@ GLboolean TerrainGenerator::shouldGetNewChunks(glm::vec3 position) {
 }
 
 /// https://stackoverflow.com/questions/48897886/clamping-to-next-lowest-value-in-a-series?noredirect=1#comment84802282_48897886
-GLint TerrainGenerator::getLowerVal(GLint val, GLint range) {
-	if (val < 0) {
-		val = val - range + 1;
+GLint TerrainGenerator::getLowerVal(GLfloat val, GLint range) {
+	GLint floorVal = (GLint)std::floor(val);
+	if (floorVal < 0) {
+		floorVal = floorVal - range + 1;
 	}
-	return (val / range) * range;
+	return (floorVal / range) * range;
+}
+
+glm::vec3 TerrainGenerator::getChunkPos(glm::vec3 pos) {
+	pos.x = getLowerVal(pos.x, this->x);
+	pos.y = getLowerVal(pos.y, this->y);
+	pos.z = getLowerVal(pos.z, this->z);
+	return pos;
 }

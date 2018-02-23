@@ -111,7 +111,7 @@ int main() {
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// Locks Mouse into Screen
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	///glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
 	glewExperimental = GL_TRUE;
@@ -453,9 +453,14 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 	readyToGrab = 1;
 	while (killAll != 1) {
 		glm::vec3 pos = camera->Position;
+		glm::vec3 chunkPos = terrainGenerator3d.getChunkPos(camera->Position);
 		// Let's assume positive x is forward
 		if (terrainGenerator3d.shouldGetNewChunks(pos) == 1 && readyToGrab == 0) {
-			if (pos.x > prevPos.x) {
+			std::cout << "  BEFORE  " <<  pos.x << " " << pos.z <<  " Chunk: " << chunkPos.x << " " << chunkPos.y << std::endl;
+			std::cout << FRONT_LEFT << " " << FRONT << " " << FRONT_RIGHT << std::endl;
+			std::cout << LEFT << " " << MIDDLE << " " << RIGHT << std::endl;
+			std::cout << BACK_LEFT << " " << BACK << " " << BACK_RIGHT << std::endl;
+			if (chunkPos.x > prevPos.x) {
 				GLint tempBackLeft = BACK_LEFT;
 				GLint tempBack = BACK;
 				GLint tempBackRight = BACK_RIGHT;
@@ -479,7 +484,7 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 				returnQ_m.unlock();
 				readyToGrab = 1;
 			}
-			else if (pos.x < prevPos.x) {
+			else if (chunkPos.x < prevPos.x) {
 				GLint tempFrontLeft = FRONT_LEFT;
 				GLint tempFront = FRONT;
 				GLint tempFrontRight = FRONT_RIGHT;
@@ -503,8 +508,15 @@ void Producer(TerrainGenerator & terrainGenerator3d, Camera * camera) {
 				returnQ_m.unlock();
 				readyToGrab = 1;
 			}
-			prevPos = pos;
+			std::cout << "  AFTER  " << std::endl;
+			std::cout << FRONT_LEFT << " " << FRONT << " " << FRONT_RIGHT << std::endl;
+			std::cout << LEFT << " " << MIDDLE << " " << RIGHT << std::endl;
+			std::cout << BACK_LEFT << " " << BACK << " " << BACK_RIGHT << std::endl;
+			std::cout << std::endl << std::endl;
+			prevPos = chunkPos;
 		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		else {
+			std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		}
 	}
 }

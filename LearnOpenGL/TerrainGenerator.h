@@ -2,13 +2,14 @@
 
 #include <iostream>
 #include <fstream>
+#include <cmath>
 
 #include "PerlinNoise.h"
 #include "ComplexPosition.h"
 
 #define T_2D 2
 #define T_3D 3
-#define GRAN 0.01 // Granularity
+#define GRAN 0.05 // Granularity
 
 class TerrainGenerator
 {
@@ -21,12 +22,14 @@ public:
 	   The chunk of which the position is in will be generated
 	*/
 	std::vector<glm::vec3> generate(GLint x, GLint z);
-	std::vector<glm::vec3> generate(GLint x, GLint y, GLint z);
-	ComplexPosition generateComplex(GLint x, GLint y, GLint z);
+	std::vector<glm::vec3> generate(GLfloat x, GLfloat y, GLfloat z);
+	ComplexPosition generateComplex(GLfloat x, GLfloat y, GLfloat z);
 
 	GLboolean shouldGetNewChunks(glm::vec3 position);
 
-	GLint getLowerVal(GLint val, GLint range);
+	GLint getLowerVal(GLfloat val, GLint range);
+
+	glm::vec3 getChunkPos(glm::vec3 pos);
 
 private:
 	// Size of one chunk of terrain
