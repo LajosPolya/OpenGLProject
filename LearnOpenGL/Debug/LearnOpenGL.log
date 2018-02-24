@@ -1,4 +1,6 @@
-﻿  LearnOpenGL.cpp
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(160): warning C4244: 'argument': conversion from 'GLfloat' to 'GLint', possible loss of data
+﻿  TerrainGenerator.cpp
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.cpp(151): warning C4244: '=': conversion from 'GLint' to 'float', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.cpp(152): warning C4244: '=': conversion from 'GLint' to 'float', possible loss of data
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\terraingenerator.cpp(153): warning C4244: '=': conversion from 'GLint' to 'float', possible loss of data
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)

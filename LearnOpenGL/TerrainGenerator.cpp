@@ -112,6 +112,17 @@ ComplexPosition TerrainGenerator::generateComplex(GLfloat x, GLfloat y, GLfloat 
 	if (position.size() == 0) {
 		std::cout << "Terrain Generator ERROR: Zero Positions Generated" << std::endl;
 	}
+
+	for (GLint i = 0; i < this->x; i++) {
+		for (GLint j = 0; j < this->y; j++) {
+			//for (GLint k = 0; k < this->z; k++) {
+				delete values[i][j];
+			//}
+		}
+		delete values[i];
+	}
+	delete values;
+
 	(*CoPo).setPositions(position);
 	(*CoPo).setDrawablePositions(drawablePosition);
 	return *CoPo;
