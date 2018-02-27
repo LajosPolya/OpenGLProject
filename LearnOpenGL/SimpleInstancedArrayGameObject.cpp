@@ -24,7 +24,7 @@ SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffu
 	this->material = GameObjectUtils::getMaterial(materialPath);
 }
 
-SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::vector<glm::vec3> positions) {
+SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::vector<glm::vec3> positions) : transform() {
 	// TODO: Textures should be created where the Mesh is created
 	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapPath);
 	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapPath);

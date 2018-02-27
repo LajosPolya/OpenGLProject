@@ -145,6 +145,7 @@
     <ClCompile Include="SimpleInstancedArrayGameObject.cpp" />
     <ClCompile Include="SimpleInstancedGameObject.cpp" />
     <ClCompile Include="TerrainGenerator.cpp" />
+    <ClCompile Include="TerrainLoader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TransformImpl.cpp" />
     <ClCompile Include="TransparentGameObjectImpl.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="SimpleInstancedArrayGameObject.h" />
     <ClInclude Include="SimpleInstancedGameObject.h" />
     <ClInclude Include="TerrainGenerator.h" />
+    <ClInclude Include="TerrainLoader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TransformImpl.h" />
     <ClInclude Include="Transform.h" />
