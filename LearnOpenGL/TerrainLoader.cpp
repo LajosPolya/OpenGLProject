@@ -22,16 +22,6 @@ void TerrainLoader::stop() {
 }
 
 void TerrainLoader::Loader(TerrainGenerator & terrainGenerator3d, Camera * camera, std::mutex & returnQ_m, GLuint & readyToGrab, std::vector<PositionRelativeCamera> & newReturnQ) {
-	// These consts represent a 3x3 grid viewed as a 1d array (the array storing all the GameObject in the main loop)
-	GLint FRONT_LEFT = 0;
-	GLint FRONT = 1;
-	GLint FRONT_RIGHT = 2;
-	GLint LEFT = 3;
-	GLint MIDDLE = 4;
-	GLint RIGHT = 5;
-	GLint BACK_LEFT = 6;
-	GLint BACK = 7;
-	GLint BACK_RIGHT = 8;
 	GLint empty = 1;
 	GLint done = 0;
 	glm::vec3 prevPos = camera->Position;
@@ -81,109 +71,109 @@ void TerrainLoader::Loader(TerrainGenerator & terrainGenerator3d, Camera * camer
 		// Let's assume positive x is forward
 		if (terrainGenerator3d.shouldGetNewChunks(pos) == 1 && readyToGrab == 0) {
 			std::cout << "  BEFORE  " << pos.x << " " << pos.z << " Chunk: " << chunkPos.x << " " << chunkPos.z << std::endl;
-			std::cout << FRONT_LEFT << " " << FRONT << " " << FRONT_RIGHT << std::endl;
-			std::cout << LEFT << " " << MIDDLE << " " << RIGHT << std::endl;
-			std::cout << BACK_LEFT << " " << BACK << " " << BACK_RIGHT << std::endl;
+			std::cout << this->FRONT_LEFT << " " << this->FRONT << " " << this->FRONT_RIGHT << std::endl;
+			std::cout << this->LEFT << " " << this->MIDDLE << " " << this->RIGHT << std::endl;
+			std::cout << this->BACK_LEFT << " " << this->BACK << " " << this->BACK_RIGHT << std::endl;
 			if (chunkPos.x > prevPos.x) {
-				GLint tempBackLeft = BACK_LEFT;
-				GLint tempBack = BACK;
-				GLint tempBackRight = BACK_RIGHT;
+				this->CUR_FORWARD_LEFT = this->BACK_LEFT;
+				this->CUR_FORWARD = this->BACK;
+				this->CUR_FORWARD_RIGHT = this->BACK_RIGHT;
 
-				BACK_LEFT = LEFT;
-				BACK = MIDDLE;
-				BACK_RIGHT = RIGHT;
+				this->BACK_LEFT = this->LEFT;
+				this->BACK = this->MIDDLE;
+				this->BACK_RIGHT = this->RIGHT;
 
-				LEFT = FRONT_LEFT;
-				MIDDLE = FRONT;
-				RIGHT = FRONT_RIGHT;
+				this->LEFT = this->FRONT_LEFT;
+				this->MIDDLE = this->FRONT;
+				this->RIGHT = this->FRONT_RIGHT;
 
-				FRONT_LEFT = tempBackLeft;
-				FRONT = tempBack;
-				FRONT_RIGHT = tempBackRight;
+				this->FRONT_LEFT = this->CUR_FORWARD_LEFT;
+				this->FRONT = this->CUR_FORWARD;
+				this->FRONT_RIGHT = this->CUR_FORWARD_RIGHT;
 
 				returnQ_m.lock();
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z).getDrawablePositions()), FRONT));
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), FRONT_RIGHT));
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), FRONT_LEFT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), this->FRONT_LEFT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z).getDrawablePositions()), this->FRONT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), this->FRONT_RIGHT));
 				returnQ_m.unlock();
 				readyToGrab = 1;
 			}
 			else if (chunkPos.x < prevPos.x) {
-				GLint tempFrontLeft = FRONT_LEFT;
-				GLint tempFront = FRONT;
-				GLint tempFrontRight = FRONT_RIGHT;
+				this->CUR_FORWARD_LEFT = this->FRONT_LEFT;
+				this->CUR_FORWARD = this->FRONT;
+				this->CUR_FORWARD_RIGHT = this->FRONT_RIGHT;
 
-				FRONT_LEFT = LEFT;
-				FRONT = MIDDLE;
-				FRONT_RIGHT = RIGHT;
+				this->FRONT_LEFT = this->LEFT;
+				this->FRONT = this->MIDDLE;
+				this->FRONT_RIGHT = this->RIGHT;
 
-				LEFT = BACK_LEFT;
-				MIDDLE = BACK;
-				RIGHT = BACK_RIGHT;
+				this->LEFT = this->BACK_LEFT;
+				this->MIDDLE = this->BACK;
+				this->RIGHT = this->BACK_RIGHT;
 
-				BACK_LEFT = tempFrontLeft;
-				BACK = tempFront;
-				BACK_RIGHT = tempFrontRight;
+				this->BACK_LEFT = this->CUR_FORWARD_LEFT;
+				this->BACK = this->CUR_FORWARD;
+				this->BACK_RIGHT = this->CUR_FORWARD_RIGHT;
 
 				returnQ_m.lock();
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z).getDrawablePositions()), BACK));
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), BACK_RIGHT));
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), BACK_LEFT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), this->BACK_LEFT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z).getDrawablePositions()), this->BACK));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), this->BACK_RIGHT));
 				returnQ_m.unlock();
 				readyToGrab = 1;
 			}
 			else if (chunkPos.z > prevPos.z) {
-				GLint tempFrontLeft = FRONT_LEFT;
-				GLint tempLeft = LEFT;
-				GLint tempBackLeft = BACK_LEFT;
+				this->CUR_FORWARD_LEFT = this->FRONT_LEFT;
+				this->CUR_FORWARD = this->LEFT;
+				this->CUR_FORWARD_RIGHT = this->BACK_LEFT;
 
-				FRONT_LEFT = FRONT;
-				LEFT = MIDDLE;
-				BACK_LEFT = BACK;
+				this->FRONT_LEFT = this->FRONT;
+				this->LEFT = this->MIDDLE;
+				this->BACK_LEFT = this->BACK;
 
-				FRONT = FRONT_RIGHT;
-				MIDDLE = RIGHT;
-				BACK = BACK_RIGHT;
+				this->FRONT = this->FRONT_RIGHT;
+				this->MIDDLE = this->RIGHT;
+				this->BACK = this->BACK_RIGHT;
 
-				FRONT_RIGHT = tempFrontLeft;
-				RIGHT = tempLeft;
-				BACK_RIGHT = tempBackLeft;
+				this->FRONT_RIGHT = this->CUR_FORWARD_LEFT;
+				this->RIGHT = this->CUR_FORWARD;
+				this->BACK_RIGHT = this->CUR_FORWARD_RIGHT;
 
 				returnQ_m.lock();
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), FRONT_RIGHT));
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), RIGHT));
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), BACK_RIGHT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), this->FRONT_RIGHT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), this->RIGHT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), this->BACK_RIGHT));
 				returnQ_m.unlock();
 				readyToGrab = 1;
 			}
 			else if (chunkPos.z < prevPos.z) {
-				GLint tempFrontRight = FRONT_RIGHT;
-				GLint tempRight = RIGHT;
-				GLint tempBackRight = BACK_RIGHT;
+				this->CUR_FORWARD_LEFT = this->FRONT_RIGHT;
+				this->CUR_FORWARD = this->RIGHT;
+				this->CUR_FORWARD_RIGHT = this->BACK_RIGHT;
 
-				FRONT_RIGHT = FRONT;
-				RIGHT = MIDDLE;
-				BACK_RIGHT = BACK;
+				this->FRONT_RIGHT = this->FRONT;
+				this->RIGHT = this->MIDDLE;
+				this->BACK_RIGHT = this->BACK;
 
-				FRONT = FRONT_LEFT;
-				MIDDLE = LEFT;
-				BACK = BACK_LEFT;
+				this->FRONT = this->FRONT_LEFT;
+				this->MIDDLE = this->LEFT;
+				this->BACK = this->BACK_LEFT;
 
-				FRONT_LEFT = tempFrontRight;
-				LEFT = tempRight;
-				BACK_LEFT = tempBackRight;
+				this->FRONT_LEFT = this->CUR_FORWARD_LEFT;
+				this->LEFT = this->CUR_FORWARD;
+				this->BACK_LEFT = this->CUR_FORWARD_RIGHT;
 
 				returnQ_m.lock();
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), FRONT_LEFT));
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), LEFT));
-				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), BACK_LEFT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x + CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), this->FRONT_LEFT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), this->LEFT));
+				newReturnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(terrainGenerator3d.generateComplex(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), this->BACK_LEFT));
 				returnQ_m.unlock();
 				readyToGrab = 1;
 			}
 			std::cout << "  AFTER  " << std::endl;
-			std::cout << FRONT_LEFT << " " << FRONT << " " << FRONT_RIGHT << std::endl;
-			std::cout << LEFT << " " << MIDDLE << " " << RIGHT << std::endl;
-			std::cout << BACK_LEFT << " " << BACK << " " << BACK_RIGHT << std::endl;
+			std::cout << this->FRONT_LEFT << " " << this->FRONT << " " << this->FRONT_RIGHT << std::endl;
+			std::cout << this->LEFT << " " << this->MIDDLE << " " << this->RIGHT << std::endl;
+			std::cout << this->BACK_LEFT << " " << this->BACK << " " << this->BACK_RIGHT << std::endl;
 			std::cout << std::endl << std::endl;
 			prevPos = chunkPos;
 		}
