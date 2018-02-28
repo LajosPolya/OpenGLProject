@@ -22,6 +22,14 @@ public:
 	void stop();
 
 private:
+	/* Implement this to only call terrain geenrator in Load() */
+	struct Position_To_Load {
+		glm::vec3 forwardLeft;
+		glm::vec3 forward;
+		glm::vec3 forwardRight;
+	} positionsToLoad;
+
+
 	std::thread t1;
 	TerrainGenerator * terrainGenerator3d;
 	Camera * camera;
@@ -46,7 +54,7 @@ private:
 	GLint CUR_FORWARD;
 	GLint CUR_FORWARD_RIGHT;
 
-	void Loader(Camera * camera, std::mutex & returnQ_m, GLuint & readyToGrab, std::vector<PositionRelativeCamera> & returnQ);
+	void Loader();
 
 	/* Shift indexes and change Camera position */
 	void shiftInPositiveXDir(glm::vec3 pos);
