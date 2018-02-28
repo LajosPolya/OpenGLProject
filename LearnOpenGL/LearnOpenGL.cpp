@@ -41,10 +41,6 @@
 
 #define WORLD_LENGTH 5
 
-#define CHUNK_X (GLfloat)50
-#define CHUNK_Y (GLfloat)25
-#define CHUNK_Z (GLfloat)50
-
 // Function prototypes
 void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode);
 void do_movement();
@@ -56,13 +52,10 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
 const GLuint WIDTH = 800, HEIGHT = 600;
 
 // Multithreaded Functions
-byte killAll = 0;
 std::vector<PositionRelativeCamera> newReturnQ;
 std::vector<SimpleInstancedArrayGameObject> chunks;
 std::mutex returnQ_m;
 GLuint readyToGrab = 0;
-SimpleInstancedArrayGameObject * perlin3d2;
-
 // Camera
 Camera * camera = new Camera(glm::vec3(0.0f, 0.0f, -10.0f));
 // Previosu Position for Collision Detection
@@ -153,16 +146,6 @@ int main() {
 	TransparentGameObjectImpl instancedWimdowGameObject = TransparentGameObjectImpl("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection);
 	InstancedTransformImpl newInstancedTransform("Instance/crate3.txt");
 
-	ComplexPosition CoPo;
-	TerrainGenerator terrainGenerator3d((GLint)CHUNK_X, (GLint)CHUNK_Y, (GLint)CHUNK_Z, T_3D);
-	CoPo = terrainGenerator3d.generateComplex(0, 0, 0);
-	SimpleInstancedArrayGameObject perlin3d("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo.getDrawablePositions());
-
-	ComplexPosition CoPo2;
-	CoPo2 = terrainGenerator3d.generateComplex(0, 0, -50);
-	perlin3d2 = new SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo2.getDrawablePositions(), GL_TRIANGLES);
-	///InstancedArrayGameObjectImpl lineGrass("Shaders/instancedVertToGeo.vert", "Shaders/grass.frag", "Shaders/line.geom", "", "", "Mesh/dynamicGrass.txt", "Material/crate.txt", pos3d, "Material/crate.txt", camera, projection, GL_POINTS);
-
 	std::vector<glm::vec3> pos2d;
 	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
 	pos2d = terrainGenerator2d.generate(-50, 0);
@@ -195,15 +178,12 @@ int main() {
 	globalInstancedShader.sendProjectionMatrixToShader();
 	globalInstancedShader.sendToShader(instancedGameObject.getMaterial());
 
-	// InstancedArrayComplexShader and SimpleGameObject Testing
-	ComplexPosition CoPo4;
-	CoPo4 = terrainGenerator3d.generateComplex(-50, 0, -50);
+	// InstancedArrayComplexShader
 	InstancedArrayComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "instancedArray.vert", "fragment.frag");
-	SimpleInstancedArrayGameObject simpleGO("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", CoPo4.getDrawablePositions());
 	globalInstancedArrayShader.setSamplers();
 	globalInstancedArrayShader.sendLightsContainerToShader();
 	globalInstancedArrayShader.sendProjectionMatrixToShader();
-	globalInstancedArrayShader.sendToShader(simpleGO.getMaterial());
+	globalInstancedArrayShader.sendToShader(perlin.getMaterial());
 
 
 	// Collision Detection
@@ -219,7 +199,7 @@ int main() {
 	///CollisionDetector::AddTransform(perlin.getTransform());
 	//CollisionDetector::AddTransform(perlin3d.getTransform());
 
-	TerrainLoader terrainLoader(CHUNK_X, CHUNK_Y, CHUNK_Z, terrainGenerator3d, camera, returnQ_m, readyToGrab, newReturnQ);
+	TerrainLoader terrainLoader(camera, returnQ_m, readyToGrab, newReturnQ);
 	terrainLoader.start();
 	duration = std::clock() - start;
 	std::cout << "Time to start: " << duration << std::endl;
@@ -316,8 +296,6 @@ int main() {
 		}
 		instancedArrayGameObject.Draw();
 		grassSides.Draw();
-		simpleGO.Draw();
-		perlin3d.Draw();
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -336,8 +314,6 @@ int main() {
 	GameObjectMemoryManager::deleteSharedPointers();
 
 	terrainLoader.stop();
-	/*killAll = 1;
-	t1.detach();*/
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
 	return 0;

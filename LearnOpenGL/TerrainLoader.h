@@ -8,10 +8,14 @@
 #include "InstancedArrayTransformImpl.h"
 #include "PositionRelativeCamera.h"
 
+#define CHUNK_X (GLfloat)50
+#define CHUNK_Y (GLfloat)25
+#define CHUNK_Z (GLfloat)50
+
 class TerrainLoader
 {
 public:
-	TerrainLoader(GLint chunkX, GLint chunkY, GLint chunkZ, TerrainGenerator & terrainGenerator3d, Camera * camera, std::mutex & returnQ_m, GLuint & readyToGrab, std::vector<PositionRelativeCamera> & returnQ);
+	TerrainLoader(Camera * camera, std::mutex & returnQ_m, GLuint & readyToGrab, std::vector<PositionRelativeCamera> & returnQ);
 	~TerrainLoader();
 
 	void start();
@@ -19,14 +23,12 @@ public:
 
 private:
 	std::thread t1;
-	TerrainGenerator & terrainGenerator3d;
+	TerrainGenerator * terrainGenerator3d;
 	Camera * camera;
 	std::mutex & returnQ_m;
 	GLuint & readyToGrab;
 	std::vector<PositionRelativeCamera> & returnQ;
 
-
-	GLint CHUNK_X, CHUNK_Y, CHUNK_Z;
 	GLint killAll = 0;
 
 	// These vars represent a 3x3 grid viewed as a 1d array (the array storing all the GameObject in the main loop)
@@ -44,7 +46,7 @@ private:
 	GLint CUR_FORWARD;
 	GLint CUR_FORWARD_RIGHT;
 
-	void Loader(TerrainGenerator & terrainGenerator3d, Camera * camera, std::mutex & returnQ_m, GLuint & readyToGrab, std::vector<PositionRelativeCamera> & returnQ);
+	void Loader(Camera * camera, std::mutex & returnQ_m, GLuint & readyToGrab, std::vector<PositionRelativeCamera> & returnQ);
 
 	/* Shift indexes and change Camera position */
 	void shiftInPositiveXDir(glm::vec3 pos);
