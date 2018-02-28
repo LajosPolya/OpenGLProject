@@ -128,9 +128,6 @@ int main() {
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 
-
-	TerrainLoader terrainLoader(CHUNK_X, CHUNK_Y, CHUNK_Z);
-
 	glm::vec3 cubePositions[WORLD_LENGTH][WORLD_LENGTH];
 	for (GLuint i = 0; i < WORLD_LENGTH; i++) {
 		for (GLuint j = 0; j < WORLD_LENGTH; j++) {
@@ -222,8 +219,8 @@ int main() {
 	///CollisionDetector::AddTransform(perlin.getTransform());
 	//CollisionDetector::AddTransform(perlin3d.getTransform());
 
-	//std::thread t1(Producer, std::ref(terrainGenerator3d), camera);
-	terrainLoader.start(terrainGenerator3d, camera, returnQ_m, readyToGrab, newReturnQ);
+	TerrainLoader terrainLoader(CHUNK_X, CHUNK_Y, CHUNK_Z, terrainGenerator3d, camera, returnQ_m, readyToGrab, newReturnQ);
+	terrainLoader.start();
 	duration = std::clock() - start;
 	std::cout << "Time to start: " << duration << std::endl;
 	GLuint numFrames = 0;

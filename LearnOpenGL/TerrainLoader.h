@@ -11,18 +11,25 @@
 class TerrainLoader
 {
 public:
-	TerrainLoader(GLint chunkX, GLint chunkY, GLint chunkZ);
+	TerrainLoader(GLint chunkX, GLint chunkY, GLint chunkZ, TerrainGenerator & terrainGenerator3d, Camera * camera, std::mutex & returnQ_m, GLuint & readyToGrab, std::vector<PositionRelativeCamera> & returnQ);
 	~TerrainLoader();
 
-	void start(TerrainGenerator & terrainGenerator3d, Camera * camera, std::mutex & returnQ_m, GLuint & readyToGrab, std::vector<PositionRelativeCamera> & returnQ);
+	void start();
 	void stop();
 
 private:
 	std::thread t1;
+	TerrainGenerator & terrainGenerator3d;
+	Camera * camera;
+	std::mutex & returnQ_m;
+	GLuint & readyToGrab;
+	std::vector<PositionRelativeCamera> & returnQ;
+
+
 	GLint CHUNK_X, CHUNK_Y, CHUNK_Z;
 	GLint killAll = 0;
 
-	// These consts represent a 3x3 grid viewed as a 1d array (the array storing all the GameObject in the main loop)
+	// These vars represent a 3x3 grid viewed as a 1d array (the array storing all the GameObject in the main loop)
 	GLint FRONT_LEFT = 0;
 	GLint FRONT = 1;
 	GLint FRONT_RIGHT = 2;
@@ -38,5 +45,11 @@ private:
 	GLint CUR_FORWARD_RIGHT;
 
 	void Loader(TerrainGenerator & terrainGenerator3d, Camera * camera, std::mutex & returnQ_m, GLuint & readyToGrab, std::vector<PositionRelativeCamera> & returnQ);
+
+	/* Shift indexes and change Camera position */
+	void shiftInPositiveXDir(glm::vec3 pos);
+	void shiftInNegativeXDir(glm::vec3 pos);
+	void shiftInPositiveZDir(glm::vec3 pos);
+	void shiftInNegativeZDir(glm::vec3 pos);
 };
 
