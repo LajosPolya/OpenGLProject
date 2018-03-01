@@ -54,12 +54,12 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint z) {
 	return heightValues;
 }
 
-ComplexPosition TerrainGenerator::generateComplex(GLfloat x, GLfloat y, GLfloat z) {
+ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	ComplexPosition * CoPo = nullptr;
 	GLint i, j, k;
-	GLint lowerX = getLowerVal(x, this->x);
-	GLint lowerY = getLowerVal(y, this->y);
-	GLint lowerZ = getLowerVal(z, this->z);
+	GLint lowerX = getLowerVal(pos.x, this->x);
+	GLint lowerY = getLowerVal(pos.y, this->y);
+	GLint lowerZ = getLowerVal(pos.z, this->z);
 	GLint upperX = lowerX + this->x;
 	GLint upperY = lowerY + this->y;
 	GLint upperZ = lowerZ + this->z;

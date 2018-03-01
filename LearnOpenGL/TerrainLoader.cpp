@@ -45,21 +45,21 @@ void TerrainLoader::Loader() {
 		std::cout << i << std::endl;
 		glm::vec3 initPos = messageQ[messageQ.size() - 1];
 		messageQ.pop_back();
-		this->terrainGenerator3d->generateComplex(initPos.x, initPos.y, initPos.z);
+		this->terrainGenerator3d->generateComplex(initPos);
 	}
 	std::cout << "Ending Init Generation" << std::endl;
 	std::cout << this->camera->Position.x << " " << this->camera->Position.y << " " << this->camera->Position.z << std::endl;
 
 	this->returnQ_m.lock();
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position.x - 50, this->camera->Position.y, this->camera->Position.z + 50).getDrawablePositions()), 8));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position.x - 50, this->camera->Position.y, this->camera->Position.z).getDrawablePositions()), 7));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position.x - 50, this->camera->Position.y, this->camera->Position.z - 50).getDrawablePositions()), 6));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position.x, this->camera->Position.y, this->camera->Position.z + 50).getDrawablePositions()), 5));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position.x, this->camera->Position.y, this->camera->Position.z).getDrawablePositions()), 4));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position.x, this->camera->Position.y, this->camera->Position.z - 50).getDrawablePositions()), 3));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position.x + 50, this->camera->Position.y, this->camera->Position.z + 50).getDrawablePositions()), 2));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position.x + 50, this->camera->Position.y, this->camera->Position.z).getDrawablePositions()), 1));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position.x + 50, this->camera->Position.y, this->camera->Position.z - 50).getDrawablePositions()), 0));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-50, 0, 50)).getDrawablePositions()), 8));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-50, 0, 0)).getDrawablePositions()), 7));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-50, 0, -50)).getDrawablePositions()), 6));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, 0, 50)).getDrawablePositions()), 5));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position).getDrawablePositions()), 4));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, 0, -50)).getDrawablePositions()), 3));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(50, 0, 50)).getDrawablePositions()), 2));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(50, 0, 0)).getDrawablePositions()), 1));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(50, 0, -50)).getDrawablePositions()), 0));
 	this->returnQ_m.unlock();
 	this->readyToGrab = 1;
 	while (this->killAll != 1) {
@@ -71,6 +71,10 @@ void TerrainLoader::Loader() {
 			std::cout << this->FRONT_LEFT << " " << this->FRONT << " " << this->FRONT_RIGHT << std::endl;
 			std::cout << this->LEFT << " " << this->MIDDLE << " " << this->RIGHT << std::endl;
 			std::cout << this->BACK_LEFT << " " << this->BACK << " " << this->BACK_RIGHT << std::endl;
+
+			// TODO: Create a queue to queue up requests incase user moves too fast
+			// TODO: Should implement moving in a diagonal
+			/* Probably a rare case but it can happen */
 			if (chunkPos.x > prevPos.x) {
 				shiftInPositiveXDir(pos);
 			}
@@ -88,9 +92,9 @@ void TerrainLoader::Loader() {
 			}
 
 			this->returnQ_m.lock();
-			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forwardLeft.x, this->positionsToLoad.forwardLeft.y, this->positionsToLoad.forwardLeft.z).getDrawablePositions()), this->CUR_FORWARD_LEFT));
-			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forward.x, this->positionsToLoad.forward.y, this->positionsToLoad.forward.z).getDrawablePositions()), this->CUR_FORWARD));
-			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forwardRight.x, this->positionsToLoad.forwardRight.y, this->positionsToLoad.forwardRight.z).getDrawablePositions()), this->CUR_FORWARD_RIGHT));
+			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forwardLeft).getDrawablePositions()), this->CUR_FORWARD_LEFT));
+			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forward).getDrawablePositions()), this->CUR_FORWARD));
+			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forwardRight).getDrawablePositions()), this->CUR_FORWARD_RIGHT));
 			this->returnQ_m.unlock();
 			this->readyToGrab = 1;
 
