@@ -27,7 +27,7 @@ private:
 		glm::vec3 forwardLeft;
 		glm::vec3 forward;
 		glm::vec3 forwardRight;
-	} positionsToLoad;
+	} positionsToLoad; // positionsToLoad is an instance of type Position_To_Load
 
 
 	std::thread t1;

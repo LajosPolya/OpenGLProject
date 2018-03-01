@@ -72,32 +72,28 @@ void TerrainLoader::Loader() {
 			std::cout << this->LEFT << " " << this->MIDDLE << " " << this->RIGHT << std::endl;
 			std::cout << this->BACK_LEFT << " " << this->BACK << " " << this->BACK_RIGHT << std::endl;
 			if (chunkPos.x > prevPos.x) {
-				this->returnQ_m.lock();
 				shiftInPositiveXDir(pos);
-				this->returnQ_m.unlock();
-				this->readyToGrab = 1;
 			}
 			else if (chunkPos.x < prevPos.x) {
-				this->returnQ_m.lock();
 				shiftInNegativeXDir(pos);
-				this->returnQ_m.unlock();
-				this->readyToGrab = 1;
 			}
 			else if (chunkPos.z > prevPos.z) {
-				this->returnQ_m.lock();
 				shiftInPositiveZDir(pos);
-				this->returnQ_m.unlock();
-				this->readyToGrab = 1;
 			}
 			else if (chunkPos.z < prevPos.z) {
-				this->returnQ_m.lock();
 				shiftInNegativeZDir(pos);
-				this->returnQ_m.unlock();
-				this->readyToGrab = 1;
 			}
 			else {
 				std::cout << "ERROR in TerrainLoader" << std::endl;
 			}
+
+			this->returnQ_m.lock();
+			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forwardLeft.x, this->positionsToLoad.forwardLeft.y, this->positionsToLoad.forwardLeft.z).getDrawablePositions()), this->CUR_FORWARD_LEFT));
+			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forward.x, this->positionsToLoad.forward.y, this->positionsToLoad.forward.z).getDrawablePositions()), this->CUR_FORWARD));
+			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forwardRight.x, this->positionsToLoad.forwardRight.y, this->positionsToLoad.forwardRight.z).getDrawablePositions()), this->CUR_FORWARD_RIGHT));
+			this->returnQ_m.unlock();
+			this->readyToGrab = 1;
+
 			std::cout << "  AFTER  " << std::endl;
 			std::cout << this->FRONT_LEFT << " " << this->FRONT << " " << this->FRONT_RIGHT << std::endl;
 			std::cout << this->LEFT << " " << this->MIDDLE << " " << this->RIGHT << std::endl;
@@ -128,10 +124,9 @@ void TerrainLoader::shiftInPositiveXDir(glm::vec3 pos) {
 	this->FRONT = this->CUR_FORWARD;
 	this->FRONT_RIGHT = this->CUR_FORWARD_RIGHT;
 
-	
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x + CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), this->FRONT_LEFT));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x + CHUNK_X, pos.y, pos.z).getDrawablePositions()), this->FRONT));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x + CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), this->FRONT_RIGHT));
+	this->positionsToLoad.forwardLeft = glm::vec3(pos.x + CHUNK_X, pos.y, pos.z - CHUNK_Z);
+	this->positionsToLoad.forward = glm::vec3(pos.x + CHUNK_X, pos.y, pos.z);
+	this->positionsToLoad.forwardRight = glm::vec3(pos.x + CHUNK_X, pos.y, pos.z + CHUNK_Z);
 }
 
 void TerrainLoader::shiftInNegativeXDir(glm::vec3 pos) {
@@ -151,10 +146,9 @@ void TerrainLoader::shiftInNegativeXDir(glm::vec3 pos) {
 	this->BACK = this->CUR_FORWARD;
 	this->BACK_RIGHT = this->CUR_FORWARD_RIGHT;
 
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), this->BACK_LEFT));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x - CHUNK_X, pos.y, pos.z).getDrawablePositions()), this->BACK));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), this->BACK_RIGHT));
-
+	this->positionsToLoad.forwardLeft = glm::vec3(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z);
+	this->positionsToLoad.forward = glm::vec3(pos.x - CHUNK_X, pos.y, pos.z);
+	this->positionsToLoad.forwardRight = glm::vec3(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z);
 }
 
 void TerrainLoader::shiftInPositiveZDir(glm::vec3 pos) {
@@ -174,9 +168,9 @@ void TerrainLoader::shiftInPositiveZDir(glm::vec3 pos) {
 	this->RIGHT = this->CUR_FORWARD;
 	this->BACK_RIGHT = this->CUR_FORWARD_RIGHT;
 
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x + CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), this->FRONT_RIGHT));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), this->RIGHT));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z).getDrawablePositions()), this->BACK_RIGHT));
+	this->positionsToLoad.forwardLeft = glm::vec3(pos.x + CHUNK_X, pos.y, pos.z + CHUNK_Z);
+	this->positionsToLoad.forward = glm::vec3(pos.x, pos.y, pos.z + CHUNK_Z);
+	this->positionsToLoad.forwardRight = glm::vec3(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z);
 }
 
 void TerrainLoader::shiftInNegativeZDir(glm::vec3 pos) {
@@ -196,7 +190,7 @@ void TerrainLoader::shiftInNegativeZDir(glm::vec3 pos) {
 	this->LEFT = this->CUR_FORWARD;
 	this->BACK_LEFT = this->CUR_FORWARD_RIGHT;
 
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x + CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), this->FRONT_LEFT));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), this->LEFT));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z).getDrawablePositions()), this->BACK_LEFT));
+	this->positionsToLoad.forwardLeft = glm::vec3(pos.x + CHUNK_X, pos.y, pos.z - CHUNK_Z);
+	this->positionsToLoad.forward = glm::vec3(pos.x, pos.y, pos.z - CHUNK_Z);
+	this->positionsToLoad.forwardRight = glm::vec3(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z);
 }

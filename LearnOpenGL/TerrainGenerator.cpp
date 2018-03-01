@@ -23,7 +23,7 @@ TerrainGenerator::TerrainGenerator(GLint x, GLint y, GLint z, GLuint terrainType
 		this->perlinNoise = new PerlinNoise(x, y, z);
 	}
 	else {
-		std::cout << "ERROR: Invalid Terrain Generator Type" << std::endl;
+		std::cout << "WARNING: Invalid Terrain Generator Type" << std::endl;
 	}
 }
 
