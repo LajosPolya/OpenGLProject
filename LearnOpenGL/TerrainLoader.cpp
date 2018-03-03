@@ -64,18 +64,39 @@ void TerrainLoader::Loader() {
 	this->readyToGrab = 1;
 	while (this->killAll != 1) {
 		glm::vec3 pos = this->camera->Position;
-		glm::vec3 chunkPos = this->terrainGenerator3d->getChunkPos(this->camera->Position);
+		glm::vec3 chunkPos = this->terrainGenerator3d->getChunkPos(pos);
 		// Let's assume positive x is forward
-		if (this->terrainGenerator3d->shouldGetNewChunks(pos) == 1 && this->readyToGrab == 0) {
+		if (this->terrainGenerator3d->shouldGetNewChunks(pos) == 1 && chunkPos != prevPos && this->readyToGrab == 0) {
 			std::cout << "  BEFORE  " << pos.x << " " << pos.z << " Chunk: " << chunkPos.x << " " << chunkPos.z << std::endl;
 			std::cout << this->FRONT_LEFT << " " << this->FRONT << " " << this->FRONT_RIGHT << std::endl;
 			std::cout << this->LEFT << " " << this->MIDDLE << " " << this->RIGHT << std::endl;
 			std::cout << this->BACK_LEFT << " " << this->BACK << " " << this->BACK_RIGHT << std::endl;
-
-			// TODO: Create a queue to queue up requests incase user moves too fast
-			// TODO: Should implement moving in a diagonal
-			/* Probably a rare case but it can happen */
-			if (chunkPos.x > prevPos.x) {
+			
+			// Is it safe to lock here?
+			this->returnQ_m.lock();
+			// TODO: Create a queue to queue up requests incase user moves too fast for generation
+			if (chunkPos.x > prevPos.x && chunkPos.z > prevPos.z) {
+				std::cout << "DIAGONAL" << std::endl;
+				// Don't forget to add CHUNK_Y when that's implemented
+				shiftInPositiveXDir(pos + glm::vec3(-CHUNK_X, 0, 0)); // Set to original position
+				shiftInPositiveZDir(pos); // Now Use original position
+			}
+			else if (chunkPos.x > prevPos.x && chunkPos.z < prevPos.z) {
+				std::cout << "DIAGONAL" << std::endl;
+				shiftInPositiveXDir(pos + glm::vec3(-CHUNK_X, 0, 0));
+				shiftInNegativeZDir(pos);
+			}
+			else if (chunkPos.x < prevPos.x && chunkPos.z > prevPos.z) {
+				std::cout << "DIAGONAL" << std::endl;
+				shiftInNegativeXDir(pos + glm::vec3(CHUNK_X, 0, 0));
+				shiftInPositiveZDir(pos);
+			}
+			else if (chunkPos.x < prevPos.x && chunkPos.z < prevPos.z) {
+				std::cout << "DIAGONAL" << std::endl;
+				shiftInNegativeXDir(pos + glm::vec3(CHUNK_X, 0, 0));
+				shiftInNegativeZDir(pos);
+			}
+			else if (chunkPos.x > prevPos.x) {
 				shiftInPositiveXDir(pos);
 			}
 			else if (chunkPos.x < prevPos.x) {
@@ -90,12 +111,8 @@ void TerrainLoader::Loader() {
 			else {
 				std::cout << "ERROR in TerrainLoader" << std::endl;
 			}
-
-			this->returnQ_m.lock();
-			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forwardLeft).getDrawablePositions()), this->CUR_FORWARD_LEFT));
-			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forward).getDrawablePositions()), this->CUR_FORWARD));
-			this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forwardRight).getDrawablePositions()), this->CUR_FORWARD_RIGHT));
 			this->returnQ_m.unlock();
+			// Tells main that it can grab the newly loaded Terrain
 			this->readyToGrab = 1;
 
 			std::cout << "  AFTER  " << std::endl;
@@ -104,6 +121,10 @@ void TerrainLoader::Loader() {
 			std::cout << this->BACK_LEFT << " " << this->BACK << " " << this->BACK_RIGHT << std::endl;
 			std::cout << std::endl << std::endl;
 			prevPos = chunkPos;
+		}
+		else if (chunkPos == prevPos) {
+			std::cout << "WARNING::TerrainLoader:: prevPosition == chunkPositoin" << std::endl;
+			std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		}
 		else {
 			std::this_thread::sleep_for(std::chrono::milliseconds(50));
@@ -131,6 +152,8 @@ void TerrainLoader::shiftInPositiveXDir(glm::vec3 pos) {
 	this->positionsToLoad.forwardLeft = glm::vec3(pos.x + CHUNK_X, pos.y, pos.z - CHUNK_Z);
 	this->positionsToLoad.forward = glm::vec3(pos.x + CHUNK_X, pos.y, pos.z);
 	this->positionsToLoad.forwardRight = glm::vec3(pos.x + CHUNK_X, pos.y, pos.z + CHUNK_Z);
+
+	generate();
 }
 
 void TerrainLoader::shiftInNegativeXDir(glm::vec3 pos) {
@@ -153,6 +176,8 @@ void TerrainLoader::shiftInNegativeXDir(glm::vec3 pos) {
 	this->positionsToLoad.forwardLeft = glm::vec3(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z);
 	this->positionsToLoad.forward = glm::vec3(pos.x - CHUNK_X, pos.y, pos.z);
 	this->positionsToLoad.forwardRight = glm::vec3(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z);
+
+	generate();
 }
 
 void TerrainLoader::shiftInPositiveZDir(glm::vec3 pos) {
@@ -175,6 +200,8 @@ void TerrainLoader::shiftInPositiveZDir(glm::vec3 pos) {
 	this->positionsToLoad.forwardLeft = glm::vec3(pos.x + CHUNK_X, pos.y, pos.z + CHUNK_Z);
 	this->positionsToLoad.forward = glm::vec3(pos.x, pos.y, pos.z + CHUNK_Z);
 	this->positionsToLoad.forwardRight = glm::vec3(pos.x - CHUNK_X, pos.y, pos.z + CHUNK_Z);
+
+	generate();
 }
 
 void TerrainLoader::shiftInNegativeZDir(glm::vec3 pos) {
@@ -197,4 +224,12 @@ void TerrainLoader::shiftInNegativeZDir(glm::vec3 pos) {
 	this->positionsToLoad.forwardLeft = glm::vec3(pos.x + CHUNK_X, pos.y, pos.z - CHUNK_Z);
 	this->positionsToLoad.forward = glm::vec3(pos.x, pos.y, pos.z - CHUNK_Z);
 	this->positionsToLoad.forwardRight = glm::vec3(pos.x - CHUNK_X, pos.y, pos.z - CHUNK_Z);
+
+	generate();
+}
+
+void TerrainLoader::generate() {
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forwardLeft).getDrawablePositions()), this->CUR_FORWARD_LEFT));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forward).getDrawablePositions()), this->CUR_FORWARD));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->positionsToLoad.forwardRight).getDrawablePositions()), this->CUR_FORWARD_RIGHT));
 }

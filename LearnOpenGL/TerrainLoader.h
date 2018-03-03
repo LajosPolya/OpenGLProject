@@ -61,5 +61,8 @@ private:
 	void shiftInNegativeXDir(glm::vec3 pos);
 	void shiftInPositiveZDir(glm::vec3 pos);
 	void shiftInNegativeZDir(glm::vec3 pos);
+
+	// Uses data produced in shiftIn*Dir() to call TerrainGenerator
+	void generate();
 };
 

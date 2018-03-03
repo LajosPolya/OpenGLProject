@@ -259,14 +259,23 @@ int main() {
 
 		// TODO: Consider switching chunks out every 5 or 10 frames to reduce performance hit
 		if (readyToGrab != 0) {
+
 			returnQ_m.lock();
 			GLint returnQSize = newReturnQ.size();
-			chunks[newReturnQ[returnQSize - 1].getIndex()].setInstances(&newReturnQ[returnQSize - 1].getTransform());
-			newReturnQ.pop_back();
-			returnQ_m.unlock();
-			if (newReturnQ.size() == 0) {
-				readyToGrab = 0;
+			if (returnQSize > 0) {
+				chunks[newReturnQ[returnQSize - 1].getIndex()].setInstances(&newReturnQ[returnQSize - 1].getTransform());
+				newReturnQ.pop_back();
+				returnQ_m.unlock();
+				if (newReturnQ.size() == 0) {
+					readyToGrab = 0;
+				}
 			}
+			else {
+				// Don't forget to unlock here too
+				returnQ_m.unlock();
+				std::cout << "ERROR: MAIN::readyToGrab = 1 but returnQSize <= 0" << std::endl;
+			}
+			
 		}
 
 		// TODO: Create LightGameObject so light info is stored withing GameObject
