@@ -20,6 +20,11 @@ public:
 	PerlinNoise(GLuint x, GLuint y);
 	PerlinNoise(GLuint x, GLuint y, GLuint z);
 	GLfloat **  generate(GLint x, GLint y);
+	// TODO: Should only return one GLfloat
+	/*
+		This way we cut a looping through all the data once in TerrainGenerator
+		We'd need better Chunk handling so it doesn't check the gradients everytime
+	*/
 	GLfloat *** generate(GLint x, GLint y, GLint z);
 
 	GLboolean hasGenerated(GLint x, GLint y, GLint z);

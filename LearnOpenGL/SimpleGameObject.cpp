@@ -2,6 +2,11 @@
 
 
 
+SimpleGameObject::SimpleGameObject(std::string meshPath, std::string transformPath) : SimpleGameObject("", "", meshPath, "", transformPath)
+{}
+
+SimpleGameObject::SimpleGameObject(std::string diffuseMapPath, std::string meshPath, std::string transformPath) : SimpleGameObject(diffuseMapPath, "", meshPath, "", transformPath)
+{}
 SimpleGameObject::SimpleGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::string transformPath) {
 	this->transform = new TransformImpl(transformPath);
 

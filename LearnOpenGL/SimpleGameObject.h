@@ -11,6 +11,8 @@
 class SimpleGameObject
 {
 public:
+	SimpleGameObject(std::string meshPath, std::string transformPath);
+	SimpleGameObject(std::string diffuseMapPath, std::string meshPath, std::string transformPath);
 	SimpleGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::string transformPath);
 	~SimpleGameObject();
 

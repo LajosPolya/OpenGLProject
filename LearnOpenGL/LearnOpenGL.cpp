@@ -25,7 +25,6 @@
 
 // My Code
 #include "Camera.h"
-#include "GameObjectImpl.h"
 #include "TransparentGameObjectImpl.h"
 #include "PerlinNoise.h"
 #include "TerrainGenerator.h"
@@ -131,15 +130,7 @@ int main() {
 	std::clock_t start;
 	GLdouble duration;
 
-	start = std::clock();
-	/* I think the grass Transform.z is 0.5 so it can be rotated properly on the y-axis (so it doesn't rotate along a corner */
-	GameObjectImpl grassGameObject("alpha.vert", "alpha.frag", "grass.png", "Mesh/grass.txt", "Transform/grass.txt", camera, projection);
-	/* "vertex.txt", "fragment.txt", "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crateMaterial.txt", Transform/crate.txt */
-	GameObjectImpl lightBox1("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox1.txt", camera, projection);
-	GameObjectImpl lightBox2("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox2.txt", camera, projection);
-	GameObjectImpl lightBox3("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox3.txt", camera, projection);
-	GameObjectImpl lightBox4("lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox4.txt", camera, projection);
-
+	start = std::clock();	
 	SimpleInstancedArrayGameObject instancedArrayGameObject = SimpleInstancedArrayGameObject("container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate.txt");
 	SimpleInstancedArrayGameObject grassSides("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", "Instance/crate2.txt");
 	// TransparentGameObject is currently broken because it calls setupMesh() which is currently being altered
@@ -162,9 +153,25 @@ int main() {
 
 	// Global Lights Container
 	LightsContainer globalLightsContainer("Material/crate.txt");
+
+	///"lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox1.txt", camera, projection
+	ComplexShader globalLightsShader(camera, &globalLightsContainer, projection, "lamp.vert", "lamp.frag");
+	SimpleGameObject lightBox1("Mesh/lightBox.txt", "Transform/lightBox1.txt");
+	SimpleGameObject lightBox2("Mesh/lightBox.txt", "Transform/lightBox2.txt");
+	SimpleGameObject lightBox3("Mesh/lightBox.txt", "Transform/lightBox3.txt");
+	SimpleGameObject lightBox4("Mesh/lightBox.txt", "Transform/lightBox4.txt");
+	globalLightsShader.sendProjectionMatrixToShader();
+
+	///GameObjectImpl grassGameObject(, "grass.png", "Mesh/grass.txt", "Transform/grass.txt", camera, projection);
+	ComplexShader globalAlphaShader(camera, &globalLightsContainer, projection, "alpha.vert", "alpha.frag");
+	SimpleGameObject grassGameObject("grass.png", "Mesh/grass.txt", "Transform/grass.txt");
+	globalAlphaShader.setSamplers();
+	globalAlphaShader.sendLightsContainerToShader();
+	globalAlphaShader.sendProjectionMatrixToShader();
 	// ComplexShader
 	ComplexShader globalComplexShader(camera, &globalLightsContainer, projection, "vertex.vert", "fragment.frag");
 	SimpleGameObject testingGameObject = SimpleGameObject("container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Transform/crate.txt");
+	//TODO : This should all be done on the Constructor
 	globalComplexShader.setSamplers();
 	globalComplexShader.sendLightsContainerToShader();
 	globalComplexShader.sendProjectionMatrixToShader();
@@ -248,12 +255,18 @@ int main() {
 		testingGameObject.Draw();
 
 		glDisable(GL_CULL_FACE);
+		globalAlphaShader.sendCameraToShader();
+		// Since the shader can be shared the model needs to be sent every time
+		globalAlphaShader.sendModelToShader(grassGameObject.getTransform()->getModel());
 		grassGameObject.Draw();
 		grassGameObject.getTransform()->setYRotation(glm::radians(90.0f));
+		globalAlphaShader.sendModelToShader(grassGameObject.getTransform()->getModel());
 		grassGameObject.Draw();
 		grassGameObject.getTransform()->setYRotation(glm::radians(45.0f));
+		globalAlphaShader.sendModelToShader(grassGameObject.getTransform()->getModel());
 		grassGameObject.Draw();
 		grassGameObject.getTransform()->setYRotation(glm::radians(135.0f));
+		globalAlphaShader.sendModelToShader(grassGameObject.getTransform()->getModel());
 		grassGameObject.Draw();
 		glEnable(GL_CULL_FACE);
 
@@ -281,9 +294,14 @@ int main() {
 		// TODO: Create LightGameObject so light info is stored withing GameObject
 		// TODO: These should be one isntancedArrayGameObject
 		// TODO: The Lights should be getting their transform from the Material object or vice versa
+		globalLightsShader.sendCameraToShader();
+		globalLightsShader.sendModelToShader(lightBox1.getTransform()->getModel());
 		lightBox1.Draw();
+		globalLightsShader.sendModelToShader(lightBox2.getTransform()->getModel());
 		lightBox2.Draw();
+		globalLightsShader.sendModelToShader(lightBox3.getTransform()->getModel());
 		lightBox3.Draw();
+		globalLightsShader.sendModelToShader(lightBox4.getTransform()->getModel());
 		lightBox4.Draw();
 
 		// InstancedComplexShader
