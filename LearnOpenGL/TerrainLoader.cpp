@@ -122,7 +122,7 @@ void TerrainLoader::Loader() {
 			std::cout << std::endl << std::endl;
 			prevPos = chunkPos;
 		}
-		else if (chunkPos == prevPos) {
+		else if (this->terrainGenerator3d->shouldGetNewChunks(pos) == 1 && chunkPos == prevPos) {
 			std::cout << "WARNING::TerrainLoader:: prevPosition == chunkPositoin" << std::endl;
 			std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		}
