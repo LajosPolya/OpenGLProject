@@ -29,15 +29,32 @@ GLfloat **  PerlinNoise::generate(GLint x, GLint y) {
 	return values;
 }
 
-GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z) {
-	GLuint i, j, k;
-	GLfloat *** values3d;
+GLfloat PerlinNoise::generate(GLint x, GLint y, GLint z) {
+	if (this->initSet == 0) {
+		std::cout << "ERROR::PerlinNoise:: CHUNK NOT SET BUT IT GENERATING" << std::endl;
+	}
+	return perlin((GLfloat)x / (GLfloat)this->x * (GLfloat)1.0, (GLfloat)y / (GLfloat)this->y * (GLfloat)1.0, (GLfloat)z / (GLfloat)this->z * (GLfloat)1.0);
+}
 
-	if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] == nullptr) {
+GLboolean PerlinNoise::hasGenerated(GLint x, GLint y, GLint z) {
+
+	if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
+		return 1;
+	}
+
+	return 0;
+}
+
+void PerlinNoise::setChunk(GLint x, GLint y, GLint z) {
+	GLuint i, j, k;
+
+	initSet = 1;
+
+	if (hasGenerated(x, y, z) == 0) {
 		genGradients3d(64, 64, 64);
 	}
 
-	if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks - 1] != nullptr) {
+	if (hasGenerated(x, y, z - 1) == 1) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
 				this->gradients3d[i][j][0] = this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks - 1][i][j][1 * 1];
@@ -45,7 +62,7 @@ GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z) {
 		}
 	}
 
-	if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks + 1] != nullptr) {
+	if (hasGenerated(x, y, z + 1) == 1) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
 				this->gradients3d[i][j][1 * 1] = this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks + 1][i][j][0];
@@ -53,7 +70,7 @@ GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z) {
 		}
 	}
 
-	if (this->chunkGrads[x + halfMaxChunks - 1][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
+	if (hasGenerated(x - 1, y, z) == 1) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
 				this->gradients3d[0][i][j] = this->chunkGrads[x + halfMaxChunks - 1][y + halfMaxChunks][z + halfMaxChunks][1 * 1][i][j];
@@ -61,7 +78,7 @@ GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z) {
 		}
 	}
 
-	if (this->chunkGrads[x + halfMaxChunks + 1][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
+	if (hasGenerated(x + 1, y, z) == 1) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
 				this->gradients3d[1 * 1][i][j] = this->chunkGrads[x + halfMaxChunks + 1][y + halfMaxChunks][z + halfMaxChunks][0][i][j];
@@ -69,16 +86,6 @@ GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z) {
 		}
 	}
 
-	values3d = new GLfloat**[this->x];
-	for (i = 0; i < this->x; i++) {
-		values3d[i] = new GLfloat*[this->y];
-		for (j = 0; j < this->y; j++) {
-			values3d[i][j] = new GLfloat[this->z];
-			for (k = 0; k < this->z; k++) {
-				values3d[i][j][k] = perlin((GLfloat)i / (GLfloat)this->x * (GLfloat)1.0, (GLfloat)j / (GLfloat)this->y * (GLfloat)1.0, (GLfloat)k / (GLfloat)this->z * (GLfloat)1.0);
-			}
-		}
-	}
 	//this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] = this->gradients3d;
 
 	this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] = new glm::vec3**[64];
@@ -91,16 +98,6 @@ GLfloat *** PerlinNoise::generate(GLint x, GLint y, GLint z) {
 			}
 		}
 	}
-	return values3d;
-}
-
-GLboolean PerlinNoise::hasGenerated(GLint x, GLint y, GLint z) {
-
-	if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
-		return 1;
-	}
-
-	return 0;
 }
 
 void PerlinNoise::genGradients(GLuint x, GLuint y) {

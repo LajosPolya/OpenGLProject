@@ -74,12 +74,16 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 		CoPo = this->chunkPositions[lowerX / this->x + halfMaxChunks][lowerY / this->y + halfMaxChunks][lowerZ / this->z + halfMaxChunks];
 	}
 
+	perlinNoise->setChunk(lowerX / this->x, lowerY / this->y, lowerZ / this->z);
 	GLfloat *** values;
 	// Generate positions for the chunk the input parameters are in
-	values = perlinNoise->generate(lowerX / this->x, lowerY / this->y, lowerZ / this->z);
+	values = new GLfloat**[this->x];
 	for (i = lowerX; i < upperX; i++) {
+		values[i - lowerX] = new GLfloat*[this->y];
 		for (j = lowerY; j < upperY; j++) {
+			values[i - lowerX][j - lowerY] = new GLfloat[this->z];
 			for (k = lowerZ; k < upperZ; k++) {
+				values[i - lowerX][j - lowerY][k - lowerZ] = perlinNoise->generate(i - lowerX, j - lowerY, k - lowerZ);
 				if (values[i - lowerX][j - lowerY][k - lowerZ] >(GLfloat)GRAN) {
 					position.push_back(glm::vec3(i, j, k));
 
@@ -102,7 +106,7 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 					// Top																																																																																																																	   // Bottom																																																																																																															// Middle
 					// This is the rest of checks for the cube. Though these are not necessary
 					/*else if ((!(values[i - x + 1][j - y + 1][k - z] >(GLfloat)GRAN && values[i - x - 1][j - y + 1][k - z] >(GLfloat)GRAN && values[i - x][j - y + 1][k - z + 1] >(GLfloat)GRAN && values[i - x][j - y + 1][k - z - 1] >(GLfloat)GRAN && values[i - x + 1][j - y + 1][k - z + 1] >(GLfloat)GRAN && values[i - x + 1][j - y + 1][k - z - 1] >(GLfloat)GRAN && values[i - x - 1][j - y + 1][k - z + 1] >(GLfloat)GRAN && values[i - x - 1][j - y + 1][k - z - 1] >(GLfloat)GRAN)) || (!(values[i - x + 1][j - y - 1][k - z] >(GLfloat)GRAN && values[i - x - 1][j - y - 1][k - z] >(GLfloat)GRAN && values[i - x][j - y - 1][k - z + 1] >(GLfloat)GRAN && values[i - x][j - y - 1][k - z - 1] >(GLfloat)GRAN && values[i - x + 1][j - y - 1][k - z + 1] >(GLfloat)GRAN && values[i - x + 1][j - y - 1][k - z - 1] >(GLfloat)GRAN && values[i - x - 1][j - y - 1][k - z + 1] >(GLfloat)GRAN && values[i - x - 1][j - y - 1][k - z - 1] >(GLfloat)GRAN)) || (!(values[i - x + 1][j - y][k - z + 1] > (GLfloat)GRAN && values[i - x + 1][j - y][k - z - 1] > (GLfloat)GRAN && values[i - x - 1][j - y][k - z + 1] > (GLfloat)GRAN && values[i - x - 1][j - y][k - z + 1] > (GLfloat)GRAN))) {
-						drawablePosition.push_back(glm::vec3(i, j, k));
+					drawablePosition.push_back(glm::vec3(i, j, k));
 					}*/
 				}
 			}
@@ -116,7 +120,7 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	for (GLint i = 0; i < this->x; i++) {
 		for (GLint j = 0; j < this->y; j++) {
 			//for (GLint k = 0; k < this->z; k++) {
-				delete values[i][j];
+			delete values[i][j];
 			//}
 		}
 		delete values[i];

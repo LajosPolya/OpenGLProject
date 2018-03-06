@@ -24,7 +24,7 @@ void TerrainLoader::stop() {
 void TerrainLoader::Loader() {
 	GLint empty = 1;
 	GLint done = 0;
-	glm::vec3 prevPos = this->camera->Position;
+	glm::vec3 prevPos = this->terrainGenerator3d->getChunkPos(this->camera->Position);
 	std::vector<glm::vec3> messageQ;
 	GLuint messageQSize = 0;
 

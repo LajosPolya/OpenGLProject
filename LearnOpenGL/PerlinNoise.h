@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 // GLEW
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -20,14 +22,13 @@ public:
 	PerlinNoise(GLuint x, GLuint y);
 	PerlinNoise(GLuint x, GLuint y, GLuint z);
 	GLfloat **  generate(GLint x, GLint y);
-	// TODO: Should only return one GLfloat
-	/*
-		This way we cut a looping through all the data once in TerrainGenerator
-		We'd need better Chunk handling so it doesn't check the gradients everytime
-	*/
-	GLfloat *** generate(GLint x, GLint y, GLint z);
+
+	// Starting GLfloat impl
+	GLfloat generate(GLint x, GLint y, GLint z);
 
 	GLboolean hasGenerated(GLint x, GLint y, GLint z);
+
+	void setChunk(GLint x, GLint y, GLint z);
 
 private:
 	// Size of chunk
@@ -43,6 +44,11 @@ private:
 	const GLdouble PI = 3.141592653589793;
 	glm::vec2 ** gradients;
 	glm::vec3 *** gradients3d;
+
+	/**/
+	GLint initSet = 0;
+
+	/**/
 
 	void genGradients(GLuint x, GLuint y);
 	void genGradients3d(GLuint x, GLuint y, GLuint z);
