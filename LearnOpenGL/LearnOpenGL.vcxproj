@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChunkManager.cpp" />
     <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="ComplexPosition.cpp" />
     <ClCompile Include="ComplexShader.cpp" />
@@ -153,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ChunkManager.h" />
     <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="ComplexPosition.h" />
     <ClInclude Include="ComplexShader.h" />

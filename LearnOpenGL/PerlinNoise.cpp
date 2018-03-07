@@ -16,8 +16,6 @@ GLfloat **  PerlinNoise::generate(GLint x, GLint y) {
 	GLuint i, j;
 	GLfloat ** values;
 
-	genGradients(64, 64);
-
 	values = new GLfloat*[this->x];
 	for (i = 0; i < this->x; i++) {
 		values[i] = new GLfloat[this->y];
@@ -30,104 +28,18 @@ GLfloat **  PerlinNoise::generate(GLint x, GLint y) {
 }
 
 GLfloat PerlinNoise::generate(GLint x, GLint y, GLint z) {
-	if (this->initSet == 0) {
+	if (this->gradients3d == nullptr) {
 		std::cout << "ERROR::PerlinNoise:: CHUNK NOT SET BUT IT GENERATING" << std::endl;
 	}
 	return perlin((GLfloat)x / (GLfloat)this->x * (GLfloat)1.0, (GLfloat)y / (GLfloat)this->y * (GLfloat)1.0, (GLfloat)z / (GLfloat)this->z * (GLfloat)1.0);
 }
 
-GLboolean PerlinNoise::hasGenerated(GLint x, GLint y, GLint z) {
-
-	if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
-		return 1;
-	}
-
-	return 0;
+void PerlinNoise::setChunk(glm::vec3 *** gradientVec) {
+	this->gradients3d = gradientVec;
 }
 
-void PerlinNoise::setChunk(GLint x, GLint y, GLint z) {
-	GLuint i, j, k;
-
-	initSet = 1;
-
-	if (hasGenerated(x, y, z) == 0) {
-		genGradients3d(64, 64, 64);
-	}
-
-	if (hasGenerated(x, y, z - 1) == 1) {
-		for (i = 0; i < 64; i++) {
-			for (j = 0; j < 64; j++) {
-				this->gradients3d[i][j][0] = this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks - 1][i][j][1 * 1];
-			}
-		}
-	}
-
-	if (hasGenerated(x, y, z + 1) == 1) {
-		for (i = 0; i < 64; i++) {
-			for (j = 0; j < 64; j++) {
-				this->gradients3d[i][j][1 * 1] = this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks + 1][i][j][0];
-			}
-		}
-	}
-
-	if (hasGenerated(x - 1, y, z) == 1) {
-		for (i = 0; i < 64; i++) {
-			for (j = 0; j < 64; j++) {
-				this->gradients3d[0][i][j] = this->chunkGrads[x + halfMaxChunks - 1][y + halfMaxChunks][z + halfMaxChunks][1 * 1][i][j];
-			}
-		}
-	}
-
-	if (hasGenerated(x + 1, y, z) == 1) {
-		for (i = 0; i < 64; i++) {
-			for (j = 0; j < 64; j++) {
-				this->gradients3d[1 * 1][i][j] = this->chunkGrads[x + halfMaxChunks + 1][y + halfMaxChunks][z + halfMaxChunks][0][i][j];
-			}
-		}
-	}
-
-	//this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] = this->gradients3d;
-
-	this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] = new glm::vec3**[64];
-	for (GLuint i = 0; i < 64; i++) {
-		this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks][i] = new glm::vec3*[64];
-		for (GLuint j = 0; j < 64; j++) {
-			this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks][i][j] = new glm::vec3[64];
-			for (GLuint k = 0; k < 64; k++) {
-				this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks][i][j][k] = this->gradients3d[i][j][k];
-			}
-		}
-	}
-}
-
-void PerlinNoise::genGradients(GLuint x, GLuint y) {
-	GLuint i, j;
-
-	this->gradients = new glm::vec2*[x];
-	for (i = 0; i < x; i++) {
-		this->gradients[i] = new glm::vec2[y];
-		for (j = 0; j < y; j++) {
-			this->gradients[i][j] = randomVector((GLfloat)1.0);
-		}
-	}
-
-	this->gradients[0][0] = glm::vec2(1.0, 0.0);
-	this->gradients[1][0] = glm::vec2(0.0, 1.0);
-	this->gradients[0][1] = glm::vec2(-1.0, 0.0);
-	this->gradients[1][1] = glm::vec2(0.0, -1.0);
-}
-
-void PerlinNoise::genGradients3d(GLuint x, GLuint y, GLuint z) {
-	this->gradients3d = new glm::vec3**[x];
-	for (GLuint i = 0; i < x; i++) {
-		this->gradients3d[i] = new glm::vec3*[y];
-		for (GLuint j = 0; j < y; j++) {
-			this->gradients3d[i][j] = new glm::vec3[z];
-			for (GLuint k = 0; k < z; k++) {
-				this->gradients3d[i][j][k] = random3DVector((GLfloat)1.0);
-			}
-		}
-	}
+void PerlinNoise::setChunk(glm::vec2 ** gradientVec) {
+	this->gradients = gradientVec;
 }
 
 GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y) {
@@ -190,44 +102,6 @@ GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y, GLfloat z) {
 	GLfloat c = lerp(c0, c1, glm::smoothstep((GLfloat)0.0, (GLfloat)1.0, diff.z));
 
 	return c;
-}
-
-
-/*
-Generates random vector by generating a random angle
-Having the length of the vector we can convert these polar coordinates into
-Cartesian coordinates
-*/
-glm::vec2 PerlinNoise::randomVector(GLfloat length) {
-	std::random_device rd;
-	std::uniform_real_distribution<GLdouble> dist(0.0, 2.0 * PI);
-	GLfloat angle = (GLfloat)dist(rd);
-
-	// Turn angle and length into vector
-	// The length of the vector is implicitly 1
-	GLfloat x = length * std::cos(angle);
-	GLfloat y = length * std::sin(angle);
-	return glm::vec2(x, y);
-}
-
-glm::vec3 PerlinNoise::random3DVector(GLfloat length) {
-	std::random_device rd;
-	std::uniform_real_distribution<GLdouble> dist(0.0, 2.0 * PI);
-	std::uniform_real_distribution<GLfloat> randomCostheta(-1.0, 1.0);
-	std::uniform_real_distribution<GLfloat> randomU(0.0, 1.0);
-	GLfloat phi = (GLfloat)dist(rd);
-	GLfloat costheta = randomCostheta(rd);
-
-	GLfloat theta = std::acos(costheta);
-
-	length = length * std::cbrt(randomU(rd));
-
-	// Turn angle and length into vector
-	// The length of the vector is implicitly 1
-	GLfloat x = length * std::sin(theta) * std::cos(phi);
-	GLfloat y = length * std::sin(theta) * std::sin(phi);
-	GLfloat z = length * std::cos(theta);
-	return glm::vec3(x, y, z);
 }
 
 GLfloat PerlinNoise::fade(GLfloat val) {

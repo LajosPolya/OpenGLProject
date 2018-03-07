@@ -6,6 +6,7 @@
 
 #include "PerlinNoise.h"
 #include "ComplexPosition.h"
+#include "ChunkManager.h"
 
 #define T_2D 2
 #define T_3D 3
@@ -32,19 +33,13 @@ public:
 	glm::vec3 getChunkPos(glm::vec3 pos);
 
 private:
+	ChunkManager chunkManager;
 	// Size of one chunk of terrain
 	GLint x, y, z;
 
 	PerlinNoise * perlinNoise;
 
 	glm::vec3 prevChunkPosition = glm::vec3(0, 0, 0);
-
-	// TODO: This should take care of storing all of the chunks while PerlinNoise should take care of storing the gradients and generating values
-	// TODO: This is a copy of PerlinNoise.h, this logic should be one
-	const GLuint maxChunks = 100;
-	const GLuint halfMaxChunks = ((maxChunks / 2) - 1);
-	// Store pregenerated values
-	ComplexPosition **** chunkPositions; // Triple Dynamic Array of a Pointer to ComplexPosition
 
 	// TODO: TerrainGenerator
 	/* This class will generate the positions for the landscape 

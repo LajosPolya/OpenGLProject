@@ -7,19 +7,12 @@ TerrainGenerator::TerrainGenerator(GLint x, GLint y, GLint z, GLuint terrainType
 	this->z = z;
 
 	if (terrainType == T_2D) {
+		// TODO: Remove this 64, it's arbitrary
+		this->chunkManager.genGradients(64, 64);
 		this->perlinNoise = new PerlinNoise(x, z);
+		this->perlinNoise->setChunk(this->chunkManager.getGradients());
 	}
 	else if (terrainType == T_3D) {
-		this->chunkPositions = new ComplexPosition***[maxChunks];
-		for (GLuint i = 0; i < maxChunks; i++) {
-			this->chunkPositions[i] = new ComplexPosition**[maxChunks];
-			for (GLuint j = 0; j < maxChunks; j++) {
-				this->chunkPositions[i][j] = new ComplexPosition*[maxChunks];
-				for (GLuint k = 0; k < maxChunks; k++) {
-					this->chunkPositions[i][j][k] = nullptr;
-				}
-			}
-		}
 		this->perlinNoise = new PerlinNoise(x, y, z);
 	}
 	else {
@@ -66,15 +59,17 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	std::vector<glm::vec3> position;
 	std::vector<glm::vec3> drawablePosition;
 
-	if (this->chunkPositions[lowerX / this->x + halfMaxChunks][lowerY / this->y + halfMaxChunks][lowerZ / this->z + halfMaxChunks] != nullptr) {
-		return *this->chunkPositions[lowerX / this->x + halfMaxChunks][lowerY / this->y + halfMaxChunks][lowerZ / this->z + halfMaxChunks];
+	if (this->chunkManager.hasGenerated(lowerX / this->x, lowerY / this->y, lowerZ / this->z) == 1) {
+		return *this->chunkManager.getChunkPosition(lowerX / this->x, lowerY / this->y, lowerZ / this->z);
 	}
 	else {
-		this->chunkPositions[lowerX / this->x + halfMaxChunks][lowerY / this->y + halfMaxChunks][lowerZ / this->z + halfMaxChunks] = new ComplexPosition();
-		CoPo = this->chunkPositions[lowerX / this->x + halfMaxChunks][lowerY / this->y + halfMaxChunks][lowerZ / this->z + halfMaxChunks];
+		CoPo = new ComplexPosition();
+		this->chunkManager.setChunkPosition(CoPo, lowerX / this->x, lowerY / this->y, lowerZ / this->z);
 	}
 
-	perlinNoise->setChunk(lowerX / this->x, lowerY / this->y, lowerZ / this->z);
+	this->chunkManager.setChunk(lowerX / this->x, lowerY / this->y, lowerZ / this->z);
+	// Set the gradients for PerlinNoise
+	perlinNoise->setChunk(chunkManager.getChunk(lowerX / this->x, lowerY / this->y, lowerZ / this->z));
 	GLfloat *** values;
 	// Generate positions for the chunk the input parameters are in
 	values = new GLfloat**[this->x];
@@ -152,8 +147,8 @@ GLint TerrainGenerator::getLowerVal(GLfloat val, GLint range) {
 }
 
 glm::vec3 TerrainGenerator::getChunkPos(glm::vec3 pos) {
-	pos.x = getLowerVal(pos.x, this->x);
-	pos.y = getLowerVal(pos.y, this->y);
-	pos.z = getLowerVal(pos.z, this->z);
+	pos.x = (GLfloat)getLowerVal(pos.x, this->x);
+	pos.y = (GLfloat)getLowerVal(pos.y, this->y);
+	pos.z = (GLfloat)getLowerVal(pos.z, this->z);
 	return pos;
 }

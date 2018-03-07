@@ -26,41 +26,20 @@ public:
 	// Starting GLfloat impl
 	GLfloat generate(GLint x, GLint y, GLint z);
 
-	GLboolean hasGenerated(GLint x, GLint y, GLint z);
-
-	void setChunk(GLint x, GLint y, GLint z);
+	void setChunk(glm::vec3 *** gradientVec);
+	void setChunk(glm::vec2 ** gradientVec);
 
 private:
 	// Size of chunk
 	GLuint x, y, z;
-
-	// TODO: This should take care of  storing the gradients and generating PerlinNoise values while TerrainGenerator should take care of storing all of the chunks and Positions
-	// TODO: This was copied to TerrainGenerator.h. This should only be in one place
-	const GLuint maxChunks = 100;
-	const GLuint halfMaxChunks = ((maxChunks / 2) - 1);
-	// Store each chunk's gradients
-	glm::vec3 *** chunkGrads[100][100][100];
 	
-	const GLdouble PI = 3.141592653589793;
 	glm::vec2 ** gradients;
 	glm::vec3 *** gradients3d;
-
-	/**/
-	GLint initSet = 0;
-
-	/**/
-
-	void genGradients(GLuint x, GLuint y);
-	void genGradients3d(GLuint x, GLuint y, GLuint z);
 
 	GLfloat perlin(GLfloat x, GLfloat y);
 	GLfloat perlin(GLfloat x, GLfloat y, GLfloat z);
 
-	glm::vec2 randomVector(GLfloat length);
-	glm::vec3 random3DVector(GLfloat length);
-
 	GLfloat fade(GLfloat val);
-
 	GLfloat lerp(GLfloat x, GLfloat y, GLfloat w);
 };
 
