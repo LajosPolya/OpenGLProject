@@ -10,6 +10,7 @@
   Shader.cpp
   ResourceManager.cpp
   PositionRelativeCamera.cpp
+  PlayerController.cpp
   PerlinNoise.cpp
   Mesh.cpp
   Material.cpp
@@ -17,9 +18,9 @@
   LearnOpenGL.cpp
   InstancedTransformImpl.cpp
   InstancedMesh.cpp
-  InstancedGameObjectImpl.cpp
   Generating Code...
   Compiling...
+  InstancedGameObjectImpl.cpp
   InstancedComplexShader.cpp
   InstancedArrayTransformImpl.cpp
   InstancedArrayMesh.cpp

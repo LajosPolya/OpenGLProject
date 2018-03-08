@@ -37,15 +37,9 @@
 #include "SimpleInstancedGameObject.h"
 #include "PositionRelativeCamera.h"
 #include "TerrainLoader.h"
+#include "PlayerController.h"
 
 #define WORLD_LENGTH 5
-
-// Function prototypes
-void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode);
-void do_movement();
-
-void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
-void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -63,9 +57,6 @@ glm::vec3 prevPosition = camera->Position;
 /* Calcualte Projection Here */
 glm::mat4 projection = glm::perspective(camera->Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.01f, 100.0f);
 
-// Keep track of pressed keys
-bool keys[2048];
-
 // Timing
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
@@ -79,6 +70,11 @@ GLfloat fov = glm::radians(45.0f);
 
 // Light Source
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
+void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode);
+void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
+void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
+PlayerController playerController(deltaTime, *camera, lastX, lastY);
 
 // The MAIN function, from here we start the application and run the game loop
 int main() {
@@ -231,7 +227,7 @@ int main() {
 
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
-		do_movement();
+		playerController.do_movement();
 
 		// Clear the colorbuffer
 		glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
@@ -346,52 +342,14 @@ int main() {
 	return 0;
 }
 
-// Is called whenever a key is pressed/released via GLFW
-void key_callback(GLFWwindow * window, GLint key, GLint scancode, GLint action, GLint mode) {
-
-	if (action == GLFW_PRESS) {
-		keys[key] = true;
-	}
-	else if (action == GLFW_RELEASE) {
-		keys[key] = false;
-	}
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-		glfwSetWindowShouldClose(window, GL_TRUE);
-	}	
-}
-
-void do_movement() {
-	if (keys[GLFW_KEY_W]) {
-		camera->ProcessKeyboard(FORWARD, deltaTime);
-	}
-	if (keys[GLFW_KEY_S]) {
-		camera->ProcessKeyboard(BACKWARD, deltaTime);
-	}
-	if (keys[GLFW_KEY_A]) {
-		camera->ProcessKeyboard(LEFT, deltaTime);
-	}
-	if (keys[GLFW_KEY_D]) {
-		camera->ProcessKeyboard(RIGHT, deltaTime);
-	}
-}
-
-GLboolean firstMouse = true;
-void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos) {
-
-	if (firstMouse) {
-		lastX = (GLfloat)xpos;
-		lastY = (GLfloat)ypos;
-		firstMouse = false;
-	}
-
-	GLfloat xoffset = (GLfloat)(xpos - lastX);
-	GLfloat yoffset = (GLfloat)(ypos - lastY);
-	lastX = (GLfloat)xpos;
-	lastY = (GLfloat)ypos;
-
-	camera->ProcessMouseMovement(xoffset, yoffset);
-}
-
 void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset) {
-	camera->ProcessMouseScroll((GLfloat)yoffset);
+	playerController.scroll_callback(window, xoffset, yoffset);
+}
+
+void key_callback(GLFWwindow * window, GLint key, GLint scancode, GLint action, GLint mode) {
+	playerController.key_callback(window, key, scancode, action, mode);
+}
+
+void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos) {
+	playerController.mouse_callback(window, xpos, ypos);
 }

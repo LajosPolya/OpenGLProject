@@ -139,6 +139,7 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
+    <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PositionRelativeCamera.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="PerlinNoise.h" />
+    <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PositionRelativeCamera.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
