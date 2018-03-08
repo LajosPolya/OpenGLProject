@@ -3,17 +3,14 @@
 
 
 ChunkManager::ChunkManager() {
-	this->chunkPositions = new ComplexPosition***[maxChunks];
-	this->chunkGrads = new glm::vec3*****[maxChunks];
+	this->chunks = new Chunk**[maxChunks];
 	for (GLuint i = 0; i < maxChunks; i++) {
-		this->chunkPositions[i] = new ComplexPosition**[maxChunks];
-		this->chunkGrads[i] = new glm::vec3****[maxChunks];
+		this->chunks[i] = new Chunk*[maxChunks];
 		for (GLuint j = 0; j < maxChunks; j++) {
-			this->chunkPositions[i][j] = new ComplexPosition*[maxChunks];
-			this->chunkGrads[i][j] = new glm::vec3***[maxChunks];
+			this->chunks[i][j] = new Chunk[maxChunks];
 			for (GLuint k = 0; k < maxChunks; k++) {
-				this->chunkPositions[i][j][k] = nullptr;
-				this->chunkGrads[i][j][k] = nullptr;
+				this->chunks[i][j][k].positions = nullptr;
+				this->chunks[i][j][k].gradients = nullptr;
 			}
 		}
 	}
@@ -21,21 +18,21 @@ ChunkManager::ChunkManager() {
 ChunkManager::~ChunkManager() {}
 
 GLboolean ChunkManager::hasGenerated(GLint x, GLint y, GLint z) {
-	if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] != nullptr && this->chunkPositions[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
+	if (this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks].gradients != nullptr && this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks].positions != nullptr) {
 		return 1;
 	}
-	else if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] == nullptr && this->chunkPositions[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] == nullptr) {
+	else if (this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks].gradients == nullptr && this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks].positions == nullptr) {
 		return 0;
 	}
 	else {
-		std::cout << "ERROR::ChunkManager:: INCONSISTENCY BETWEEN chunkGrads && chunkPositions" << std::endl;
+		std::cout << "ERROR::ChunkManager:: INCONSISTENCY BETWEEN chunks && chunkPositions" << std::endl;
 	}
 
 	return 0;
 }
 
 GLboolean ChunkManager::hasGeneratedGradients(GLint x, GLint y, GLint z) {
-	if (this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] != nullptr) {
+	if (this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] .gradients!= nullptr) {
 		return 1;
 	}
 	return 0;
@@ -46,7 +43,7 @@ glm::vec2 ** ChunkManager::getGradients() {
 }
 
 glm::vec3 *** ChunkManager::getChunk(GLint x, GLint y, GLint z) {
-	return this->chunkGrads[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks];
+	return this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks].gradients;
 }
 
 void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
@@ -63,7 +60,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	if (hasGeneratedGradients(x, y, z - 1) == 1) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
-				this->gradients3d[i][j][0] = this->chunkGrads[rx][ry][rz - 1][i][j][1 * 1];
+				this->gradients3d[i][j][0] = this->chunks[rx][ry][rz - 1].gradients[i][j][1 * 1];
 			}
 		}
 	}
@@ -71,7 +68,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	if (hasGeneratedGradients(x, y, z + 1) == 1) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
-				this->gradients3d[i][j][1 * 1] = this->chunkGrads[rx][ry][rz + 1][i][j][0];
+				this->gradients3d[i][j][1 * 1] = this->chunks[rx][ry][rz + 1].gradients[i][j][0];
 			}
 		}
 	}
@@ -79,7 +76,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	if (hasGeneratedGradients(x - 1, y, z) == 1) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
-				this->gradients3d[0][i][j] = this->chunkGrads[rx - 1][ry][rz][1 * 1][i][j];
+				this->gradients3d[0][i][j] = this->chunks[rx - 1][ry][rz].gradients[1 * 1][i][j];
 			}
 		}
 	}
@@ -87,30 +84,30 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	if (hasGeneratedGradients(x + 1, y, z) == 1) {
 		for (i = 0; i < 64; i++) {
 			for (j = 0; j < 64; j++) {
-				this->gradients3d[1 * 1][i][j] = this->chunkGrads[rx + 1][ry][rz][0][i][j];
+				this->gradients3d[1 * 1][i][j] = this->chunks[rx + 1][ry][rz].gradients[0][i][j];
 			}
 		}
 	}
 
-	//this->chunkGrads[rx][ry][rz] = this->gradients3d;
-	this->chunkGrads[rx][ry][rz] = new glm::vec3**[64];
+	//this->chunks[rx][ry][rz] = this->gradients3d;
+	this->chunks[rx][ry][rz] .gradients= new glm::vec3**[64];
 	for (i = 0; i < 64; i++) {
-		this->chunkGrads[rx][ry][rz][i] = new glm::vec3*[64];
+		this->chunks[rx][ry][rz].gradients[i] = new glm::vec3*[64];
 		for (j = 0; j < 64; j++) {
-			this->chunkGrads[rx][ry][rz][i][j] = new glm::vec3[64];
+			this->chunks[rx][ry][rz].gradients[i][j] = new glm::vec3[64];
 			for (k = 0; k < 64; k++) {
-				this->chunkGrads[rx][ry][rz][i][j][k] = this->gradients3d[i][j][k];
+				this->chunks[rx][ry][rz].gradients[i][j][k] = this->gradients3d[i][j][k];
 			}
 		}
 	}
 }
 
 ComplexPosition * ChunkManager::getChunkPosition(GLint x, GLint y, GLint z) {
-	return this->chunkPositions[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks];
+	return this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks].positions;
 }
 
 void ChunkManager::setChunkPosition(ComplexPosition * CoPo, GLint x, GLint y, GLint z) {
-	this->chunkPositions[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] = CoPo;
+	this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks].positions = CoPo;
 }
 
 void ChunkManager::genGradients(GLuint x, GLuint y) {

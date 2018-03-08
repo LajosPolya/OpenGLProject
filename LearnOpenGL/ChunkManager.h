@@ -39,14 +39,12 @@ private:
 
 	const GLuint maxChunks = 100;
 	const GLuint halfMaxChunks = ((maxChunks / 2) - 1);
-	// Store each chunk's gradients
-	glm::vec3 ****** chunkGrads; // TODO : Create a data structure for storage that makes more sense
-	struct Chunk_Gradients { // Consider this to be the next chunkGrad data structure
-		glm::vec3 *** gradients; // The code will be more readable since it can be more easilily interpreted 
-	} ***chunkGradients; // as a 3d array or 3d arrays instead of 6d array. It's also easier to alloc for
-
-	// Store pregenerated values
-	ComplexPosition **** chunkPositions; // Triple Dynamic Array of a Pointer to ComplexPosition
+	// Store each chunk
+	struct Chunk {
+		glm::vec3 *** gradients; // A 3d array within a 3d array
+		 // Store pregenerated values
+		ComplexPosition * positions; // Triple Dynamic Array of a Pointer to ComplexPosition
+	} ***chunks;
 
 	// TODO :  this should be replaced with a local var or chunkGrads should be used instead
 	glm::vec3 *** gradients3d;
