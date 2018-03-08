@@ -54,48 +54,48 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	GLint ry = y + halfMaxChunks;
 	GLint rz = z + halfMaxChunks;
 	if (hasGeneratedGradients(x, y, z) == 0) {
-		genGradients3d(64, 64, 64);
+		genGradients3d(NUM_GRADS, NUM_GRADS, NUM_GRADS);
 	}
 
 	if (hasGeneratedGradients(x, y, z - 1) == 1) {
-		for (i = 0; i < 64; i++) {
-			for (j = 0; j < 64; j++) {
+		for (i = 0; i < NUM_GRADS; i++) {
+			for (j = 0; j < NUM_GRADS; j++) {
 				this->gradients3d[i][j][0] = this->chunks[rx][ry][rz - 1].gradients[i][j][1 * 1];
 			}
 		}
 	}
 
 	if (hasGeneratedGradients(x, y, z + 1) == 1) {
-		for (i = 0; i < 64; i++) {
-			for (j = 0; j < 64; j++) {
+		for (i = 0; i < NUM_GRADS; i++) {
+			for (j = 0; j < NUM_GRADS; j++) {
 				this->gradients3d[i][j][1 * 1] = this->chunks[rx][ry][rz + 1].gradients[i][j][0];
 			}
 		}
 	}
 
 	if (hasGeneratedGradients(x - 1, y, z) == 1) {
-		for (i = 0; i < 64; i++) {
-			for (j = 0; j < 64; j++) {
+		for (i = 0; i < NUM_GRADS; i++) {
+			for (j = 0; j < NUM_GRADS; j++) {
 				this->gradients3d[0][i][j] = this->chunks[rx - 1][ry][rz].gradients[1 * 1][i][j];
 			}
 		}
 	}
 
 	if (hasGeneratedGradients(x + 1, y, z) == 1) {
-		for (i = 0; i < 64; i++) {
-			for (j = 0; j < 64; j++) {
+		for (i = 0; i < NUM_GRADS; i++) {
+			for (j = 0; j < NUM_GRADS; j++) {
 				this->gradients3d[1 * 1][i][j] = this->chunks[rx + 1][ry][rz].gradients[0][i][j];
 			}
 		}
 	}
 
 	//this->chunks[rx][ry][rz] = this->gradients3d;
-	this->chunks[rx][ry][rz] .gradients= new glm::vec3**[64];
-	for (i = 0; i < 64; i++) {
-		this->chunks[rx][ry][rz].gradients[i] = new glm::vec3*[64];
-		for (j = 0; j < 64; j++) {
-			this->chunks[rx][ry][rz].gradients[i][j] = new glm::vec3[64];
-			for (k = 0; k < 64; k++) {
+	this->chunks[rx][ry][rz] .gradients= new glm::vec3**[NUM_GRADS];
+	for (i = 0; i < NUM_GRADS; i++) {
+		this->chunks[rx][ry][rz].gradients[i] = new glm::vec3*[NUM_GRADS];
+		for (j = 0; j < NUM_GRADS; j++) {
+			this->chunks[rx][ry][rz].gradients[i][j] = new glm::vec3[NUM_GRADS];
+			for (k = 0; k < NUM_GRADS; k++) {
 				this->chunks[rx][ry][rz].gradients[i][j][k] = this->gradients3d[i][j][k];
 			}
 		}

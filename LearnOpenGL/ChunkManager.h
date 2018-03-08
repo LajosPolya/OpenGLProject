@@ -14,6 +14,9 @@
 
 #include "ComplexPosition.h"
 
+// TODO : The gradients need to be worked on. Do we really need 64? Should it be dynamic?
+#define NUM_GRADS 64
+
 
 class ChunkManager
 {

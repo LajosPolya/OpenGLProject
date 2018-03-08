@@ -7,8 +7,8 @@ TerrainGenerator::TerrainGenerator(GLint x, GLint y, GLint z, GLuint terrainType
 	this->z = z;
 
 	if (terrainType == T_2D) {
-		// TODO: Remove this 64, it's arbitrary. This shouldn't be in this class
-		this->chunkManager.genGradients(64, 64);
+		// TODO: Remove this NUM_GRADS. This shouldn't be in this class
+		this->chunkManager.genGradients(NUM_GRADS, NUM_GRADS);
 		this->perlinNoise = new PerlinNoise(x, z);
 		this->perlinNoise->setChunk(this->chunkManager.getGradients());
 	}
