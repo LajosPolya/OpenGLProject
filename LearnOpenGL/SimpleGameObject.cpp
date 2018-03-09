@@ -2,11 +2,10 @@
 
 
 
-SimpleGameObject::SimpleGameObject(std::string meshPath, std::string transformPath) : SimpleGameObject("", "", meshPath, "", transformPath)
-{}
+SimpleGameObject::SimpleGameObject(std::string meshPath, std::string transformPath) : SimpleGameObject("", "", meshPath, "", transformPath) {}
+SimpleGameObject::SimpleGameObject(std::string diffuseMapPath, std::string meshPath, std::string transformPath) : SimpleGameObject(diffuseMapPath, "", meshPath, "", transformPath) {}
 
-SimpleGameObject::SimpleGameObject(std::string diffuseMapPath, std::string meshPath, std::string transformPath) : SimpleGameObject(diffuseMapPath, "", meshPath, "", transformPath)
-{}
+
 SimpleGameObject::SimpleGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::string transformPath) {
 	this->transform = new TransformImpl(transformPath);
 
@@ -15,6 +14,11 @@ SimpleGameObject::SimpleGameObject(std::string diffuseMapPath, std::string specu
 	this->mesh = GameObjectUtils::getMeshes(meshPath, this->transform, diffuseMaps, specularMaps);
 
 	this->material = GameObjectUtils::getMaterial(materialPath);
+}
+
+SimpleGameObject::SimpleGameObject(std::string meshPath, Transform * transform) {
+	this->transform = transform;
+	this->mesh = GameObjectUtils::getMeshes(meshPath, this->transform, std::vector<Texture*>(), std::vector<Texture*>());
 }
 
 

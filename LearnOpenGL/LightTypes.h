@@ -10,15 +10,15 @@
 #include <GL/glew.h>
 
 // These Structs are Direct Copies of the Structs in the Fragment Shader
-typedef struct DirLight {
+struct DirLight {
 	glm::vec3 direction;
 
 	glm::vec3 ambient;
 	glm::vec3 diffuse;
 	glm::vec3 specular;
-} DirLight;
+};
 
-typedef struct PointLight {
+struct PointLight {
 	glm::vec3 position;
 
 	GLfloat constant;
@@ -28,11 +28,9 @@ typedef struct PointLight {
 	glm::vec3 ambient;
 	glm::vec3 diffuse;
 	glm::vec3 specular;
+};
 
-	GLboolean isInit;
-} PointLight;
-
-typedef struct SpotLight {
+struct SpotLight {
 	glm::vec3 position;
 	glm::vec3 direction;
 	GLfloat cutOff;
@@ -45,4 +43,10 @@ typedef struct SpotLight {
 	glm::vec3 ambient;
 	glm::vec3 diffuse;
 	glm::vec3 specular;
-} SpotLight;
+};
+
+struct LightsPropertiesContainer {
+	DirLight dirLight;
+	std::vector<PointLight> pointLights;
+	SpotLight spotLight;
+};

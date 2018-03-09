@@ -277,18 +277,6 @@
     <Text Include="Mesh\lightBox.txt">
       <Filter>Mesh</Filter>
     </Text>
-    <Text Include="Transform\lightBox1.txt">
-      <Filter>Transform</Filter>
-    </Text>
-    <Text Include="Transform\lightBox2.txt">
-      <Filter>Transform</Filter>
-    </Text>
-    <Text Include="Transform\lightBox3.txt">
-      <Filter>Transform</Filter>
-    </Text>
-    <Text Include="Transform\lightBox4.txt">
-      <Filter>Transform</Filter>
-    </Text>
     <Text Include="singleColour.frag">
       <Filter>Shaders</Filter>
     </Text>

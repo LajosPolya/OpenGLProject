@@ -1,16 +1,16 @@
 #pragma once
 
-#include "LightTypes.h"
 #include <vector>
 #include <string>
 #include <fstream>
 
+#include "LightTypes.h"
 
-// TODO: Since the members are static, should I consider redesigning LightsContainer to not be a part of the GameObject
+
 class LightsContainer
 {
 public:
-	LightsContainer(GLchar* lightsLocation);
+	LightsContainer(GLchar * lightsLocation);
 	~LightsContainer();
 
 	DirLight * getDirLight();
@@ -20,12 +20,13 @@ public:
 
 private:
 	GLboolean havePushedLastPointLight = false;
-	void readLightingFile(GLchar* filename);
+	void readLightingFile(GLchar * filename);
 
 	/* Can be initialized at the top of the .cpp */
-	static DirLight * dirLight;
-	static SpotLight * spotLight;
-	static std::vector<PointLight> pointLights;
+	DirLight * dirLight;
+	SpotLight * spotLight;
+	std::vector<PointLight> pointLights;
+
 
 	/*
 	Light Prop Type {

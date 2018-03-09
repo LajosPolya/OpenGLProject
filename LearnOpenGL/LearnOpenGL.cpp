@@ -150,15 +150,13 @@ int main() {
 	// Global Lights Container
 	LightsContainer globalLightsContainer("Material/crate.txt");
 
-	///"lamp.vert", "lamp.frag", "Mesh/lightBox.txt", "Transform/lightBox1.txt", camera, projection
 	ComplexShader globalLightsShader(camera, &globalLightsContainer, projection, "lamp.vert", "lamp.frag");
-	SimpleGameObject lightBox1("Mesh/lightBox.txt", "Transform/lightBox1.txt");
-	SimpleGameObject lightBox2("Mesh/lightBox.txt", "Transform/lightBox2.txt");
-	SimpleGameObject lightBox3("Mesh/lightBox.txt", "Transform/lightBox3.txt");
-	SimpleGameObject lightBox4("Mesh/lightBox.txt", "Transform/lightBox4.txt");
+	SimpleGameObject lightBox1("Mesh/lightBox.txt", new TransformImpl((*globalLightsContainer.getPointLights())[0].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2)));
+	SimpleGameObject lightBox2("Mesh/lightBox.txt", new TransformImpl((*globalLightsContainer.getPointLights())[1].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2)));
+	SimpleGameObject lightBox3("Mesh/lightBox.txt", new TransformImpl((*globalLightsContainer.getPointLights())[2].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2)));
+	SimpleGameObject lightBox4("Mesh/lightBox.txt", new TransformImpl((*globalLightsContainer.getPointLights())[3].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2)));
 	globalLightsShader.sendProjectionMatrixToShader();
 
-	///GameObjectImpl grassGameObject(, "grass.png", "Mesh/grass.txt", "Transform/grass.txt", camera, projection);
 	ComplexShader globalAlphaShader(camera, &globalLightsContainer, projection, "alpha.vert", "alpha.frag");
 	SimpleGameObject grassGameObject("grass.png", "Mesh/grass.txt", "Transform/grass.txt");
 	globalAlphaShader.setSamplers();

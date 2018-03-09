@@ -1,12 +1,7 @@
 #include "LightsContainer.h"
 
-/* Static vars must be redefined in .cpp (they can also be initialized here) */
-DirLight* LightsContainer::dirLight = nullptr;
-SpotLight*  LightsContainer::spotLight = nullptr;
-std::vector<PointLight> LightsContainer::pointLights;
 
-LightsContainer::LightsContainer(GLchar* lightsLocation)
-{
+LightsContainer::LightsContainer(GLchar * lightsLocation) {
 	// TODO: The Lights should be getting their transform from the Material object or vice versa
 	if (lightsLocation != nullptr) {
 		/* Should only read Scene Lights once */
@@ -22,18 +17,15 @@ LightsContainer::LightsContainer(GLchar* lightsLocation)
 
 LightsContainer::~LightsContainer() {}
 
-DirLight * LightsContainer::getDirLight()
-{
+DirLight * LightsContainer::getDirLight() {
 	return this->dirLight;
 }
 
-SpotLight * LightsContainer::getSpotLight()
-{
+SpotLight * LightsContainer::getSpotLight() {
 	return this->spotLight;
 }
 
-std::vector<PointLight>* LightsContainer::getPointLights()
-{
+std::vector<PointLight> * LightsContainer::getPointLights() {
 	return &this->pointLights;
 }
 
@@ -52,7 +44,7 @@ Light Prop Type {
 }
 Read Doc/Material.txt for more info
 */
-void LightsContainer::getMeshProperties(DirLight * dirLight, GLchar* context, GLchar lightPropType) {
+void LightsContainer::getMeshProperties(DirLight * dirLight, GLchar * context, GLchar lightPropType) {
 	GLchar * token;
 	GLuint i = 0;
 	glm::vec3 prop;
@@ -78,7 +70,7 @@ void LightsContainer::getMeshProperties(DirLight * dirLight, GLchar* context, GL
 	}
 }
 
-void LightsContainer::getMeshProperties(SpotLight * spotLight, GLchar* context, GLchar lightPropType) {
+void LightsContainer::getMeshProperties(SpotLight * spotLight, GLchar * context, GLchar lightPropType) {
 	GLchar * token;
 	GLuint i = 0;
 	glm::vec3 prop;
@@ -122,7 +114,7 @@ void LightsContainer::getMeshProperties(SpotLight * spotLight, GLchar* context, 
 	}
 }
 
-void LightsContainer::getMeshProperties(PointLight * pointLight, GLchar* context, GLchar lightPropType) {
+void LightsContainer::getMeshProperties(PointLight * pointLight, GLchar * context, GLchar lightPropType) {
 	GLchar * token;
 	GLuint i = 0;
 	glm::vec3 prop;
@@ -157,7 +149,7 @@ void LightsContainer::getMeshProperties(PointLight * pointLight, GLchar* context
 	}
 }
 
-void LightsContainer::readLightingFile(GLchar* filename) {
+void LightsContainer::readLightingFile(GLchar * filename) {
 	std::string line;
 	std::ifstream file(filename);
 
@@ -166,7 +158,7 @@ void LightsContainer::readLightingFile(GLchar* filename) {
 		GLchar prevPointLight = ' ';
 		while (std::getline(file, line)) {
 			GLchar * token;
-			GLchar* context = NULL;
+			GLchar * context = NULL;
 
 			token = strtok_s(&line[0], ",", &context);
 			if (token[0] == '1') { // Directional Light
@@ -183,7 +175,7 @@ void LightsContainer::readLightingFile(GLchar* filename) {
 					if (prevPointLight != ' ' || pointLights.size() != 0) {
 						pointLights.push_back(pointLight);
 					}
-					prevPointLight = token[2];
+					prevPointLight = token[2]; // nth Point Light instance
 					pointLight = {};
 				}
 				getMeshProperties(&pointLight, context, token[1]);

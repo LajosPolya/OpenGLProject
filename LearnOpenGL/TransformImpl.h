@@ -23,6 +23,7 @@ class TransformImpl : public Transform {
 public:
 
 	TransformImpl();
+	TransformImpl(const TransformImpl & toCopy);
 
 	TransformImpl(std::string fileLocation);
 	TransformImpl(glm::vec3 Position, glm::vec3 Rotation, glm::vec3 Scale);

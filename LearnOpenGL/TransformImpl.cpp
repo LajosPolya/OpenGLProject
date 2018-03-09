@@ -2,6 +2,18 @@
 
 TransformImpl::TransformImpl() {}
 
+TransformImpl::TransformImpl(const TransformImpl & toCopy) {
+	this->Position = toCopy.Position;
+	this->Rotation = toCopy.Rotation;
+	this->Scale = toCopy.Scale;
+
+	this->newPosition = toCopy.newPosition;
+	this->newRotation = toCopy.newRotation;
+	this->newScale = toCopy.newScale;
+
+	this->model = toCopy.model;
+}
+
 TransformImpl::TransformImpl(std::string fileLocation) {
 	readFile(fileLocation);
 }

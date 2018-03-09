@@ -220,10 +220,6 @@
     <Text Include="singleColour.frag" />
     <Text Include="Transform\crate.txt" />
     <Text Include="Transform\grass.txt" />
-    <Text Include="Transform\lightBox1.txt" />
-    <Text Include="Transform\lightBox2.txt" />
-    <Text Include="Transform\lightBox3.txt" />
-    <Text Include="Transform\lightBox4.txt" />
     <Text Include="Transform\window.txt" />
     <Text Include="Transform\window2.txt" />
     <Text Include="Transform\window3.txt" />
