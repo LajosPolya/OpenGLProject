@@ -22,11 +22,12 @@ private:
 	GLboolean havePushedLastPointLight = false;
 	void readLightingFile(GLchar * filename);
 
-	/* Can be initialized at the top of the .cpp */
-	DirLight * dirLight;
-	SpotLight * spotLight;
-	std::vector<PointLight> pointLights;
+	LightsPropertiesContainer propContainer;
 
+	// TODO : Have GameObjects in this class
+	/* This class has a list of GameObject which represent the physiscal lights 
+	   Then we only have to send the LightsPropertiesContainer propContainer to the various ComplexShaders
+	*/
 
 	/*
 	Light Prop Type {

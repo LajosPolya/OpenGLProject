@@ -7,10 +7,10 @@ LightsContainer::LightsContainer(GLchar * lightsLocation) {
 		/* Should only read Scene Lights once */
 		/* This can also be implemented such that is saves the file name
 		 * and if it's already been read in then it won't be read again */
-		if (dirLight == nullptr && spotLight == nullptr && pointLights.size() == 0) {
-			dirLight = new DirLight();
-			spotLight = new SpotLight();
-			this->readLightingFile(lightsLocation);
+		if (this->propContainer.dirLight == nullptr && this->propContainer.spotLight == nullptr && this->propContainer.pointLights.size() == 0) {
+			this->propContainer.dirLight = new DirLight();
+			this->propContainer.spotLight = new SpotLight();
+			readLightingFile(lightsLocation);
 		}
 	}
 }
@@ -18,15 +18,15 @@ LightsContainer::LightsContainer(GLchar * lightsLocation) {
 LightsContainer::~LightsContainer() {}
 
 DirLight * LightsContainer::getDirLight() {
-	return this->dirLight;
+	return this->propContainer.dirLight;
 }
 
 SpotLight * LightsContainer::getSpotLight() {
-	return this->spotLight;
+	return this->propContainer.spotLight;
 }
 
 std::vector<PointLight> * LightsContainer::getPointLights() {
-	return &this->pointLights;
+	return &this->propContainer.pointLights;
 }
 
 /*
@@ -162,18 +162,18 @@ void LightsContainer::readLightingFile(GLchar * filename) {
 
 			token = strtok_s(&line[0], ",", &context);
 			if (token[0] == '1') { // Directional Light
-				getMeshProperties(this->dirLight, context, token[1]);
+				getMeshProperties(this->propContainer.dirLight, context, token[1]);
 
-				if (pointLights.size() != 0 && this->havePushedLastPointLight == false) {
-					pointLights.push_back(pointLight);
+				if (this->propContainer.pointLights.size() != 0 && this->havePushedLastPointLight == false) {
+					this->propContainer.pointLights.push_back(pointLight);
 					this->havePushedLastPointLight = true;
 				}
 
 			}
 			else if (token[0] == '2') { // Point Light
 				if (token[2] != prevPointLight) {
-					if (prevPointLight != ' ' || pointLights.size() != 0) {
-						pointLights.push_back(pointLight);
+					if (prevPointLight != ' ' || this->propContainer.pointLights.size() != 0) {
+						this->propContainer.pointLights.push_back(pointLight);
 					}
 					prevPointLight = token[2]; // nth Point Light instance
 					pointLight = {};
@@ -181,10 +181,10 @@ void LightsContainer::readLightingFile(GLchar * filename) {
 				getMeshProperties(&pointLight, context, token[1]);
 			}
 			else if (token[0] == '3') { // Spot Light
-				getMeshProperties(this->spotLight, context, token[1]);
+				getMeshProperties(this->propContainer.spotLight, context, token[1]);
 
-				if (pointLights.size() != 0 && this->havePushedLastPointLight == false) {
-					pointLights.push_back(pointLight);
+				if (this->propContainer.pointLights.size() != 0 && this->havePushedLastPointLight == false) {
+					this->propContainer.pointLights.push_back(pointLight);
 					this->havePushedLastPointLight = true;
 				}
 			}

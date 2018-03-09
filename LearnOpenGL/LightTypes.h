@@ -46,7 +46,7 @@ struct SpotLight {
 };
 
 struct LightsPropertiesContainer {
-	DirLight dirLight;
+	DirLight * dirLight = nullptr;
 	std::vector<PointLight> pointLights;
-	SpotLight spotLight;
+	SpotLight * spotLight = nullptr;
 };
