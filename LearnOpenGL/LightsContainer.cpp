@@ -1,18 +1,11 @@
 #include "LightsContainer.h"
 
 
-LightsContainer::LightsContainer(GLchar * lightsLocation) {
-	// TODO: The Lights should be getting their transform from the Material object or vice versa
-	if (lightsLocation != nullptr) {
-		/* Should only read Scene Lights once */
-		/* This can also be implemented such that is saves the file name
-		 * and if it's already been read in then it won't be read again */
-		if (this->propContainer.dirLight == nullptr && this->propContainer.spotLight == nullptr && this->propContainer.pointLights.size() == 0) {
-			this->propContainer.dirLight = new DirLight();
-			this->propContainer.spotLight = new SpotLight();
-			readLightingFile(lightsLocation);
-		}
-	}
+LightsContainer::LightsContainer(std::string lightsLocation) {
+	// TODO: The Lights should be getting their Transform from the Material object or vice versa
+	this->propContainer.dirLight = new DirLight();
+	this->propContainer.spotLight = new SpotLight();
+	readLightingFile(lightsLocation);
 }
 
 LightsContainer::~LightsContainer() {}
@@ -68,6 +61,9 @@ void LightsContainer::getMeshProperties(DirLight * dirLight, GLchar * context, G
 	else if (lightPropType == '4') {
 		dirLight->specular = prop;
 	}
+	else {
+		std::cout << "ERROR::LightsContainer::Invalid DirLight Props" << std::endl;
+	}
 }
 
 void LightsContainer::getMeshProperties(SpotLight * spotLight, GLchar * context, GLchar lightPropType) {
@@ -112,6 +108,9 @@ void LightsContainer::getMeshProperties(SpotLight * spotLight, GLchar * context,
 	else if (lightPropType == '9') {
 		spotLight->outerCutOff = prop[0];
 	}
+	else {
+		std::cout << "ERROR::LightsContainer::Invalid SpotLight Props" << std::endl;
+	}
 }
 
 void LightsContainer::getMeshProperties(PointLight * pointLight, GLchar * context, GLchar lightPropType) {
@@ -147,9 +146,12 @@ void LightsContainer::getMeshProperties(PointLight * pointLight, GLchar * contex
 	else if (lightPropType == '7') {
 		pointLight->quadratic = prop[0];
 	}
+	else {
+		std::cout << "ERROR::LightsContainer::Invalid SpotLight Props" << std::endl;
+	}
 }
 
-void LightsContainer::readLightingFile(GLchar * filename) {
+void LightsContainer::readLightingFile(std::string filename) {
 	std::string line;
 	std::ifstream file(filename);
 
@@ -187,6 +189,9 @@ void LightsContainer::readLightingFile(GLchar * filename) {
 					this->propContainer.pointLights.push_back(pointLight);
 					this->havePushedLastPointLight = true;
 				}
+			}
+			else {
+				std::cout << "ERROR::LightsContainer::Invalid Light Type" << std::endl;
 			}
 		}
 	}

@@ -1,3 +1,20 @@
 ﻿  LightsContainer.cpp
+  Generating Code...
+  Compiling...
+  TransparentGameObjectImpl.cpp
+  SimpleInstancedGameObject.cpp
+  SimpleInstancedArrayGameObject.cpp
+  SimpleGameObject.cpp
+  Shader.cpp
+  ResourceManager.cpp
+  LearnOpenGL.cpp
+  InstancedGameObjectImpl.cpp
+  InstancedComplexShader.cpp
+  InstancedArrayGameObjectImpl.cpp
+  InstancedArrayComplexShader.cpp
+  GameObjectUtils.cpp
+  GameObjectImpl.cpp
+  ComplexShader.cpp
+  Generating Code...
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.exe
   LearnOpenGL.vcxproj -> C:\Users\Lajos Polya\Documents\GitHub\LearnOpenGL\Debug\LearnOpenGL.pdb (Partial PDB)

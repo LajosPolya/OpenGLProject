@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <iostream>
 
 #include "LightTypes.h"
 
@@ -10,7 +11,7 @@
 class LightsContainer
 {
 public:
-	LightsContainer(GLchar * lightsLocation);
+	LightsContainer(std::string lightsLocation);
 	~LightsContainer();
 
 	DirLight * getDirLight();
@@ -20,7 +21,7 @@ public:
 
 private:
 	GLboolean havePushedLastPointLight = false;
-	void readLightingFile(GLchar * filename);
+	void readLightingFile(std::string filename);
 
 	LightsPropertiesContainer propContainer;
 
