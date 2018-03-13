@@ -1,7 +1,6 @@
 #include "SimpleGameObject.h"
 
 
-
 SimpleGameObject::SimpleGameObject(std::string meshPath, std::string transformPath) : SimpleGameObject("", "", meshPath, "", transformPath) {}
 SimpleGameObject::SimpleGameObject(std::string diffuseMapPath, std::string meshPath, std::string transformPath) : SimpleGameObject(diffuseMapPath, "", meshPath, "", transformPath) {}
 
@@ -12,8 +11,6 @@ SimpleGameObject::SimpleGameObject(std::string diffuseMapPath, std::string specu
 	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapPath);
 	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapPath);
 	this->mesh = GameObjectUtils::getMeshes(meshPath, this->transform, diffuseMaps, specularMaps);
-
-	this->material = GameObjectUtils::getMaterial(materialPath);
 }
 
 SimpleGameObject::SimpleGameObject(std::string meshPath, Transform * transform) {
@@ -34,10 +31,6 @@ void SimpleGameObject::Draw() {
 	for (GLuint i = 0; i < this->mesh.size(); i++) {
 		this->mesh[i]->Draw();
 	}
-}
-
-Material * SimpleGameObject::getMaterial() {
-	return this->material;
 }
 
 Transform * SimpleGameObject::getTransform() {

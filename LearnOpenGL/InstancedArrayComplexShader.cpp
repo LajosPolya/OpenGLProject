@@ -4,7 +4,22 @@ InstancedArrayComplexShader::InstancedArrayComplexShader(Camera * camera, Lights
 	this->camera = camera;
 	this->lightsContainer = lightsContainer;
 	this->projection = projection;
+	
 	buildShaders(vertexPath, fragmentPath);
+
+	setSamplers();
+	if (camera != nullptr) {
+		sendCameraToShader();
+	}
+	if (lightsContainer != nullptr) {
+		sendLightsContainerToShader();
+	}
+	sendProjectionMatrixToShader();
+}
+
+InstancedArrayComplexShader::InstancedArrayComplexShader(Camera * camera, LightsContainer * lightsContainer, glm::mat4 projection, std::string materialPath, const GLchar * vertexPath, const GLchar * fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
+	this->material = new Material(materialPath);
+	sendMaterialToShader();
 }
 
 InstancedArrayComplexShader::~InstancedArrayComplexShader() {}
@@ -166,6 +181,11 @@ void InstancedArrayComplexShader::sendCameraToShader() {
 	// Set material properties
 	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.position"), this->camera->Position.x, this->camera->Position.y, this->camera->Position.z);
 	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.direction"), this->camera->Front.x, this->camera->Front.y, this->camera->Front.z);
+}
+
+void InstancedArrayComplexShader::sendMaterialToShader() {
+	this->use();
+	glUniform1f(glGetUniformLocation(this->shaderId, "material.shininess"), this->material->getShininess());
 }
 
 void InstancedArrayComplexShader::use() {

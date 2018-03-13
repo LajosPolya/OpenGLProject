@@ -19,8 +19,6 @@ public:
 
 	void Draw();
 
-	Material * getMaterial();
-
 	Transform * getTransform();
 
 	// TODO: Add this
@@ -28,8 +26,6 @@ public:
 
 private:
 	std::vector<Mesh*> mesh;
-
-	Material * material = nullptr;
 
 	Transform * transform = nullptr;
 };

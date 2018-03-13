@@ -11,7 +11,6 @@ SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(const SimpleInsta
 	for (GLuint i = 0; i < toCopy.mesh.size(); i++) {
 		this->mesh.push_back(new InstancedArrayMesh(*toCopy.mesh[i]));
 	}
-	this->material = new Material(*toCopy.material);
 }
 
 SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::string transformPath) {
@@ -20,8 +19,6 @@ SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffu
 
 	this->transform = new InstancedArrayTransformImpl(transformPath);
 	this->mesh = GameObjectUtils::getMeshes(meshPath, this->transform, diffuseMaps, specularMaps);
-
-	this->material = GameObjectUtils::getMaterial(materialPath);
 }
 
 SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::vector<glm::vec3> positions) : transform() {
@@ -32,8 +29,6 @@ SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffu
 	this->transform = transform = new InstancedArrayTransformImpl(positions);
 
 	this->mesh = GameObjectUtils::getMeshes(meshPath, this->transform, diffuseMaps, specularMaps);
-
-	this->material = GameObjectUtils::getMaterial(materialPath);
 }
 
 SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::vector<glm::vec3> positions, GLuint primitiveType) {
@@ -42,8 +37,6 @@ SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffu
 
 	this->transform = new InstancedArrayTransformImpl(positions);
 	this->mesh = GameObjectUtils::getMeshes(meshPath, this->transform, diffuseMaps, specularMaps, primitiveType);
-
-	this->material = GameObjectUtils::getMaterial(materialPath);
 }
 
 void SimpleInstancedArrayGameObject::Draw() {
@@ -59,10 +52,6 @@ void SimpleInstancedArrayGameObject::Draw() {
 
 InstancedArrayTransformImpl * SimpleInstancedArrayGameObject::getTransform() {
 	return this->transform;
-}
-
-Material * SimpleInstancedArrayGameObject::getMaterial() {
-	return this->material;
 }
 
 void SimpleInstancedArrayGameObject::setInstances(InstancedArrayTransformImpl * transform) {

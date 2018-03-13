@@ -22,14 +22,10 @@ public:
 
 	InstancedArrayTransformImpl * getTransform();
 
-	Material * getMaterial();
-
 	void setInstances(InstancedArrayTransformImpl * transform);
 
 private:
 	std::vector<InstancedArrayMesh*> mesh;
-
-	Material * material = nullptr;
 
 	InstancedArrayTransformImpl * transform = nullptr;
 };

@@ -155,37 +155,19 @@ int main() {
 	SimpleGameObject lightBox2("Mesh/lightBox.txt", new TransformImpl((*globalLightsContainer.getPointLights())[1].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2)));
 	SimpleGameObject lightBox3("Mesh/lightBox.txt", new TransformImpl((*globalLightsContainer.getPointLights())[2].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2)));
 	SimpleGameObject lightBox4("Mesh/lightBox.txt", new TransformImpl((*globalLightsContainer.getPointLights())[3].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2)));
-	globalLightsShader.sendProjectionMatrixToShader();
 
 	ComplexShader globalAlphaShader(camera, &globalLightsContainer, projection, "alpha.vert", "alpha.frag");
 	SimpleGameObject grassGameObject("grass.png", "Mesh/grass.txt", "Transform/grass.txt");
-	globalAlphaShader.setSamplers();
-	globalAlphaShader.sendLightsContainerToShader();
-	globalAlphaShader.sendProjectionMatrixToShader();
 	// ComplexShader
-	ComplexShader globalComplexShader(camera, &globalLightsContainer, projection, "vertex.vert", "fragment.frag");
+	ComplexShader globalComplexShader(camera, &globalLightsContainer, projection, "Material/crate.txt", "vertex.vert", "fragment.frag");
 	SimpleGameObject testingGameObject = SimpleGameObject("container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Transform/crate.txt");
-	//TODO : This should all be done on the Constructor
-	globalComplexShader.setSamplers();
-	globalComplexShader.sendLightsContainerToShader();
-	globalComplexShader.sendProjectionMatrixToShader();
-	globalComplexShader.sendToShader(testingGameObject.getMaterial());
 
 	// InstancedComplexShader
-	InstancedComplexShader globalInstancedShader(camera, &globalLightsContainer, projection, "instanced.vert", "fragment.frag");
+	InstancedComplexShader globalInstancedShader(camera, &globalLightsContainer, projection, "Material/crate.txt", "instanced.vert", "fragment.frag");
 	SimpleInstancedGameObject instancedGameObject = SimpleInstancedGameObject("Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt");
-	globalInstancedShader.setSamplers();
-	globalInstancedShader.sendLightsContainerToShader();
-	globalInstancedShader.sendProjectionMatrixToShader();
-	globalInstancedShader.sendToShader(instancedGameObject.getMaterial());
 
 	// InstancedArrayComplexShader
-	InstancedArrayComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "instancedArray.vert", "fragment.frag");
-	globalInstancedArrayShader.setSamplers();
-	globalInstancedArrayShader.sendLightsContainerToShader();
-	globalInstancedArrayShader.sendProjectionMatrixToShader();
-	globalInstancedArrayShader.sendToShader(perlin.getMaterial());
-
+	InstancedArrayComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "Material/crate.txt", "instancedArray.vert", "fragment.frag");
 
 	// Collision Detection
 	CollisionDetector::addCamera(camera);

@@ -5,6 +5,10 @@ InstancedComplexShader::InstancedComplexShader(Camera * camera, LightsContainer 
 	// Calls the Base Class' Constructor
 }
 
+InstancedComplexShader::InstancedComplexShader(Camera * camera, LightsContainer * lightsContainer, glm::mat4 projection, std::string materialPath, const GLchar * vertexPath, const GLchar * fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, materialPath, vertexPath, fragmentPath) {
+
+}
+
 InstancedComplexShader::~InstancedComplexShader() {}
 
 void InstancedComplexShader::sendInstancesToShader(std::vector<glm::mat4> intances) {
