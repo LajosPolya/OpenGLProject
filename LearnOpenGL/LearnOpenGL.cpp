@@ -76,6 +76,8 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
 void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
 PlayerController playerController(deltaTime, *camera, lastX, lastY);
 
+void grabCunksFromThread();
+
 // The MAIN function, from here we start the application and run the game loop
 int main() {
 	// Init GLFW
@@ -246,26 +248,7 @@ int main() {
 		grassGameObject.Draw();
 		glEnable(GL_CULL_FACE);
 
-		// TODO: Consider switching chunks out every 5 or 10 frames to reduce performance hit
-		if (readyToGrab != 0) {
-
-			returnQ_m.lock();
-			GLint returnQSize = newReturnQ.size();
-			if (returnQSize > 0) {
-				chunks[newReturnQ[returnQSize - 1].getIndex()].setInstances(&newReturnQ[returnQSize - 1].getTransform());
-				newReturnQ.pop_back();
-				returnQ_m.unlock();
-				if (newReturnQ.size() == 0) {
-					readyToGrab = 0;
-				}
-			}
-			else {
-				// Don't forget to unlock here too
-				returnQ_m.unlock();
-				std::cout << "ERROR: MAIN::readyToGrab = 1 but returnQSize <= 0" << std::endl;
-			}
-			
-		}
+		grabCunksFromThread();
 
 		// TODO: Create LightGameObject so light info is stored withing GameObject
 		// TODO: These should be one isntancedArrayGameObject
@@ -332,4 +315,27 @@ void key_callback(GLFWwindow * window, GLint key, GLint scancode, GLint action, 
 
 void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos) {
 	playerController.mouse_callback(window, xpos, ypos);
+}
+
+void grabCunksFromThread() {
+	// TODO: Consider switching chunks out every 5 or 10 frames to reduce performance hit
+	if (readyToGrab != 0) {
+
+		returnQ_m.lock();
+		GLint returnQSize = newReturnQ.size();
+		if (returnQSize > 0) {
+			chunks[newReturnQ[returnQSize - 1].getIndex()].setInstances(&newReturnQ[returnQSize - 1].getTransform());
+			newReturnQ.pop_back();
+			returnQ_m.unlock();
+			if (newReturnQ.size() == 0) {
+				readyToGrab = 0;
+			}
+		}
+		else {
+			// Don't forget to unlock here too
+			returnQ_m.unlock();
+			std::cout << "ERROR: MAIN::readyToGrab = 1 but returnQSize <= 0" << std::endl;
+		}
+
+	}
 }
