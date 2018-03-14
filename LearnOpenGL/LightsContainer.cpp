@@ -22,16 +22,6 @@ std::vector<PointLight> * LightsContainer::getPointLights() {
 	return &this->propContainer.pointLights;
 }
 
-std::vector<Transform*> LightsContainer::getTransforms() {
-	std::vector<Transform*> transforms;
-	for (GLuint i = 0; i < this->propContainer.pointLights.size(); i++) {
-		Transform * t = new TransformImpl(this->propContainer.pointLights[i].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
-		transforms.push_back(t);
-	}
-
-	return transforms;
-}
-
 InstancedTransformImpl * LightsContainer::getTransform() {
 	std::vector<glm::vec3> positions;
 	std::vector<glm::vec3> rotations;

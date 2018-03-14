@@ -2,14 +2,12 @@
 
 
 
-SimpleInstancedGameObject::SimpleInstancedGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::string transformPath) {
+SimpleInstancedGameObject::SimpleInstancedGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string transformPath) {
 	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapPath);
 	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapPath);
 
 	this->transform = new InstancedTransformImpl(transformPath);
 	this->mesh = GameObjectUtils::getMeshes(meshPath, this->transform, diffuseMaps, specularMaps);
-
-	this->material = GameObjectUtils::getMaterial(materialPath);
 }
 
 SimpleInstancedGameObject::SimpleInstancedGameObject(std::string meshPath, InstancedTransformImpl * transform) {
@@ -18,10 +16,6 @@ SimpleInstancedGameObject::SimpleInstancedGameObject(std::string meshPath, Insta
 }
 
 SimpleInstancedGameObject::~SimpleInstancedGameObject() {}
-
-Material * SimpleInstancedGameObject::getMaterial() {
-	return this->material;
-}
 
 InstancedTransformImpl * SimpleInstancedGameObject::getTransform() {
 	return this->transform;

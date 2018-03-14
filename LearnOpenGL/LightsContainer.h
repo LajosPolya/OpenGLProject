@@ -6,7 +6,6 @@
 #include <iostream>
 
 #include "LightTypes.h"
-#include "TransformImpl.h"
 #include "InstancedTransformImpl.h"
 
 
@@ -20,11 +19,7 @@ public:
 	SpotLight * getSpotLight();
 	std::vector<PointLight> * getPointLights();
 
-	std::vector<Transform*> getTransforms();
-
 	InstancedTransformImpl * getTransform();
-
-
 
 private:
 	GLboolean havePushedLastPointLight = false;

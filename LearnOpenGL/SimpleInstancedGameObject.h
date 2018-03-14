@@ -11,11 +11,9 @@
 class SimpleInstancedGameObject
 {
 public:
-	SimpleInstancedGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::string transformPath);
+	SimpleInstancedGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string transformPath);
 	SimpleInstancedGameObject(std::string meshPath, InstancedTransformImpl * transform);
 	~SimpleInstancedGameObject();
-
-	Material * getMaterial();
 
 	InstancedTransformImpl * getTransform();
 
@@ -28,8 +26,6 @@ private:
 	GLuint instancesUpdated = 1;
 
 	std::vector<InstancedMesh*> mesh;
-
-	Material * material = nullptr;
 
 	InstancedTransformImpl * transform = nullptr;
 };

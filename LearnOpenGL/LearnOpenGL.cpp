@@ -172,7 +172,7 @@ int main() {
 
 	// InstancedComplexShader
 	InstancedComplexShader globalInstancedShader(camera, &globalLightsContainer, projection, "Material/crate.txt", "instanced.vert", "fragment.frag");
-	SimpleInstancedGameObject instancedGameObject = SimpleInstancedGameObject("Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Material/crate.txt", "Instance/crate1.txt");
+	SimpleInstancedGameObject instancedGameObject = SimpleInstancedGameObject("Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Instance/crate1.txt");
 
 	// InstancedArrayComplexShader
 	InstancedArrayComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "Material/crate.txt", "instancedArray.vert", "fragment.frag");
