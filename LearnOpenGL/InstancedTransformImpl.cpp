@@ -8,6 +8,30 @@ InstancedTransformImpl::InstancedTransformImpl(std::string fileLocation) {
 	this->readFile(fileLocation);
 }
 
+InstancedTransformImpl::InstancedTransformImpl(std::vector<glm::vec3> positions, std::vector<glm::vec3> rotations, std::vector<glm::vec3> scales) {
+	if (positions.size() != rotations.size() && rotations.size() != scales.size()) {
+		std::cout << "ERROR::InstancedTransformImpl::Different Sized Transform Properties" << std::endl;
+	}
+
+	this->Position = positions;
+	this->Rotation = rotations;
+	this->Scale = scales;
+
+	// Assume Position, Rotation, Scale are all of same size
+	for (GLuint i = 0; i < this->Position.size(); i++) {
+		glm::mat4 model = glm::mat4();
+		model = glm::rotate(model, this->Rotation[i].x, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, this->Rotation[i].y, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, this->Rotation[i].z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+		model = glm::translate(model, this->Position[i]);
+
+		model = glm::scale(model, this->Scale[i]);
+
+		this->model.push_back(model);
+	}
+}
+
 std::vector<glm::vec3> * InstancedTransformImpl::getPositions() {
 	return &this->Position;
 }

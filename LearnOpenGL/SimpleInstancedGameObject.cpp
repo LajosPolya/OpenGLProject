@@ -11,6 +11,12 @@ SimpleInstancedGameObject::SimpleInstancedGameObject(std::string diffuseMapPath,
 
 	this->material = GameObjectUtils::getMaterial(materialPath);
 }
+
+SimpleInstancedGameObject::SimpleInstancedGameObject(std::string meshPath, InstancedTransformImpl * transform) {
+	this->transform = transform;
+	this->mesh = GameObjectUtils::getMeshes(meshPath, this->transform, std::vector<Texture*>(), std::vector<Texture*>());
+}
+
 SimpleInstancedGameObject::~SimpleInstancedGameObject() {}
 
 Material * SimpleInstancedGameObject::getMaterial() {

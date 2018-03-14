@@ -112,9 +112,19 @@ std::vector<InstancedMesh*> GameObjectUtils::getMeshes(std::string path, Instanc
 
 	tokens = strtok_s(&path[0], ",", &context);
 	std::vector<InstancedMesh*> mesh;
-	GLint i = 0;
+	GLuint i = 0;
+	Texture * tempDif;
+	Texture * tempSpec;
 	while (tokens != NULL) {
-		mesh.push_back(new InstancedMesh(tokens, transform, diffuseMaps[i], specularMaps[i]));
+		tempDif = nullptr;
+		if (i < diffuseMaps.size()) {
+			tempDif = diffuseMaps[i];
+		}
+		tempSpec = nullptr;
+		if (i < specularMaps.size()) {
+			tempSpec = specularMaps[i];
+		}
+		mesh.push_back(new InstancedMesh(tokens, transform, tempDif, tempSpec));
 		i++;
 		tokens = strtok_s(NULL, ",", &context);
 	}

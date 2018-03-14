@@ -28,6 +28,8 @@ public:
 protected:
 	GLuint shaderId;
 
+	void use();
+
 private:
 	LightsContainer * lightsContainer;
 	Camera * camera;
@@ -37,7 +39,5 @@ private:
 	void buildShaders(const GLchar* vertexPath, const GLchar* fragmentPath);
 	void readShaderFile(const GLchar * path, std::string * code);
 	GLuint createShader(GLint type, const GLchar * code);
-	
-	void use();
 };
 

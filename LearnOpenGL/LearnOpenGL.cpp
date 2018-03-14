@@ -149,16 +149,20 @@ int main() {
 	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
 	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
 
+	/*
+	
+	TODO: DO Refactoring on removing Transform from InstancedMesh and from GameObjectUtils
+	
+	*/
 
-	// The LightsContainer should either return an InstancedGameObject or InstancedTransform. Is this Factory Pattern?
+
 	// Global Lights Container
 	LightsContainer globalLightsContainer("Material/crate.txt");
 
-	ComplexShader globalLightsShader(camera, &globalLightsContainer, projection, "lamp.vert", "lamp.frag");
-	SimpleGameObject lightBox1("Mesh/lightBox.txt", new TransformImpl((*globalLightsContainer.getPointLights())[0].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2)));
-	SimpleGameObject lightBox2("Mesh/lightBox.txt", new TransformImpl((*globalLightsContainer.getPointLights())[1].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2)));
-	SimpleGameObject lightBox3("Mesh/lightBox.txt", new TransformImpl((*globalLightsContainer.getPointLights())[2].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2)));
-	SimpleGameObject lightBox4("Mesh/lightBox.txt", new TransformImpl((*globalLightsContainer.getPointLights())[3].position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2)));
+	InstancedComplexShader globalLightsShader(camera, &globalLightsContainer, projection, "Shaders/instancedLamp.vert", "lamp.frag");
+	InstancedTransformImpl * lightTransform = globalLightsContainer.getTransform();
+	globalLightsShader.sendInstancesToShader(lightTransform->getModels());
+	SimpleInstancedGameObject lightBox = SimpleInstancedGameObject("Mesh/lightBox.txt", lightTransform);
 
 	ComplexShader globalAlphaShader(camera, &globalLightsContainer, projection, "alpha.vert", "alpha.frag");
 	SimpleGameObject grassGameObject("grass.png", "Mesh/grass.txt", "Transform/grass.txt");
@@ -176,10 +180,7 @@ int main() {
 	// Collision Detection
 	CollisionDetector::addCamera(camera);
 	CollisionDetector::AddTransform(testingGameObject.getTransform());
-	CollisionDetector::AddTransform(lightBox1.getTransform());
-	CollisionDetector::AddTransform(lightBox2.getTransform());
-	CollisionDetector::AddTransform(lightBox3.getTransform());
-	CollisionDetector::AddTransform(lightBox4.getTransform());
+	CollisionDetector::AddTransform(lightBox.getTransform());
 	//CollisionDetector::AddTransform(instancedGameObject.getTransform());
 	//CollisionDetector::AddTransform(instancedArrayGameObject.getTransform());
 	//CollisionDetector::AddTransform(grassSides.getTransform());
@@ -252,18 +253,9 @@ int main() {
 
 		grabCunksFromThread();
 
-		// TODO: Create LightGameObject so light info is stored withing GameObject
-		// TODO: These should be one isntancedArrayGameObject
-		// TODO: The Lights should be getting their transform from the Material object or vice versa
 		globalLightsShader.sendCameraToShader();
-		globalLightsShader.sendModelToShader(lightBox1.getTransform()->getModel());
-		lightBox1.Draw();
-		globalLightsShader.sendModelToShader(lightBox2.getTransform()->getModel());
-		lightBox2.Draw();
-		globalLightsShader.sendModelToShader(lightBox3.getTransform()->getModel());
-		lightBox3.Draw();
-		globalLightsShader.sendModelToShader(lightBox4.getTransform()->getModel());
-		lightBox4.Draw();
+		globalLightsShader.sendInstancesToShader(lightTransform->getModels());
+		lightBox.Draw();
 
 		// InstancedComplexShader
 		globalInstancedShader.sendCameraToShader();

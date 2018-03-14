@@ -12,6 +12,7 @@ class SimpleInstancedGameObject
 {
 public:
 	SimpleInstancedGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::string transformPath);
+	SimpleInstancedGameObject(std::string meshPath, InstancedTransformImpl * transform);
 	~SimpleInstancedGameObject();
 
 	Material * getMaterial();

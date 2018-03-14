@@ -6,6 +6,8 @@
 #include <iostream>
 
 #include "LightTypes.h"
+#include "TransformImpl.h"
+#include "InstancedTransformImpl.h"
 
 
 class LightsContainer
@@ -17,6 +19,11 @@ public:
 	DirLight * getDirLight();
 	SpotLight * getSpotLight();
 	std::vector<PointLight> * getPointLights();
+
+	std::vector<Transform*> getTransforms();
+
+	InstancedTransformImpl * getTransform();
+
 
 
 private:

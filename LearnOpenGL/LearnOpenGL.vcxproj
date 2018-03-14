@@ -180,6 +180,7 @@
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PositionRelativeCamera.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SimpleGameObject.h" />
@@ -247,9 +248,13 @@
     <None Include="instancedAlpha.vert" />
     <None Include="instancedArray.vert" />
     <None Include="Shaders\grass.frag" />
+    <None Include="Shaders\instancedLamp.vert" />
     <None Include="Shaders\line.geom" />
     <None Include="Shaders\passthrough.geom" />
     <None Include="Shaders\instancedVertToGeo.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LearnOpenGL.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

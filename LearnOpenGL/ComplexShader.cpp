@@ -15,5 +15,6 @@ ComplexShader::ComplexShader(Camera * camera, LightsContainer * lightsContainer,
 ComplexShader::~ComplexShader() {}
 
 void ComplexShader::sendModelToShader(glm::mat4 model) {
+	this->use();
 	glUniformMatrix4fv(glGetUniformLocation(this->shaderId, "model"), 1, GL_FALSE, glm::value_ptr(model));
 }
