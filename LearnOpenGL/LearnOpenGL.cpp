@@ -149,13 +149,6 @@ int main() {
 	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
 	chunks.push_back(SimpleInstancedArrayGameObject("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Material/crate.txt", std::vector<glm::vec3>()));
 
-	/*
-	
-	TODO: DO Refactoring on removing Transform from InstancedMesh and from GameObjectUtils
-	
-	*/
-
-
 	// Global Lights Container
 	LightsContainer globalLightsContainer("Material/crate.txt");
 
