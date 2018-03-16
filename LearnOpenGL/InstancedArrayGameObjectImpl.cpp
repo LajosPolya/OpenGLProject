@@ -50,7 +50,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->transform = new InstancedArrayTransformImpl(positions);
 	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps);
 
-	this->material = GameObjectUtils::getMaterial(materialLoc);
+	this->material = new Material(materialLoc);
 
 	this->camera = camera;
 	this->projection = projection;
@@ -78,7 +78,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->transform = new InstancedArrayTransformImpl(positions);
 	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps);
 
-	this->material = GameObjectUtils::getMaterial(materialLoc);
+	this->material = new Material(materialLoc);
 
 	this->camera = camera;
 	this->projection = projection;
@@ -106,7 +106,7 @@ InstancedArrayGameObjectImpl::InstancedArrayGameObjectImpl(GLchar * vertexShader
 	this->transform = new InstancedArrayTransformImpl(positions);
 	this->mesh = GameObjectUtils::getMeshes(meshLoc1, this->transform, diffuseMaps, specularMaps, primitiveType);
 
-	this->material = GameObjectUtils::getMaterial(materialLoc);
+	this->material = new Material(materialLoc);
 
 	this->camera = camera;
 	this->projection = projection;

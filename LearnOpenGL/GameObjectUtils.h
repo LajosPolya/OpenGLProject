@@ -8,11 +8,6 @@
 #include "InstancedMesh.h"
 #include "InstancedArrayMesh.h"
 #include "InstancedArrayTransformImpl.h"
-#include "InstancedTransformImpl.h"
-#include "TransparentTransformImpl.h"
-#include "TransformImpl.h"
-#include "ResourceManager.h"
-#include "GameObject.h"
 
 class GameObjectUtils
 {
@@ -22,11 +17,6 @@ public:
 	static std::vector<Mesh*> getMeshes(std::string path, Transform * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
 	static std::vector<InstancedArrayMesh*> getMeshes(std::string path, InstancedArrayTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
 	static std::vector<InstancedArrayMesh*> getMeshes(std::string path, InstancedArrayTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps, GLuint primitiveType);
-	static std::vector<InstancedMesh*> getMeshes(std::string path, InstancedTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
-	static std::vector<InstancedMesh*> getMeshes(std::string path, TransparentTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
-	static Material * getMaterial(std::string path);
-	// TODO: GameOBject is no longer needed here
-	// TODO: Transform is no longer needed here. Just send over num instnaces
-	static TransformImpl * getTransform(std::string path, GameObject * gameObject);
+	static std::vector<InstancedMesh*> getMeshes(std::string path, GLuint numInstances, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
 };
 

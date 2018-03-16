@@ -11,11 +11,11 @@ TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLch
 	std::vector<Texture*> diffuseMap = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
 	std::vector<Texture*> specularMap = GameObjectUtils::getSpecularTextures(specularMapLoc);
 
-	this->material = GameObjectUtils::getMaterial(materialLoc);
+	this->material = new Material(materialLoc);
 	this->transform = new TransparentTransformImpl(transformLoc);
 	// TODO: Meshes need to be sorted every frame, not just TransparentTransforms
 	// unless I want to make every transparent GameObject its own GameObject
-	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform, diffuseMap, specularMap);
+	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform->getModels().size(), diffuseMap, specularMap);
 
 	this->camera = camera;
 	this->projection = projection;
@@ -32,7 +32,7 @@ TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLch
 	std::vector<Texture*> diffuseMap = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
 
 	this->transform = new TransparentTransformImpl(transformLoc);
-	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform, diffuseMap, {});
+	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform->getModels().size(), diffuseMap, {});
 
 	this->camera = camera;
 	this->projection = projection;

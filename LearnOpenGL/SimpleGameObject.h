@@ -7,6 +7,7 @@
 #include <GL/glew.h>
 
 #include "GameObjectUtils.h"
+#include "TransformImpl.h"
 
 class SimpleGameObject
 {

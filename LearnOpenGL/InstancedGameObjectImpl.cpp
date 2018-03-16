@@ -33,9 +33,9 @@ InstancedGameObjectImpl::InstancedGameObjectImpl(GLchar * vertexShader, GLchar *
 	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapLoc);
 
 	this->transform = new InstancedTransformImpl(transformLoc);
-	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform, diffuseMaps, specularMaps);
+	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform->getModels().size(), diffuseMaps, specularMaps);
 
-	this->material = GameObjectUtils::getMaterial(materialLoc);
+	this->material = new Material(materialLoc);
 
 	this->camera = camera;
 	this->projection = projection;

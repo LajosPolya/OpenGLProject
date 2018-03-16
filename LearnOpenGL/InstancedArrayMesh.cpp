@@ -12,18 +12,18 @@ InstancedArrayMesh::InstancedArrayMesh(const InstancedArrayMesh & toCopy) : Mesh
 InstancedArrayMesh::InstancedArrayMesh() {}
 InstancedArrayMesh::~InstancedArrayMesh() {}
 
-InstancedArrayMesh::InstancedArrayMesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, Texture * diffuseMap, Texture * specularMap) {
+InstancedArrayMesh::InstancedArrayMesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, Texture * diffuseMap, Texture * specularMap) {
 	this->diffuseMap = diffuseMap;
 	this->specularMap = specularMap;
 
 	this->readVertexFile(vertexLocation);
-	this->instances = transform->getModels();
+	this->instances = instances;
 	this->numInstances = this->instances.size();
 
 	this->setupMesh();
 }
 
-InstancedArrayMesh::InstancedArrayMesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : InstancedArrayMesh(vertexLocation, transform, diffuseMap, specularMap) {
+InstancedArrayMesh::InstancedArrayMesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap) : InstancedArrayMesh(vertexLocation, instances, diffuseMap, specularMap) {
 	this->primitiveType = primitiveType;
 }
 

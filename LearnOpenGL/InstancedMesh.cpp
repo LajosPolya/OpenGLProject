@@ -7,22 +7,12 @@ InstancedMesh::InstancedMesh(const InstancedMesh & instancedMesh) : Mesh(instanc
 	this->numInstances = instancedMesh.numInstances;
 }
 
-InstancedMesh::InstancedMesh(GLchar * vertexLocation, InstancedTransformImpl * transform, Texture * diffuseMap, Texture * specularMap) {
+InstancedMesh::InstancedMesh(GLchar * vertexLocation, GLuint numInstances, Texture * diffuseMap, Texture * specularMap) {
 	this->diffuseMap = diffuseMap;
 	this->specularMap = specularMap;
 
 	this->readVertexFile(vertexLocation);
-	this->numInstances = transform->getModels().size();
-
-	this->setupMesh();
-}
-
-InstancedMesh::InstancedMesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, Texture * diffuseMap, Texture * specularMap) {
-	this->diffuseMap = diffuseMap;
-	this->specularMap = specularMap;
-
-	this->readVertexFile(vertexLocation);
-	this->numInstances = instances.size();
+	this->numInstances = numInstances;
 
 	this->setupMesh();
 }

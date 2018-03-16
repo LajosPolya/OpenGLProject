@@ -74,7 +74,7 @@ std::vector<InstancedArrayMesh*> GameObjectUtils::getMeshes(std::string path, In
 	std::vector<InstancedArrayMesh*> mesh;
 	GLint i = 0;
 	while (tokens != NULL) {
-		mesh.push_back(new InstancedArrayMesh(tokens, transform, diffuseMaps[i], specularMaps[i]));
+		mesh.push_back(new InstancedArrayMesh(tokens, transform->getModels(), diffuseMaps[i], specularMaps[i]));
 		i++;
 		tokens = strtok_s(NULL, ",", &context);
 	}
@@ -99,14 +99,14 @@ std::vector<InstancedArrayMesh*> GameObjectUtils::getMeshes(std::string path, In
 		if (i < specularMaps.size()) {
 			tempSpec = specularMaps[i];
 		}
-		mesh.push_back(new InstancedArrayMesh(tokens, transform, primitiveType, tempDif, tempSpec));
+		mesh.push_back(new InstancedArrayMesh(tokens, transform->getModels(), primitiveType, tempDif, tempSpec));
 		i++;
 		tokens = strtok_s(NULL, ",", &context);
 	}
 	return mesh;
 }
 
-std::vector<InstancedMesh*> GameObjectUtils::getMeshes(std::string path, InstancedTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
+std::vector<InstancedMesh*> GameObjectUtils::getMeshes(std::string path, GLuint numInstances, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
 	GLchar * tokens;
 	GLchar* context = NULL;
 
@@ -124,55 +124,9 @@ std::vector<InstancedMesh*> GameObjectUtils::getMeshes(std::string path, Instanc
 		if (i < specularMaps.size()) {
 			tempSpec = specularMaps[i];
 		}
-		mesh.push_back(new InstancedMesh(tokens, transform, tempDif, tempSpec));
+		mesh.push_back(new InstancedMesh(tokens, numInstances, tempDif, tempSpec));
 		i++;
 		tokens = strtok_s(NULL, ",", &context);
 	}
 	return mesh;
-}
-
-std::vector<InstancedMesh*> GameObjectUtils::getMeshes(std::string path, TransparentTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
-	GLchar * tokens;
-	GLchar* context = NULL;
-
-	tokens = strtok_s(&path[0], ",", &context);
-	std::vector<InstancedMesh*> mesh;
-	GLuint i = 0;
-	Texture * tempDif;
-	Texture * tempSpec;
-	while (tokens != NULL) {
-		
-		tempDif = nullptr;
-		if (i < diffuseMaps.size()) {
-			tempDif = diffuseMaps[i];
-		}
-		tempSpec = nullptr;
-		if (i < specularMaps.size()) {
-			tempSpec = specularMaps[i];
-		}
-		
-		mesh.push_back(new InstancedMesh(tokens, transform->getModels(), tempDif, tempSpec));
-		i++;
-		tokens = strtok_s(NULL, ",", &context);
-	}
-	return mesh;
-}
-
-Material * GameObjectUtils::getMaterial(std::string path) {
-	Material * material = ResourceManager::getMaterial(path);
-	if (material == nullptr) {
-		material = new Material(path);
-		ResourceManager::addInstance(path, material);
-	}
-	return material;
-}
-
-// TODO: GameOBject is no longer needed here
-TransformImpl * GameObjectUtils::getTransform(std::string path, GameObject * gameObject) {
-	TransformImpl * transform = ResourceManager::getTransform(path, gameObject);
-	if (transform == nullptr) {
-		transform = new TransformImpl(path);
-		ResourceManager::addInstance(path, transform);
-	}
-	return transform;
 }

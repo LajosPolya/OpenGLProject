@@ -9,8 +9,8 @@ public:
 	InstancedArrayMesh();
 	~InstancedArrayMesh();
 
-	InstancedArrayMesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, Texture * diffuseMap, Texture * specularMap);
-	InstancedArrayMesh(GLchar * vertexLocation, InstancedArrayTransformImpl * transform, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
+	InstancedArrayMesh(GLchar * vertexLocation, std::vector<glm::mat4> instances, Texture * diffuseMap, Texture * specularMap);
+	InstancedArrayMesh(GLchar * vertexLocation, std::vector<glm::mat4>, GLuint primitiveType, Texture * diffuseMap, Texture * specularMap);
 
 	virtual void Draw() override;
 
