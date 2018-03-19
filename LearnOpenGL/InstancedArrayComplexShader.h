@@ -25,6 +25,8 @@ public:
 	void sendCameraToShader();
 	void sendMaterialToShader();
 
+	LightsContainer * getLightsContainer();
+
 protected:
 	GLuint shaderId;
 

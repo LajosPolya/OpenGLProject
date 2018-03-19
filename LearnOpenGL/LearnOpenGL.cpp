@@ -246,6 +246,25 @@ int main() {
 
 		grabCunksFromThread();
 
+
+
+		/* Instantiate New LightBox */
+		if (playerController.getPutDownLight() == true) {
+			playerController.setPutDownLightFalse();
+			std::cout << "Camera Front" << camera->Position.x << " " << camera->Position.y << " " << camera->Position.z << std::endl;
+			glm::vec3 lightsPos = camera->Position + (glm::normalize(camera->Front) * glm::vec3(2.0));
+			std::cout << "Light's Pos " << std::floor(lightsPos.x) << " " << std::floor(lightsPos.y) << " " << std::floor(lightsPos.z) << std::endl;
+			lightTransform->addNewInstance(lightsPos, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
+			lightBox.setInstances(lightTransform);
+			globalLightsContainer.addPointLight(lightsPos);
+
+			// TODO: Should these be in a vector of ComplexShaders so they can all ve updated in one loop?
+			globalComplexShader.sendLightsContainerToShader();
+			globalInstancedArrayShader.sendLightsContainerToShader();
+			globalInstancedShader.sendLightsContainerToShader();
+		}
+
+
 		globalLightsShader.sendCameraToShader();
 		globalLightsShader.sendInstancesToShader(lightTransform->getModels());
 		lightBox.Draw();

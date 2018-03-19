@@ -64,6 +64,24 @@ void InstancedTransformImpl::setScales(std::vector<glm::vec3> scales) {
 	this->Scale = scales;
 }
 
+void InstancedTransformImpl::addNewInstance(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) {
+	glm::mat4 model;
+
+	model = glm::rotate(model, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+	model = glm::translate(model, position);
+
+	model = glm::scale(model, scale);
+
+	this->Position.push_back(position);
+	this->Rotation.push_back(rotation);
+	this->Scale.push_back(scale);
+
+	this->model.push_back(model);
+}
+
 void InstancedTransformImpl::refreshModel() {
 	// this->model = glm::mat4();
 }

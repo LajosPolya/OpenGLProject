@@ -7,6 +7,8 @@
 // GLFW
 #include <GLFW/glfw3.h>
 
+#include <iostream>
+
 #include "Camera.h"
 
 
@@ -24,6 +26,9 @@ public:
 	void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
 	void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
 
+	GLboolean getPutDownLight();
+	void setPutDownLightFalse();
+
 private:
 	Camera & camera;
 
@@ -39,5 +44,7 @@ private:
 
 	// Timing
 	GLfloat & deltaTime;
+
+	GLboolean putDownLight = false;
 };
 

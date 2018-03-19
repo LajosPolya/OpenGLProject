@@ -15,7 +15,12 @@
   Mesh.cpp
   Material.cpp
   LightsContainer.cpp
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\lightscontainer.cpp(47): warning C4305: '=': truncation from 'double' to 'GLfloat'
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\lightscontainer.cpp(48): warning C4305: '=': truncation from 'double' to 'GLfloat'
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\lightscontainer.cpp(49): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\lightscontainer.cpp(50): warning C4305: 'argument': truncation from 'double' to 'float'
   LearnOpenGL.cpp
+c:\users\lajos polya\documents\github\learnopengl\learnopengl\learnopengl.cpp(252): warning C4805: '==': unsafe mix of type 'GLboolean' and type 'bool' in operation
   InstancedTransformImpl.cpp
   InstancedMesh.cpp
   Generating Code...

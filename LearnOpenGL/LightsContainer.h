@@ -21,6 +21,8 @@ public:
 
 	InstancedTransformImpl * getTransform();
 
+	void addPointLight(glm::vec3 pos);
+
 private:
 	GLboolean havePushedLastPointLight = false;
 	void readLightingFile(std::string filename);

@@ -40,6 +40,8 @@ public:
 	void setRotations(std::vector<glm::vec3> rotations);
 	void setScales(std::vector<glm::vec3> scales);
 
+	void addNewInstance(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
+
 	void refreshModel();
 
 	void Draw();

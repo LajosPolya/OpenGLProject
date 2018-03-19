@@ -188,6 +188,10 @@ void InstancedArrayComplexShader::sendMaterialToShader() {
 	glUniform1f(glGetUniformLocation(this->shaderId, "material.shininess"), this->material->getShininess());
 }
 
+LightsContainer * InstancedArrayComplexShader::getLightsContainer() {
+	return this->lightsContainer;
+}
+
 void InstancedArrayComplexShader::use() {
 	glUseProgram(this->shaderId);
 }

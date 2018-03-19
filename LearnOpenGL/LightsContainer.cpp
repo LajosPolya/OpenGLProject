@@ -22,6 +22,11 @@ std::vector<PointLight> * LightsContainer::getPointLights() {
 	return &this->propContainer.pointLights;
 }
 
+
+// TODO : Don't create Transform every time
+/*
+	But instead store store the transform
+*/
 InstancedTransformImpl * LightsContainer::getTransform() {
 	std::vector<glm::vec3> positions;
 	std::vector<glm::vec3> rotations;
@@ -32,6 +37,19 @@ InstancedTransformImpl * LightsContainer::getTransform() {
 		scales.push_back(glm::vec3(0.2, 0.2, 0.2));
 	}
 	return new InstancedTransformImpl(positions, rotations, scales);
+}
+
+// TODO : And this should update the Transform itself
+void LightsContainer::addPointLight(glm::vec3 pos) {
+	PointLight pointLight;
+	pointLight.position = pos;
+	pointLight.constant = 1.0;
+	pointLight.linear = 0.09;
+	pointLight.quadratic = 0.032;
+	pointLight.ambient = glm::vec3(0.05);
+	pointLight.diffuse = glm::vec3(0.8);
+	pointLight.specular = glm::vec3(1.0);
+	this->propContainer.pointLights.push_back(pointLight);
 }
 
 /*
