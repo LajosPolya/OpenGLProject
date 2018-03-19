@@ -153,7 +153,7 @@ int main() {
 	LightsContainer globalLightsContainer("Material/crate.txt");
 
 	InstancedComplexShader globalLightsShader(camera, &globalLightsContainer, projection, "Shaders/instancedLamp.vert", "lamp.frag");
-	InstancedTransformImpl * lightTransform = globalLightsContainer.getTransform();
+	InstancedTransformImpl * lightTransform = globalLightsContainer.getPointLightTransform();
 	globalLightsShader.sendInstancesToShader(lightTransform->getModels());
 	SimpleInstancedGameObject lightBox = SimpleInstancedGameObject("Mesh/lightBox.txt", lightTransform);
 
@@ -247,16 +247,13 @@ int main() {
 		grabCunksFromThread();
 
 
-
 		/* Instantiate New LightBox */
 		if (playerController.getPutDownLight() == true) {
 			playerController.setPutDownLightFalse();
-			std::cout << "Camera Front" << camera->Position.x << " " << camera->Position.y << " " << camera->Position.z << std::endl;
 			glm::vec3 lightsPos = camera->Position + (glm::normalize(camera->Front) * glm::vec3(2.0));
-			std::cout << "Light's Pos " << std::floor(lightsPos.x) << " " << std::floor(lightsPos.y) << " " << std::floor(lightsPos.z) << std::endl;
-			lightTransform->addNewInstance(lightsPos, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
-			lightBox.setInstances(lightTransform);
 			globalLightsContainer.addPointLight(lightsPos);
+			// This Transform automatically gets updated because we have a reference to it
+			lightBox.setInstances(lightTransform);
 
 			// TODO: Should these be in a vector of ComplexShaders so they can all ve updated in one loop?
 			globalComplexShader.sendLightsContainerToShader();
@@ -281,9 +278,7 @@ int main() {
 
 		// Testing InstancedArrayComplexShader and SimpleGameObject
 		globalInstancedArrayShader.sendCameraToShader();
-		/* Copy Constructor doesn't yet copy LightsContainer */
 		for (GLuint i = 0; i < chunks.size(); i++) {
-			//perlin.Draw();
 			chunks[i].Draw();
 		}
 		instancedArrayGameObject.Draw();

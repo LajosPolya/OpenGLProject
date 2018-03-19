@@ -56,5 +56,7 @@ private:
 	std::vector<glm::mat4> model;
 
 	void readFile(std::string filename);
+
+	glm::mat4 doTransformOperations(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 };
 

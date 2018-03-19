@@ -2,9 +2,9 @@
 
 
 LightsContainer::LightsContainer(std::string lightsLocation) {
-	// TODO: The Lights should be getting their Transform from the Material object or vice versa
 	this->propContainer.dirLight = new DirLight();
 	this->propContainer.spotLight = new SpotLight();
+	this->poitLightsTransform = new InstancedTransformImpl();
 	readLightingFile(lightsLocation);
 }
 
@@ -22,24 +22,10 @@ std::vector<PointLight> * LightsContainer::getPointLights() {
 	return &this->propContainer.pointLights;
 }
 
-
-// TODO : Don't create Transform every time
-/*
-	But instead store store the transform
-*/
-InstancedTransformImpl * LightsContainer::getTransform() {
-	std::vector<glm::vec3> positions;
-	std::vector<glm::vec3> rotations;
-	std::vector<glm::vec3> scales;
-	for (GLuint i = 0; i < this->propContainer.pointLights.size(); i++) {
-		positions.push_back(this->propContainer.pointLights[i].position);
-		rotations.push_back(glm::vec3(0, 0, 0));
-		scales.push_back(glm::vec3(0.2, 0.2, 0.2));
-	}
-	return new InstancedTransformImpl(positions, rotations, scales);
+InstancedTransformImpl * LightsContainer::getPointLightTransform() {
+	return this->poitLightsTransform;
 }
 
-// TODO : And this should update the Transform itself
 void LightsContainer::addPointLight(glm::vec3 pos) {
 	PointLight pointLight;
 	pointLight.position = pos;
@@ -50,6 +36,7 @@ void LightsContainer::addPointLight(glm::vec3 pos) {
 	pointLight.diffuse = glm::vec3(0.8);
 	pointLight.specular = glm::vec3(1.0);
 	this->propContainer.pointLights.push_back(pointLight);
+	this->poitLightsTransform->addNewInstance(pointLight.position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
 }
 
 /*
@@ -206,6 +193,7 @@ void LightsContainer::readLightingFile(std::string filename) {
 				if (token[2] != prevPointLight) {
 					if (prevPointLight != ' ' || this->propContainer.pointLights.size() != 0) {
 						this->propContainer.pointLights.push_back(pointLight);
+						this->poitLightsTransform->addNewInstance(pointLight.position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
 					}
 					prevPointLight = token[2]; // nth Point Light instance
 					pointLight = {};

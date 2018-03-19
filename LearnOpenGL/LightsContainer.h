@@ -19,7 +19,7 @@ public:
 	SpotLight * getSpotLight();
 	std::vector<PointLight> * getPointLights();
 
-	InstancedTransformImpl * getTransform();
+	InstancedTransformImpl * getPointLightTransform();
 
 	void addPointLight(glm::vec3 pos);
 
@@ -29,10 +29,7 @@ private:
 
 	LightsPropertiesContainer propContainer;
 
-	// TODO : Have GameObjects in this class
-	/* This class has a list of GameObject which represent the physiscal lights 
-	   Then we only have to send the LightsPropertiesContainer propContainer to the various ComplexShaders
-	*/
+	InstancedTransformImpl * poitLightsTransform = nullptr;
 
 	/*
 	Light Prop Type {
