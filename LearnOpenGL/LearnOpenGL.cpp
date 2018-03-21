@@ -248,7 +248,7 @@ int main() {
 
 
 		/* Instantiate New LightBox */
-		if (playerController.getPutDownLight() == true) {
+		if (playerController.getPutDownLight() == GL_TRUE) {
 			playerController.setPutDownLightFalse();
 			glm::vec3 lightsPos = camera->Position + (glm::normalize(camera->Front) * glm::vec3(2.0));
 			globalLightsContainer.addPointLight(lightsPos);

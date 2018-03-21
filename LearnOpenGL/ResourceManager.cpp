@@ -47,34 +47,3 @@ TransformImpl * ResourceManager::getTransform(std::string path, GameObject * gam
 		return (TransformImpl*)new TransformImpl(tempTransform->getPosition(), tempTransform->getRotation(), tempTransform->getScale());
 	}
 }
-
-// TODO: GameOBject is no longer needed here
-InstancedArrayTransformImpl * ResourceManager::getTransform(std::string path, InstancedArrayGameObjectImpl * gameObject) {
-	std::unordered_map<std::string, void *>::iterator it = manager.find(path);
-
-	if (it == manager.end()) {
-		return nullptr;
-	}
-	else {
-		InstancedArrayTransformImpl * tempTransform = ((InstancedArrayTransformImpl *)it->second);
-
-		std::vector<glm::vec3> * positions = tempTransform->getPositions();
-		std::vector<glm::vec3> * rotations = tempTransform->getRotations();
-		std::vector<glm::vec3> * scales = tempTransform->getScales();
-		if (positions->size() == rotations->size() && rotations->size() == scales->size()) {
-			std::vector<glm::vec3> tempPositions;
-			std::vector<glm::vec3> tempRotations;
-			std::vector<glm::vec3> tempScales;
-			for (GLuint i = 0; i < tempTransform->getPositions()->size(); i++) {
-				tempPositions.push_back((*positions)[i]);
-				tempRotations.push_back((*rotations)[i]);
-				tempScales.push_back((*scales)[i]);
-			}
-			return (InstancedArrayTransformImpl*)new InstancedArrayTransformImpl(tempPositions, tempRotations, tempScales);
-		}
-		else {
-			std::cout << "ERROR:: RESOURCE_MANAGER_INSTNACED_ARRAY_TRANSFORM_IMPL" << std::endl;
-			return nullptr;
-		}
-	}
-}

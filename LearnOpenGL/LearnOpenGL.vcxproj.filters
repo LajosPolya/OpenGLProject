@@ -57,19 +57,10 @@
     <ClCompile Include="TransformImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectImpl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InstancedArrayGameObjectImpl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InstancedArrayTransformImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InstancedTransformImpl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InstancedGameObjectImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TransparentTransformImpl.cpp">
@@ -164,13 +155,7 @@
     <ClInclude Include="Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjectImpl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InstancedArrayGameObjectImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InstancedArrayTransformImpl.h">
@@ -180,12 +165,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InstancedTransform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InstancedGameObjectImpl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InstancedGameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TransparentTransformImpl.h">

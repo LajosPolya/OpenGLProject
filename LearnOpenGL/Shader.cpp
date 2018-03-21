@@ -1,8 +1,4 @@
 #include "Shader.h"
-#include "GameObjectImpl.h"
-#include "InstancedGameObject.h"
-#include "InstancedGameObjectImpl.h"
-#include "InstancedArrayGameObjectImpl.h"
 #include "TransparentGameObjectImpl.h"
 
 Shader::Shader() {}
@@ -191,46 +187,6 @@ void Shader::sendToShader(LightsContainer * lightsContainer) {
 	glUniform1f(glGetUniformLocation(this->Program, "spotLight.outerCutOff"), glm::cos(glm::radians(spotLight->outerCutOff)));
 }
 
-// TODO: Don't send data to Shader every frame.
-// Only send data to shader when it has changed.
-void Shader::sendToShader(GameObjectImpl * gameObject) {
-	Camera * camera = gameObject->getCamera();
-
-	this->Use();
-
-	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), camera->Position.x, camera->Position.y, camera->Position.z);
-
-
-	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
-	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
-
-	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
-	glUniformMatrix4fv(glGetUniformLocation(this->Program, "model"), 1, GL_FALSE, glm::value_ptr(gameObject->getTransform()->getModel()));
-
-	// Set material properties
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), camera->Position.x, camera->Position.y, camera->Position.z);
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), camera->Front.x, camera->Front.y, camera->Front.z);
-}
-
-void Shader::sendToShader(InstancedArrayGameObjectImpl * gameObject) {
-	this->Use();
-	
-	this->sendCommonToShader(gameObject);
-}
-
-// TODO: SPIKE : All GameObjects should be equal except that they have different Transforms
-// Thus they could all have the same Shader method to send info to the shader and separate Shader methods for the Transforms
-void Shader::sendToShader(InstancedGameObjectImpl * gameObject) {
-	this->Use();
-
-	this->sendCommonToShader(gameObject);
-
-	std::vector<glm::mat4> models = gameObject->getTransform()->getModels();
-	for (GLuint i = 0; i < models.size(); i++) {
-		glUniformMatrix4fv(glGetUniformLocation(this->Program, ("model[" + std::to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(models[i]));
-	}
-}
-
 void Shader::sendToShader(TransparentGameObjectImpl * gameObject) {
 	this->Use();
 	sendCommonToShader(gameObject);
@@ -255,20 +211,6 @@ void Shader::sendCommonToShader(TransparentGameObjectImpl * gameObject) {
 	Camera * camera = gameObject->getCamera();
 	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), camera->Position.x, camera->Position.y, camera->Position.z);
 	
-	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
-	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
-
-	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
-
-	// Set material properties
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), camera->Position.x, camera->Position.y, camera->Position.z);
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), camera->Front.x, camera->Front.y, camera->Front.z);
-}
-
-void Shader::sendCommonToShader(InstancedGameObject * gameObject) {
-	Camera * camera = gameObject->getCamera();
-	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), camera->Position.x, camera->Position.y, camera->Position.z);
-
 	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
 	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
 

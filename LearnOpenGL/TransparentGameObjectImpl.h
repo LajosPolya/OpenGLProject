@@ -3,10 +3,11 @@
 #include <vector>
 #include <string>
 
-#include "InstancedGameObject.h"
 #include "TransparentTransformImpl.h"
 #include "GameObjectUtils.h"
 #include "GameObjectMemoryManager.h"
+#include "Camera.h"
+#include "Shader.h"
 
 class TransparentGameObjectImpl
 {

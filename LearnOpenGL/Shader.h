@@ -12,13 +12,9 @@
 #include "Material.h"
 #include "Mesh.h"
 #include "LightsContainer.h"
+#include "Camera.h"
 
-// TODO: Why are these Forward Declared?
-class GameObjectImpl;
-class InstancedArrayGameObjectImpl;
-class InstancedGameObjectImpl;
 class TransparentGameObjectImpl;
-class InstancedGameObject;
 
 class Shader
 {
@@ -37,9 +33,6 @@ public:
 	void Use();
 
 	void sendToShader(LightsContainer * lightsContainer);
-	void sendToShader(GameObjectImpl * gameObject);
-	void sendToShader(InstancedArrayGameObjectImpl * gameObject);
-	void sendToShader(InstancedGameObjectImpl * gameObject);
 	void sendToShader(TransparentGameObjectImpl * gameObject);
 	void sendToShader(Material * material);
 
@@ -47,6 +40,5 @@ public:
 
 private:
 	void sendCommonToShader(TransparentGameObjectImpl * gameObject);
-	void sendCommonToShader(InstancedGameObject * gameObject);
 
 };
