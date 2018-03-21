@@ -18,7 +18,7 @@ SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffu
 	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapPath);
 
 	this->transform = new InstancedArrayTransformImpl(transformPath);
-	this->mesh = GameObjectUtils::getMeshes(meshPath, this->transform, diffuseMaps, specularMaps);
+	this->mesh = makeMeshes(meshPath, this->transform->getModels(), diffuseMaps, specularMaps);
 }
 
 SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::vector<glm::vec3> positions) : transform() {
@@ -28,7 +28,7 @@ SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffu
 
 	this->transform = transform = new InstancedArrayTransformImpl(positions);
 
-	this->mesh = GameObjectUtils::getMeshes(meshPath, this->transform, diffuseMaps, specularMaps);
+	this->mesh = makeMeshes(meshPath, this->transform->getModels(), diffuseMaps, specularMaps);
 }
 
 SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::vector<glm::vec3> positions, GLuint primitiveType) {
@@ -36,7 +36,7 @@ SimpleInstancedArrayGameObject::SimpleInstancedArrayGameObject(std::string diffu
 	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapPath);
 
 	this->transform = new InstancedArrayTransformImpl(positions);
-	this->mesh = GameObjectUtils::getMeshes(meshPath, this->transform, diffuseMaps, specularMaps, primitiveType);
+	this->mesh = makeMeshes(meshPath, this->transform->getModels(), diffuseMaps, specularMaps, primitiveType);
 }
 
 void SimpleInstancedArrayGameObject::Draw() {
@@ -63,4 +63,44 @@ void SimpleInstancedArrayGameObject::setInstances(InstancedArrayTransformImpl * 
 	for (GLuint i = 0; i < this->mesh.size(); i++) {
 		this->mesh[i]->setInstances(transform->getModels());
 	}
+}
+
+std::vector<InstancedArrayMesh*> SimpleInstancedArrayGameObject::makeMeshes(std::string path, std::vector<glm::mat4> models, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
+	GLchar * tokens;
+	GLchar* context = NULL;
+
+	tokens = strtok_s(&path[0], ",", &context);
+	std::vector<InstancedArrayMesh*> mesh;
+	GLint i = 0;
+	while (tokens != NULL) {
+		mesh.push_back(new InstancedArrayMesh(tokens, models, diffuseMaps[i], specularMaps[i]));
+		i++;
+		tokens = strtok_s(NULL, ",", &context);
+	}
+	return mesh;
+}
+
+std::vector<InstancedArrayMesh*> SimpleInstancedArrayGameObject::makeMeshes(std::string path, std::vector<glm::mat4> models, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps, GLuint primitiveType) {
+	GLchar * tokens;
+	GLchar* context = NULL;
+
+	tokens = strtok_s(&path[0], ",", &context);
+	std::vector<InstancedArrayMesh*> mesh;
+	GLuint i = 0;
+	Texture * tempDif;
+	Texture * tempSpec;
+	while (tokens != NULL) {
+		tempDif = nullptr;
+		if (i < diffuseMaps.size()) {
+			tempDif = diffuseMaps[i];
+		}
+		tempSpec = nullptr;
+		if (i < specularMaps.size()) {
+			tempSpec = specularMaps[i];
+		}
+		mesh.push_back(new InstancedArrayMesh(tokens, models, primitiveType, tempDif, tempSpec));
+		i++;
+		tokens = strtok_s(NULL, ",", &context);
+	}
+	return mesh;
 }

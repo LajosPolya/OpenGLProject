@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 
+#include "InstancedTransformImpl.h"
 #include "InstancedMesh.h"
 #include "Material.h"
 #include "GameObjectUtils.h"
@@ -28,5 +29,7 @@ private:
 	std::vector<InstancedMesh*> mesh;
 
 	InstancedTransformImpl * transform = nullptr;
+
+	std::vector<InstancedMesh*> makeMeshes(std::string path, GLuint numInstances, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
 };
 

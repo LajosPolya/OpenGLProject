@@ -42,5 +42,7 @@ private:
 	LightsContainer * lightsContainer;
 
 	glm::mat4 projection;
+
+	std::vector<InstancedMesh*> makeMeshes(std::string path, GLuint numInstances, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
 };
 

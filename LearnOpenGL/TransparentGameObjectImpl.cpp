@@ -15,7 +15,7 @@ TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLch
 	this->transform = new TransparentTransformImpl(transformLoc);
 	// TODO: Meshes need to be sorted every frame, not just TransparentTransforms
 	// unless I want to make every transparent GameObject its own GameObject
-	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform->getModels().size(), diffuseMap, specularMap);
+	this->mesh = makeMeshes(meshLoc, this->transform->getModels().size(), diffuseMap, specularMap);
 
 	this->camera = camera;
 	this->projection = projection;
@@ -32,7 +32,7 @@ TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLch
 	std::vector<Texture*> diffuseMap = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
 
 	this->transform = new TransparentTransformImpl(transformLoc);
-	this->mesh = GameObjectUtils::getMeshes(meshLoc, this->transform->getModels().size(), diffuseMap, {});
+	this->mesh = makeMeshes(meshLoc, this->transform->getModels().size(), diffuseMap, {});
 
 	this->camera = camera;
 	this->projection = projection;
@@ -74,4 +74,29 @@ TransparentTransformImpl * TransparentGameObjectImpl::getTransform() {
 LightsContainer * TransparentGameObjectImpl::getLightsContainer()
 {
 	return this->lightsContainer;
+}
+
+std::vector<InstancedMesh*> TransparentGameObjectImpl::makeMeshes(std::string path, GLuint numInstances, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
+	GLchar * tokens;
+	GLchar* context = NULL;
+
+	tokens = strtok_s(&path[0], ",", &context);
+	std::vector<InstancedMesh*> mesh;
+	GLuint i = 0;
+	Texture * tempDif;
+	Texture * tempSpec;
+	while (tokens != NULL) {
+		tempDif = nullptr;
+		if (i < diffuseMaps.size()) {
+			tempDif = diffuseMaps[i];
+		}
+		tempSpec = nullptr;
+		if (i < specularMaps.size()) {
+			tempSpec = specularMaps[i];
+		}
+		mesh.push_back(new InstancedMesh(tokens, numInstances, tempDif, tempSpec));
+		i++;
+		tokens = strtok_s(NULL, ",", &context);
+	}
+	return mesh;
 }

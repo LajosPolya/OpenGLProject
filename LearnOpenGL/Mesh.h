@@ -16,11 +16,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "LightTypes.h"
 #include "Texture.h"
-#include "Transform.h"
-#include "InstancedArrayTransformImpl.h"
-#include "InstancedTransformImpl.h"
 
 #define POSITION 0
 #define NORMAL 1
@@ -47,7 +43,6 @@ public:
 	Mesh(const Mesh & toCopy);
 	Mesh(GLchar * vertexLocation);
 	Mesh(GLchar * vertexLocation, Texture * diffuseMap, Texture * specularMap);
-	Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap, Texture * specularMap);
 
 	virtual void Draw();
 
@@ -75,7 +70,4 @@ protected:
 
 	/* Reads in a mesh file and Processes Vertices */
 	void readVertexFile(GLchar * filename);
-
-private:
-	void setupMesh(Transform * transform);
 };

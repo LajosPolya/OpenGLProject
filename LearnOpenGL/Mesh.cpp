@@ -30,14 +30,6 @@ Mesh::Mesh(GLchar * vertexLocation, Texture * diffuseMap, Texture * specularMap)
 	this->setupMesh();
 }
 
-Mesh::Mesh(GLchar * vertexLocation, Transform * transform, Texture * diffuseMap, Texture * specularMap) {
-	this->readVertexFile(vertexLocation);
-
-	this->diffuseMap = diffuseMap;
-	this->specularMap = specularMap;
-	this->setupMesh();
-}
-
 void Mesh::Draw() {
 	GLuint diffuseNr = 1;
 	GLuint specularNr = 1;
@@ -90,42 +82,6 @@ GLuint Mesh::getVAO() {
 
 // Function
 void Mesh::setupMesh() {
-	glGenVertexArrays(1, &this->VAO);
-	glGenBuffers(1, &this->VBO);
-
-	glBindVertexArray(this->VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(Vertex), &this->vertices[0], GL_STATIC_DRAW);
-
-	if (this->indices.size() != 0) {
-		glGenBuffers(1, &this->EBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(GLuint), &this->indices[0], GL_STATIC_DRAW);
-	}
-
-	// Vertex Positions
-	if (this->vertexProp_BitMap & POSITION_BITMAP) {
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
-	}
-
-
-	// Vertex Normals
-	if (this->vertexProp_BitMap & NORMAL_BITMAP) {
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
-	}
-
-	// Vertex Texture Coords
-	if (this->vertexProp_BitMap & TEXTURE_COORDS_BITMAP) {
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
-	}
-
-	glBindVertexArray(0);
-}
-
-void Mesh::setupMesh(Transform * transform) {
 	glGenVertexArrays(1, &this->VAO);
 	glGenBuffers(1, &this->VBO);
 

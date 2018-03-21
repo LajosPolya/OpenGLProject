@@ -29,12 +29,12 @@ InstancedTransformImpl * LightsContainer::getPointLightTransform() {
 void LightsContainer::addPointLight(glm::vec3 pos) {
 	PointLight pointLight;
 	pointLight.position = pos;
-	pointLight.constant = 1.0;
-	pointLight.linear = 0.09;
-	pointLight.quadratic = 0.032;
-	pointLight.ambient = glm::vec3(0.05);
-	pointLight.diffuse = glm::vec3(0.8);
-	pointLight.specular = glm::vec3(1.0);
+	pointLight.constant = (GLfloat)1.0;
+	pointLight.linear = (GLfloat)0.09;
+	pointLight.quadratic = (GLfloat)0.032;
+	pointLight.ambient = glm::vec3((GLfloat)0.05);
+	pointLight.diffuse = glm::vec3((GLfloat)0.8);
+	pointLight.specular = glm::vec3((GLfloat)1.0);
 	this->propContainer.pointLights.push_back(pointLight);
 	this->poitLightsTransform->addNewInstance(pointLight.position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
 }
@@ -185,6 +185,7 @@ void LightsContainer::readLightingFile(std::string filename) {
 
 				if (this->propContainer.pointLights.size() != 0 && this->havePushedLastPointLight == false) {
 					this->propContainer.pointLights.push_back(pointLight);
+					this->poitLightsTransform->addNewInstance(pointLight.position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
 					this->havePushedLastPointLight = true;
 				}
 
@@ -205,6 +206,7 @@ void LightsContainer::readLightingFile(std::string filename) {
 
 				if (this->propContainer.pointLights.size() != 0 && this->havePushedLastPointLight == false) {
 					this->propContainer.pointLights.push_back(pointLight);
+					this->poitLightsTransform->addNewInstance(pointLight.position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
 					this->havePushedLastPointLight = true;
 				}
 			}

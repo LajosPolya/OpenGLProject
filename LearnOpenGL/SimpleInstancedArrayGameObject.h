@@ -28,5 +28,8 @@ private:
 	std::vector<InstancedArrayMesh*> mesh;
 
 	InstancedArrayTransformImpl * transform = nullptr;
+
+	std::vector<InstancedArrayMesh*> makeMeshes(std::string path, std::vector<glm::mat4> models, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
+	std::vector<InstancedArrayMesh*> makeMeshes(std::string path, std::vector<glm::mat4> models, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps, GLuint primitiveType);
 };
 

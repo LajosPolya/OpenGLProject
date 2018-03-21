@@ -1,5 +1,10 @@
 #pragma once
 
+// GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <vector>
 #include <string>
 
@@ -14,9 +19,5 @@ class GameObjectUtils
 public:
 	static std::vector<Texture*> getDiffuseTextures(std::string path);
 	static std::vector<Texture*> getSpecularTextures(std::string path);
-	static std::vector<Mesh*> getMeshes(std::string path, Transform * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
-	static std::vector<InstancedArrayMesh*> getMeshes(std::string path, InstancedArrayTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
-	static std::vector<InstancedArrayMesh*> getMeshes(std::string path, InstancedArrayTransformImpl * transform, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps, GLuint primitiveType);
-	static std::vector<InstancedMesh*> getMeshes(std::string path, GLuint numInstances, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
 };
 

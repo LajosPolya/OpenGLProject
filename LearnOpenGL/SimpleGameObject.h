@@ -29,5 +29,7 @@ private:
 	std::vector<Mesh*> mesh;
 
 	Transform * transform = nullptr;
+
+	std::vector<Mesh*> makeMeshes(std::string path, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
 };
 
