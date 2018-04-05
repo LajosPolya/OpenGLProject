@@ -170,6 +170,13 @@ int main() {
 	// InstancedArrayComplexShader
 	InstancedArrayComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "Material/crate.txt", "instancedArray.vert", "fragment.frag");
 
+
+	/*
+		Have an OctTree in every transform for the chunks so the collision detector an take advantage of it
+	*/
+
+
+
 	// Collision Detection
 	CollisionDetector::addCamera(camera);
 	CollisionDetector::AddTransform(testingGameObject.getTransform());
