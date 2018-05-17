@@ -89,6 +89,22 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 		}
 	}
 
+	if (hasGeneratedGradients(x, y - 1, z) == 1) {
+		for (i = 0; i < NUM_GRADS; i++) {
+			for (j = 0; j < NUM_GRADS; j++) {
+				this->gradients3d[i][0][j] = this->chunks[rx][ry - 1][rz].gradients[i][1 * 1][j];
+			}
+		}
+	}
+
+	if (hasGeneratedGradients(x, y + 1, z) == 1) {
+		for (i = 0; i < NUM_GRADS; i++) {
+			for (j = 0; j < NUM_GRADS; j++) {
+				this->gradients3d[i][1 * 1][j] = this->chunks[rx][ry + 1][rz].gradients[i][0][j];
+			}
+		}
+	}
+
 	//this->chunks[rx][ry][rz] = this->gradients3d;
 	this->chunks[rx][ry][rz] .gradients= new glm::vec3**[NUM_GRADS];
 	for (i = 0; i < NUM_GRADS; i++) {
