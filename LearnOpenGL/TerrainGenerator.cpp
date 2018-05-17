@@ -50,39 +50,35 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint z) {
 ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	ComplexPosition * CoPo = nullptr;
 	GLint i, j, k;
-	GLint lowerX = getLowerVal(pos.x, this->x);
-	GLint lowerY = getLowerVal(pos.y, this->y);
-	GLint lowerZ = getLowerVal(pos.z, this->z);
-	GLint upperX = lowerX + this->x;
-	GLint upperY = lowerY + this->y;
-	GLint upperZ = lowerZ + this->z;
+	glm::vec3 lower(getLowerVal(pos.x, this->x), getLowerVal(pos.y, this->y), getLowerVal(pos.z, this->z));
+	glm::vec3 upper((int)lower.x + this->x, (int)lower.y + this->y, (int)lower.z + this->z);
 	std::vector<glm::vec3> position;
 	std::vector<glm::vec3> drawablePosition;
 
-	if (this->chunkManager.hasGenerated(lowerX / this->x, lowerY / this->y, lowerZ / this->z) == 1) {
-		return *this->chunkManager.getChunkPosition(lowerX / this->x, lowerY / this->y, lowerZ / this->z);
+	if (this->chunkManager.hasGenerated((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z) == 1) {
+		return *this->chunkManager.getChunkPosition((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
 	}
 	else {
 		CoPo = new ComplexPosition();
-		this->chunkManager.setChunkPosition(CoPo, lowerX / this->x, lowerY / this->y, lowerZ / this->z);
+		this->chunkManager.setChunkPosition(CoPo, (int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
 	}
 
-	this->chunkManager.setChunk(lowerX / this->x, lowerY / this->y, lowerZ / this->z);
+	this->chunkManager.setChunk((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
 	// Set the gradients for PerlinNoise
-	perlinNoise->setChunk(chunkManager.getChunk(lowerX / this->x, lowerY / this->y, lowerZ / this->z));
+	perlinNoise->setChunk(chunkManager.getChunk((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z));
 	GLfloat *** values;
 	// Generate positions for the chunk the input parameters are in
 	values = new GLfloat**[this->x];
-	for (i = lowerX; i < upperX; i++) {
-		values[i - lowerX] = new GLfloat*[this->y];
-		for (j = lowerY; j < upperY; j++) {
-			values[i - lowerX][j - lowerY] = new GLfloat[this->z];
-			for (k = lowerZ; k < upperZ; k++) {
-				values[i - lowerX][j - lowerY][k - lowerZ] = perlinNoise->generate(i - lowerX, j - lowerY, k - lowerZ);
-				if (values[i - lowerX][j - lowerY][k - lowerZ] >(GLfloat)GRAN) {
+	for (i = (int)lower.x; i < (int)upper.x; i++) {
+		values[i - (int)lower.x] = new GLfloat*[this->y];
+		for (j = (int)lower.y; j < (int)upper.y; j++) {
+			values[i - (int)lower.x][j - (int)lower.y] = new GLfloat[this->z];
+			for (k = (int)lower.z; k < (int)upper.z; k++) {
+				values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] = perlinNoise->generate(i - (int)lower.x, j - (int)lower.y, k - (int)lower.z);
+				if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] >(GLfloat)GRAN) {
 					position.push_back(glm::vec3(i, j, k));
 
-					if (i == lowerX || i == upperX - 1 || j == lowerY || j == upperY - 1 || k == lowerZ || k == upperZ - 1) {
+					if (i == (int)lower.x || i == (int)upper.x - 1 || j == (int)lower.y || j == (int)upper.y - 1 || k == (int)lower.z || k == (int)upper.z - 1) {
 						drawablePosition.push_back(glm::vec3(i, j, k));
 					}
 				}
@@ -90,12 +86,12 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 		}
 	}
 
-	for (i = lowerX + 1; i < upperX - 1; i++) {
-		for (j = lowerY + 1; j < upperY - 1; j++) {
-			for (k = lowerZ + 1; k < upperZ - 1; k++) {
-				if (values[i - lowerX][j - lowerY][k - lowerZ] >(GLfloat)GRAN) {
+	for (i = (int)lower.x + 1; i < (int)upper.x - 1; i++) {
+		for (j = (int)lower.y + 1; j < (int)upper.y - 1; j++) {
+			for (k = (int)lower.z + 1; k < (int)upper.z - 1; k++) {
+				if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] >(GLfloat)GRAN) {
 
-					if (!(values[i - lowerX][j - lowerY + 1][k - lowerZ] >(GLfloat)GRAN && values[i - lowerX][j - lowerY - 1][k - lowerZ] >(GLfloat)GRAN && values[i - lowerX + 1][j - lowerY][k - lowerZ] > (GLfloat)GRAN && values[i - lowerX - 1][j - lowerY][k - lowerZ] > (GLfloat)GRAN && values[i - lowerX][j - lowerY][k - lowerZ + 1] > (GLfloat)GRAN && values[i - lowerX][j - lowerY][k - lowerZ - 1] > (GLfloat)GRAN)) {
+					if (!(values[i - (int)lower.x][j - (int)lower.y + 1][k - (int)lower.z] >(GLfloat)GRAN && values[i - (int)lower.x][j - (int)lower.y - 1][k - (int)lower.z] >(GLfloat)GRAN && values[i - (int)lower.x + 1][j - (int)lower.y][k - (int)lower.z] > (GLfloat)GRAN && values[i - (int)lower.x - 1][j - (int)lower.y][k - (int)lower.z] > (GLfloat)GRAN && values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z + 1] > (GLfloat)GRAN && values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z - 1] > (GLfloat)GRAN)) {
 						drawablePosition.push_back(glm::vec3(i, j, k));
 					}
 					// Top																																																																																																																	   // Bottom																																																																																																															// Middle
