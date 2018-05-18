@@ -12,6 +12,10 @@
 #define CHUNK_Y (GLfloat)25
 #define CHUNK_Z (GLfloat)50
 
+#define CUR_FORWARD_LEFT 0
+#define CUR_FORWARD 1
+#define CUR_FORWARD_RIGHT 2
+
 class TerrainLoader
 {
 public:
@@ -22,12 +26,23 @@ public:
 	void stop();
 
 private:
-	/* Implement this to only call terrain geenrator in Load() */
+	enum Position {
+		FRONT_LEFT,
+		FRONT,
+		FRONT_RIGHT,
+		LEFT,
+		MIDDLE,
+		RIGHT,
+		BACK_LEFT,
+		BACK = 7,
+		BACK_RIGHT
+	};
+
 	struct Position_To_Load {
 		glm::vec3 forwardLeft;
 		glm::vec3 forward;
 		glm::vec3 forwardRight;
-	} positionsToLoad; // positionsToLoad is an instance of type Position_To_Load
+	};
 
 
 	std::thread t1;
@@ -39,20 +54,8 @@ private:
 
 	GLint killAll = 0;
 
-	// These vars represent a 3x3 grid viewed as a 1d array (the array storing all the GameObject in the main loop)
-	GLint FRONT_LEFT = 0;
-	GLint FRONT = 1;
-	GLint FRONT_RIGHT = 2;
-	GLint LEFT = 3;
-	GLint MIDDLE = 4;
-	GLint RIGHT = 5;
-	GLint BACK_LEFT = 6;
-	GLint BACK = 7;
-	GLint BACK_RIGHT = 8;
-
-	GLint CUR_FORWARD_LEFT;
-	GLint CUR_FORWARD;
-	GLint CUR_FORWARD_RIGHT;
+	// This represents a 3x3x3 grid viewed as a 1d array (the array storing all the GameObject in the main loop)
+	std::vector<std::vector<GLint>> gridPositions;
 
 	void Loader();
 
@@ -61,8 +64,12 @@ private:
 	void shiftInNegativeXDir(glm::vec3 pos);
 	void shiftInPositiveZDir(glm::vec3 pos);
 	void shiftInNegativeZDir(glm::vec3 pos);
+	void shiftInPositiveXDir(glm::vec3 pos, std::vector<GLint>& positions);
+	void shiftInNegativeXDir(glm::vec3 pos, std::vector<GLint>& positions);
+	void shiftInPositiveZDir(glm::vec3 pos, std::vector<GLint>& positions);
+	void shiftInNegativeZDir(glm::vec3 pos, std::vector<GLint>& positions);
 
 	// Uses data produced in shiftIn*Dir() to call TerrainGenerator
-	void generate();
+	void generate(Position_To_Load positionsToLoad, std::vector<GLint> curPos);
 };
 
