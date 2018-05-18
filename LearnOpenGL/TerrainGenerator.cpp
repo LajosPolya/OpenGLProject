@@ -74,7 +74,7 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 		for (j = (int)lower.y; j < (int)upper.y; j++) {
 			values[i - (int)lower.x][j - (int)lower.y] = new GLfloat[this->z];
 			for (k = (int)lower.z; k < (int)upper.z; k++) {
-				values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] = perlinNoise->generate(i - (int)lower.x, j - (int)lower.y, k - (int)lower.z);
+				values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] = perlinNoise->generate(((GLfloat)i - lower.x) * (GLfloat)GRANULARITY, ((GLfloat)j - lower.y) * (GLfloat)GRANULARITY, ((GLfloat)k - lower.z) * (GLfloat)GRANULARITY);
 				if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] >(GLfloat)GRAN) {
 					position.push_back(glm::vec3(i, j, k));
 

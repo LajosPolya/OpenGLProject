@@ -7,9 +7,9 @@
 TerrainLoader::TerrainLoader(Camera * camera, std::mutex & returnQ_m, GLuint & readyToGrab, std::vector<PositionRelativeCamera> & returnQ) : returnQ_m(returnQ_m), readyToGrab(readyToGrab), returnQ(returnQ) {
 	this->terrainGenerator3d = new TerrainGenerator((GLint)CHUNK_X, (GLint)CHUNK_Y, (GLint)CHUNK_Z, T_3D);
 	this->camera = camera;
-	this->gridPositions = { { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 
-						{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 },
-						{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 } };
+	this->gridPositions = { { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, 
+						{ 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 },
+						{ 19, 20, 21, 22, 23, 24, 25, 26, 27, 28 } };
 }
 
 TerrainLoader::~TerrainLoader() {}
@@ -42,6 +42,16 @@ void TerrainLoader::Loader() {
 	messageQ.push_back(glm::vec3(this->camera->Position.x + CHUNK_X, this->camera->Position.y, this->camera->Position.z));
 	messageQ.push_back(glm::vec3(this->camera->Position.x, this->camera->Position.y, this->camera->Position.z));
 
+	messageQ.push_back(glm::vec3(this->camera->Position.x - CHUNK_X, this->camera->Position.y + CHUNK_Y, this->camera->Position.z - CHUNK_Z));
+	messageQ.push_back(glm::vec3(this->camera->Position.x - CHUNK_X, this->camera->Position.y + CHUNK_Y, this->camera->Position.z + CHUNK_Z));
+	messageQ.push_back(glm::vec3(this->camera->Position.x + CHUNK_X, this->camera->Position.y + CHUNK_Y, this->camera->Position.z + CHUNK_Z));
+	messageQ.push_back(glm::vec3(this->camera->Position.x - CHUNK_X, this->camera->Position.y + CHUNK_Y, this->camera->Position.z));
+	messageQ.push_back(glm::vec3(this->camera->Position.x, this->camera->Position.y + CHUNK_Y, this->camera->Position.z + CHUNK_Z));
+	messageQ.push_back(glm::vec3(this->camera->Position.x, this->camera->Position.y + CHUNK_Y, this->camera->Position.z - CHUNK_Z));
+	messageQ.push_back(glm::vec3(this->camera->Position.x + CHUNK_X, this->camera->Position.y + CHUNK_Y, this->camera->Position.z - CHUNK_Z));
+	messageQ.push_back(glm::vec3(this->camera->Position.x + CHUNK_X, this->camera->Position.y + CHUNK_Y, this->camera->Position.z));
+	messageQ.push_back(glm::vec3(this->camera->Position.x, this->camera->Position.y + CHUNK_Y, this->camera->Position.z));
+
 	std::cout << "Starting Init Generation" << std::endl;
 	messageQSize = messageQ.size();
 	for (GLuint i = 0; i < messageQSize; i++) {
@@ -54,6 +64,7 @@ void TerrainLoader::Loader() {
 	std::cout << this->camera->Position.x << " " << this->camera->Position.y << " " << this->camera->Position.z << std::endl;
 
 	this->returnQ_m.lock();
+	// Middle
 	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, 0, CHUNK_Z)).getDrawablePositions()), 8));
 	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, 0, 0)).getDrawablePositions()), 7));
 	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, 0, -CHUNK_Z)).getDrawablePositions()), 6));
@@ -63,6 +74,17 @@ void TerrainLoader::Loader() {
 	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, 0, CHUNK_Z)).getDrawablePositions()), 2));
 	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, 0, 0)).getDrawablePositions()), 1));
 	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, 0, -CHUNK_Z)).getDrawablePositions()), 0));
+
+	// Top
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, CHUNK_Y, CHUNK_Z)).getDrawablePositions()), 17));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, CHUNK_Y, 0)).getDrawablePositions()), 16));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, CHUNK_Y, -CHUNK_Z)).getDrawablePositions()), 15));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, CHUNK_Z)).getDrawablePositions()), 14));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, 0)).getDrawablePositions()), 13));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, -CHUNK_Z)).getDrawablePositions()), 12));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, CHUNK_Y, CHUNK_Z)).getDrawablePositions()), 11));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, CHUNK_Y, 0)).getDrawablePositions()), 10));
+	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, CHUNK_Y, -CHUNK_Z)).getDrawablePositions()), 9));
 	/* The below two lines need to be commented if we want Terrain to load with Camera movement */
 	//this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, 0)).getDrawablePositions()), 13));
 	this->returnQ_m.unlock();
@@ -138,19 +160,23 @@ void TerrainLoader::Loader() {
 }
 
 void TerrainLoader::shiftInPositiveXDir(glm::vec3 pos) {
-	shiftInPositiveXDir(pos, this->gridPositions[1]);
+	shiftInPositiveXDir(pos, this->gridPositions[0]);
+	shiftInPositiveXDir(pos + glm::vec3(0, CHUNK_Y, 0), this->gridPositions[1]);
 }
 
 void TerrainLoader::shiftInNegativeXDir(glm::vec3 pos) {
-	shiftInNegativeXDir(pos, this->gridPositions[1]);
+	shiftInNegativeXDir(pos, this->gridPositions[0]);
+	shiftInNegativeXDir(pos + glm::vec3(0, CHUNK_Y, 0), this->gridPositions[1]);
 }
 
 void TerrainLoader::shiftInPositiveZDir(glm::vec3 pos) {
-	shiftInPositiveZDir(pos, this->gridPositions[1]);
+	shiftInPositiveZDir(pos, this->gridPositions[0]);
+	shiftInPositiveZDir(pos + glm::vec3(0, CHUNK_Y, 0), this->gridPositions[1]);
 }
 
 void TerrainLoader::shiftInNegativeZDir(glm::vec3 pos) {
-	shiftInNegativeZDir(pos, this->gridPositions[1]);
+	shiftInNegativeZDir(pos, this->gridPositions[0]);
+	shiftInNegativeZDir(pos + glm::vec3(0, CHUNK_Y, 0), this->gridPositions[1]);
 }
 
 void TerrainLoader::shiftInPositiveXDir(glm::vec3 pos, std::vector<GLint>& gridPositions){

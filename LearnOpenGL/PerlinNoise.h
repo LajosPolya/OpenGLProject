@@ -24,7 +24,7 @@ public:
 	GLfloat **  generate(GLint x, GLint y);
 
 	// Starting GLfloat impl
-	GLfloat generate(GLint x, GLint y, GLint z);
+	GLfloat generate(GLfloat x, GLfloat y, GLfloat z);
 
 	void setChunk(glm::vec3 *** gradientVec);
 	void setChunk(glm::vec2 ** gradientVec);

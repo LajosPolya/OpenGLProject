@@ -27,11 +27,11 @@ GLfloat **  PerlinNoise::generate(GLint x, GLint y) {
 	return values;
 }
 
-GLfloat PerlinNoise::generate(GLint x, GLint y, GLint z) {
+GLfloat PerlinNoise::generate(GLfloat x, GLfloat y, GLfloat z) {
 	if (this->gradients3d == nullptr) {
 		std::cout << "ERROR::PerlinNoise:: CHUNK NOT SET BUT IT GENERATING" << std::endl;
 	}
-	return perlin((GLfloat)x / (GLfloat)this->x * (GLfloat)1.0, (GLfloat)y / (GLfloat)this->y * (GLfloat)1.0, (GLfloat)z / (GLfloat)this->z * (GLfloat)1.0);
+	return perlin(x / (GLfloat)this->x, y / (GLfloat)this->y, z / (GLfloat)this->z);
 }
 
 void PerlinNoise::setChunk(glm::vec3 *** gradientVec) {

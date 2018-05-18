@@ -60,7 +60,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	if (hasGeneratedGradients(x, y, z - 1) == 1) {
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[i][j][0] = this->chunks[rx][ry][rz - 1].gradients[i][j][1 * 1];
+				this->gradients3d[i][j][0] = this->chunks[rx][ry][rz - 1].gradients[i][j][1 * GRANULARITY];
 			}
 		}
 	}
@@ -68,7 +68,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	if (hasGeneratedGradients(x, y, z + 1) == 1) {
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[i][j][1 * 1] = this->chunks[rx][ry][rz + 1].gradients[i][j][0];
+				this->gradients3d[i][j][1 * GRANULARITY] = this->chunks[rx][ry][rz + 1].gradients[i][j][0];
 			}
 		}
 	}
@@ -76,7 +76,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	if (hasGeneratedGradients(x - 1, y, z) == 1) {
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[0][i][j] = this->chunks[rx - 1][ry][rz].gradients[1 * 1][i][j];
+				this->gradients3d[0][i][j] = this->chunks[rx - 1][ry][rz].gradients[1 * GRANULARITY][i][j];
 			}
 		}
 	}
@@ -84,7 +84,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	if (hasGeneratedGradients(x + 1, y, z) == 1) {
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[1 * 1][i][j] = this->chunks[rx + 1][ry][rz].gradients[0][i][j];
+				this->gradients3d[1 * GRANULARITY][i][j] = this->chunks[rx + 1][ry][rz].gradients[0][i][j];
 			}
 		}
 	}
@@ -92,7 +92,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	if (hasGeneratedGradients(x, y - 1, z) == 1) {
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[i][0][j] = this->chunks[rx][ry - 1][rz].gradients[i][1 * 1][j];
+				this->gradients3d[i][0][j] = this->chunks[rx][ry - 1][rz].gradients[i][1 * GRANULARITY][j];
 			}
 		}
 	}
@@ -100,7 +100,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	if (hasGeneratedGradients(x, y + 1, z) == 1) {
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[i][1 * 1][j] = this->chunks[rx][ry + 1][rz].gradients[i][0][j];
+				this->gradients3d[i][1 * GRANULARITY][j] = this->chunks[rx][ry + 1][rz].gradients[i][0][j];
 			}
 		}
 	}
