@@ -68,6 +68,8 @@ private:
 	void shiftInNegativeXDir(glm::vec3 pos, std::vector<GLint>& positions);
 	void shiftInPositiveZDir(glm::vec3 pos, std::vector<GLint>& positions);
 	void shiftInNegativeZDir(glm::vec3 pos, std::vector<GLint>& positions);
+	void shiftInPositiveYDir(glm::vec3 pos);
+	void shiftInNegativeYDir(glm::vec3 pos);
 
 	// Uses data produced in shiftIn*Dir() to call TerrainGenerator
 	void generate(Position_To_Load positionsToLoad, std::vector<GLint> curPos);
