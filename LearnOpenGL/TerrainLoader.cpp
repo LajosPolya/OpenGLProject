@@ -65,28 +65,28 @@ void TerrainLoader::Loader() {
 
 	this->returnQ_m.lock();
 	// Middle
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, 0, CHUNK_Z)).getDrawablePositions()), 8));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, 0, 0)).getDrawablePositions()), 7));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, 0, -CHUNK_Z)).getDrawablePositions()), 6));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, 0, CHUNK_Z)).getDrawablePositions()), 5));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position).getDrawablePositions()), 4));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, 0, -CHUNK_Z)).getDrawablePositions()), 3));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, 0, CHUNK_Z)).getDrawablePositions()), 2));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, 0, 0)).getDrawablePositions()), 1));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, 0, -CHUNK_Z)).getDrawablePositions()), 0));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, 0, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 8));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, 0, 0)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 7));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, 0, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 6));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, 0, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 5));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 4));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, 0, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 3));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, 0, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 2));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, 0, 0)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 1));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, 0, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 0));
 
 	// Top
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, CHUNK_Y, CHUNK_Z)).getDrawablePositions()), 17));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, CHUNK_Y, 0)).getDrawablePositions()), 16));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, CHUNK_Y, -CHUNK_Z)).getDrawablePositions()), 15));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, CHUNK_Z)).getDrawablePositions()), 14));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, 0)).getDrawablePositions()), 13));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, -CHUNK_Z)).getDrawablePositions()), 12));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, CHUNK_Y, CHUNK_Z)).getDrawablePositions()), 11));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, CHUNK_Y, 0)).getDrawablePositions()), 10));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, CHUNK_Y, -CHUNK_Z)).getDrawablePositions()), 9));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, CHUNK_Y, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 17));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, CHUNK_Y, 0)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 16));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(-CHUNK_X, CHUNK_Y, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 15));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 14));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, 0)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 13));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 12));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, CHUNK_Y, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 11));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, CHUNK_Y, 0)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 10));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(CHUNK_X, CHUNK_Y, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), 9));
 	/* The below two lines need to be commented if we want Terrain to load with Camera movement */
-	//this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, 0)).getDrawablePositions()), 13));
+	//this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(this->camera->Position + glm::vec3(0, CHUNK_Y, 0)).getDrawablePositions(GRASS)), 13));
 	this->returnQ_m.unlock();
 	this->readyToGrab = 1;
 	while (this->killAll != 1) {
@@ -298,15 +298,15 @@ void TerrainLoader::shiftInPositiveYDir(glm::vec3 pos) {
 	this->gridPositions[0] = this->gridPositions[1];
 	this->gridPositions[1] = temp;
 
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, CHUNK_Y, -CHUNK_Z)).getDrawablePositions()), this->gridPositions[1][FRONT_LEFT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, CHUNK_Y, 0)).getDrawablePositions()), this->gridPositions[1][FRONT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, CHUNK_Y, CHUNK_Z)).getDrawablePositions()), this->gridPositions[1][FRONT_RIGHT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, CHUNK_Y, -CHUNK_Z)).getDrawablePositions()), this->gridPositions[1][LEFT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, CHUNK_Y, 0)).getDrawablePositions()), this->gridPositions[1][MIDDLE]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, CHUNK_Y, CHUNK_Z)).getDrawablePositions()), this->gridPositions[1][RIGHT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, CHUNK_Y, -CHUNK_Z)).getDrawablePositions()), this->gridPositions[1][BACK_LEFT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, CHUNK_Y, 0)).getDrawablePositions()), this->gridPositions[1][BACK]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, CHUNK_Y, CHUNK_Z)).getDrawablePositions()), this->gridPositions[1][BACK_RIGHT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, CHUNK_Y, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[1][FRONT_LEFT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, CHUNK_Y, 0)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[1][FRONT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, CHUNK_Y, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[1][FRONT_RIGHT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, CHUNK_Y, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[1][LEFT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, CHUNK_Y, 0)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[1][MIDDLE]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, CHUNK_Y, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[1][RIGHT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, CHUNK_Y, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[1][BACK_LEFT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, CHUNK_Y, 0)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[1][BACK]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, CHUNK_Y, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[1][BACK_RIGHT]));
 }
 
 void TerrainLoader::shiftInNegativeYDir(glm::vec3 pos) {
@@ -314,19 +314,19 @@ void TerrainLoader::shiftInNegativeYDir(glm::vec3 pos) {
 	this->gridPositions[1] = this->gridPositions[0];
 	this->gridPositions[0] = temp;
 
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, 0, -CHUNK_Z)).getDrawablePositions()), this->gridPositions[0][FRONT_LEFT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, 0, 0)).getDrawablePositions()), this->gridPositions[0][FRONT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, 0, CHUNK_Z)).getDrawablePositions()), this->gridPositions[0][FRONT_RIGHT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, 0, -CHUNK_Z)).getDrawablePositions()), this->gridPositions[0][LEFT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, 0, 0)).getDrawablePositions()), this->gridPositions[0][MIDDLE]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, 0, CHUNK_Z)).getDrawablePositions()), this->gridPositions[0][RIGHT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, 0, -CHUNK_Z)).getDrawablePositions()), this->gridPositions[0][BACK_LEFT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, 0, 0)).getDrawablePositions()), this->gridPositions[0][BACK]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, 0, CHUNK_Z)).getDrawablePositions()), this->gridPositions[0][BACK_RIGHT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, 0, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[0][FRONT_LEFT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, 0, 0)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[0][FRONT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(CHUNK_X, 0, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[0][FRONT_RIGHT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, 0, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[0][LEFT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, 0, 0)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[0][MIDDLE]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(0, 0, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[0][RIGHT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, 0, -CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[0][BACK_LEFT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, 0, 0)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[0][BACK]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(pos + glm::vec3(-CHUNK_X, 0, CHUNK_Z)).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), this->gridPositions[0][BACK_RIGHT]));
 }
 
 void TerrainLoader::generate(Position_To_Load positionsToLoad, std::vector<GLint> curGridPos) {
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(positionsToLoad.forwardLeft).getDrawablePositions()), curGridPos[CUR_FORWARD_LEFT]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(positionsToLoad.forward).getDrawablePositions()), curGridPos[CUR_FORWARD]));
-	this->returnQ.push_back(PositionRelativeCamera(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(positionsToLoad.forwardRight).getDrawablePositions()), curGridPos[CUR_FORWARD_RIGHT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(positionsToLoad.forwardLeft).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), curGridPos[CUR_FORWARD_LEFT]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(positionsToLoad.forward).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), curGridPos[CUR_FORWARD]));
+	this->returnQ.push_back(PositionRelativeCamera(ChunkObjectTransformStore(InstancedArrayTransformImpl(this->terrainGenerator3d->generateComplex(positionsToLoad.forwardRight).getDrawablePositions(GRASS)), InstancedArrayTransformImpl()), curGridPos[CUR_FORWARD_RIGHT]));
 }

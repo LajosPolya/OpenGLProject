@@ -7,20 +7,21 @@
 #include <GL/glew.h>
 
 #include "InstancedArrayTransformImpl.h"
+#include "ChunkObjectTransformStore.h"
 
 
 class PositionRelativeCamera
 {
 public:
-	PositionRelativeCamera(InstancedArrayTransformImpl transform, GLuint index);
+	PositionRelativeCamera(ChunkObjectTransformStore transform, GLuint index);
 	~PositionRelativeCamera();
 
-	InstancedArrayTransformImpl getTransform();
+	InstancedArrayTransformImpl getTransform(CompositionType i);
 
 	GLuint getIndex();
 
 private:
-	InstancedArrayTransformImpl transform;
+	ChunkObjectTransformStore transform;
 	GLuint index;
 };
 

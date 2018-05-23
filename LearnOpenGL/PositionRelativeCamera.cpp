@@ -1,14 +1,14 @@
 #include "PositionRelativeCamera.h"
 
 
-PositionRelativeCamera::PositionRelativeCamera(InstancedArrayTransformImpl transform, GLuint index) {
+PositionRelativeCamera::PositionRelativeCamera(ChunkObjectTransformStore transform, GLuint index) {
 	this->transform = transform;
 	this->index = index;
 }
 PositionRelativeCamera::~PositionRelativeCamera() {}
 
-InstancedArrayTransformImpl PositionRelativeCamera::getTransform() {
-	return this->transform;
+InstancedArrayTransformImpl PositionRelativeCamera::getTransform(CompositionType i) {
+	return this->transform.getTransform(i);
 }
 
 GLuint PositionRelativeCamera::getIndex() {

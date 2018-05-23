@@ -120,6 +120,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ChunkManager.cpp" />
+    <ClCompile Include="ChunkObject.cpp" />
+    <ClCompile Include="ChunkObjectTransformStore.cpp" />
     <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="ComplexPosition.cpp" />
     <ClCompile Include="ComplexShader.cpp" />
@@ -153,9 +155,12 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ChunkManager.h" />
+    <ClInclude Include="ChunkObject.h" />
+    <ClInclude Include="ChunkObjectTransformStore.h" />
     <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="ComplexPosition.h" />
     <ClInclude Include="ComplexShader.h" />
+    <ClInclude Include="CompositionType.h" />
     <ClInclude Include="InstancedArrayComplexShader.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectMemoryManager.h" />

@@ -118,8 +118,8 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	}
 	delete values;
 
-	(*CoPo).setPositions(position);
-	(*CoPo).setDrawablePositions(drawablePosition);
+	(*CoPo).setPositions(position, GRASS);
+	(*CoPo).setDrawablePositions(drawablePosition, GRASS);
 	return *CoPo;
 }
 
