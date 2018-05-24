@@ -4,12 +4,14 @@
 
 #include "InstancedArrayTransformImpl.h"
 #include "CompositionType.h"
+#include "ComplexPosition.h"
 
 class ChunkObjectTransformStore
 {
 public:
 	ChunkObjectTransformStore();
-	ChunkObjectTransformStore(InstancedArrayTransformImpl one, InstancedArrayTransformImpl two);
+	ChunkObjectTransformStore(ComplexPosition CoPo);
+
 	~ChunkObjectTransformStore();
 
 	InstancedArrayTransformImpl getTransform(CompositionType i);

@@ -77,7 +77,7 @@ void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
 void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
 PlayerController playerController(deltaTime, *camera, lastX, lastY);
 
-void grabCunksFromThread();
+void grabChunksFromThread();
 
 // The MAIN function, from here we start the application and run the game loop
 int main() {
@@ -263,7 +263,7 @@ int main() {
 		grassGameObject.Draw();
 		glEnable(GL_CULL_FACE);
 
-		grabCunksFromThread();
+		grabChunksFromThread();
 
 
 		/* Instantiate New LightBox */
@@ -299,7 +299,7 @@ int main() {
 		globalInstancedArrayShader.sendCameraToShader();
 		perlin.Draw();
 		for (GLuint i = 0; i < chunks.size(); i++) {
-			chunks[i].getChunkObject(GRASS).Draw();
+			chunks[i].DrawComponents();
 		}
 		instancedArrayGameObject.Draw();
 		grassSides.Draw();
@@ -338,14 +338,14 @@ void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos) {
 	playerController.mouse_callback(window, xpos, ypos);
 }
 
-void grabCunksFromThread() {
+void grabChunksFromThread() {
 	// TODO: Consider switching chunks out every 5 or 10 frames to reduce performance hit
 	if (readyToGrab != 0) {
 
 		returnQ_m.lock();
 		GLint returnQSize = newReturnQ.size();
 		if (returnQSize > 0) {
-			chunks[newReturnQ[returnQSize - 1].getIndex()].getChunkObject(GRASS).setInstances(&newReturnQ[returnQSize - 1].getTransform(GRASS));
+			chunks[newReturnQ[returnQSize - 1].getIndex()].setInstances(newReturnQ[returnQSize - 1]);
 			newReturnQ.pop_back();
 			returnQ_m.unlock();
 			if (newReturnQ.size() == 0) {

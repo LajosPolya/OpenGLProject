@@ -6,11 +6,10 @@ ChunkObjectTransformStore::ChunkObjectTransformStore() {
 	this->tranforms = std::vector<InstancedArrayTransformImpl>();
 }
 
-ChunkObjectTransformStore::ChunkObjectTransformStore(InstancedArrayTransformImpl one, InstancedArrayTransformImpl two) {
-	this->tranforms.push_back(one);
-	this->tranforms.push_back(two);
+ChunkObjectTransformStore::ChunkObjectTransformStore(ComplexPosition CoPo) {
+	this->tranforms.push_back(CoPo.getDrawablePositions(GRASS));
+	this->tranforms.push_back(CoPo.getDrawablePositions(COAL));
 }
-
 
 ChunkObjectTransformStore::~ChunkObjectTransformStore() {}
 

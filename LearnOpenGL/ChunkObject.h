@@ -4,6 +4,7 @@
 
 #include "SimpleInstancedArrayGameObject.h"
 #include "CompositionType.h"
+#include "PositionRelativeCamera.h"
 
 class ChunkObject
 {
@@ -11,7 +12,8 @@ public:
 	ChunkObject();
 	~ChunkObject();
 
-	SimpleInstancedArrayGameObject & getChunkObject(CompositionType i);
+	void DrawComponents();
+	void setInstances(PositionRelativeCamera pos);
 
 private:
 	std::vector<SimpleInstancedArrayGameObject> composition;

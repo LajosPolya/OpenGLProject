@@ -52,8 +52,8 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	GLint i, j, k;
 	glm::vec3 lower(getLowerVal(pos.x, this->x), getLowerVal(pos.y, this->y), getLowerVal(pos.z, this->z));
 	glm::vec3 upper((int)lower.x + this->x, (int)lower.y + this->y, (int)lower.z + this->z);
-	std::vector<glm::vec3> position;
-	std::vector<glm::vec3> drawablePosition;
+	std::vector<std::vector<glm::vec3>> position(2);
+	std::vector<std::vector<glm::vec3>> drawablePosition(2);
 
 	if (this->chunkManager.hasGenerated((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z) == 1) {
 		return *this->chunkManager.getChunkPosition((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
@@ -75,11 +75,21 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 			values[i - (int)lower.x][j - (int)lower.y] = new GLfloat[this->z];
 			for (k = (int)lower.z; k < (int)upper.z; k++) {
 				values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] = perlinNoise->generate(((GLfloat)i - lower.x) * (GLfloat)GRANULARITY, ((GLfloat)j - lower.y) * (GLfloat)GRANULARITY, ((GLfloat)k - lower.z) * (GLfloat)GRANULARITY);
-				if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] >(GLfloat)GRAN) {
-					position.push_back(glm::vec3(i, j, k));
+				if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] > (GLfloat)GRAN) {
+					if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] < GRAN * 1.3f) {
+						position[GRASS].push_back(glm::vec3(i, j, k));
+					}
+					else {
+						position[COAL].push_back(glm::vec3(i, j, k));
+					}
 
 					if (i == (int)lower.x || i == (int)upper.x - 1 || j == (int)lower.y || j == (int)upper.y - 1 || k == (int)lower.z || k == (int)upper.z - 1) {
-						drawablePosition.push_back(glm::vec3(i, j, k));
+						if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] < GRAN * 1.3f) {
+							drawablePosition[GRASS].push_back(glm::vec3(i, j, k));
+						}
+						else {
+							drawablePosition[COAL].push_back(glm::vec3(i, j, k));
+						}
 					}
 				}
 			}
@@ -92,7 +102,12 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 				if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] >(GLfloat)GRAN) {
 
 					if (!(values[i - (int)lower.x][j - (int)lower.y + 1][k - (int)lower.z] >(GLfloat)GRAN && values[i - (int)lower.x][j - (int)lower.y - 1][k - (int)lower.z] >(GLfloat)GRAN && values[i - (int)lower.x + 1][j - (int)lower.y][k - (int)lower.z] > (GLfloat)GRAN && values[i - (int)lower.x - 1][j - (int)lower.y][k - (int)lower.z] > (GLfloat)GRAN && values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z + 1] > (GLfloat)GRAN && values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z - 1] > (GLfloat)GRAN)) {
-						drawablePosition.push_back(glm::vec3(i, j, k));
+						if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] < GRAN * 1.3f) {
+							drawablePosition[GRASS].push_back(glm::vec3(i, j, k));
+						}
+						else {
+							drawablePosition[COAL].push_back(glm::vec3(i, j, k));
+						}
 					}
 					// Top																																																																																																																	   // Bottom																																																																																																															// Middle
 					// This is the rest of checks for the cube. Though these are not necessary
@@ -104,8 +119,11 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 		}
 	}
 
-	if (position.size() == 0) {
-		std::cout << "Terrain Generator ERROR: Zero Positions Generated" << std::endl;
+	if (position[GRASS].size() == 0) {
+		std::cout << "Terrain Generator WARN: Zero Grass Positions Generated" << std::endl;
+	}
+	else if (position[COAL].size() == 0) {
+		std::cout << "Terrain Generator WARN: Zero Coal Positions Generated" << std::endl;
 	}
 
 	for (GLint i = 0; i < this->x; i++) {
@@ -118,8 +136,10 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	}
 	delete values;
 
-	(*CoPo).setPositions(position, GRASS);
-	(*CoPo).setDrawablePositions(drawablePosition, GRASS);
+	(*CoPo).setPositions(position[GRASS], GRASS);
+	(*CoPo).setDrawablePositions(drawablePosition[GRASS], GRASS);
+	(*CoPo).setPositions(position[COAL], COAL);
+	(*CoPo).setDrawablePositions(drawablePosition[COAL], COAL);
 	return *CoPo;
 }
 
