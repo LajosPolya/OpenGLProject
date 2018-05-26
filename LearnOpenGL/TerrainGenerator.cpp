@@ -64,8 +64,9 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	}
 
 	this->chunkManager.setChunk((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
+	Chunk chunk = chunkManager.getChunk((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
 	// Set the gradients for PerlinNoise
-	perlinNoise->setChunk(chunkManager.getChunk((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z));
+	perlinNoise->setChunk(chunk.gradients);
 	GLfloat *** values;
 	// Generate positions for the chunk the input parameters are in
 	values = new GLfloat**[this->x];
@@ -74,7 +75,7 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 		for (j = (int)lower.y; j < (int)upper.y; j++) {
 			values[i - (int)lower.x][j - (int)lower.y] = new GLfloat[this->z];
 			for (k = (int)lower.z; k < (int)upper.z; k++) {
-				values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] = perlinNoise->generate(((GLfloat)i - lower.x) * (GLfloat)GRANULARITY, ((GLfloat)j - lower.y) * (GLfloat)GRANULARITY, ((GLfloat)k - lower.z) * (GLfloat)GRANULARITY);
+				values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] = perlinNoise->generate(((GLfloat)i - lower.x) * (GLfloat)chunk.granularity, ((GLfloat)j - lower.y) * (GLfloat)chunk.granularity, ((GLfloat)k - lower.z) * (GLfloat)chunk.granularity);
 				if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] > (GLfloat)GRAN) {
 					if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] < GRAN * 1.3f) {
 						position[GRASS].push_back(glm::vec3(i, j, k));

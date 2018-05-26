@@ -16,7 +16,14 @@
 
 // TODO : The gradients need to be worked on. Do we really need 64? Should it be dynamic?
 #define NUM_GRADS 64
-#define GRANULARITY 2
+
+// Store each chunk
+struct Chunk {
+	glm::vec3 *** gradients; // A 3d array within a 3d array
+							 // Store pregenerated values
+	ComplexPosition * positions; // Triple Dynamic Array of a Pointer to ComplexPosition
+	GLuint granularity;
+};
 
 
 class ChunkManager
@@ -29,7 +36,7 @@ public:
 	GLboolean hasGeneratedGradients(GLint x, GLint y, GLint z);
 
 	glm::vec2 ** getGradients();
-	glm::vec3 *** getChunk(GLint x, GLint y, GLint z);
+	Chunk getChunk(GLint x, GLint y, GLint z);
 	void setChunk(GLint x, GLint y, GLint z);
 
 	ComplexPosition * getChunkPosition(GLint x, GLint y, GLint z);
@@ -43,16 +50,12 @@ private:
 
 	const GLuint maxChunks = 100;
 	const GLuint halfMaxChunks = ((maxChunks / 2) - 1);
-	// Store each chunk
-	struct Chunk {
-		glm::vec3 *** gradients; // A 3d array within a 3d array
-		 // Store pregenerated values
-		ComplexPosition * positions; // Triple Dynamic Array of a Pointer to ComplexPosition
-	} ***chunks;
 
 	// TODO :  this should be replaced with a local var or chunkGrads should be used instead
 	glm::vec3 *** gradients3d;
 	glm::vec2 ** gradients;
+
+	Chunk ***chunks;
 
 	/*
 	Generates random vector by generating a random angle
