@@ -32,7 +32,7 @@ GLboolean ChunkManager::hasGenerated(GLint x, GLint y, GLint z) {
 }
 
 GLboolean ChunkManager::hasGeneratedGradients(GLint x, GLint y, GLint z) {
-	if (this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks] .gradients!= nullptr) {
+	if (this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks].gradients!= nullptr) {
 		return 1;
 	}
 	return 0;
@@ -49,64 +49,69 @@ glm::vec3 *** ChunkManager::getChunk(GLint x, GLint y, GLint z) {
 void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	GLuint i, j, k;
 
-	// Positions relative to full world
-	GLint rx = x + halfMaxChunks;
-	GLint ry = y + halfMaxChunks;
-	GLint rz = z + halfMaxChunks;
 	if (hasGeneratedGradients(x, y, z) == 0) {
 		genGradients3d(NUM_GRADS, NUM_GRADS, NUM_GRADS);
 	}
 
 	if (hasGeneratedGradients(x, y, z - 1) == 1) {
+		glm::vec3 *** gradients = getChunk(x, y, z - 1);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[i][j][0] = this->chunks[rx][ry][rz - 1].gradients[i][j][1 * GRANULARITY];
+				this->gradients3d[i][j][0] = gradients[i][j][1 * GRANULARITY];
 			}
 		}
 	}
 
 	if (hasGeneratedGradients(x, y, z + 1) == 1) {
+		glm::vec3 *** gradients = getChunk(x, y, z + 1);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[i][j][1 * GRANULARITY] = this->chunks[rx][ry][rz + 1].gradients[i][j][0];
+				this->gradients3d[i][j][1 * GRANULARITY] = gradients[i][j][0];
 			}
 		}
 	}
 
 	if (hasGeneratedGradients(x - 1, y, z) == 1) {
+		glm::vec3 *** gradients = getChunk(x - 1, y, z);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[0][i][j] = this->chunks[rx - 1][ry][rz].gradients[1 * GRANULARITY][i][j];
+				this->gradients3d[0][i][j] = gradients[1 * GRANULARITY][i][j];
 			}
 		}
 	}
 
 	if (hasGeneratedGradients(x + 1, y, z) == 1) {
+		glm::vec3 *** gradients = getChunk(x + 1, y, z);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[1 * GRANULARITY][i][j] = this->chunks[rx + 1][ry][rz].gradients[0][i][j];
+				this->gradients3d[1 * GRANULARITY][i][j] = gradients[0][i][j];
 			}
 		}
 	}
 
 	if (hasGeneratedGradients(x, y - 1, z) == 1) {
+		glm::vec3 *** gradients = getChunk(x, y - 1, z);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[i][0][j] = this->chunks[rx][ry - 1][rz].gradients[i][1 * GRANULARITY][j];
+				this->gradients3d[i][0][j] = gradients[i][1 * GRANULARITY][j];
 			}
 		}
 	}
 
 	if (hasGeneratedGradients(x, y + 1, z) == 1) {
+		glm::vec3 *** gradients = getChunk(x, y + 1, z);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
-				this->gradients3d[i][1 * GRANULARITY][j] = this->chunks[rx][ry + 1][rz].gradients[i][0][j];
+				this->gradients3d[i][1 * GRANULARITY][j] = gradients[i][0][j];
 			}
 		}
 	}
 
-	//this->chunks[rx][ry][rz] = this->gradients3d;
-	this->chunks[rx][ry][rz] .gradients= new glm::vec3**[NUM_GRADS];
+	// Positions relative to full world
+	GLint rx = x + halfMaxChunks;
+	GLint ry = y + halfMaxChunks;
+	GLint rz = z + halfMaxChunks;
+	this->chunks[rx][ry][rz].gradients= new glm::vec3**[NUM_GRADS];
 	for (i = 0; i < NUM_GRADS; i++) {
 		this->chunks[rx][ry][rz].gradients[i] = new glm::vec3*[NUM_GRADS];
 		for (j = 0; j < NUM_GRADS; j++) {
