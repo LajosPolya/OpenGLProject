@@ -33,7 +33,7 @@ GLboolean ChunkManager::hasGenerated(GLint x, GLint y, GLint z) {
 }
 
 GLboolean ChunkManager::hasGeneratedGradients(GLint x, GLint y, GLint z) {
-	if (this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks].gradients!= nullptr) {
+	if (this->chunks[x + halfMaxChunks][y + halfMaxChunks][z + halfMaxChunks].gradients != nullptr) {
 		return 1;
 	}
 	return 0;
@@ -164,21 +164,21 @@ void ChunkManager::genGradients3d(GLuint x, GLuint y, GLuint z) {
 
 glm::vec2 ChunkManager::randomVector(GLfloat length) {
 	std::random_device rd;
-	std::uniform_real_distribution<GLdouble> dist(0.0, 2.0 * PI);
+	std::uniform_real_distribution<GLdouble> dist{ 0.0, 2.0 * PI };
 	GLfloat angle = (GLfloat)dist(rd);
 
 	// Turn angle and length into vector
 	// The length of the vector is implicitly 1
 	GLfloat x = length * std::cos(angle);
 	GLfloat y = length * std::sin(angle);
-	return glm::vec2(x, y);
+	return{ x, y };
 }
 
 glm::vec3 ChunkManager::random3DVector(GLfloat length) {
 	std::random_device rd;
-	std::uniform_real_distribution<GLdouble> dist(0.0, 2.0 * PI);
-	std::uniform_real_distribution<GLfloat> randomCostheta(-1.0, 1.0);
-	std::uniform_real_distribution<GLfloat> randomU(0.0, 1.0);
+	std::uniform_real_distribution<GLdouble> dist{ 0.0, 2.0 * PI };
+	std::uniform_real_distribution<GLfloat> randomCostheta{ -1.0, 1.0 };
+	std::uniform_real_distribution<GLfloat> randomU{ 0.0, 1.0 };
 	GLfloat phi = (GLfloat)dist(rd);
 	GLfloat costheta = randomCostheta(rd);
 
@@ -191,5 +191,5 @@ glm::vec3 ChunkManager::random3DVector(GLfloat length) {
 	GLfloat x = length * std::sin(theta) * std::cos(phi);
 	GLfloat y = length * std::sin(theta) * std::sin(phi);
 	GLfloat z = length * std::cos(theta);
-	return glm::vec3(x, y, z);
+	return{ x, y, z };
 }

@@ -167,22 +167,22 @@ void TerrainLoader::Loader() {
 
 void TerrainLoader::shiftInPositiveXDir(glm::vec3 pos) {
 	shiftInPositiveXDir(pos, this->gridPositions[0]);
-	shiftInPositiveXDir(pos + glm::vec3(0, CHUNK_Y, 0), this->gridPositions[1]);
+	shiftInPositiveXDir(pos + glm::vec3{ 0, CHUNK_Y, 0 }, this->gridPositions[1]);
 }
 
 void TerrainLoader::shiftInNegativeXDir(glm::vec3 pos) {
 	shiftInNegativeXDir(pos, this->gridPositions[0]);
-	shiftInNegativeXDir(pos + glm::vec3(0, CHUNK_Y, 0), this->gridPositions[1]);
+	shiftInNegativeXDir(pos + glm::vec3{ 0, CHUNK_Y, 0 }, this->gridPositions[1]);
 }
 
 void TerrainLoader::shiftInPositiveZDir(glm::vec3 pos) {
 	shiftInPositiveZDir(pos, this->gridPositions[0]);
-	shiftInPositiveZDir(pos + glm::vec3(0, CHUNK_Y, 0), this->gridPositions[1]);
+	shiftInPositiveZDir(pos + glm::vec3{ 0, CHUNK_Y, 0 }, this->gridPositions[1]);
 }
 
 void TerrainLoader::shiftInNegativeZDir(glm::vec3 pos) {
 	shiftInNegativeZDir(pos, this->gridPositions[0]);
-	shiftInNegativeZDir(pos + glm::vec3(0, CHUNK_Y, 0), this->gridPositions[1]);
+	shiftInNegativeZDir(pos + glm::vec3{ 0, CHUNK_Y, 0 }, this->gridPositions[1]);
 }
 
 void TerrainLoader::shiftInPositiveXDir(glm::vec3 pos, std::vector<GLint>& gridPositions){

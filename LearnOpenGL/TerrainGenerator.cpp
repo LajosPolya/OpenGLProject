@@ -50,8 +50,8 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint z) {
 ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	ComplexPosition * CoPo = nullptr;
 	GLint i, j, k;
-	glm::vec3 lower(getLowerVal(pos.x, this->x), getLowerVal(pos.y, this->y), getLowerVal(pos.z, this->z));
-	glm::vec3 upper((int)lower.x + this->x, (int)lower.y + this->y, (int)lower.z + this->z);
+	glm::vec3 lower{ getLowerVal(pos.x, this->x), getLowerVal(pos.y, this->y), getLowerVal(pos.z, this->z) };
+	glm::vec3 upper{ (int)lower.x + this->x, (int)lower.y + this->y, (int)lower.z + this->z };
 	std::vector<std::vector<glm::vec3>> position(2);
 	std::vector<std::vector<glm::vec3>> drawablePosition(2);
 
@@ -145,7 +145,7 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 }
 
 GLboolean TerrainGenerator::shouldGetNewChunks(glm::vec3 position) {
-	glm::vec3 chunkPos = glm::vec3(getLowerVal(position.x, this->x), getLowerVal(position.y, this->y), getLowerVal(position.z, this->z));
+	glm::vec3 chunkPos{ getLowerVal(position.x, this->x), getLowerVal(position.y, this->y), getLowerVal(position.z, this->z) };
 
 	if (chunkPos.x == this->prevChunkPosition.x && chunkPos.y == this->prevChunkPosition.y && chunkPos.z == this->prevChunkPosition.z) {
 		return 0;

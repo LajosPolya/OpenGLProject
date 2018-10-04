@@ -11,8 +11,8 @@ std::vector<Texture*> GameObjectUtils::getDiffuseTextures(std::string path) {
 	while (tokens != nullptr) {
 		///diffuseMap = ResourceManager::getTexture(tokens);
 		///if (diffuseMap == nullptr) {
-			diffuseMap = new Texture(tokens, true);
-			diffuseMap->setName("material.diffuse");
+		diffuseMap = new Texture{ tokens, true };
+		diffuseMap->setName("material.diffuse");
 			///ResourceManager::addInstance(tokens, diffuseMap);
 		///}
 		diffuseMaps.push_back(diffuseMap);
@@ -31,8 +31,8 @@ std::vector<Texture*> GameObjectUtils::getSpecularTextures(std::string path) {
 	while (tokens != nullptr) {
 		///specularMap = ResourceManager::getTexture(tokens);
 		///if (specularMap == nullptr) {
-			specularMap = new Texture(tokens, true);
-			specularMap->setName("material.specular");
+		specularMap = new Texture{ tokens, true };
+		specularMap->setName("material.specular");
 			///ResourceManager::addInstance(tokens, specularMap);
 		///}
 		specularMaps.push_back(specularMap);

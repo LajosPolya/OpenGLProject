@@ -7,8 +7,8 @@ ChunkObjectTransformStore::ChunkObjectTransformStore() {
 }
 
 ChunkObjectTransformStore::ChunkObjectTransformStore(ComplexPosition CoPo) {
-	this->tranforms.push_back(CoPo.getDrawablePositions(GRASS));
-	this->tranforms.push_back(CoPo.getDrawablePositions(COAL));
+	this->tranforms = { CoPo.getDrawablePositions(GRASS),
+	CoPo.getDrawablePositions(COAL) };
 }
 
 ChunkObjectTransformStore::~ChunkObjectTransformStore() {}

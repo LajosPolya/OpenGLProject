@@ -103,7 +103,7 @@ void TransformImpl::setYRotation(GLfloat radians) {
 
 /* Only on x-axis currently */
 void TransformImpl::setRotation() {
-	this->model = glm::rotate(this->model, this->newRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	this->model = glm::rotate(this->model, this->newRotation.y, { 0.0f, 1.0f, 0.0f });
 }
 
 glm::mat4 TransformImpl::getModel() {

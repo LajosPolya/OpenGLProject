@@ -67,7 +67,7 @@ void SimpleInstancedArrayGameObject::setInstances(InstancedArrayTransformImpl * 
 
 std::vector<InstancedArrayMesh*> SimpleInstancedArrayGameObject::makeMeshes(std::string path, std::vector<glm::mat4> models, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
 	GLchar * tokens;
-	GLchar* context = NULL;
+	GLchar * context = NULL;
 
 	tokens = strtok_s(&path[0], ",", &context);
 	std::vector<InstancedArrayMesh*> mesh;
@@ -82,7 +82,7 @@ std::vector<InstancedArrayMesh*> SimpleInstancedArrayGameObject::makeMeshes(std:
 
 std::vector<InstancedArrayMesh*> SimpleInstancedArrayGameObject::makeMeshes(std::string path, std::vector<glm::mat4> models, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps, GLuint primitiveType) {
 	GLchar * tokens;
-	GLchar* context = NULL;
+	GLchar * context = NULL;
 
 	tokens = strtok_s(&path[0], ",", &context);
 	std::vector<InstancedArrayMesh*> mesh;

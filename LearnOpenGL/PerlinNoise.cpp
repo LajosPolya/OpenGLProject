@@ -44,11 +44,11 @@ void PerlinNoise::setChunk(glm::vec2 ** gradientVec) {
 
 GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y) {
 	// Turn param into vector
-	glm::vec2 xy = glm::vec2(x, y);
+	glm::vec2 xy{ x, y };
 
 	// Grid Cell Coordinates
-	glm::vec2 bottomLeft = glm::vec2(std::floor(x), std::floor(y));
-	glm::vec2 topRight = glm::vec2(bottomLeft.x + 1, bottomLeft.y + 1);
+	glm::vec2 bottomLeft{ std::floor(x), std::floor(y) };
+	glm::vec2 topRight{ bottomLeft.x + 1, bottomLeft.y + 1 };
 
 	// Determine Interpolation Weight
 	// (or the decimal value of the point)
@@ -71,11 +71,11 @@ GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y) {
 
 GLfloat PerlinNoise::perlin(GLfloat x, GLfloat y, GLfloat z) {
 	// Turn param into vector
-	glm::vec3 xyz = glm::vec3(x, y, z);
+	glm::vec3 xyz{ x, y, z };
 
 	// Grid Cell Coordinates
-	glm::vec3 lowerLattice = glm::vec3(std::floor(x), std::floor(y), std::floor(z));
-	glm::vec3 upperLattice = glm::vec3(lowerLattice.x + 1.0, lowerLattice.y + 1.0, lowerLattice.z + 1);
+	glm::vec3 lowerLattice{ std::floor(x), std::floor(y), std::floor(z) };
+	glm::vec3 upperLattice{ lowerLattice.x + 1.0, lowerLattice.y + 1.0, lowerLattice.z + 1.0 };
 
 	glm::vec3 diff = (xyz - lowerLattice) / (upperLattice - lowerLattice);
 

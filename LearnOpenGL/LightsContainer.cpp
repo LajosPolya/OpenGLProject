@@ -185,7 +185,7 @@ void LightsContainer::readLightingFile(std::string filename) {
 
 				if (this->propContainer.pointLights.size() != 0 && this->havePushedLastPointLight == false) {
 					this->propContainer.pointLights.push_back(pointLight);
-					this->poitLightsTransform->addNewInstance(pointLight.position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
+					this->poitLightsTransform->addNewInstance(pointLight.position, { 0, 0, 0 }, { 0.2, 0.2, 0.2 });
 					this->havePushedLastPointLight = true;
 				}
 
@@ -194,7 +194,7 @@ void LightsContainer::readLightingFile(std::string filename) {
 				if (token[2] != prevPointLight) {
 					if (prevPointLight != ' ' || this->propContainer.pointLights.size() != 0) {
 						this->propContainer.pointLights.push_back(pointLight);
-						this->poitLightsTransform->addNewInstance(pointLight.position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
+						this->poitLightsTransform->addNewInstance(pointLight.position, { 0, 0, 0 }, { 0.2, 0.2, 0.2 });
 					}
 					prevPointLight = token[2]; // nth Point Light instance
 					pointLight = {};
@@ -206,7 +206,7 @@ void LightsContainer::readLightingFile(std::string filename) {
 
 				if (this->propContainer.pointLights.size() != 0 && this->havePushedLastPointLight == false) {
 					this->propContainer.pointLights.push_back(pointLight);
-					this->poitLightsTransform->addNewInstance(pointLight.position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
+					this->poitLightsTransform->addNewInstance(pointLight.position, { 0, 0, 0 }, { 0.2, 0.2, 0.2 });
 					this->havePushedLastPointLight = true;
 				}
 			}

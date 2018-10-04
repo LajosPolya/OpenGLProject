@@ -20,9 +20,9 @@ InstancedTransformImpl::InstancedTransformImpl(std::vector<glm::vec3> positions,
 	// Assume Position, Rotation, Scale are all of same size
 	for (GLuint i = 0; i < this->Position.size(); i++) {
 		glm::mat4 model = glm::mat4();
-		model = glm::rotate(model, this->Rotation[i].x, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, this->Rotation[i].y, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, this->Rotation[i].z, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, this->Rotation[i].x, { 1.0f, 0.0f, 0.0f });
+		model = glm::rotate(model, this->Rotation[i].y, { 0.0f, 1.0f, 0.0f });
+		model = glm::rotate(model, this->Rotation[i].z, { 0.0f, 0.0f, 1.0f });
 
 		model = glm::translate(model, this->Position[i]);
 
@@ -95,7 +95,7 @@ void InstancedTransformImpl::readFile(std::string filename) {
 
 		while (std::getline(file, line)) {
 			GLchar * token;
-			GLchar* context = NULL;
+			GLchar * context = NULL;
 			glm::vec3 position;
 			glm::vec3 rotation;
 			glm::vec3 scale;

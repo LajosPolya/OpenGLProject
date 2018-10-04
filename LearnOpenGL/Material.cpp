@@ -42,7 +42,7 @@ Light Prop Type {
 }
 Read Doc/Material.txt for more info
 */
-void Material::getMeshProperties(MaterialProp * material, GLchar* context, GLchar lightPropType) {
+void Material::getMeshProperties(MaterialProp * material, GLchar * context, GLchar lightPropType) {
 	GLchar * token;
 	GLuint i = 0;
 	glm::vec3 prop;
@@ -69,7 +69,7 @@ void Material::readLightingFile(std::string filename) {
 		PointLight pointLight;
 		while (std::getline(file, line)) {
 			GLchar * token;
-			GLchar* context = NULL;
+			GLchar * context = NULL;
 
 			// TODO: The Material file is still the Lighting file but only one field is used
 			token = strtok_s(&line[0], ",", &context);

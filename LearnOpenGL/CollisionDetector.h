@@ -29,5 +29,7 @@ private:
 	static void CheckCollision(Transform & transform);
 	static void CheckCollision(InstancedTransformImpl & transform);
 	static void CheckCollision(InstancedArrayTransformImpl & transform);
+
+	static const GLfloat padding;
 };
 

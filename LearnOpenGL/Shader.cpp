@@ -7,7 +7,7 @@ Shader::Shader(const Shader & toCopy) {
 	this->Program = toCopy.Program;
 }
 
-Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
+Shader::Shader(const GLchar * vertexPath, const GLchar * fragmentPath) {
 	// 1. Retrieve the source code from filepath
 	std::string vertexCode;
 	std::string fragmentCode;

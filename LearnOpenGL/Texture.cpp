@@ -40,8 +40,7 @@ Texture::Texture(GLchar * path, GLboolean alpha) {
 	}
 }
 
-Texture::Texture(GLuint id, std::string name, std::string type)
-{
+Texture::Texture(GLuint id, std::string name, std::string type) {
 	this->id = id;
 	this->name = name;
 	this->type = type;

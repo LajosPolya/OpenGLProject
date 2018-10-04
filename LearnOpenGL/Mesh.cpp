@@ -13,8 +13,8 @@ Mesh::Mesh(const Mesh & toCopy) {
 	this->vertexProp_BitMap = toCopy.vertexProp_BitMap;
 	this->primitiveType = toCopy.primitiveType;
 
-	this->diffuseMap = new Texture(*toCopy.diffuseMap);
-	this->specularMap = new Texture(*toCopy.specularMap);
+	this->diffuseMap = new Texture{ *toCopy.diffuseMap };
+	this->specularMap = new Texture{ *toCopy.specularMap };
 }
 
 Mesh::Mesh(GLchar * vertexLocation) {
@@ -140,7 +140,7 @@ void Mesh::readVertexFile(GLchar * filename) {
 		while (std::getline(file, line)) {
 			Vertex vertex;
 			GLchar * tokens;
-			GLchar* context = NULL;
+			GLchar * context = NULL;
 
 			// Get all numbers and convert to floats (each vertex property has at least 2 floats)
 			GLfloat floatNum;

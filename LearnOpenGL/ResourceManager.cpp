@@ -12,7 +12,7 @@ void ResourceManager::addInstance(std::string path, void * ptr) {
 }
 
 Material * ResourceManager::getMaterial(std::string path) {
-	std::unordered_map<std::string, void *>::iterator it = manager.find(path);
+	auto it = manager.find(path);
 
 	if (it == manager.end()) {
 		return nullptr;
@@ -24,7 +24,7 @@ Material * ResourceManager::getMaterial(std::string path) {
 }
 
 Texture * ResourceManager::getTexture(std::string path) {
-	std::unordered_map<std::string, void *>::iterator it = manager.find(path);
+	auto it = manager.find(path);
 
 	if (it == manager.end()) {
 		return nullptr;
@@ -37,7 +37,7 @@ Texture * ResourceManager::getTexture(std::string path) {
 
 // TODO: GameOBject is no longer needed here
 TransformImpl * ResourceManager::getTransform(std::string path, GameObject * gameObject) {
-	std::unordered_map<std::string, void *>::iterator it = manager.find(path);
+	auto it = manager.find(path);
 
 	if (it == manager.end()) {
 		return nullptr;

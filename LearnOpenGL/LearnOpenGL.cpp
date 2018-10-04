@@ -51,7 +51,7 @@ std::vector<ChunkObject> chunks;
 std::mutex returnQ_m;
 GLuint readyToGrab = 0;
 // Camera
-Camera * camera = new Camera(glm::vec3(0.0f, 0.0f, -10.0f));
+Camera * camera = new Camera{ {0.0f, 0.0f, -10.0f } };
 // Previosu Position for Collision Detection
 glm::vec3 prevPosition = camera->Position;
 
@@ -75,7 +75,7 @@ glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode);
 void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
 void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
-PlayerController playerController(deltaTime, *camera, lastX, lastY);
+PlayerController playerController{ deltaTime, *camera, lastX, lastY };
 
 void grabChunksFromThread();
 
@@ -122,7 +122,7 @@ int main() {
 	glm::vec3 cubePositions[WORLD_LENGTH][WORLD_LENGTH];
 	for (GLuint i = 0; i < WORLD_LENGTH; i++) {
 		for (GLuint j = 0; j < WORLD_LENGTH; j++) {
-			cubePositions[i][j] = glm::vec3((GLfloat)i, (GLfloat)-5, (GLfloat)j);
+			cubePositions[i][j] = { (GLfloat)i, (GLfloat)-5.0, (GLfloat)j };
 		}
 	}
 
@@ -130,57 +130,41 @@ int main() {
 	GLdouble duration;
 
 	start = std::clock();	
-	SimpleInstancedArrayGameObject instancedArrayGameObject = SimpleInstancedArrayGameObject("container2.png", "container2_specular.png", "Mesh/crate.txt", "Instance/crate.txt");
-	SimpleInstancedArrayGameObject grassSides("grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/crate2.txt");
+	SimpleInstancedArrayGameObject instancedArrayGameObject{ "container2.png", "container2_specular.png", "Mesh/crate.txt", "Instance/crate.txt" };
+	SimpleInstancedArrayGameObject grassSides{ "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/crate2.txt" };
 	// TransparentGameObject is currently broken because it calls setupMesh() which is currently being altered
-	TransparentGameObjectImpl instancedWimdowGameObject = TransparentGameObjectImpl("instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection);
-	InstancedTransformImpl newInstancedTransform("Instance/crate3.txt");
+	TransparentGameObjectImpl instancedWimdowGameObject{"instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection};
+	InstancedTransformImpl newInstancedTransform{ "Instance/crate3.txt" };
 
 	std::vector<glm::vec3> pos2d;
 	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
 	pos2d = terrainGenerator2d.generate(-50, 0);
-	SimpleInstancedArrayGameObject perlin = SimpleInstancedArrayGameObject("container2.png", "container2_specular.png", "Mesh/crate.txt", pos2d);
+	SimpleInstancedArrayGameObject perlin{ "container2.png", "container2_specular.png", "Mesh/crate.txt", pos2d };
 
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
-	chunks.push_back(ChunkObject());
+	chunks = { ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject(), 
+		ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject(), ChunkObject() };
 
 
 	// Global Lights Container
-	LightsContainer globalLightsContainer("Material/crate.txt");
+	LightsContainer globalLightsContainer{ "Material/crate.txt" };
 
-	InstancedComplexShader globalLightsShader(camera, &globalLightsContainer, projection, "Shaders/instancedLamp.vert", "lamp.frag");
+	InstancedComplexShader globalLightsShader{ camera, &globalLightsContainer, projection, "Shaders/instancedLamp.vert", "lamp.frag" };
 	InstancedTransformImpl * lightTransform = globalLightsContainer.getPointLightTransform();
 	globalLightsShader.sendInstancesToShader(lightTransform->getModels());
-	SimpleInstancedGameObject lightBox = SimpleInstancedGameObject("Mesh/lightBox.txt", lightTransform);
+	SimpleInstancedGameObject lightBox{ "Mesh/lightBox.txt", lightTransform };
 
-	ComplexShader globalAlphaShader(camera, &globalLightsContainer, projection, "alpha.vert", "alpha.frag");
-	SimpleGameObject grassGameObject("grass.png", "Mesh/grass.txt", "Transform/grass.txt");
+	ComplexShader globalAlphaShader{ camera, &globalLightsContainer, projection, "alpha.vert", "alpha.frag" };
+	SimpleGameObject grassGameObject{ "grass.png", "Mesh/grass.txt", "Transform/grass.txt" };
 	// ComplexShader
-	ComplexShader globalComplexShader(camera, &globalLightsContainer, projection, "Material/crate.txt", "vertex.vert", "fragment.frag");
-	SimpleGameObject testingGameObject = SimpleGameObject("container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Transform/crate.txt");
+	ComplexShader globalComplexShader{ camera, &globalLightsContainer, projection, "Material/crate.txt", "vertex.vert", "fragment.frag" };
+	SimpleGameObject testingGameObject{ "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Transform/crate.txt" };
 
 	// InstancedComplexShader
-	InstancedComplexShader globalInstancedShader(camera, &globalLightsContainer, projection, "Material/crate.txt", "instanced.vert", "fragment.frag");
-	SimpleInstancedGameObject instancedGameObject = SimpleInstancedGameObject("Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Instance/crate1.txt");
+	InstancedComplexShader globalInstancedShader{ camera, &globalLightsContainer, projection, "Material/crate.txt", "instanced.vert", "fragment.frag" };
+	SimpleInstancedGameObject instancedGameObject{ "Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Instance/crate1.txt" };
 
 	// InstancedArrayComplexShader
-	InstancedArrayComplexShader globalInstancedArrayShader(camera, &globalLightsContainer, projection, "Material/crate.txt", "instancedArray.vert", "fragment.frag");
+	InstancedArrayComplexShader globalInstancedArrayShader{ camera, &globalLightsContainer, projection, "Material/crate.txt", "instancedArray.vert", "fragment.frag" };
 
 
 	/*
@@ -199,7 +183,7 @@ int main() {
 	///CollisionDetector::AddTransform(perlin.getTransform());
 	//CollisionDetector::AddTransform(perlin3d.getTransform());
 
-	TerrainLoader terrainLoader(camera, returnQ_m, readyToGrab, newReturnQ);
+	TerrainLoader terrainLoader{ camera, returnQ_m, readyToGrab, newReturnQ };
 	terrainLoader.start();
 	duration = std::clock() - start;
 	std::cout << "Time to start: " << duration << std::endl;
