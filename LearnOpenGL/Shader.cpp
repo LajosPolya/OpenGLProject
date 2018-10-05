@@ -208,17 +208,17 @@ void Shader::setProjectionMatrix(glm::mat4 projection) {
 }
 
 void Shader::sendCommonToShader(TransparentGameObjectImpl * gameObject) {
-	Camera * camera = gameObject->getCamera();
-	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), camera->Position.x, camera->Position.y, camera->Position.z);
+	Camera camera = gameObject->getCamera();
+	glUniform3f(glGetUniformLocation(this->Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 	
 	glUniform1i(glGetUniformLocation(this->Program, "material.diffuse"), 0);
 	glUniform1i(glGetUniformLocation(this->Program, "material.specular"), 1);
 
-	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+	glUniformMatrix4fv(glGetUniformLocation(this->Program, "view"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
 
 	// Set material properties
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), camera->Position.x, camera->Position.y, camera->Position.z);
-	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), camera->Front.x, camera->Front.y, camera->Front.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.position"), camera.Position.x, camera.Position.y, camera.Position.z);
+	glUniform3f(glGetUniformLocation(this->Program, "spotLight.direction"), camera.Front.x, camera.Front.y, camera.Front.z);
 }
 
 // TODO: This can allow Shaders to have variable amount of Textures

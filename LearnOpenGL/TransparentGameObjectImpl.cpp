@@ -1,11 +1,6 @@
 #include "TransparentGameObjectImpl.h"
 
-TransparentGameObjectImpl::TransparentGameObjectImpl() {}
-
-TransparentGameObjectImpl::~TransparentGameObjectImpl() {}
-
-TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection)
-{
+TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, const Camera & camera, glm::mat4 projection) : camera(camera) {
 	this->shader = new Shader(vertexShader, fragmentShader);
 
 	std::vector<Texture*> diffuseMap = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
@@ -17,7 +12,6 @@ TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLch
 	// unless I want to make every transparent GameObject its own GameObject
 	this->mesh = makeMeshes(meshLoc, this->transform->getModels().size(), diffuseMap, specularMap);
 
-	this->camera = camera;
 	this->projection = projection;
 
 	this->lightsContainer = new LightsContainer(lightsLoc);
@@ -25,8 +19,7 @@ TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLch
 	this->shader->setProjectionMatrix(projection);
 }
 
-TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection)
-{
+TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, const Camera & camera, glm::mat4 projection) : camera(camera) {
 	this->shader = new Shader(vertexShader, fragmentShader);
 
 	std::vector<Texture*> diffuseMap = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
@@ -34,7 +27,6 @@ TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLch
 	this->transform = new TransparentTransformImpl(transformLoc);
 	this->mesh = makeMeshes(meshLoc, this->transform->getModels().size(), diffuseMap, {});
 
-	this->camera = camera;
 	this->projection = projection;
 
 	this->shader->setProjectionMatrix(projection);
@@ -63,7 +55,7 @@ Shader * TransparentGameObjectImpl::getShader() {
 	return this->shader;
 }
 
-Camera * TransparentGameObjectImpl::getCamera() {
+Camera TransparentGameObjectImpl::getCamera() {
 	return this->camera;
 }
 

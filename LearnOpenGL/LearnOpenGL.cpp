@@ -51,12 +51,12 @@ std::vector<ChunkObject> chunks;
 std::mutex returnQ_m;
 GLuint readyToGrab = 0;
 // Camera
-Camera * camera = new Camera{ {0.0f, 0.0f, -10.0f } };
+Camera camera{ {0.0f, 0.0f, -10.0f } };
 // Previosu Position for Collision Detection
-glm::vec3 prevPosition = camera->Position;
+glm::vec3 prevPosition = camera.Position;
 
 /* Calcualte Projection Here */
-glm::mat4 projection = glm::perspective(camera->Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.01f, 100.0f);
+glm::mat4 projection = glm::perspective(camera.Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.01f, 100.0f);
 
 // Timing
 GLfloat deltaTime = 0.0f;
@@ -70,12 +70,12 @@ GLfloat pitch = 0, yaw = -90.0;
 GLfloat fov = glm::radians(45.0f);
 
 // Light Source
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+glm::vec3 lightPos{ 1.2f, 1.0f, 2.0f };
 
-void key_callback(GLFWwindow* window, GLint key, GLint scancode, GLint action, GLint mode);
+void key_callback(GLFWwindow * window, GLint key, GLint scancode, GLint action, GLint mode);
 void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
 void mouse_callback(GLFWwindow * window, GLdouble xpos, GLdouble ypos);
-PlayerController playerController{ deltaTime, *camera, lastX, lastY };
+PlayerController playerController{ deltaTime, camera, lastX, lastY };
 
 void grabChunksFromThread();
 
@@ -137,7 +137,7 @@ int main() {
 	InstancedTransformImpl newInstancedTransform{ "Instance/crate3.txt" };
 
 	std::vector<glm::vec3> pos2d;
-	TerrainGenerator terrainGenerator2d(50, 10, 50, T_2D);
+	TerrainGenerator terrainGenerator2d{ 50, 10, 50, T_2D };
 	pos2d = terrainGenerator2d.generate(-50, 0);
 	SimpleInstancedArrayGameObject perlin{ "container2.png", "container2_specular.png", "Mesh/crate.txt", pos2d };
 
@@ -174,7 +174,7 @@ int main() {
 
 
 	// Collision Detection
-	CollisionDetector::addCamera(camera);
+	CollisionDetector::addCamera(&camera);
 	CollisionDetector::AddTransform(testingGameObject.getTransform());
 	CollisionDetector::AddTransform(lightBox.getTransform());
 	//CollisionDetector::AddTransform(instancedGameObject.getTransform());
@@ -183,7 +183,7 @@ int main() {
 	///CollisionDetector::AddTransform(perlin.getTransform());
 	//CollisionDetector::AddTransform(perlin3d.getTransform());
 
-	TerrainLoader terrainLoader{ camera, returnQ_m, readyToGrab, newReturnQ };
+	TerrainLoader terrainLoader{ &camera, returnQ_m, readyToGrab, newReturnQ };
 	terrainLoader.start();
 	duration = std::clock() - start;
 	std::cout << "Time to start: " << duration << std::endl;
@@ -253,7 +253,7 @@ int main() {
 		/* Instantiate New LightBox */
 		if (playerController.getPutDownLight() == GL_TRUE) {
 			playerController.setPutDownLightFalse();
-			glm::vec3 lightsPos = camera->Position + (glm::normalize(camera->Front) * glm::vec3(2.0));
+			glm::vec3 lightsPos = camera.Position + (glm::normalize(camera.Front) * glm::vec3(2.0));
 			globalLightsContainer.addPointLight(lightsPos);
 			// This Transform automatically gets updated because we have a reference to it
 			lightBox.setInstances(lightTransform);
@@ -296,7 +296,7 @@ int main() {
 		glEnable(GL_DEPTH_TEST);
 
 		// Set prevPosition
-		CollisionDetector::SetPrevPosiion(camera->Position);
+		CollisionDetector::SetPrevPosiion(camera.Position);
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);

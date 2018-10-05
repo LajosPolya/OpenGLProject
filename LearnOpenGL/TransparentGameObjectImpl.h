@@ -12,17 +12,17 @@
 class TransparentGameObjectImpl
 {
 public:
-	TransparentGameObjectImpl();
-	~TransparentGameObjectImpl();
+	TransparentGameObjectImpl() = default;
+	~TransparentGameObjectImpl() = default;
 
-	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc,  GLchar* materialLoc, GLchar * transformLoc, GLchar * lightsLoc, Camera * camera, glm::mat4 projection);
-	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, Camera * camera, glm::mat4 projection);
+	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc,  GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, const Camera & camera, glm::mat4 projection);
+	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, const Camera & camera, glm::mat4 projection);
 
 	void Draw();
 
 	Shader * getShader();
 
-	Camera * getCamera();
+	Camera getCamera();
 
 	TransparentTransformImpl * getTransform();
 
@@ -35,7 +35,7 @@ private:
 
 	Shader * shader;
 
-	Camera * camera;
+	const Camera & camera;
 
 	TransparentTransformImpl * transform;
 

@@ -60,6 +60,10 @@ public:
 		return glm::lookAt(this->Position, this->Position + this->Front, this->Up);
 	}
 
+	const glm::mat4 GetViewMatrix() const {
+		return glm::lookAt(this->Position, this->Position + this->Front, this->Up);
+	}
+
 	void ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime) {
 		GLfloat velocity = this->MovementSpeed * deltaTime;
 		if (direction == FORWARD) {
