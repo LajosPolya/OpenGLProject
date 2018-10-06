@@ -1,20 +1,17 @@
 #include "InstancedArrayComplexShader.h"
 
-InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, LightsContainer * lightsContainer, glm::mat4 projection, const GLchar * vertexPath, const GLchar * fragmentPath) : camera(camera) {
-	this->lightsContainer = lightsContainer;
+InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, glm::mat4 projection, const GLchar * vertexPath, const GLchar * fragmentPath) : camera(camera), lightsContainer(lightsContainer) {
 	this->projection = projection;
 	
 	buildShaders(vertexPath, fragmentPath);
 
 	setSamplers();
 	sendCameraToShader();
-	if (lightsContainer != nullptr) {
-		sendLightsContainerToShader();
-	}
+	sendLightsContainerToShader();
 	sendProjectionMatrixToShader();
 }
 
-InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, LightsContainer * lightsContainer, glm::mat4 projection, std::string materialPath, const GLchar * vertexPath, const GLchar * fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
+InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, glm::mat4 projection, std::string materialPath, const GLchar * vertexPath, const GLchar * fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
 	this->material = new Material(materialPath);
 	sendMaterialToShader();
 }
@@ -127,9 +124,9 @@ void InstancedArrayComplexShader::setSamplers() {
 }
 
 void InstancedArrayComplexShader::sendLightsContainerToShader() {
-	DirLight * dirLight = this->lightsContainer->getDirLight();
-	SpotLight * spotLight = this->lightsContainer->getSpotLight();
-	std::vector<PointLight> * pointLights = this->lightsContainer->getPointLights();
+	const DirLight * dirLight = this->lightsContainer.getDirLight();
+	const SpotLight * spotLight = this->lightsContainer.getSpotLight();
+	const std::vector<PointLight> * pointLights = this->lightsContainer.getPointLights();
 
 	this->use();
 	// Directional light
@@ -185,7 +182,7 @@ void InstancedArrayComplexShader::sendMaterialToShader() {
 	glUniform1f(glGetUniformLocation(this->shaderId, "material.shininess"), this->material->getShininess());
 }
 
-LightsContainer * InstancedArrayComplexShader::getLightsContainer() {
+const LightsContainer & InstancedArrayComplexShader::getLightsContainer() {
 	return this->lightsContainer;
 }
 

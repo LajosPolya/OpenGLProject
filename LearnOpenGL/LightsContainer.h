@@ -19,6 +19,10 @@ public:
 	SpotLight * getSpotLight();
 	std::vector<PointLight> * getPointLights();
 
+	const DirLight * getDirLight() const;
+	const SpotLight * getSpotLight() const;
+	const std::vector<PointLight> * getPointLights() const;
+
 	InstancedTransformImpl * getPointLightTransform();
 
 	void addPointLight(glm::vec3 pos);

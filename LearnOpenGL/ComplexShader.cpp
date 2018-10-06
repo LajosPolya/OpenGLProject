@@ -2,11 +2,11 @@
 
 
 
-ComplexShader::ComplexShader(const Camera & camera, LightsContainer * lightsContainer, glm::mat4 projection, const GLchar * vertexPath, const GLchar * fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
+ComplexShader::ComplexShader(const Camera & camera, const LightsContainer & lightsContainer, glm::mat4 projection, const GLchar * vertexPath, const GLchar * fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
 	// Calls Base Class Constructor
 }
 
-ComplexShader::ComplexShader(const Camera & camera, LightsContainer * lightsContainer, glm::mat4 projection, std::string materialPath, GLchar * vertexPath, const GLchar * fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, materialPath, vertexPath, fragmentPath) {
+ComplexShader::ComplexShader(const Camera & camera, const LightsContainer & lightsContainer, glm::mat4 projection, std::string materialPath, GLchar * vertexPath, const GLchar * fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, materialPath, vertexPath, fragmentPath) {
 
 }
 

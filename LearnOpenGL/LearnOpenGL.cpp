@@ -148,23 +148,23 @@ int main() {
 	// Global Lights Container
 	LightsContainer globalLightsContainer{ "Material/crate.txt" };
 
-	InstancedComplexShader globalLightsShader{ camera, &globalLightsContainer, projection, "Shaders/instancedLamp.vert", "lamp.frag" };
+	InstancedComplexShader globalLightsShader{ camera, globalLightsContainer, projection, "Shaders/instancedLamp.vert", "lamp.frag" };
 	InstancedTransformImpl * lightTransform = globalLightsContainer.getPointLightTransform();
 	globalLightsShader.sendInstancesToShader(lightTransform->getModels());
 	SimpleInstancedGameObject lightBox{ "Mesh/lightBox.txt", lightTransform };
 
-	ComplexShader globalAlphaShader{ camera, &globalLightsContainer, projection, "alpha.vert", "alpha.frag" };
+	ComplexShader globalAlphaShader{ camera, globalLightsContainer, projection, "alpha.vert", "alpha.frag" };
 	SimpleGameObject grassGameObject{ "grass.png", "Mesh/grass.txt", "Transform/grass.txt" };
 	// ComplexShader
-	ComplexShader globalComplexShader{ camera, &globalLightsContainer, projection, "Material/crate.txt", "vertex.vert", "fragment.frag" };
+	ComplexShader globalComplexShader{ camera, globalLightsContainer, projection, "Material/crate.txt", "vertex.vert", "fragment.frag" };
 	SimpleGameObject testingGameObject{ "container2.png", "container2_specular.png", "Mesh/crate.txt", "Material/crate.txt", "Transform/crate.txt" };
 
 	// InstancedComplexShader
-	InstancedComplexShader globalInstancedShader{ camera, &globalLightsContainer, projection, "Material/crate.txt", "instanced.vert", "fragment.frag" };
+	InstancedComplexShader globalInstancedShader{ camera, globalLightsContainer, projection, "Material/crate.txt", "instanced.vert", "fragment.frag" };
 	SimpleInstancedGameObject instancedGameObject{ "Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", "Instance/crate1.txt" };
 
 	// InstancedArrayComplexShader
-	InstancedArrayComplexShader globalInstancedArrayShader{ camera, &globalLightsContainer, projection, "Material/crate.txt", "instancedArray.vert", "fragment.frag" };
+	InstancedArrayComplexShader globalInstancedArrayShader{ camera, globalLightsContainer, projection, "Material/crate.txt", "instancedArray.vert", "fragment.frag" };
 
 
 	/*

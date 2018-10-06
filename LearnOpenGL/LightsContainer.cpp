@@ -22,6 +22,18 @@ std::vector<PointLight> * LightsContainer::getPointLights() {
 	return &this->propContainer.pointLights;
 }
 
+const DirLight * LightsContainer::getDirLight() const {
+	return this->propContainer.dirLight;
+}
+
+const SpotLight * LightsContainer::getSpotLight() const {
+	return this->propContainer.spotLight;
+}
+
+const std::vector<PointLight> * LightsContainer::getPointLights() const {
+	return &this->propContainer.pointLights;
+}
+
 InstancedTransformImpl * LightsContainer::getPointLightTransform() {
 	return this->poitLightsTransform;
 }
