@@ -1,6 +1,6 @@
 #pragma once
 
-enum CompositionType {
+enum CompositionType : int {
 	GRASS,
 	COAL
 };

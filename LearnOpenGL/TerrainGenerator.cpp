@@ -48,7 +48,8 @@ std::vector<glm::vec3> TerrainGenerator::generate(GLint x, GLint z) {
 }
 
 ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
-	ComplexPosition * CoPo = nullptr;
+	// TODO: This should be managed completely in ChunkManaget (perhaps unique pointer)
+	ComplexPosition * CoPo = nullptr; 
 	GLint i, j, k;
 	glm::vec3 lower{ getLowerVal(pos.x, this->x), getLowerVal(pos.y, this->y), getLowerVal(pos.z, this->z) };
 	glm::vec3 upper{ (int)lower.x + this->x, (int)lower.y + this->y, (int)lower.z + this->z };
@@ -58,15 +59,11 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	if (this->chunkManager.hasGenerated((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z) == 1) {
 		return *this->chunkManager.getChunkPosition((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
 	}
-	else {
-		CoPo = new ComplexPosition();
-		this->chunkManager.setChunkPosition(CoPo, (int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
-	}
 
-	this->chunkManager.setChunk((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
+	this->chunkManager.setChunk((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z); // Rename to generateGradients()
 	Chunk chunk = chunkManager.getChunk((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
 	// Set the gradients for PerlinNoise
-	perlinNoise->setChunk(chunk.gradients);
+	perlinNoise->setChunk(chunk.gradients); // Rename to setGradients() or setChunkGradients()
 	GLfloat *** values;
 	// Generate positions for the chunk the input parameters are in
 	values = new GLfloat**[this->x];
@@ -129,18 +126,18 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 
 	for (GLint i = 0; i < this->x; i++) {
 		for (GLint j = 0; j < this->y; j++) {
-			//for (GLint k = 0; k < this->z; k++) {
 			delete values[i][j];
-			//}
 		}
 		delete values[i];
 	}
 	delete values;
 
-	(*CoPo).setPositions(position[GRASS], GRASS);
-	(*CoPo).setDrawablePositions(drawablePosition[GRASS], GRASS);
-	(*CoPo).setPositions(position[COAL], COAL);
-	(*CoPo).setDrawablePositions(drawablePosition[COAL], COAL);
+	CoPo = new ComplexPosition();
+	CoPo->setPositions(position[GRASS], GRASS);
+	CoPo->setDrawablePositions(drawablePosition[GRASS], GRASS);
+	CoPo->setPositions(position[COAL], COAL);
+	CoPo->setDrawablePositions(drawablePosition[COAL], COAL);
+	this->chunkManager.setChunkPosition(CoPo, (int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
 	return *CoPo;
 }
 

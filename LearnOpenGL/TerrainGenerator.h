@@ -7,6 +7,7 @@
 #include "PerlinNoise.h"
 #include "ComplexPosition.h"
 #include "ChunkManager.h"
+#include "CompositionType.h"
 
 #define T_2D 2
 #define T_3D 3
