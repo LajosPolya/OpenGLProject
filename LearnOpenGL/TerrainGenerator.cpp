@@ -64,13 +64,12 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	Chunk chunk = chunkManager.getChunk((int)lower.x / this->x, (int)lower.y / this->y, (int)lower.z / this->z);
 	// Set the gradients for PerlinNoise
 	perlinNoise->setChunk(chunk.gradients); // Rename to setGradients() or setChunkGradients()
-	GLfloat *** values;
+	std::vector<std::vector<std::vector<GLfloat>>> values(this->x);
 	// Generate positions for the chunk the input parameters are in
-	values = new GLfloat**[this->x];
 	for (i = (int)lower.x; i < (int)upper.x; i++) {
-		values[i - (int)lower.x] = new GLfloat*[this->y];
+		values[i - (int)lower.x] = std::vector<std::vector<GLfloat>>(this->y);
 		for (j = (int)lower.y; j < (int)upper.y; j++) {
-			values[i - (int)lower.x][j - (int)lower.y] = new GLfloat[this->z];
+			values[i - (int)lower.x][j - (int)lower.y] = std::vector<GLfloat>(this->z);
 			for (k = (int)lower.z; k < (int)upper.z; k++) {
 				values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] = perlinNoise->generate(((GLfloat)i - lower.x) * (GLfloat)chunk.granularity, ((GLfloat)j - lower.y) * (GLfloat)chunk.granularity, ((GLfloat)k - lower.z) * (GLfloat)chunk.granularity);
 				if (values[i - (int)lower.x][j - (int)lower.y][k - (int)lower.z] > (GLfloat)GRAN) {
@@ -123,14 +122,6 @@ ComplexPosition TerrainGenerator::generateComplex(glm::vec3 pos) {
 	else if (position[COAL].size() == 0) {
 		std::cout << "Terrain Generator WARN: Zero Coal Positions Generated" << std::endl;
 	}
-
-	for (GLint i = 0; i < this->x; i++) {
-		for (GLint j = 0; j < this->y; j++) {
-			delete values[i][j];
-		}
-		delete values[i];
-	}
-	delete values;
 
 	CoPo = new ComplexPosition();
 	CoPo->setPositions(position[GRASS], GRASS);
