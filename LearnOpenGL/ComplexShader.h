@@ -5,8 +5,8 @@
 class ComplexShader : public InstancedArrayComplexShader
 {
 public:
-	ComplexShader(const Camera & camera, const LightsContainer & lightsContainer, glm::mat4 projection, const GLchar * vertexPath, const GLchar * fragmentPath);
-	ComplexShader(const Camera & camera, const LightsContainer & lightsContainer, glm::mat4 projection, std::string materialPath, GLchar * vertexPath, const GLchar * fragmentPath);
+	ComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, const GLchar * vertexPath, const GLchar * fragmentPath);
+	ComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, std::string materialPath, GLchar * vertexPath, const GLchar * fragmentPath);
 	~ComplexShader();
 
 	// TODO: Should ComplexShader have a list of all GameObjects | Transform it draws so model isn't sent every frame via method below

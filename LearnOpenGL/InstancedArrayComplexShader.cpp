@@ -1,6 +1,6 @@
 #include "InstancedArrayComplexShader.h"
 
-InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, glm::mat4 projection, const GLchar * vertexPath, const GLchar * fragmentPath) : camera(camera), lightsContainer(lightsContainer) {
+InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, const std::string & vertexPath, const std::string & fragmentPath) : camera(camera), lightsContainer(lightsContainer) {
 	this->projection = projection;
 	
 	buildShaders(vertexPath, fragmentPath);
@@ -11,7 +11,7 @@ InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, 
 	sendProjectionMatrixToShader();
 }
 
-InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, glm::mat4 projection, std::string materialPath, const GLchar * vertexPath, const GLchar * fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
+InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, const std::string & materialPath, const std::string & vertexPath, const std::string & fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
 	this->material = new Material(materialPath);
 	sendMaterialToShader();
 }
@@ -23,15 +23,10 @@ void InstancedArrayComplexShader::sendToShader(Material * material) {
 	glUniform1f(glGetUniformLocation(this->shaderId, "material.shininess"), material->getShininess());
 }
 
-void InstancedArrayComplexShader::buildShaders(const GLchar * vertexPath, const GLchar * fragmentPath) {
+void InstancedArrayComplexShader::buildShaders(const std::string & vertexPath, const std::string & fragmentPath) {
 	// 1. Retrieve the source code from filepath
-	std::string vertexCode;
-	std::string fragmentCode;
-
-	this->readShaderFile(vertexPath, &vertexCode);
-	this->readShaderFile(fragmentPath, &fragmentCode);
-	const GLchar * vShaderCode = vertexCode.c_str();
-	const GLchar * fShaderCode = fragmentCode.c_str();
+	std::string vertexCode = this->readShaderFile(vertexPath);
+	std::string fragmentCode = this->readShaderFile(fragmentPath);
 
 	// 2. Compile Shaders
 	GLuint vertex, fragment;
@@ -42,10 +37,10 @@ void InstancedArrayComplexShader::buildShaders(const GLchar * vertexPath, const 
 	this->shaderId = glCreateProgram();
 
 	// Vertex Shader
-	vertex = createShader(GL_VERTEX_SHADER, vShaderCode);
+	vertex = createShader(GL_VERTEX_SHADER, vertexCode);
 
 	// Fragment Shader
-	fragment = createShader(GL_FRAGMENT_SHADER, fShaderCode);
+	fragment = createShader(GL_FRAGMENT_SHADER, fragmentCode);
 
 	// Link the previously attached Shaders (glAttachShader) to the program (glCreateProgram)
 	glLinkProgram(this->shaderId);
@@ -61,8 +56,9 @@ void InstancedArrayComplexShader::buildShaders(const GLchar * vertexPath, const 
 	glDeleteShader(fragment);
 }
 
-void InstancedArrayComplexShader::readShaderFile(const GLchar * path, std::string * code) {
+std::string InstancedArrayComplexShader::readShaderFile(const std::string & path) {
 	std::ifstream shaderFile;
+	std::string code;
 
 	// Ensure ifstream objects can throw exceptions
 	shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -79,22 +75,25 @@ void InstancedArrayComplexShader::readShaderFile(const GLchar * path, std::strin
 		shaderFile.close();
 
 		// Convert Stream into GLchar array
-		*code = shaderStream.str();
+		code = shaderStream.str();
+		return code;
 	}
 	catch (std::ifstream::failure e) {
 		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ : " << path << std::endl;
+		return code;
 	}
 }
 
-GLuint InstancedArrayComplexShader::createShader(GLint type, const GLchar * code) {
+GLuint InstancedArrayComplexShader::createShader(GLint type, const std::string & code) {
 	// 2. Compile Shaders
+	const GLchar * shaderCode = code.c_str();
 	GLuint shader;
 	GLint success;
 	GLchar infoLog[512];
 
 	// Vertex Shader
 	shader = glCreateShader(type);
-	glShaderSource(shader, 1, &code, NULL);
+	glShaderSource(shader, 1, &shaderCode, NULL);
 	glCompileShader(shader);
 	// Print Compile Errors
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);

@@ -13,8 +13,8 @@
 class InstancedArrayComplexShader
 {
 public:
-	InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, glm::mat4 projection, const GLchar * vertexPath, const GLchar * fragmentPath);
-	InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, glm::mat4 projection, std::string materialPath, const GLchar * vertexPath, const GLchar * fragmentPath);
+	InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, const std::string & vertexPath, const std::string & fragmentPath);
+	InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, const std::string & materialPath, const std::string & vertexPath, const std::string & fragmentPath);
 	~InstancedArrayComplexShader();
 
 	void sendToShader(Material * material);
@@ -38,8 +38,8 @@ private:
 	glm::mat4 projection;
 	Material * material;
 
-	void buildShaders(const GLchar* vertexPath, const GLchar* fragmentPath);
-	void readShaderFile(const GLchar * path, std::string * code);
-	GLuint createShader(GLint type, const GLchar * code);
+	void buildShaders(const std::string & vertexPath, const std::string & fragmentPath);
+	std::string readShaderFile(const std::string & path);
+	GLuint createShader(GLint type, const std::string & code);
 };
 
