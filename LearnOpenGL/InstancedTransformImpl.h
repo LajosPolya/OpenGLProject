@@ -29,7 +29,7 @@ public:
 	InstancedTransformImpl();
 	~InstancedTransformImpl();
 
-	InstancedTransformImpl(string fileLocation);
+	InstancedTransformImpl(const string & fileLocation);
 	InstancedTransformImpl(vector<vec3> positions, vector<vec3> rotations, vector<vec3> scales);
 
 	vector<vec3> * getPositions();
@@ -58,7 +58,7 @@ private:
 
 	vector<mat4> model;
 
-	void readFile(string filename);
+	void readFile(const string & filename);
 
 	mat4 doTransformOperations(vec3 position, vec3 rotation, vec3 scale);
 };

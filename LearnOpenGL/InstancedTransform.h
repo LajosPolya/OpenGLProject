@@ -16,5 +16,5 @@ public:
 
 private:
 
-	virtual void readFile(string filename) = 0;
+	virtual void readFile(const string & filename) = 0;
 };

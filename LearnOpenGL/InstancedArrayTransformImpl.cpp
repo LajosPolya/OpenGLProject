@@ -13,7 +13,7 @@ InstancedArrayTransformImpl::InstancedArrayTransformImpl(const InstancedArrayTra
 	this->model = toCopy.model;
 }
 
-InstancedArrayTransformImpl::InstancedArrayTransformImpl(string fileLocation) {
+InstancedArrayTransformImpl::InstancedArrayTransformImpl(const string & fileLocation) {
 	this->readFile(fileLocation);
 }
 
@@ -89,7 +89,7 @@ void InstancedArrayTransformImpl::Draw() {
 	// this->newScale = this->Scale;
 }
 
-void InstancedArrayTransformImpl::readFile(string filename) {
+void InstancedArrayTransformImpl::readFile(const string & filename) {
 	ifstream file(filename);
 	if (file.is_open()) {
 		string line;

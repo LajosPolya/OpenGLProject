@@ -26,7 +26,7 @@ public:
 	~InstancedArrayTransformImpl();
 	InstancedArrayTransformImpl(const InstancedArrayTransformImpl & toCopy);
 
-	InstancedArrayTransformImpl(string fileLocation);
+	InstancedArrayTransformImpl(const string & fileLocation);
 	InstancedArrayTransformImpl(vector<vec3> positions);
 	InstancedArrayTransformImpl(vector<vec3> positions, vector<vec3> rotations, vector<vec3> scales);
 
@@ -53,6 +53,6 @@ private:
 
 	vector<mat4> model;
 
-	void readFile(string filename);
+	void readFile(const string & filename);
 	void setup(vector<vec3> positions);
 };

@@ -4,7 +4,7 @@ InstancedTransformImpl::InstancedTransformImpl() {}
 
 InstancedTransformImpl::~InstancedTransformImpl() {}
 
-InstancedTransformImpl::InstancedTransformImpl(string fileLocation) {
+InstancedTransformImpl::InstancedTransformImpl(const string & fileLocation) {
 	this->readFile(fileLocation);
 }
 
@@ -88,7 +88,7 @@ void InstancedTransformImpl::Draw() {
 }
 
 // TODO: Create a Base Class which will have this method (implemented by this and InstancedTransformImpl)
-void InstancedTransformImpl::readFile(string filename) {
+void InstancedTransformImpl::readFile(const string & filename) {
 	ifstream file(filename);
 	if (file.is_open()) {
 		string line;
