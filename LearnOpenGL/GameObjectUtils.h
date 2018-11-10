@@ -14,10 +14,12 @@
 #include "InstancedArrayMesh.h"
 #include "InstancedArrayTransformImpl.h"
 
+using namespace std;
+
 class GameObjectUtils
 {
 public:
-	static std::vector<Texture*> getDiffuseTextures(std::string path);
-	static std::vector<Texture*> getSpecularTextures(std::string path);
+	static vector<Texture*> getDiffuseTextures(string path);
+	static vector<Texture*> getSpecularTextures(string path);
 };
 

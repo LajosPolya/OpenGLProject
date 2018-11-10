@@ -29,7 +29,6 @@
   ComplexShader.cpp
   ComplexPosition.cpp
   CollisionDetector.cpp
-c:\users\lajos polya\documents\github\learnopengl\learnopengl\collisiondetector.cpp(11): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
   ChunkObjectTransformStore.cpp
   ChunkObject.cpp
   ChunkManager.cpp

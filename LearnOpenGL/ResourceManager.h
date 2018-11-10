@@ -17,13 +17,13 @@ public:
 	ResourceManager();
 	~ResourceManager();
 
-	static void addInstance(std::string, void * ptr);
-	static Material  * getMaterial(std::string path);
-	static Texture * getTexture(std::string path);
+	static void addInstance(string, void * ptr);
+	static Material  * getMaterial(string path);
+	static Texture * getTexture(string path);
 	// TODO: GameOBject is no longer needed here
-	static TransformImpl * getTransform(std::string path, GameObject * gameObject);
+	static TransformImpl * getTransform(string path, GameObject * gameObject);
 
 private:
-	static std::unordered_map<std::string, void *> manager;
+	static unordered_map<string, void *> manager;
 };
 

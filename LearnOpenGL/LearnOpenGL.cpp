@@ -46,17 +46,17 @@
 const GLuint WIDTH = 800, HEIGHT = 600;
 
 // Multithreaded Functions
-std::vector<PositionRelativeCamera> newReturnQ;
-std::vector<ChunkObject> chunks;
-std::mutex returnQ_m;
+vector<PositionRelativeCamera> newReturnQ;
+vector<ChunkObject> chunks;
+mutex returnQ_m;
 GLuint readyToGrab = 0;
 // Camera
 Camera camera{ {0.0f, 0.0f, -10.0f } };
 // Previosu Position for Collision Detection
-glm::vec3 prevPosition = camera.Position;
+vec3 prevPosition = camera.Position;
 
 /* Calcualte Projection Here */
-glm::mat4 projection = glm::perspective(camera.Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.01f, 100.0f);
+mat4 projection = perspective(camera.Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.01f, 100.0f);
 
 // Timing
 GLfloat deltaTime = 0.0f;
@@ -67,10 +67,10 @@ GLfloat lastFrame = 0.0f;
 GLfloat lastX = WIDTH / 2.0f, lastY = HEIGHT / 2.0f;
 GLfloat pitch = 0, yaw = -90.0;
 // Scroll
-GLfloat fov = glm::radians(45.0f);
+GLfloat fov = radians(45.0f);
 
 // Light Source
-glm::vec3 lightPos{ 1.2f, 1.0f, 2.0f };
+vec3 lightPos{ 1.2f, 1.0f, 2.0f };
 
 void key_callback(GLFWwindow * window, GLint key, GLint scancode, GLint action, GLint mode);
 void scroll_callback(GLFWwindow * window, GLdouble xoffset, GLdouble yoffset);
@@ -119,24 +119,24 @@ int main() {
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 
-	glm::vec3 cubePositions[WORLD_LENGTH][WORLD_LENGTH];
+	vec3 cubePositions[WORLD_LENGTH][WORLD_LENGTH];
 	for (GLuint i = 0; i < WORLD_LENGTH; i++) {
 		for (GLuint j = 0; j < WORLD_LENGTH; j++) {
 			cubePositions[i][j] = { (GLfloat)i, (GLfloat)-5.0, (GLfloat)j };
 		}
 	}
 
-	std::clock_t start;
+	clock_t start;
 	GLdouble duration;
 
-	start = std::clock();	
+	start = clock();	
 	SimpleInstancedArrayGameObject instancedArrayGameObject{ "container2.png", "container2_specular.png", "Mesh/crate.txt", "Instance/crate.txt" };
 	SimpleInstancedArrayGameObject grassSides{ "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/crate2.txt" };
 	// TransparentGameObject is currently broken because it calls setupMesh() which is currently being altered
 	TransparentGameObjectImpl instancedWimdowGameObject{"instancedAlpha.vert", "blend.frag", "blending_transparent_window.png,blending_transparent_window.png,blending_transparent_window.png", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", "Instance/window.txt", camera, projection};
 	InstancedTransformImpl newInstancedTransform{ "Instance/crate3.txt" };
 
-	std::vector<glm::vec3> pos2d;
+	vector<vec3> pos2d;
 	TerrainGenerator terrainGenerator2d{ 50, 10, 50, T_2D };
 	pos2d = terrainGenerator2d.generate(-50, 0);
 	SimpleInstancedArrayGameObject perlin{ "container2.png", "container2_specular.png", "Mesh/crate.txt", pos2d };
@@ -185,8 +185,8 @@ int main() {
 
 	TerrainLoader terrainLoader{ &camera, returnQ_m, readyToGrab, newReturnQ };
 	terrainLoader.start();
-	duration = std::clock() - start;
-	std::cout << "Time to start: " << duration << std::endl;
+	duration = clock() - start;
+	cout << "Time to start: " << duration << endl;
 	GLuint numFrames = 0;
 	GLuint framesPerSec = 0;
 	GLuint firstReplace = 0;
@@ -201,7 +201,7 @@ int main() {
 		lastFrame = (GLfloat)currentFrame;
 		totalTime += deltaTime;
 		if (totalTime > (GLfloat)1.0) {
-			std::cout << (GLfloat)framesPerSec / totalTime << std::endl;
+			cout << (GLfloat)framesPerSec / totalTime << endl;
 			totalTime = (GLfloat)0.0;
 			framesPerSec = 0;
 		}
@@ -236,13 +236,13 @@ int main() {
 		// Since the shader can be shared the model needs to be sent every time
 		globalAlphaShader.sendModelToShader(grassGameObject.getTransform()->getModel());
 		grassGameObject.Draw();
-		grassGameObject.getTransform()->setYRotation(glm::radians(90.0f));
+		grassGameObject.getTransform()->setYRotation(radians(90.0f));
 		globalAlphaShader.sendModelToShader(grassGameObject.getTransform()->getModel());
 		grassGameObject.Draw();
-		grassGameObject.getTransform()->setYRotation(glm::radians(45.0f));
+		grassGameObject.getTransform()->setYRotation(radians(45.0f));
 		globalAlphaShader.sendModelToShader(grassGameObject.getTransform()->getModel());
 		grassGameObject.Draw();
-		grassGameObject.getTransform()->setYRotation(glm::radians(135.0f));
+		grassGameObject.getTransform()->setYRotation(radians(135.0f));
 		globalAlphaShader.sendModelToShader(grassGameObject.getTransform()->getModel());
 		grassGameObject.Draw();
 		glEnable(GL_CULL_FACE);
@@ -253,7 +253,7 @@ int main() {
 		/* Instantiate New LightBox */
 		if (playerController.getPutDownLight() == GL_TRUE) {
 			playerController.setPutDownLightFalse();
-			glm::vec3 lightsPos = camera.Position + (glm::normalize(camera.Front) * glm::vec3(2.0));
+			vec3 lightsPos = camera.Position + (normalize(camera.Front) * vec3(2.0));
 			globalLightsContainer.addPointLight(lightsPos);
 			// This Transform automatically gets updated because we have a reference to it
 			lightBox.setInstances(lightTransform);
@@ -339,7 +339,7 @@ void grabChunksFromThread() {
 		else {
 			// Don't forget to unlock here too
 			returnQ_m.unlock();
-			std::cout << "ERROR: MAIN::readyToGrab = 1 but returnQSize <= 0" << std::endl;
+			cout << "ERROR: MAIN::readyToGrab = 1 but returnQSize <= 0" << endl;
 		}
 
 	}

@@ -1,14 +1,17 @@
 #pragma once
 #include "InstancedArrayComplexShader.h"
 
+using namespace std;
+using namespace glm;
+
 
 class InstancedComplexShader : public InstancedArrayComplexShader
 {
 public:
-	InstancedComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, const GLchar * vertexPath, const GLchar * fragmentPath);
-	InstancedComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, std::string materialPath, const GLchar * vertexPath, const GLchar * fragmentPath);
+	InstancedComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const mat4 & projection, const string & vertexPath, const string & fragmentPath);
+	InstancedComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const mat4 & projection, const string materialPath, const string & vertexPath, const string & fragmentPath);
 	~InstancedComplexShader();
 
-	void sendInstancesToShader(std::vector<glm::mat4> intances);
+	void sendInstancesToShader(vector<mat4> intances);
 };
 

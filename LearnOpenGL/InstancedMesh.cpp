@@ -39,11 +39,11 @@ void InstancedMesh::Draw() {
 		glDrawArraysInstanced(this->primitiveType, 0, this->vertices.size(), this->numInstances);
 	}
 	else {
-		std::cout << "ERROR: DRAWING in InstancedMesh" << std::endl;
+		cout << "ERROR: DRAWING in InstancedMesh" << endl;
 	}
 	glBindVertexArray(0);
 }
 
-void InstancedMesh::setInstances(std::vector<glm::mat4> instances) {
+void InstancedMesh::setInstances(vector<mat4> instances) {
 	this->numInstances = instances.size();
 }

@@ -2,18 +2,18 @@
 
 
 
-ComplexShader::ComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, const GLchar * vertexPath, const GLchar * fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
+ComplexShader::ComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const mat4 & projection, const string & vertexPath, const string & fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
 	// Calls Base Class Constructor
 }
 
-ComplexShader::ComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, std::string materialPath, GLchar * vertexPath, const GLchar * fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, materialPath, vertexPath, fragmentPath) {
+ComplexShader::ComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const mat4 & projection, const string materialPath, const string & vertexPath, const string & fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, materialPath, vertexPath, fragmentPath) {
 
 }
 
 
 ComplexShader::~ComplexShader() {}
 
-void ComplexShader::sendModelToShader(glm::mat4 model) {
+void ComplexShader::sendModelToShader(mat4 model) {
 	this->use();
-	glUniformMatrix4fv(glGetUniformLocation(this->shaderId, "model"), 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(glGetUniformLocation(this->shaderId, "model"), 1, GL_FALSE, value_ptr(model));
 }

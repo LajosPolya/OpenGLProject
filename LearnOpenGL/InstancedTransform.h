@@ -1,12 +1,14 @@
 #pragma once
 
+using namespace std;
+using namespace glm;
 
 class InstancedTransform {
 public:
 
-	virtual std::vector<glm::vec3> * getPositions() = 0;
+	virtual vector<vec3> * getPositions() = 0;
 
-	virtual std::vector<glm::mat4> getModels() = 0;
+	virtual vector<mat4> getModels() = 0;
 
 	virtual void refreshModel() = 0;
 
@@ -14,5 +16,5 @@ public:
 
 private:
 
-	virtual void readFile(std::string filename) = 0;
+	virtual void readFile(string filename) = 0;
 };

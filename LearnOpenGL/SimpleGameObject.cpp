@@ -1,21 +1,21 @@
 #include "SimpleGameObject.h"
 
 
-SimpleGameObject::SimpleGameObject(std::string meshPath, std::string transformPath) : SimpleGameObject("", "", meshPath, "", transformPath) {}
-SimpleGameObject::SimpleGameObject(std::string diffuseMapPath, std::string meshPath, std::string transformPath) : SimpleGameObject(diffuseMapPath, "", meshPath, "", transformPath) {}
+SimpleGameObject::SimpleGameObject(string meshPath, string transformPath) : SimpleGameObject("", "", meshPath, "", transformPath) {}
+SimpleGameObject::SimpleGameObject(string diffuseMapPath, string meshPath, string transformPath) : SimpleGameObject(diffuseMapPath, "", meshPath, "", transformPath) {}
 
 
-SimpleGameObject::SimpleGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::string transformPath) {
+SimpleGameObject::SimpleGameObject(string diffuseMapPath, string specularMapPath, string meshPath, string materialPath, string transformPath) {
 	this->transform = new TransformImpl(transformPath);
 
-	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapPath);
-	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapPath);
+	vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapPath);
+	vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapPath);
 	this->mesh = makeMeshes(meshPath, diffuseMaps, specularMaps);
 }
 
-SimpleGameObject::SimpleGameObject(std::string meshPath, Transform * transform) {
+SimpleGameObject::SimpleGameObject(string meshPath, Transform * transform) {
 	this->transform = transform;
-	this->mesh = makeMeshes(meshPath, std::vector<Texture*>(), std::vector<Texture*>());
+	this->mesh = makeMeshes(meshPath, vector<Texture*>(), vector<Texture*>());
 }
 
 
@@ -37,12 +37,12 @@ Transform * SimpleGameObject::getTransform() {
 	return this->transform;
 }
 
-std::vector<Mesh*> SimpleGameObject::makeMeshes(std::string path, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
+vector<Mesh*> SimpleGameObject::makeMeshes(string path, vector<Texture*> diffuseMaps, vector<Texture*> specularMaps) {
 	GLchar * tokens;
 	GLchar * context = NULL;
 
 	tokens = strtok_s(&path[0], ",", &context);
-	std::vector<Mesh*> mesh;
+	vector<Mesh*> mesh;
 	GLuint i = 0;
 	Texture * tempDif;
 	Texture * tempSpec;

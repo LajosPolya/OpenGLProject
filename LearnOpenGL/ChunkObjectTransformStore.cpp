@@ -3,7 +3,7 @@
 
 
 ChunkObjectTransformStore::ChunkObjectTransformStore() {
-	this->tranforms = std::vector<InstancedArrayTransformImpl>();
+	this->tranforms = vector<InstancedArrayTransformImpl>();
 }
 
 ChunkObjectTransformStore::ChunkObjectTransformStore(ComplexPosition CoPo) {

@@ -1,17 +1,17 @@
 #include "ResourceManager.h"
 
 
-std::unordered_map<std::string, void *> ResourceManager::manager;
+unordered_map<string, void *> ResourceManager::manager;
 
 ResourceManager::ResourceManager() {}
 
 ResourceManager::~ResourceManager() {}
 
-void ResourceManager::addInstance(std::string path, void * ptr) {
+void ResourceManager::addInstance(string path, void * ptr) {
 	manager[path] = ptr;
 }
 
-Material * ResourceManager::getMaterial(std::string path) {
+Material * ResourceManager::getMaterial(string path) {
 	auto it = manager.find(path);
 
 	if (it == manager.end()) {
@@ -23,7 +23,7 @@ Material * ResourceManager::getMaterial(std::string path) {
 	
 }
 
-Texture * ResourceManager::getTexture(std::string path) {
+Texture * ResourceManager::getTexture(string path) {
 	auto it = manager.find(path);
 
 	if (it == manager.end()) {
@@ -36,7 +36,7 @@ Texture * ResourceManager::getTexture(std::string path) {
 }
 
 // TODO: GameOBject is no longer needed here
-TransformImpl * ResourceManager::getTransform(std::string path, GameObject * gameObject) {
+TransformImpl * ResourceManager::getTransform(string path, GameObject * gameObject) {
 	auto it = manager.find(path);
 
 	if (it == manager.end()) {

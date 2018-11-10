@@ -14,12 +14,14 @@
 
 #include "ComplexPosition.h"
 
+using namespace glm;
+
 // TODO : The gradients need to be worked on. Do we really need 64? Should it be dynamic?
 #define NUM_GRADS 64
 
 // Store each chunk
 struct Chunk {
-	glm::vec3 *** gradients; // A 3d array within a 3d array
+	vec3 *** gradients; // A 3d array within a 3d array
 							 // Store pregenerated values
 	ComplexPosition * positions; // Triple Dynamic Array of a Pointer to ComplexPosition
 	GLuint granularity;
@@ -35,7 +37,7 @@ public:
 	GLboolean hasGenerated(GLint x, GLint y, GLint z);
 	GLboolean hasGeneratedGradients(GLint x, GLint y, GLint z);
 
-	glm::vec2 ** getGradients();
+	vec2 ** getGradients();
 	Chunk getChunk(GLint x, GLint y, GLint z);
 	void setChunk(GLint x, GLint y, GLint z);
 
@@ -52,8 +54,8 @@ private:
 	const GLuint halfMaxChunks = ((maxChunks / 2) - 1);
 
 	// TODO :  this should be replaced with a local var or chunkGrads should be used instead
-	glm::vec3 *** gradients3d;
-	glm::vec2 ** gradients;
+	vec3 *** gradients3d;
+	vec2 ** gradients;
 
 	Chunk ***chunks;
 
@@ -62,7 +64,7 @@ private:
 	Having the length of the vector we can convert these polar coordinates into
 	Cartesian coordinates
 	*/
-	glm::vec2 randomVector(GLfloat length);
-	glm::vec3 random3DVector(GLfloat length);
+	vec2 randomVector(GLfloat length);
+	vec3 random3DVector(GLfloat length);
 };
 

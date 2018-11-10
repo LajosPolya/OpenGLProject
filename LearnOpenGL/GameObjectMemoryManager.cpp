@@ -2,7 +2,7 @@
 
 
 /* static member must be defiend in the .cpp file */
-std::unordered_map<void *, GameObjectMemoryManager::AddressProperties> GameObjectMemoryManager::manager;
+unordered_map<void *, GameObjectMemoryManager::AddressProperties> GameObjectMemoryManager::manager;
 
 GameObjectMemoryManager::GameObjectMemoryManager() {}
 

@@ -8,20 +8,20 @@ TransparentTransformImpl::TransparentTransformImpl(GLchar* fileLocation) {
 	this->readFile(fileLocation);
 }
 
-glm::vec3* TransparentTransformImpl::getPositions(GLuint i) {
+vec3* TransparentTransformImpl::getPositions(GLuint i) {
 	return &this->props[i].Position;
 }
 
-glm::mat4 TransparentTransformImpl::getModel(GLuint i) {
+mat4 TransparentTransformImpl::getModel(GLuint i) {
 	return this->props[i].model;
 }
 
-std::vector<glm::mat4> TransparentTransformImpl::getModels() {
+vector<mat4> TransparentTransformImpl::getModels() {
 	return this->models;
 }
 
 void TransparentTransformImpl::refreshModel() {
-	std::sort(this->props.begin(), this->props.end(), [this](InstancedTransformProps const &x, InstancedTransformProps const& y) { return this->sortFunction(x, y); });
+	sort(this->props.begin(), this->props.end(), [this](InstancedTransformProps const &x, InstancedTransformProps const& y) { return this->sortFunction(x, y); });
 }
 
 void TransparentTransformImpl::Draw() {
@@ -37,51 +37,51 @@ GLuint TransparentTransformImpl::getSize() {
 }
 
 void TransparentTransformImpl::readFile(GLchar * filename) {
-	std::ifstream file(filename);
+	ifstream file(filename);
 	if (file.is_open()) {
-		std::string line;
+		string line;
 
-		while (std::getline(file, line)) {
+		while (getline(file, line)) {
 			GLchar * token;
 			GLchar * context = NULL;
-			glm::vec3 position;
-			glm::vec3 rotation;
-			glm::vec3 scale;
-			glm::mat4 model;
+			vec3 position;
+			vec3 rotation;
+			vec3 scale;
+			mat4 model;
 			InstancedTransformProps prop;
 
 			token = strtok_s(&line[0], ",", &context);
-			position.x = std::stof(token);
+			position.x = stof(token);
 
 			token = strtok_s(NULL, ",", &context);
-			position.y = std::stof(token);
+			position.y = stof(token);
 
 			token = strtok_s(NULL, ",", &context);
-			position.z = std::stof(token);
+			position.z = stof(token);
 
 			token = strtok_s(NULL, ",", &context);
-			rotation.x = std::stof(token);
+			rotation.x = stof(token);
 
 			token = strtok_s(NULL, ",", &context);
-			rotation.y = std::stof(token);
+			rotation.y = stof(token);
 
 			token = strtok_s(NULL, ",", &context);
-			rotation.z = std::stof(token);
+			rotation.z = stof(token);
 
 			token = strtok_s(NULL, ",", &context);
-			scale.x = std::stof(token);
+			scale.x = stof(token);
 
 			token = strtok_s(NULL, ",", &context);
-			scale.y = std::stof(token);
+			scale.y = stof(token);
 
 			token = strtok_s(NULL, ",", &context);
-			scale.z = std::stof(token);
+			scale.z = stof(token);
 
-			model = glm::rotate(model, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-			model = glm::rotate(model, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-			model = glm::rotate(model, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+			model = rotate(model, rotation.x, vec3(1.0f, 0.0f, 0.0f));
+			model = rotate(model, rotation.y, vec3(0.0f, 1.0f, 0.0f));
+			model = rotate(model, rotation.z, vec3(0.0f, 0.0f, 1.0f));
 
-			model = glm::translate(model, position);
+			model = translate(model, position);
 
 			model = glm::scale(model, scale);
 
@@ -95,15 +95,15 @@ void TransparentTransformImpl::readFile(GLchar * filename) {
 		}
 	}
 	else {
-		std::cout << "ERROR::BAD TRANSFORM FILENAME" << std::endl;
+		cout << "ERROR::BAD TRANSFORM FILENAME" << endl;
 	}
 }
 
 // TODO: This needs to be fixed since Transform doesn't have reference back to GameObject
 /* Note this sort returns the opposite of what a sort function is supposed to */
 GLboolean TransparentTransformImpl::sortFunction(InstancedTransformProps const &x, InstancedTransformProps const &y) {
-	//GLfloat dist1 = glm::length(this->gameObject->getCamera()->Position - x.Position);
-	//GLfloat dist2 = glm::length(this->gameObject->getCamera()->Position - y.Position);
+	//GLfloat dist1 = length(this->gameObject->getCamera()->Position - x.Position);
+	//GLfloat dist2 = length(this->gameObject->getCamera()->Position - y.Position);
 	//return dist1 > dist2;
 	return false;
 }

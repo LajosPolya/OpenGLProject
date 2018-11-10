@@ -9,7 +9,7 @@
 
 // TODO: HashMap to Access PointLights
 /* 
- * Each PointLight should have an ID (which corresponds to its intdex in the std::vector<PointLight> pointLights;) 
+ * Each PointLight should have an ID (which corresponds to its intdex in the vector<PointLight> pointLights;) 
  * This way a GameObject can access any light in the scene
  *
  * You can also have a HashMap who's key is the Position of the PointLight and the index
@@ -29,7 +29,7 @@ public:
 	Material();
 	Material(const Material & toCopy); // Copy Constructor
 
-	Material(std::string materialLocation);
+	Material(string materialLocation);
 	Material(MaterialProp prop);
 
 	GLfloat getShininess();
@@ -55,5 +55,5 @@ private:
 	void getMeshProperties(MaterialProp * material, GLchar * context, GLchar lightPropType);
 
 	MaterialProp material;
-	void readLightingFile(std::string filename);
+	void readLightingFile(string filename);
 };

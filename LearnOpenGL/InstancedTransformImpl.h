@@ -16,6 +16,9 @@
 
 #include "InstancedTransform.h"
 
+using namespace std;
+using namespace glm;
+
 // TODO: Create a TransparentTransformImpl which derives from this class.
 // But the difference is that in sorts the Transform vector in the Draw Method
 // And Send an extra param to InstancedGameObjecImpl to instantiate the Transparent class
@@ -26,21 +29,21 @@ public:
 	InstancedTransformImpl();
 	~InstancedTransformImpl();
 
-	InstancedTransformImpl(std::string fileLocation);
-	InstancedTransformImpl(std::vector<glm::vec3> positions, std::vector<glm::vec3> rotations, std::vector<glm::vec3> scales);
+	InstancedTransformImpl(string fileLocation);
+	InstancedTransformImpl(vector<vec3> positions, vector<vec3> rotations, vector<vec3> scales);
 
-	std::vector<glm::vec3> * getPositions();
-	std::vector<glm::vec3> * getRotations();
-	std::vector<glm::vec3> * getScales();
+	vector<vec3> * getPositions();
+	vector<vec3> * getRotations();
+	vector<vec3> * getScales();
 
-	std::vector<glm::mat4> getModels();
-	void setModels(std::vector<glm::mat4> models);
+	vector<mat4> getModels();
+	void setModels(vector<mat4> models);
 
-	void setPositions(std::vector<glm::vec3> positions);
-	void setRotations(std::vector<glm::vec3> rotations);
-	void setScales(std::vector<glm::vec3> scales);
+	void setPositions(vector<vec3> positions);
+	void setRotations(vector<vec3> rotations);
+	void setScales(vector<vec3> scales);
 
-	void addNewInstance(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
+	void addNewInstance(vec3 position, vec3 rotation, vec3 scale);
 
 	void refreshModel();
 
@@ -49,14 +52,14 @@ public:
 private:
 
 	/* Only the file should set this */
-	std::vector<glm::vec3> Position;
-	std::vector<glm::vec3> Rotation;
-	std::vector<glm::vec3> Scale;
+	vector<vec3> Position;
+	vector<vec3> Rotation;
+	vector<vec3> Scale;
 
-	std::vector<glm::mat4> model;
+	vector<mat4> model;
 
-	void readFile(std::string filename);
+	void readFile(string filename);
 
-	glm::mat4 doTransformOperations(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
+	mat4 doTransformOperations(vec3 position, vec3 rotation, vec3 scale);
 };
 

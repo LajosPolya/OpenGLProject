@@ -51,14 +51,14 @@ void Mesh::Draw() {
 	glActiveTexture(GL_TEXTURE0 + i); // Activate Texture Unit
 
 	// Retrieve Texture Number
-	std::string number = "";
-	std::string name = this->textures[i].type;
+	string number = "";
+	string name = this->textures[i].type;
 
 	if (name == "texture_diffuse") {
-	number = std::to_string(diffuseNr++); // Transfer GLuint to stream
+	number = to_string(diffuseNr++); // Transfer GLuint to stream
 	}
 	else if (name == "texture_specular") {
-	number = std::to_string(specularNr++);
+	number = to_string(specularNr++);
 	}
 
 	glUniform1i(glGetUniformLocation(shader.Program, ("material." + name + number).c_str()), i);
@@ -119,12 +119,12 @@ void Mesh::setupMesh() {
 
 /* Reads in a mesh file and Processes Vertices */
 void Mesh::readVertexFile(GLchar * filename) {
-	std::string line;
-	std::ifstream file(filename);
+	string line;
+	ifstream file(filename);
 	if (file.is_open()) {
 
 		// The File has specific locations for each vertex property (position, normal, texture coordinates)
-		std::getline(file, line);
+		getline(file, line);
 		if (line[POSITION] != NULL && line[POSITION] == '1') {
 			this->vertexProp_BitMap = this->vertexProp_BitMap | POSITION_BITMAP; // 00000001
 		}
@@ -136,8 +136,8 @@ void Mesh::readVertexFile(GLchar * filename) {
 		}
 
 		// Get each vertex
-		std::vector<Vertex> vertices;
-		while (std::getline(file, line)) {
+		vector<Vertex> vertices;
+		while (getline(file, line)) {
 			Vertex vertex;
 			GLchar * tokens;
 			GLchar * context = NULL;
@@ -146,37 +146,37 @@ void Mesh::readVertexFile(GLchar * filename) {
 			GLfloat floatNum;
 			tokens = strtok_s(&line[0], ",", &context);
 			if (this->vertexProp_BitMap & POSITION_BITMAP) {
-				floatNum = std::stof(tokens, NULL);
+				floatNum = stof(tokens, NULL);
 				vertex.Position.x = floatNum;
 
 				tokens = strtok_s(NULL, ",", &context);
-				floatNum = std::stof(tokens, NULL);
+				floatNum = stof(tokens, NULL);
 				vertex.Position.y = floatNum;
 
 				tokens = strtok_s(NULL, ",", &context);
-				floatNum = std::stof(tokens, NULL);
+				floatNum = stof(tokens, NULL);
 				vertex.Position.z = floatNum;
 				tokens = strtok_s(NULL, ",", &context);
 			}
 			if (this->vertexProp_BitMap & NORMAL_BITMAP) {
-				floatNum = std::stof(tokens, NULL);
+				floatNum = stof(tokens, NULL);
 				vertex.Normal.x = floatNum;
 
 				tokens = strtok_s(NULL, ",", &context);
-				floatNum = std::stof(tokens, NULL);
+				floatNum = stof(tokens, NULL);
 				vertex.Normal.y = floatNum;
 
 				tokens = strtok_s(NULL, ",", &context);
-				floatNum = std::stof(tokens, NULL);
+				floatNum = stof(tokens, NULL);
 				vertex.Normal.z = floatNum;
 				tokens = strtok_s(NULL, ",", &context);
 			}
 			if (this->vertexProp_BitMap & TEXTURE_COORDS_BITMAP) {
-				floatNum = std::stof(tokens, NULL);
+				floatNum = stof(tokens, NULL);
 				vertex.TexCoords.x = floatNum;
 
 				tokens = strtok_s(NULL, ",", &context);
-				floatNum = std::stof(tokens, NULL);
+				floatNum = stof(tokens, NULL);
 				vertex.TexCoords.y = floatNum;
 			}
 			vertices.push_back(vertex);
@@ -185,7 +185,7 @@ void Mesh::readVertexFile(GLchar * filename) {
 		file.close();
 	}
 	else {
-		std::cout << "FAILED TO OPEN MESH FILE: " << filename << std::endl;
+		cout << "FAILED TO OPEN MESH FILE: " << filename << endl;
 		this->vertexProp_BitMap = 0;
 	}
 }

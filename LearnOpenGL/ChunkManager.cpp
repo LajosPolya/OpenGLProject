@@ -26,7 +26,7 @@ GLboolean ChunkManager::hasGenerated(GLint x, GLint y, GLint z) {
 		return 0;
 	}
 	else {
-		std::cout << "ERROR::ChunkManager:: INCONSISTENCY BETWEEN chunks && chunkPositions" << std::endl;
+		cout << "ERROR::ChunkManager:: INCONSISTENCY BETWEEN chunks && chunkPositions" << endl;
 	}
 
 	return 0;
@@ -39,7 +39,7 @@ GLboolean ChunkManager::hasGeneratedGradients(GLint x, GLint y, GLint z) {
 	return 0;
 }
 
-glm::vec2 ** ChunkManager::getGradients() {
+vec2 ** ChunkManager::getGradients() {
 	return this->gradients;
 }
 
@@ -112,11 +112,11 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	GLint rx = x + halfMaxChunks;
 	GLint ry = y + halfMaxChunks;
 	GLint rz = z + halfMaxChunks;
-	this->chunks[rx][ry][rz].gradients= new glm::vec3**[NUM_GRADS];
+	this->chunks[rx][ry][rz].gradients= new vec3**[NUM_GRADS];
 	for (i = 0; i < NUM_GRADS; i++) {
-		this->chunks[rx][ry][rz].gradients[i] = new glm::vec3*[NUM_GRADS];
+		this->chunks[rx][ry][rz].gradients[i] = new vec3*[NUM_GRADS];
 		for (j = 0; j < NUM_GRADS; j++) {
-			this->chunks[rx][ry][rz].gradients[i][j] = new glm::vec3[NUM_GRADS];
+			this->chunks[rx][ry][rz].gradients[i][j] = new vec3[NUM_GRADS];
 			for (k = 0; k < NUM_GRADS; k++) {
 				this->chunks[rx][ry][rz].gradients[i][j][k] = this->gradients3d[i][j][k];
 			}
@@ -135,26 +135,26 @@ void ChunkManager::setChunkPosition(ComplexPosition * CoPo, GLint x, GLint y, GL
 void ChunkManager::genGradients(GLuint x, GLuint y) {
 	GLuint i, j;
 
-	this->gradients = new glm::vec2*[x];
+	this->gradients = new vec2*[x];
 	for (i = 0; i < x; i++) {
-		this->gradients[i] = new glm::vec2[y];
+		this->gradients[i] = new vec2[y];
 		for (j = 0; j < y; j++) {
 			this->gradients[i][j] = randomVector((GLfloat)1.0);
 		}
 	}
 
-	this->gradients[0][0] = glm::vec2(1.0, 0.0);
-	this->gradients[1][0] = glm::vec2(0.0, 1.0);
-	this->gradients[0][1] = glm::vec2(-1.0, 0.0);
-	this->gradients[1][1] = glm::vec2(0.0, -1.0);
+	this->gradients[0][0] = vec2(1.0, 0.0);
+	this->gradients[1][0] = vec2(0.0, 1.0);
+	this->gradients[0][1] = vec2(-1.0, 0.0);
+	this->gradients[1][1] = vec2(0.0, -1.0);
 }
 
 void ChunkManager::genGradients3d(GLuint x, GLuint y, GLuint z) {
-	this->gradients3d = new glm::vec3**[x];
+	this->gradients3d = new vec3**[x];
 	for (GLuint i = 0; i < x; i++) {
-		this->gradients3d[i] = new glm::vec3*[y];
+		this->gradients3d[i] = new vec3*[y];
 		for (GLuint j = 0; j < y; j++) {
-			this->gradients3d[i][j] = new glm::vec3[z];
+			this->gradients3d[i][j] = new vec3[z];
 			for (GLuint k = 0; k < z; k++) {
 				this->gradients3d[i][j][k] = random3DVector((GLfloat)1.0);
 			}
@@ -162,34 +162,34 @@ void ChunkManager::genGradients3d(GLuint x, GLuint y, GLuint z) {
 	}
 }
 
-glm::vec2 ChunkManager::randomVector(GLfloat length) {
-	std::random_device rd;
-	std::uniform_real_distribution<GLdouble> dist{ 0.0, 2.0 * PI };
+vec2 ChunkManager::randomVector(GLfloat length) {
+	random_device rd;
+	uniform_real_distribution<GLdouble> dist{ 0.0, 2.0 * PI };
 	GLfloat angle = (GLfloat)dist(rd);
 
 	// Turn angle and length into vector
 	// The length of the vector is implicitly 1
-	GLfloat x = length * std::cos(angle);
-	GLfloat y = length * std::sin(angle);
+	GLfloat x = length * cos(angle);
+	GLfloat y = length * sin(angle);
 	return{ x, y };
 }
 
-glm::vec3 ChunkManager::random3DVector(GLfloat length) {
-	std::random_device rd;
-	std::uniform_real_distribution<GLdouble> dist{ 0.0, 2.0 * PI };
-	std::uniform_real_distribution<GLfloat> randomCostheta{ -1.0, 1.0 };
-	std::uniform_real_distribution<GLfloat> randomU{ 0.0, 1.0 };
+vec3 ChunkManager::random3DVector(GLfloat length) {
+	random_device rd;
+	uniform_real_distribution<GLdouble> dist{ 0.0, 2.0 * PI };
+	uniform_real_distribution<GLfloat> randomCostheta{ -1.0, 1.0 };
+	uniform_real_distribution<GLfloat> randomU{ 0.0, 1.0 };
 	GLfloat phi = (GLfloat)dist(rd);
 	GLfloat costheta = randomCostheta(rd);
 
-	GLfloat theta = std::acos(costheta);
+	GLfloat theta = acos(costheta);
 
-	length = length * std::cbrt(randomU(rd));
+	length = length * cbrt(randomU(rd));
 
 	// Turn angle and length into vector
 	// The length of the vector is implicitly 1
-	GLfloat x = length * std::sin(theta) * std::cos(phi);
-	GLfloat y = length * std::sin(theta) * std::sin(phi);
-	GLfloat z = length * std::cos(theta);
+	GLfloat x = length * sin(theta) * cos(phi);
+	GLfloat y = length * sin(theta) * sin(phi);
+	GLfloat z = length * cos(theta);
 	return{ x, y, z };
 }

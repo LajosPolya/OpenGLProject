@@ -6,6 +6,8 @@
 #include "CompositionType.h"
 #include "PositionRelativeCamera.h"
 
+using namespace std;
+
 class ChunkObject
 {
 public:
@@ -16,6 +18,6 @@ public:
 	void setInstances(PositionRelativeCamera pos);
 
 private:
-	std::vector<SimpleInstancedArrayGameObject> composition;
+	vector<SimpleInstancedArrayGameObject> composition;
 };
 

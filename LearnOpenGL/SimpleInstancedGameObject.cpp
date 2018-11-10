@@ -2,17 +2,17 @@
 
 
 
-SimpleInstancedGameObject::SimpleInstancedGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string transformPath) {
-	std::vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapPath);
-	std::vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapPath);
+SimpleInstancedGameObject::SimpleInstancedGameObject(string diffuseMapPath, string specularMapPath, string meshPath, string transformPath) {
+	vector<Texture*> diffuseMaps = GameObjectUtils::getDiffuseTextures(diffuseMapPath);
+	vector<Texture*> specularMaps = GameObjectUtils::getSpecularTextures(specularMapPath);
 
 	this->transform = new InstancedTransformImpl(transformPath);
 	this->mesh = makeMeshes(meshPath, this->transform->getModels().size(), diffuseMaps, specularMaps);
 }
 
-SimpleInstancedGameObject::SimpleInstancedGameObject(std::string meshPath, InstancedTransformImpl * transform) {
+SimpleInstancedGameObject::SimpleInstancedGameObject(string meshPath, InstancedTransformImpl * transform) {
 	this->transform = transform;
-	this->mesh = makeMeshes(meshPath, this->transform->getModels().size(), std::vector<Texture*>(), std::vector<Texture*>());
+	this->mesh = makeMeshes(meshPath, this->transform->getModels().size(), vector<Texture*>(), vector<Texture*>());
 }
 
 SimpleInstancedGameObject::~SimpleInstancedGameObject() {}
@@ -47,12 +47,12 @@ GLuint SimpleInstancedGameObject::hasInstancesChangedAndSetFalse() {
 	return temp;
 }
 
-std::vector<InstancedMesh*> SimpleInstancedGameObject::makeMeshes(std::string path, GLuint numInstances, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
+vector<InstancedMesh*> SimpleInstancedGameObject::makeMeshes(string path, GLuint numInstances, vector<Texture*> diffuseMaps, vector<Texture*> specularMaps) {
 	GLchar * tokens;
 	GLchar* context = NULL;
 
 	tokens = strtok_s(&path[0], ",", &context);
-	std::vector<InstancedMesh*> mesh;
+	vector<InstancedMesh*> mesh;
 	GLuint i = 0;
 	Texture * tempDif;
 	Texture * tempSpec;

@@ -2,6 +2,8 @@
 
 #include <unordered_map>
 
+using namespace std;
+
 class GameObjectMemoryManager
 {
 public:
@@ -18,6 +20,6 @@ private:
 		int count;
 		bool ownedByClass;
 	};
-	static std::unordered_map<void *, AddressProperties> manager;
+	static unordered_map<void *, AddressProperties> manager;
 };
 

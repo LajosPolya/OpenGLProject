@@ -10,11 +10,14 @@
 #include "Material.h"
 #include "Mesh.h"
 
+using namespace std;
+using namespace glm;
+
 class InstancedArrayComplexShader
 {
 public:
-	InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, const std::string & vertexPath, const std::string & fragmentPath);
-	InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, const std::string & materialPath, const std::string & vertexPath, const std::string & fragmentPath);
+	InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const mat4 & projection, const string & vertexPath, const string & fragmentPath);
+	InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const mat4 & projection, const string & materialPath, const string & vertexPath, const string & fragmentPath);
 	~InstancedArrayComplexShader();
 
 	void sendToShader(Material * material);
@@ -35,11 +38,11 @@ protected:
 private:
 	const LightsContainer & lightsContainer;
 	const Camera & camera;
-	glm::mat4 projection;
+	mat4 projection;
 	Material * material;
 
-	void buildShaders(const std::string & vertexPath, const std::string & fragmentPath);
-	std::string readShaderFile(const std::string & path);
-	GLuint createShader(GLint type, const std::string & code);
+	void buildShaders(const string & vertexPath, const string & fragmentPath);
+	string readShaderFile(const string & path);
+	GLuint createShader(GLint type, const string & code);
 };
 

@@ -10,25 +10,27 @@
 // SOIL
 #include <SOIL/SOIL.h>
 
+using namespace std;
+
 class Texture {
 public:
 	Texture();
 	Texture(const Texture & toCopy);
 
 	Texture(GLchar * path, GLboolean alpha);
-	Texture(GLuint id, std::string name, std::string type);
+	Texture(GLuint id, string name, string type);
 
 	/* MAKE THE MESH/MATERIALS USE THIS INSTEAD OF THE TEXTURE STRUCT IN MESH CLASS*/
-	Texture(GLchar * path, GLboolean alpha, std::string name);
+	Texture(GLchar * path, GLboolean alpha, string name);
 
 	GLuint getTextureID();
-	std::string getName();
-	std::string getType();
+	string getName();
+	string getType();
 
-	void setName(std::string name);
+	void setName(string name);
 
 private:
 	GLuint id;
-	std::string name;
-	std::string type;
+	string name;
+	string type;
 };

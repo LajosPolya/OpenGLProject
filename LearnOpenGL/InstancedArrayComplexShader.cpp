@@ -1,6 +1,6 @@
 #include "InstancedArrayComplexShader.h"
 
-InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, const std::string & vertexPath, const std::string & fragmentPath) : camera(camera), lightsContainer(lightsContainer) {
+InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const mat4 & projection, const string & vertexPath, const string & fragmentPath) : camera(camera), lightsContainer(lightsContainer) {
 	this->projection = projection;
 	
 	buildShaders(vertexPath, fragmentPath);
@@ -11,7 +11,7 @@ InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, 
 	sendProjectionMatrixToShader();
 }
 
-InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const glm::mat4 & projection, const std::string & materialPath, const std::string & vertexPath, const std::string & fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
+InstancedArrayComplexShader::InstancedArrayComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const mat4 & projection, const string & materialPath, const string & vertexPath, const string & fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, vertexPath, fragmentPath) {
 	this->material = new Material(materialPath);
 	sendMaterialToShader();
 }
@@ -23,10 +23,10 @@ void InstancedArrayComplexShader::sendToShader(Material * material) {
 	glUniform1f(glGetUniformLocation(this->shaderId, "material.shininess"), material->getShininess());
 }
 
-void InstancedArrayComplexShader::buildShaders(const std::string & vertexPath, const std::string & fragmentPath) {
+void InstancedArrayComplexShader::buildShaders(const string & vertexPath, const string & fragmentPath) {
 	// 1. Retrieve the source code from filepath
-	std::string vertexCode = this->readShaderFile(vertexPath);
-	std::string fragmentCode = this->readShaderFile(fragmentPath);
+	string vertexCode = this->readShaderFile(vertexPath);
+	string fragmentCode = this->readShaderFile(fragmentPath);
 
 	// 2. Compile Shaders
 	GLuint vertex, fragment;
@@ -48,7 +48,7 @@ void InstancedArrayComplexShader::buildShaders(const std::string & vertexPath, c
 	glGetProgramiv(this->shaderId, GL_LINK_STATUS, &success);
 	if (!success) {
 		glGetProgramInfoLog(this->shaderId, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+		cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << endl;
 	}
 
 	// Delete the Shaders as they are Linked to our Program and are no Longer Necessary
@@ -56,17 +56,17 @@ void InstancedArrayComplexShader::buildShaders(const std::string & vertexPath, c
 	glDeleteShader(fragment);
 }
 
-std::string InstancedArrayComplexShader::readShaderFile(const std::string & path) {
-	std::ifstream shaderFile;
-	std::string code;
+string InstancedArrayComplexShader::readShaderFile(const string & path) {
+	ifstream shaderFile;
+	string code;
 
 	// Ensure ifstream objects can throw exceptions
-	shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	shaderFile.exceptions(ifstream::failbit | ifstream::badbit);
 
 	try {
 		// Open File
 		shaderFile.open(path);
-		std::stringstream shaderStream;
+		stringstream shaderStream;
 
 		// Read buffer into stream
 		shaderStream << shaderFile.rdbuf();
@@ -78,13 +78,13 @@ std::string InstancedArrayComplexShader::readShaderFile(const std::string & path
 		code = shaderStream.str();
 		return code;
 	}
-	catch (std::ifstream::failure e) {
-		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ : " << path << std::endl;
+	catch (ifstream::failure e) {
+		cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ : " << path << endl;
 		return code;
 	}
 }
 
-GLuint InstancedArrayComplexShader::createShader(GLint type, const std::string & code) {
+GLuint InstancedArrayComplexShader::createShader(GLint type, const string & code) {
 	// 2. Compile Shaders
 	const GLchar * shaderCode = code.c_str();
 	GLuint shader;
@@ -99,17 +99,17 @@ GLuint InstancedArrayComplexShader::createShader(GLint type, const std::string &
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 	if (!success) {
 		glGetShaderInfoLog(shader, 512, NULL, infoLog);
-		std::string shaderName = std::string("");
+		string shaderName = string("");
 		if (type == GL_VERTEX_SHADER) {
-			shaderName = std::string("Vertex");
+			shaderName = string("Vertex");
 		}
 		else if (type == GL_FRAGMENT_SHADER) {
-			shaderName = std::string("Fragment");
+			shaderName = string("Fragment");
 		}
 		else if (type == GL_GEOMETRY_SHADER) {
-			shaderName = std::string("Geometry");
+			shaderName = string("Geometry");
 		}
-		std::cout << "ERROR::SHADER::" + shaderName + "::COMPILATION_FAILED\n" << infoLog << std::endl;
+		cout << "ERROR::SHADER::" + shaderName + "::COMPILATION_FAILED\n" << infoLog << endl;
 	}
 	glAttachShader(this->shaderId, shader);
 	return shader;
@@ -125,7 +125,7 @@ void InstancedArrayComplexShader::setSamplers() {
 void InstancedArrayComplexShader::sendLightsContainerToShader() {
 	const DirLight * dirLight = this->lightsContainer.getDirLight();
 	const SpotLight * spotLight = this->lightsContainer.getSpotLight();
-	const std::vector<PointLight> * pointLights = this->lightsContainer.getPointLights();
+	const vector<PointLight> * pointLights = this->lightsContainer.getPointLights();
 
 	this->use();
 	// Directional light
@@ -136,10 +136,10 @@ void InstancedArrayComplexShader::sendLightsContainerToShader() {
 
 	// Point Light
 	glUniform1i(glGetUniformLocation(this->shaderId, "size"), pointLights->size());
-	std::string iString;
+	string iString;
 	for (GLuint i = 0; i < pointLights->size(); i++) {
-		iString = std::to_string(i);
-		std::string pointLightString = "pointLights[" + iString + "].";
+		iString = to_string(i);
+		string pointLightString = "pointLights[" + iString + "].";
 		glUniform3f(glGetUniformLocation(this->shaderId, (pointLightString + "position").c_str()), (*pointLights)[i].position.x, (*pointLights)[i].position.y, (*pointLights)[i].position.z);
 		glUniform3f(glGetUniformLocation(this->shaderId, (pointLightString + "ambient").c_str()), (*pointLights)[i].ambient.x, (*pointLights)[i].ambient.y, (*pointLights)[i].ambient.z);
 		glUniform3f(glGetUniformLocation(this->shaderId, (pointLightString + "diffuse").c_str()), (*pointLights)[i].diffuse.x, (*pointLights)[i].diffuse.y, (*pointLights)[i].diffuse.z);
@@ -156,20 +156,20 @@ void InstancedArrayComplexShader::sendLightsContainerToShader() {
 	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.constant"), spotLight->constant);
 	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.linear"), spotLight->linear);
 	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.quadratic"), spotLight->quadratic);
-	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.cutOff"), glm::cos(glm::radians(spotLight->cutOff)));
-	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.outerCutOff"), glm::cos(glm::radians(spotLight->outerCutOff)));
+	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.cutOff"), cos(radians(spotLight->cutOff)));
+	glUniform1f(glGetUniformLocation(this->shaderId, "spotLight.outerCutOff"), cos(radians(spotLight->outerCutOff)));
 }
 
 void InstancedArrayComplexShader::sendProjectionMatrixToShader() {
 	this->use();
-	glUniformMatrix4fv(glGetUniformLocation(this->shaderId, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(this->shaderId, "projection"), 1, GL_FALSE, value_ptr(projection));
 }
 
 void InstancedArrayComplexShader::sendCameraToShader() {
 	this->use();
 	glUniform3f(glGetUniformLocation(this->shaderId, "viewPos"), this->camera.Position.x, this->camera.Position.y, this->camera.Position.z);
 
-	glUniformMatrix4fv(glGetUniformLocation(this->shaderId, "view"), 1, GL_FALSE, glm::value_ptr(this->camera.GetViewMatrix()));
+	glUniformMatrix4fv(glGetUniformLocation(this->shaderId, "view"), 1, GL_FALSE, value_ptr(this->camera.GetViewMatrix()));
 
 	// Set material properties
 	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.position"), this->camera.Position.x, this->camera.Position.y, this->camera.Position.z);

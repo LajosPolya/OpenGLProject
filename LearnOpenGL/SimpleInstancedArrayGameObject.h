@@ -7,6 +7,9 @@
 #include "LightsContainer.h"
 #include "GameObjectUtils.h"
 
+using namespace std;
+using namespace glm;
+
 class SimpleInstancedArrayGameObject
 {
 public:
@@ -14,9 +17,9 @@ public:
 	~SimpleInstancedArrayGameObject();
 
 	SimpleInstancedArrayGameObject();
-	SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string transformPath);
-	SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::vector<glm::vec3> positions);
-	SimpleInstancedArrayGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::vector<glm::vec3> positions, GLuint primitiveType);
+	SimpleInstancedArrayGameObject(string diffuseMapPath, string specularMapPath, string meshPath, string transformPath);
+	SimpleInstancedArrayGameObject(string diffuseMapPath, string specularMapPath, string meshPath, vector<vec3> positions);
+	SimpleInstancedArrayGameObject(string diffuseMapPath, string specularMapPath, string meshPath, vector<vec3> positions, GLuint primitiveType);
 
 	void Draw();
 
@@ -25,11 +28,11 @@ public:
 	void setInstances(InstancedArrayTransformImpl * transform);
 
 private:
-	std::vector<InstancedArrayMesh*> mesh;
+	vector<InstancedArrayMesh*> mesh;
 
 	InstancedArrayTransformImpl * transform = nullptr;
 
-	std::vector<InstancedArrayMesh*> makeMeshes(std::string path, std::vector<glm::mat4> models, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
-	std::vector<InstancedArrayMesh*> makeMeshes(std::string path, std::vector<glm::mat4> models, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps, GLuint primitiveType);
+	vector<InstancedArrayMesh*> makeMeshes(string path, vector<mat4> models, vector<Texture*> diffuseMaps, vector<Texture*> specularMaps);
+	vector<InstancedArrayMesh*> makeMeshes(string path, vector<mat4> models, vector<Texture*> diffuseMaps, vector<Texture*> specularMaps, GLuint primitiveType);
 };
 

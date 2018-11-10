@@ -6,7 +6,7 @@ Material::Material(const Material & toCopy) {
 	this->material = toCopy.material;
 }
 
-Material::Material(std::string materialLocation) {
+Material::Material(string materialLocation) {
 
 	this->readLightingFile(materialLocation);
 }
@@ -45,11 +45,11 @@ Read Doc/Material.txt for more info
 void Material::getMeshProperties(MaterialProp * material, GLchar * context, GLchar lightPropType) {
 	GLchar * token;
 	GLuint i = 0;
-	glm::vec3 prop;
+	vec3 prop;
 
 	token = strtok_s(NULL, ",", &context);
 	while (token != NULL) {
-		prop[i] = std::stof(token, NULL);
+		prop[i] = stof(token, NULL);
 		token = strtok_s(NULL, ",", &context);
 		i++;
 	}
@@ -62,12 +62,12 @@ void Material::getMeshProperties(MaterialProp * material, GLchar * context, GLch
 	}
 }
 
-void Material::readLightingFile(std::string filename) {
-	std::string line;
-	std::ifstream file(filename);
+void Material::readLightingFile(string filename) {
+	string line;
+	ifstream file(filename);
 	if (file.is_open()) {
 		PointLight pointLight;
-		while (std::getline(file, line)) {
+		while (getline(file, line)) {
 			GLchar * token;
 			GLchar * context = NULL;
 

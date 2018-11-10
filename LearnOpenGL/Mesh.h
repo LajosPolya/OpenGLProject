@@ -18,6 +18,9 @@
 
 #include "Texture.h"
 
+using namespace std;
+using namespace glm;
+
 #define POSITION 0
 #define NORMAL 1
 #define TEXT_COORDS 2
@@ -32,9 +35,9 @@
 */
 
 struct Vertex {
-	glm::vec3 Position;
-	glm::vec3 Normal;
-	glm::vec2 TexCoords;
+	vec3 Position;
+	vec3 Normal;
+	vec2 TexCoords;
 };
 
 class Mesh {
@@ -50,8 +53,8 @@ public:
 
 protected:
 	// Mesh Data
-	std::vector<Vertex> vertices;
-	std::vector<GLuint> indices;
+	vector<Vertex> vertices;
+	vector<GLuint> indices;
 
 	// Render Data
 	GLuint VAO = (GLuint)-1;

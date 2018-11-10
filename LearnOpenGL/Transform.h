@@ -11,20 +11,22 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+using namespace glm;
+
 class Transform {
 public:
 
-	virtual glm::vec3 getPosition() = 0;
+	virtual vec3 getPosition() = 0;
 
 	virtual void setPosition() = 0;
-	virtual void setPosition(glm::vec3 pos) = 0;
+	virtual void setPosition(vec3 pos) = 0;
 
 	virtual void setRotation() = 0;
 	virtual void setYRotation(GLfloat radians) = 0;
 
 	virtual void setScale() = 0;
 
-	virtual glm::mat4 getModel() = 0;
+	virtual mat4 getModel() = 0;
 
 	virtual void refreshModel() = 0;
 

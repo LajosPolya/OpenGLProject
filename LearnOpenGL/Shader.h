@@ -14,6 +14,9 @@
 #include "LightsContainer.h"
 #include "Camera.h"
 
+using namespace std;
+using namespace glm;
+
 class TransparentGameObjectImpl;
 
 class Shader
@@ -27,7 +30,7 @@ public:
 
 	Shader(const GLchar * vertexPath, const GLchar * fragmentPath);
 	Shader(const GLchar * vertexPath, const GLchar * fragmentPath, GLchar * geometryPath);
-	void readShaderFile(const GLchar * path, std::string * code);
+	void readShaderFile(const GLchar * path, string * code);
 	GLuint createShader(GLint type, const GLchar * code);
 
 	void Use();
@@ -36,7 +39,7 @@ public:
 	void sendToShader(TransparentGameObjectImpl * gameObject);
 	void sendToShader(Material * material);
 
-	void setProjectionMatrix(glm::mat4 projection);
+	void setProjectionMatrix(mat4 projection);
 
 private:
 	void sendCommonToShader(TransparentGameObjectImpl * gameObject);

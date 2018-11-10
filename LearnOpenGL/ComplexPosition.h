@@ -9,20 +9,23 @@
 
 #include "CompositionType.h"
 
+using namespace std;
+using namespace glm;
+
 class ComplexPosition
 {
 public:
 	ComplexPosition();
 	~ComplexPosition();
 
-	std::vector<glm::vec3> getPositions(CompositionType i);
-	void setPositions(std::vector<glm::vec3> positions, CompositionType i);
+	vector<vec3> getPositions(CompositionType i);
+	void setPositions(vector<vec3> positions, CompositionType i);
 
-	std::vector<glm::vec3> getDrawablePositions(CompositionType i);
-	void setDrawablePositions(std::vector<glm::vec3> drawablePositions, CompositionType i);
+	vector<vec3> getDrawablePositions(CompositionType i);
+	void setDrawablePositions(vector<vec3> drawablePositions, CompositionType i);
 
 private:
-	std::vector<std::vector<glm::vec3>> positions;
-	std::vector<std::vector<glm::vec3>> drawablePositions;
+	vector<vector<vec3>> positions;
+	vector<vector<vec3>> drawablePositions;
 };
 

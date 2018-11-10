@@ -15,6 +15,8 @@
 #include <random>
 #include <math.h>
 
+using namespace std;
+using namespace glm;
 
 class PerlinNoise
 {
@@ -26,15 +28,15 @@ public:
 	// Starting GLfloat impl
 	GLfloat generate(GLfloat x, GLfloat y, GLfloat z);
 
-	void setChunk(glm::vec3 *** gradientVec);
-	void setChunk(glm::vec2 ** gradientVec);
+	void setChunk(vec3 *** gradientVec);
+	void setChunk(vec2 ** gradientVec);
 
 private:
 	// Size of chunk
 	GLuint x, y, z;
 	
-	glm::vec2 ** gradients;
-	glm::vec3 *** gradients3d;
+	vec2 ** gradients;
+	vec3 *** gradients3d;
 
 	GLfloat perlin(GLfloat x, GLfloat y);
 	GLfloat perlin(GLfloat x, GLfloat y, GLfloat z);

@@ -16,6 +16,9 @@
 
 #include "InstancedTransform.h"
 
+using namespace std;
+using namespace glm;
+
 class InstancedArrayTransformImpl : public InstancedTransform
 {
 public:
@@ -23,20 +26,20 @@ public:
 	~InstancedArrayTransformImpl();
 	InstancedArrayTransformImpl(const InstancedArrayTransformImpl & toCopy);
 
-	InstancedArrayTransformImpl(std::string fileLocation);
-	InstancedArrayTransformImpl(std::vector<glm::vec3> positions);
-	InstancedArrayTransformImpl(std::vector<glm::vec3> positions, std::vector<glm::vec3> rotations, std::vector<glm::vec3> scales);
+	InstancedArrayTransformImpl(string fileLocation);
+	InstancedArrayTransformImpl(vector<vec3> positions);
+	InstancedArrayTransformImpl(vector<vec3> positions, vector<vec3> rotations, vector<vec3> scales);
 
-	std::vector<glm::vec3> * getPositions();
-	std::vector<glm::vec3> * getRotations();
-	std::vector<glm::vec3> * getScales();
+	vector<vec3> * getPositions();
+	vector<vec3> * getRotations();
+	vector<vec3> * getScales();
 
-	void setPositions(std::vector<glm::vec3> positions);
-	void setRotations(std::vector<glm::vec3> rotations);
-	void setScales(std::vector<glm::vec3> scales);
+	void setPositions(vector<vec3> positions);
+	void setRotations(vector<vec3> rotations);
+	void setScales(vector<vec3> scales);
 
-	void setModels(std::vector<glm::mat4> models);
-	std::vector<glm::mat4> getModels();
+	void setModels(vector<mat4> models);
+	vector<mat4> getModels();
 
 	void refreshModel();
 
@@ -44,12 +47,12 @@ public:
 
 private:
 	/* Only the file should set this */
-	std::vector<glm::vec3> Position;
-	std::vector<glm::vec3> Rotation;
-	std::vector<glm::vec3> Scale;
+	vector<vec3> Position;
+	vector<vec3> Rotation;
+	vector<vec3> Scale;
 
-	std::vector<glm::mat4> model;
+	vector<mat4> model;
 
-	void readFile(std::string filename);
-	void setup(std::vector<glm::vec3> positions);
+	void readFile(string filename);
+	void setup(vector<vec3> positions);
 };

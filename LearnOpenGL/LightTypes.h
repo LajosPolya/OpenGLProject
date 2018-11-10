@@ -9,30 +9,33 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+using namespace std;
+using namespace glm;
+
 // These Structs are Direct Copies of the Structs in the Fragment Shader
 struct DirLight {
-	glm::vec3 direction;
+	vec3 direction;
 
-	glm::vec3 ambient;
-	glm::vec3 diffuse;
-	glm::vec3 specular;
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
 };
 
 struct PointLight {
-	glm::vec3 position;
+	vec3 position;
 
 	GLfloat constant;
 	GLfloat linear;
 	GLfloat quadratic;
 
-	glm::vec3 ambient;
-	glm::vec3 diffuse;
-	glm::vec3 specular;
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
 };
 
 struct SpotLight {
-	glm::vec3 position;
-	glm::vec3 direction;
+	vec3 position;
+	vec3 direction;
 	GLfloat cutOff;
 	GLfloat outerCutOff;
 
@@ -40,13 +43,13 @@ struct SpotLight {
 	GLfloat linear;
 	GLfloat quadratic;
 
-	glm::vec3 ambient;
-	glm::vec3 diffuse;
-	glm::vec3 specular;
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
 };
 
 struct LightsPropertiesContainer {
 	DirLight * dirLight = nullptr;
-	std::vector<PointLight> pointLights;
+	vector<PointLight> pointLights;
 	SpotLight * spotLight = nullptr;
 };

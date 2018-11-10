@@ -1,13 +1,13 @@
 #include "GameObjectUtils.h"
 
-std::vector<Texture*> GameObjectUtils::getDiffuseTextures(std::string path) {
+vector<Texture*> GameObjectUtils::getDiffuseTextures(string path) {
 	Texture * diffuseMap = nullptr;
 	GLchar * tokens;
 	GLchar* context = NULL;
 
 
 	tokens = strtok_s(&path[0], ",", &context);
-	std::vector<Texture*> diffuseMaps;
+	vector<Texture*> diffuseMaps;
 	while (tokens != nullptr) {
 		///diffuseMap = ResourceManager::getTexture(tokens);
 		///if (diffuseMap == nullptr) {
@@ -21,13 +21,13 @@ std::vector<Texture*> GameObjectUtils::getDiffuseTextures(std::string path) {
 	return diffuseMaps;
 }
 
-std::vector<Texture*> GameObjectUtils::getSpecularTextures(std::string path) {
+vector<Texture*> GameObjectUtils::getSpecularTextures(string path) {
 	Texture * specularMap;
 	GLchar * tokens;
 	GLchar* context = NULL;
 
 	tokens = strtok_s(&path[0], ",", &context);
-	std::vector<Texture*> specularMaps;
+	vector<Texture*> specularMaps;
 	while (tokens != nullptr) {
 		///specularMap = ResourceManager::getTexture(tokens);
 		///if (specularMap == nullptr) {

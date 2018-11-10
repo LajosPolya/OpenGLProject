@@ -2,13 +2,13 @@
 
 Camera * CollisionDetector::camera;
 
-glm::vec3 CollisionDetector::prevPosition;
+vec3 CollisionDetector::prevPosition;
 
-std::vector<Transform*> CollisionDetector::transforms;
-std::vector<InstancedTransformImpl*> CollisionDetector::instancedTransforms;
-std::vector<InstancedArrayTransformImpl*> CollisionDetector::instancedArrayTransforms;
+vector<Transform*> CollisionDetector::transforms;
+vector<InstancedTransformImpl*> CollisionDetector::instancedTransforms;
+vector<InstancedArrayTransformImpl*> CollisionDetector::instancedArrayTransforms;
 
-const GLfloat CollisionDetector::padding = 0.8;
+const GLfloat CollisionDetector::padding = 0.8f;
 
 
 void CollisionDetector::CheckCollisions() {
@@ -26,7 +26,7 @@ void CollisionDetector::CheckCollisions() {
 	}
 }
 
-void CollisionDetector::SetPrevPosiion(glm::vec3 position) {
+void CollisionDetector::SetPrevPosiion(vec3 position) {
 	prevPosition = position;
 }
 
@@ -48,7 +48,7 @@ void CollisionDetector::AddTransform(InstancedArrayTransformImpl * transform) {
 }
 
 void CollisionDetector::CheckCollision(Transform & transform) {
-	glm::vec3 Position = transform.getPosition();
+	vec3 Position = transform.getPosition();
 	if (Position.x - padding< camera->Position.x && Position.x + padding> camera->Position.x
 		&& Position.y - padding< camera->Position.y && Position.y + padding> camera->Position.y
 		&& Position.z - padding< camera->Position.z && Position.z + padding> camera->Position.z) {
@@ -79,7 +79,7 @@ void CollisionDetector::CheckCollision(Transform & transform) {
 void CollisionDetector::CheckCollision(InstancedTransformImpl & transform) {
 	GLuint i;
 
-	std::vector<glm::vec3> * Positions = transform.getPositions();
+	vector<vec3> * Positions = transform.getPositions();
 	GLuint size = Positions->size();
 	for (i = 0; i < size; i++) {
 		if ((*Positions)[i].x - padding< camera->Position.x && (*Positions)[i].x + padding> camera->Position.x
@@ -113,7 +113,7 @@ void CollisionDetector::CheckCollision(InstancedTransformImpl & transform) {
 void CollisionDetector::CheckCollision(InstancedArrayTransformImpl & transform) {
 	GLuint i;
 
-	std::vector<glm::vec3> * Positions = transform.getPositions();
+	vector<vec3> * Positions = transform.getPositions();
 	GLuint size = Positions->size();
 	for (i = 0; i < size; i++) {
 		if ((*Positions)[i].x - padding< camera->Position.x && (*Positions)[i].x + padding> camera->Position.x

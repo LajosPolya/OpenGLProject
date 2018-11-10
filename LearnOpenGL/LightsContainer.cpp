@@ -1,7 +1,7 @@
 #include "LightsContainer.h"
 
 
-LightsContainer::LightsContainer(std::string lightsLocation) {
+LightsContainer::LightsContainer(string lightsLocation) {
 	this->propContainer.dirLight = new DirLight();
 	this->propContainer.spotLight = new SpotLight();
 	this->poitLightsTransform = new InstancedTransformImpl();
@@ -18,7 +18,7 @@ SpotLight * LightsContainer::getSpotLight() {
 	return this->propContainer.spotLight;
 }
 
-std::vector<PointLight> * LightsContainer::getPointLights() {
+vector<PointLight> * LightsContainer::getPointLights() {
 	return &this->propContainer.pointLights;
 }
 
@@ -30,7 +30,7 @@ const SpotLight * LightsContainer::getSpotLight() const {
 	return this->propContainer.spotLight;
 }
 
-const std::vector<PointLight> * LightsContainer::getPointLights() const {
+const vector<PointLight> * LightsContainer::getPointLights() const {
 	return &this->propContainer.pointLights;
 }
 
@@ -38,17 +38,17 @@ InstancedTransformImpl * LightsContainer::getPointLightTransform() {
 	return this->poitLightsTransform;
 }
 
-void LightsContainer::addPointLight(glm::vec3 pos) {
+void LightsContainer::addPointLight(vec3 pos) {
 	PointLight pointLight;
 	pointLight.position = pos;
 	pointLight.constant = (GLfloat)1.0;
 	pointLight.linear = (GLfloat)0.09;
 	pointLight.quadratic = (GLfloat)0.032;
-	pointLight.ambient = glm::vec3((GLfloat)0.05);
-	pointLight.diffuse = glm::vec3((GLfloat)0.8);
-	pointLight.specular = glm::vec3((GLfloat)1.0);
+	pointLight.ambient = vec3((GLfloat)0.05);
+	pointLight.diffuse = vec3((GLfloat)0.8);
+	pointLight.specular = vec3((GLfloat)1.0);
 	this->propContainer.pointLights.push_back(pointLight);
-	this->poitLightsTransform->addNewInstance(pointLight.position, glm::vec3(0, 0, 0), glm::vec3(0.2, 0.2, 0.2));
+	this->poitLightsTransform->addNewInstance(pointLight.position, vec3(0, 0, 0), vec3(0.2, 0.2, 0.2));
 }
 
 /*
@@ -69,11 +69,11 @@ Read Doc/Material.txt for more info
 void LightsContainer::getMeshProperties(DirLight * dirLight, GLchar * context, GLchar lightPropType) {
 	GLchar * token;
 	GLuint i = 0;
-	glm::vec3 prop;
+	vec3 prop;
 
 	token = strtok_s(NULL, ",", &context);
 	while (token != NULL) {
-		prop[i] = std::stof(token, NULL);
+		prop[i] = stof(token, NULL);
 		token = strtok_s(NULL, ",", &context);
 		i++;
 	}
@@ -91,18 +91,18 @@ void LightsContainer::getMeshProperties(DirLight * dirLight, GLchar * context, G
 		dirLight->specular = prop;
 	}
 	else {
-		std::cout << "ERROR::LightsContainer::Invalid DirLight Props" << std::endl;
+		cout << "ERROR::LightsContainer::Invalid DirLight Props" << endl;
 	}
 }
 
 void LightsContainer::getMeshProperties(SpotLight * spotLight, GLchar * context, GLchar lightPropType) {
 	GLchar * token;
 	GLuint i = 0;
-	glm::vec3 prop;
+	vec3 prop;
 
 	token = strtok_s(NULL, ",", &context);
 	while (token != NULL) {
-		prop[i] = std::stof(token, NULL);
+		prop[i] = stof(token, NULL);
 		token = strtok_s(NULL, ",", &context);
 		i++;
 	}
@@ -138,18 +138,18 @@ void LightsContainer::getMeshProperties(SpotLight * spotLight, GLchar * context,
 		spotLight->outerCutOff = prop[0];
 	}
 	else {
-		std::cout << "ERROR::LightsContainer::Invalid SpotLight Props" << std::endl;
+		cout << "ERROR::LightsContainer::Invalid SpotLight Props" << endl;
 	}
 }
 
 void LightsContainer::getMeshProperties(PointLight * pointLight, GLchar * context, GLchar lightPropType) {
 	GLchar * token;
 	GLuint i = 0;
-	glm::vec3 prop;
+	vec3 prop;
 
 	token = strtok_s(NULL, ",", &context);
 	while (token != NULL) {
-		prop[i] = std::stof(token, NULL);
+		prop[i] = stof(token, NULL);
 		token = strtok_s(NULL, ",", &context);
 		i++;
 	}
@@ -176,18 +176,18 @@ void LightsContainer::getMeshProperties(PointLight * pointLight, GLchar * contex
 		pointLight->quadratic = prop[0];
 	}
 	else {
-		std::cout << "ERROR::LightsContainer::Invalid SpotLight Props" << std::endl;
+		cout << "ERROR::LightsContainer::Invalid SpotLight Props" << endl;
 	}
 }
 
-void LightsContainer::readLightingFile(std::string filename) {
-	std::string line;
-	std::ifstream file(filename);
+void LightsContainer::readLightingFile(string filename) {
+	string line;
+	ifstream file(filename);
 
 	if (file.is_open()) {
 		PointLight pointLight;
 		GLchar prevPointLight = ' ';
-		while (std::getline(file, line)) {
+		while (getline(file, line)) {
 			GLchar * token;
 			GLchar * context = NULL;
 
@@ -223,7 +223,7 @@ void LightsContainer::readLightingFile(std::string filename) {
 				}
 			}
 			else {
-				std::cout << "ERROR::LightsContainer::Invalid Light Type" << std::endl;
+				cout << "ERROR::LightsContainer::Invalid Light Type" << endl;
 			}
 		}
 	}

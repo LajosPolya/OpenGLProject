@@ -9,14 +9,17 @@
 #include "Camera.h"
 #include "Shader.h"
 
+using namespace std;
+using namespace glm;
+
 class TransparentGameObjectImpl
 {
 public:
 	TransparentGameObjectImpl() = default;
 	~TransparentGameObjectImpl() = default;
 
-	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc,  GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, const Camera & camera, glm::mat4 projection);
-	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, const Camera & camera, glm::mat4 projection);
+	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, string diffuseMapLoc, string specularMapLoc, string meshLoc,  GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, const Camera & camera, mat4 projection);
+	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, const Camera & camera, mat4 projection);
 
 	void Draw();
 
@@ -29,7 +32,7 @@ public:
 	LightsContainer * getLightsContainer();
 
 private:
-	std::vector<InstancedMesh*> mesh;
+	vector<InstancedMesh*> mesh;
 
 	Material * material;
 
@@ -41,8 +44,8 @@ private:
 
 	LightsContainer * lightsContainer;
 
-	glm::mat4 projection;
+	mat4 projection;
 
-	std::vector<InstancedMesh*> makeMeshes(std::string path, GLuint numInstances, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
+	vector<InstancedMesh*> makeMeshes(string path, GLuint numInstances, vector<Texture*> diffuseMaps, vector<Texture*> specularMaps);
 };
 

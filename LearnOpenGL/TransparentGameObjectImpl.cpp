@@ -1,10 +1,10 @@
 #include "TransparentGameObjectImpl.h"
 
-TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, std::string diffuseMapLoc, std::string specularMapLoc, std::string meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, const Camera & camera, glm::mat4 projection) : camera(camera) {
+TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, string diffuseMapLoc, string specularMapLoc, string meshLoc, GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, const Camera & camera, mat4 projection) : camera(camera) {
 	this->shader = new Shader(vertexShader, fragmentShader);
 
-	std::vector<Texture*> diffuseMap = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
-	std::vector<Texture*> specularMap = GameObjectUtils::getSpecularTextures(specularMapLoc);
+	vector<Texture*> diffuseMap = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
+	vector<Texture*> specularMap = GameObjectUtils::getSpecularTextures(specularMapLoc);
 
 	this->material = new Material(materialLoc);
 	this->transform = new TransparentTransformImpl(transformLoc);
@@ -19,10 +19,10 @@ TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLch
 	this->shader->setProjectionMatrix(projection);
 }
 
-TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, const Camera & camera, glm::mat4 projection) : camera(camera) {
+TransparentGameObjectImpl::TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, const Camera & camera, mat4 projection) : camera(camera) {
 	this->shader = new Shader(vertexShader, fragmentShader);
 
-	std::vector<Texture*> diffuseMap = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
+	vector<Texture*> diffuseMap = GameObjectUtils::getDiffuseTextures(diffuseMapLoc);
 
 	this->transform = new TransparentTransformImpl(transformLoc);
 	this->mesh = makeMeshes(meshLoc, this->transform->getModels().size(), diffuseMap, {});
@@ -68,12 +68,12 @@ LightsContainer * TransparentGameObjectImpl::getLightsContainer()
 	return this->lightsContainer;
 }
 
-std::vector<InstancedMesh*> TransparentGameObjectImpl::makeMeshes(std::string path, GLuint numInstances, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps) {
+vector<InstancedMesh*> TransparentGameObjectImpl::makeMeshes(string path, GLuint numInstances, vector<Texture*> diffuseMaps, vector<Texture*> specularMaps) {
 	GLchar * tokens;
 	GLchar* context = NULL;
 
 	tokens = strtok_s(&path[0], ",", &context);
-	std::vector<InstancedMesh*> mesh;
+	vector<InstancedMesh*> mesh;
 	GLuint i = 0;
 	Texture * tempDif;
 	Texture * tempSpec;

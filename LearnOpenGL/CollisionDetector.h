@@ -16,15 +16,15 @@ public:
 
 	static void CheckCollisions();
 
-	static void SetPrevPosiion(glm::vec3 position);
+	static void SetPrevPosiion(vec3 position);
 private:
 	static Camera * camera;
 
-	static glm::vec3 prevPosition;
+	static vec3 prevPosition;
 
-	static std::vector<Transform*> transforms;
-	static std::vector<InstancedTransformImpl*> instancedTransforms;
-	static std::vector<InstancedArrayTransformImpl*> instancedArrayTransforms;
+	static vector<Transform*> transforms;
+	static vector<InstancedTransformImpl*> instancedTransforms;
+	static vector<InstancedArrayTransformImpl*> instancedArrayTransforms;
 
 	static void CheckCollision(Transform & transform);
 	static void CheckCollision(InstancedTransformImpl & transform);

@@ -2,6 +2,7 @@
 
 #include "Mesh.h"
 
+using namespace glm;
 
 class InstancedMesh : private Mesh
 {
@@ -12,7 +13,7 @@ public:
 
 	virtual void Draw() override;
 
-	void setInstances(std::vector<glm::mat4> instances);
+	void setInstances(vector<mat4> instances);
 
 private:
 	GLuint instanceVBO = (GLuint)-1;

@@ -9,6 +9,8 @@
 #include "ChunkManager.h"
 #include "CompositionType.h"
 
+using namespace glm;
+
 #define T_2D 2
 #define T_3D 3
 #define GRAN 0.09 // Granularity
@@ -23,15 +25,15 @@ public:
 
 	   The chunk of which the position is in will be generated
 	*/
-	std::vector<glm::vec3> generate(GLint x, GLint z);
+	vector<vec3> generate(GLint x, GLint z);
 
-	ComplexPosition generateComplex(glm::vec3 pos);
+	ComplexPosition generateComplex(vec3 pos);
 
-	GLboolean shouldGetNewChunks(glm::vec3 position);
+	GLboolean shouldGetNewChunks(vec3 position);
 
 	GLint getLowerVal(GLfloat val, GLint range);
 
-	glm::vec3 getChunkPos(glm::vec3 pos);
+	vec3 getChunkPos(vec3 pos);
 
 private:
 	ChunkManager chunkManager;
@@ -40,7 +42,7 @@ private:
 
 	PerlinNoise * perlinNoise;
 
-	glm::vec3 prevChunkPosition = glm::vec3(0, 0, 0);
+	vec3 prevChunkPosition = vec3(0, 0, 0);
 
 	// TODO: TerrainGenerator
 	/* This class will generate the positions for the landscape 

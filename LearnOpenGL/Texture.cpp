@@ -2,12 +2,12 @@
 
 GLuint id;
 GLchar * name;
-std::string type;
+string type;
 
 Texture::Texture() {
 	this->name = "";
 	this->id = (GLuint)-1;
-	this->type = std::string();
+	this->type = string();
 }
 
 Texture::Texture(const Texture & toCopy) {
@@ -40,14 +40,14 @@ Texture::Texture(GLchar * path, GLboolean alpha) {
 	}
 }
 
-Texture::Texture(GLuint id, std::string name, std::string type) {
+Texture::Texture(GLuint id, string name, string type) {
 	this->id = id;
 	this->name = name;
 	this->type = type;
 }
 
 /* MAKE THE MESH/MATERIALS USE THIS INSTEAD OF THE TEXTURE STRUCT IN MESH CLASS*/
-Texture::Texture(GLchar * path, GLboolean alpha, std::string name) {
+Texture::Texture(GLchar * path, GLboolean alpha, string name) {
 	this->name = name;
 	// Gen texture ID and load texture data
 	glGenTextures(1, &this->id);
@@ -75,14 +75,14 @@ GLuint Texture::getTextureID() {
 	return this->id;
 }
 
-std::string Texture::getName() {
+string Texture::getName() {
 	return this->name;
 }
 
-std::string Texture::getType() {
+string Texture::getType() {
 	return this->type;
 }
 
-void Texture::setName(std::string name) {
+void Texture::setName(string name) {
 	this->name = name;
 }

@@ -6,6 +6,8 @@
 #include "CompositionType.h"
 #include "ComplexPosition.h"
 
+using namespace std;
+
 class ChunkObjectTransformStore
 {
 public:
@@ -17,6 +19,6 @@ public:
 	InstancedArrayTransformImpl getTransform(CompositionType i);
 
 private:
-	std::vector<InstancedArrayTransformImpl> tranforms;
+	vector<InstancedArrayTransformImpl> tranforms;
 };
 

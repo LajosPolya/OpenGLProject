@@ -9,13 +9,15 @@
 #include "GameObjectUtils.h"
 #include "TransformImpl.h"
 
+using namespace std;
+
 class SimpleGameObject
 {
 public:
-	SimpleGameObject(std::string meshPath, std::string transformPath);
-	SimpleGameObject(std::string diffuseMapPath, std::string meshPath, std::string transformPath);
-	SimpleGameObject(std::string diffuseMapPath, std::string specularMapPath, std::string meshPath, std::string materialPath, std::string transformPath);
-	SimpleGameObject(std::string meshPath, Transform * transform);
+	SimpleGameObject(string meshPath, string transformPath);
+	SimpleGameObject(string diffuseMapPath, string meshPath, string transformPath);
+	SimpleGameObject(string diffuseMapPath, string specularMapPath, string meshPath, string materialPath, string transformPath);
+	SimpleGameObject(string meshPath, Transform * transform);
 	~SimpleGameObject();
 
 	void Draw();
@@ -26,10 +28,10 @@ public:
 	/// GLuint hasInstancesChangedAndSetFalse();
 
 private:
-	std::vector<Mesh*> mesh;
+	vector<Mesh*> mesh;
 
 	Transform * transform = nullptr;
 
-	std::vector<Mesh*> makeMeshes(std::string path, std::vector<Texture*> diffuseMaps, std::vector<Texture*> specularMaps);
+	vector<Mesh*> makeMeshes(string path, vector<Texture*> diffuseMaps, vector<Texture*> specularMaps);
 };
 

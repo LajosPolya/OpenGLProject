@@ -8,28 +8,31 @@
 #include "LightTypes.h"
 #include "InstancedTransformImpl.h"
 
+using namespace std;
+using namespace glm;
+
 
 class LightsContainer
 {
 public:
-	LightsContainer(std::string lightsLocation);
+	LightsContainer(string lightsLocation);
 	~LightsContainer();
 
 	DirLight * getDirLight();
 	SpotLight * getSpotLight();
-	std::vector<PointLight> * getPointLights();
+	vector<PointLight> * getPointLights();
 
 	const DirLight * getDirLight() const;
 	const SpotLight * getSpotLight() const;
-	const std::vector<PointLight> * getPointLights() const;
+	const vector<PointLight> * getPointLights() const;
 
 	InstancedTransformImpl * getPointLightTransform();
 
-	void addPointLight(glm::vec3 pos);
+	void addPointLight(vec3 pos);
 
 private:
 	GLboolean havePushedLastPointLight = false;
-	void readLightingFile(std::string filename);
+	void readLightingFile(string filename);
 
 	LightsPropertiesContainer propContainer;
 

@@ -16,6 +16,9 @@
 
 #include <algorithm>
 
+using namespace std;
+using namespace glm;
+
 class TransparentTransformImpl
 {
 public:
@@ -24,11 +27,11 @@ public:
 
 	TransparentTransformImpl(GLchar * fileLocation);
 
-	glm::vec3 * getPositions(GLuint i);
+	vec3 * getPositions(GLuint i);
 
-	glm::mat4 getModel(GLuint i);
+	mat4 getModel(GLuint i);
 
-	std::vector<glm::mat4> getModels();
+	vector<mat4> getModels();
 
 	void refreshModel();
 
@@ -38,20 +41,20 @@ public:
 
 private:
 	struct InstancedTransformProps {
-		glm::vec3 Position;
-		glm::vec3 Rotation;
-		glm::vec3 Scale;
+		vec3 Position;
+		vec3 Rotation;
+		vec3 Scale;
 
-		glm::mat4 model;
+		mat4 model;
 	};
 
 	/* This allows me to return models which are sorted,
 	   the above data structure allows me to get a model by index
 	*/
-	std::vector<glm::mat4> models;
+	vector<mat4> models;
 
 	/* Only the file should set this */
-	std::vector<InstancedTransformProps> props;
+	vector<InstancedTransformProps> props;
 
 	void readFile(GLchar * filename);
 

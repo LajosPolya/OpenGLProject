@@ -3,8 +3,8 @@
 
 
 ChunkObject::ChunkObject() {
-	this->composition = { SimpleInstancedArrayGameObject{ "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", std::vector<glm::vec3>() },
-	SimpleInstancedArrayGameObject{ "Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", std::vector<glm::vec3>() } };
+	this->composition = { SimpleInstancedArrayGameObject{ "grassBlock.jpg,Textures/dirt.jpg,Textures/topGrass.jpg", "Textures/grassBlockSpec.jpg,Textures/dirtSpec.jpg,Textures/topGrassSpec.jpg", "Mesh/toplessCrate.txt,Mesh/bottomSquare.txt,Mesh/floorSquare.txt", vector<vec3>() },
+	SimpleInstancedArrayGameObject{ "Textures/coal.jpg", "Textures/coalSpec.jpg", "Mesh/crate.txt", vector<vec3>() } };
 }
 
 ChunkObject::~ChunkObject() {}
