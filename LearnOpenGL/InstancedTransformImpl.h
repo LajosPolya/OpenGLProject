@@ -33,6 +33,7 @@ public:
 	InstancedTransformImpl(vector<vec3> positions, vector<vec3> rotations, vector<vec3> scales);
 
 	vector<vec3> * getPositions();
+	const vector<vec3> * getPositions() const ;
 	vector<vec3> * getRotations();
 	vector<vec3> * getScales();
 

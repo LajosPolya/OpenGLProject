@@ -17,6 +17,7 @@ class Transform {
 public:
 
 	virtual vec3 getPosition() = 0;
+	virtual const vec3 getPosition() const = 0;
 
 	virtual void setPosition() = 0;
 	virtual void setPosition(vec3 pos) = 0;

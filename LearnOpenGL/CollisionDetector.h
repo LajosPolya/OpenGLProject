@@ -10,9 +10,9 @@ class CollisionDetector
 public:
 	static void addCamera(Camera * camera);
 
-	static void AddTransform(Transform * transform);
-	static void AddTransform(InstancedTransformImpl * transform);
-	static void AddTransform(InstancedArrayTransformImpl * transform);
+	static void AddTransform(const Transform * transform);
+	static void AddTransform(const InstancedTransformImpl * transform);
+	static void AddTransform(const InstancedArrayTransformImpl * transform);
 
 	static void CheckCollisions();
 
@@ -22,13 +22,13 @@ private:
 
 	static vec3 prevPosition;
 
-	static vector<Transform*> transforms;
-	static vector<InstancedTransformImpl*> instancedTransforms;
-	static vector<InstancedArrayTransformImpl*> instancedArrayTransforms;
+	static vector<const Transform*> transforms;
+	static vector<const InstancedTransformImpl*> instancedTransforms;
+	static vector<const InstancedArrayTransformImpl*> instancedArrayTransforms;
 
-	static void CheckCollision(Transform & transform);
-	static void CheckCollision(InstancedTransformImpl & transform);
-	static void CheckCollision(InstancedArrayTransformImpl & transform);
+	static void CheckCollision(const Transform & transform);
+	static void CheckCollision(const InstancedTransformImpl & transform);
+	static void CheckCollision(const InstancedArrayTransformImpl & transform);
 
 	static const GLfloat padding;
 };

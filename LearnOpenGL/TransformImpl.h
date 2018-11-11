@@ -32,6 +32,7 @@ public:
 	TransformImpl(vec3 Position, vec3 Rotation, vec3 Scale);
 
 	vec3 getPosition();
+	const vec3 getPosition() const;
 	vec3 getRotation();
 	vec3 getScale();
 

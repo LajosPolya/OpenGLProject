@@ -36,6 +36,10 @@ vec3 TransformImpl::getPosition() {
 	return this->Position;
 }
 
+const vec3 TransformImpl::getPosition() const {
+	return this->Position;
+}
+
 vec3 TransformImpl::getRotation() {
 	return this->Rotation;
 }

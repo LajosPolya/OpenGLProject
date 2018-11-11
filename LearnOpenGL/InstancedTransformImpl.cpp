@@ -36,6 +36,10 @@ vector<vec3> * InstancedTransformImpl::getPositions() {
 	return &this->Position;
 }
 
+const vector<vec3> * InstancedTransformImpl::getPositions() const {
+	return &this->Position;
+}
+
 vector<vec3>* InstancedTransformImpl::getRotations() {
 	return &this->Rotation;
 }

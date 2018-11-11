@@ -50,6 +50,10 @@ vector<vec3>* InstancedArrayTransformImpl::getPositions() {
 	return &(this->Position);
 }
 
+const vector<vec3>* InstancedArrayTransformImpl::getPositions() const {
+	return &(this->Position);
+}
+
 vector<vec3>* InstancedArrayTransformImpl::getRotations() {
 	return &(this->Rotation);
 }
