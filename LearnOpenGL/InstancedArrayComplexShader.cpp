@@ -167,13 +167,15 @@ void InstancedArrayComplexShader::sendProjectionMatrixToShader() {
 
 void InstancedArrayComplexShader::sendCameraToShader() {
 	this->use();
-	glUniform3f(glGetUniformLocation(this->shaderId, "viewPos"), this->camera.Position.x, this->camera.Position.y, this->camera.Position.z);
+	const vec3 cPos = this->camera.getPosition();
+	const vec3 cFront = this->camera.getFront();
+	glUniform3f(glGetUniformLocation(this->shaderId, "viewPos"), cPos.x, cPos.y, cPos.z);
 
 	glUniformMatrix4fv(glGetUniformLocation(this->shaderId, "view"), 1, GL_FALSE, value_ptr(this->camera.GetViewMatrix()));
 
 	// Set material properties
-	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.position"), this->camera.Position.x, this->camera.Position.y, this->camera.Position.z);
-	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.direction"), this->camera.Front.x, this->camera.Front.y, this->camera.Front.z);
+	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.position"), cPos.x, cPos.y, cPos.z);
+	glUniform3f(glGetUniformLocation(this->shaderId, "spotLight.direction"), cFront.x, cFront.y, cFront.z);
 }
 
 void InstancedArrayComplexShader::sendMaterialToShader() {

@@ -53,10 +53,10 @@ GLuint readyToGrab = 0;
 // Camera
 Camera camera{ {0.0f, 0.0f, -10.0f } };
 // Previosu Position for Collision Detection
-vec3 prevPosition = camera.Position;
+vec3 prevPosition = camera.getPosition();
 
 /* Calcualte Projection Here */
-mat4 projection = perspective(camera.Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.01f, 100.0f);
+mat4 projection = perspective(camera.getZoom(), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.01f, 100.0f);
 
 // Timing
 GLfloat deltaTime = 0.0f;
@@ -253,7 +253,7 @@ int main() {
 		/* Instantiate New LightBox */
 		if (playerController.getPutDownLight() == GL_TRUE) {
 			playerController.setPutDownLightFalse();
-			vec3 lightsPos = camera.Position + (normalize(camera.Front) * vec3(2.0));
+			vec3 lightsPos = camera.getPosition() + (normalize(camera.getFront()) * vec3(2.0));
 			globalLightsContainer.addPointLight(lightsPos);
 			// This Transform automatically gets updated because we have a reference to it
 			lightBox.setInstances(lightTransform);
@@ -296,7 +296,7 @@ int main() {
 		glEnable(GL_DEPTH_TEST);
 
 		// Set prevPosition
-		CollisionDetector::SetPrevPosiion(camera.Position);
+		CollisionDetector::SetPrevPosiion(camera.getPosition());
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
