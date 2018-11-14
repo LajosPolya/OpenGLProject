@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChunkManager.cpp" />
     <ClCompile Include="ChunkObject.cpp" />
     <ClCompile Include="ChunkObjectTransformStore.cpp" />
