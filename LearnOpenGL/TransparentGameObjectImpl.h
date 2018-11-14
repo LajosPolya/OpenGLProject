@@ -19,7 +19,7 @@ public:
 	~TransparentGameObjectImpl() = default;
 
 	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, string diffuseMapLoc, string specularMapLoc, string meshLoc,  GLchar * materialLoc, GLchar * transformLoc, GLchar * lightsLoc, const Camera & camera, mat4 projection);
-	TransparentGameObjectImpl(GLchar * vertexShader, GLchar * fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, GLchar * transformLoc, const Camera & camera, mat4 projection);
+	TransparentGameObjectImpl(string vertexShader, string fragmentShader, GLchar * diffuseMapLoc, GLchar * meshLoc, string transformLoc, const Camera & camera, mat4 projection);
 
 	void Draw();
 

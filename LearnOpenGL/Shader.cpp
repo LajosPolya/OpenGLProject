@@ -7,7 +7,7 @@ Shader::Shader(const Shader & toCopy) {
 	this->Program = toCopy.Program;
 }
 
-Shader::Shader(const GLchar * vertexPath, const GLchar * fragmentPath) {
+Shader::Shader(const string vertexPath, const string fragmentPath) {
 	// 1. Retrieve the source code from filepath
 	string vertexCode;
 	string fragmentCode;
@@ -90,7 +90,7 @@ Shader::Shader(const GLchar * vertexPath, const GLchar * fragmentPath, GLchar * 
 	glDeleteShader(geometry);
 }
 
-void Shader::readShaderFile(const GLchar * path, string * code) {
+void Shader::readShaderFile(const string path, string * code) {
 	ifstream shaderFile;
 
 	// Ensure ifstream objects can throw exceptions

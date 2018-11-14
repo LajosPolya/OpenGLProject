@@ -4,11 +4,11 @@ TransparentTransformImpl::TransparentTransformImpl() {}
 
 TransparentTransformImpl::~TransparentTransformImpl() {}
 
-TransparentTransformImpl::TransparentTransformImpl(GLchar* fileLocation) {
+TransparentTransformImpl::TransparentTransformImpl(string  fileLocation) {
 	this->readFile(fileLocation);
 }
 
-vec3* TransparentTransformImpl::getPositions(GLuint i) {
+vec3 * TransparentTransformImpl::getPositions(GLuint i) {
 	return &this->props[i].Position;
 }
 
@@ -36,7 +36,7 @@ GLuint TransparentTransformImpl::getSize() {
 	return this->props.size();
 }
 
-void TransparentTransformImpl::readFile(GLchar * filename) {
+void TransparentTransformImpl::readFile(string  filename) {
 	ifstream file(filename);
 	if (file.is_open()) {
 		string line;

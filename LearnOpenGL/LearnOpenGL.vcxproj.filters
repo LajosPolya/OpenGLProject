@@ -251,6 +251,9 @@
     <ClInclude Include="ChunkObjectTransformStore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ConstantStrings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mesh\crate.txt">

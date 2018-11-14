@@ -25,7 +25,7 @@ public:
 	TransparentTransformImpl();
 	~TransparentTransformImpl();
 
-	TransparentTransformImpl(GLchar * fileLocation);
+	TransparentTransformImpl(string fileLocation);
 
 	vec3 * getPositions(GLuint i);
 
@@ -56,7 +56,7 @@ private:
 	/* Only the file should set this */
 	vector<InstancedTransformProps> props;
 
-	void readFile(GLchar * filename);
+	void readFile(string filename);
 
 	// TODO: This needs to be fixed since Transform doesn't have reference back to GameObject
 	GLboolean sortFunction(InstancedTransformProps const &x, InstancedTransformProps const &y);

@@ -5,7 +5,7 @@ InstancedComplexShader::InstancedComplexShader(const Camera & camera, const Ligh
 	// Calls the Base Class' Constructor
 }
 
-InstancedComplexShader::InstancedComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const mat4 & projection, const string materialPath, const string & vertexPath, const string & fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, materialPath, vertexPath, fragmentPath) {
+InstancedComplexShader::InstancedComplexShader(const Camera & camera, const LightsContainer & lightsContainer, const mat4 & projection, const string & materialPath, const string & vertexPath, const string & fragmentPath) : InstancedArrayComplexShader(camera, lightsContainer, projection, materialPath, vertexPath, fragmentPath) {
 
 }
 

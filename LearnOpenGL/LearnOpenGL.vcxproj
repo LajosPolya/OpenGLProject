@@ -162,6 +162,7 @@
     <ClInclude Include="ComplexPosition.h" />
     <ClInclude Include="ComplexShader.h" />
     <ClInclude Include="CompositionType.h" />
+    <ClInclude Include="ConstantStrings.h" />
     <ClInclude Include="InstancedArrayComplexShader.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectMemoryManager.h" />

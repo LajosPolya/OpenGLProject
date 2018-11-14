@@ -14,10 +14,10 @@ using namespace std;
 class SimpleGameObject
 {
 public:
-	SimpleGameObject(string meshPath, string transformPath);
-	SimpleGameObject(string diffuseMapPath, string meshPath, string transformPath);
-	SimpleGameObject(string diffuseMapPath, string specularMapPath, string meshPath, string materialPath, string transformPath);
-	SimpleGameObject(string meshPath, Transform * transform);
+	SimpleGameObject(const string meshPath, const string transformPath);
+	SimpleGameObject(const string diffuseMapPath, const string meshPath, const string transformPath);
+	SimpleGameObject(const string diffuseMapPath, const string specularMapPath, const string meshPath, const string materialPath, const string transformPath);
+	SimpleGameObject(const string meshPath, Transform * transform);
 	~SimpleGameObject();
 
 	void Draw();
