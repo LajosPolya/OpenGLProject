@@ -17,7 +17,8 @@
 using namespace glm;
 
 // TODO : The gradients need to be worked on. Do we really need 64? Should it be dynamic?
-#define NUM_GRADS 64
+#define NUM_GRADS 4
+#define GRANULARITY 2
 
 // Store each chunk
 struct Chunk {
@@ -47,6 +48,8 @@ public:
 	void genGradients(GLuint x, GLuint y);
 	void genGradients3d(GLuint x, GLuint y, GLuint z);
 
+	vec3 random3DVector(GLfloat length);
+
 private:
 	const GLdouble PI = 3.141592653589793;
 
@@ -65,6 +68,6 @@ private:
 	Cartesian coordinates
 	*/
 	vec2 randomVector(GLfloat length);
-	vec3 random3DVector(GLfloat length);
+	
 };
 

@@ -5,7 +5,7 @@ PerlinNoise::PerlinNoise(GLuint x, GLuint y) {
 	this->y = y;
 }
 
-// The parameters are the size of the chunck it should produce on each axis
+// The parameters are the size of the chunk it should produce on each axis
 PerlinNoise::PerlinNoise(GLuint x, GLuint y, GLuint z) {
 	this->x = x;
 	this->y = y;
@@ -20,7 +20,8 @@ GLfloat **  PerlinNoise::generate(GLint x, GLint y) {
 	for (i = 0; i < this->x; i++) {
 		values[i] = new GLfloat[this->y];
 		for (j = 0; j < this->y; j++) {
-			values[i][j] = perlin((GLfloat)i / (GLfloat)this->x * (GLfloat)6.0, (GLfloat)j / (GLfloat)this->y * (GLfloat)6.0);
+			// TODO: THIS GRANULARITY (2.0) SHOULD NOT BE HERE AND WILL BREAK CODE;
+			values[i][j] = perlin((GLfloat)i / (GLfloat)this->x * (GLfloat)2.0, (GLfloat)j / (GLfloat)this->y * (GLfloat)2.0);
 		}
 	}
 

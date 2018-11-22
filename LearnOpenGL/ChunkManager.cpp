@@ -3,6 +3,9 @@
 
 
 ChunkManager::ChunkManager() {
+	if (NUM_GRADS < GRANULARITY) {
+		cout << "ERROR:: NUM_GRADS CANNOT BE LESS THAN GRANULARITY" << endl;
+	}
 	this->chunks = new Chunk**[maxChunks];
 	for (GLuint i = 0; i < maxChunks; i++) {
 		this->chunks[i] = new Chunk*[maxChunks];
@@ -50,11 +53,12 @@ Chunk ChunkManager::getChunk(GLint x, GLint y, GLint z) {
 void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 	GLuint i, j, k;
 
-	if (hasGeneratedGradients(x, y, z) == 0) {
+	if (hasGeneratedGradients(x, y, z) == false) {
 		genGradients3d(NUM_GRADS, NUM_GRADS, NUM_GRADS);
 	}
 
-	if (hasGeneratedGradients(x, y, z - 1) == 1) {
+	// TODO: Do all of these granularities need to be copied over?
+	if (hasGeneratedGradients(x, y, z - 1) == true) {
 		Chunk chunk = getChunk(x, y, z - 1);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
@@ -63,7 +67,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 		}
 	}
 
-	if (hasGeneratedGradients(x, y, z + 1) == 1) {
+	if (hasGeneratedGradients(x, y, z + 1) == true) {
 		Chunk chunk = getChunk(x, y, z + 1);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
@@ -72,7 +76,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 		}
 	}
 
-	if (hasGeneratedGradients(x - 1, y, z) == 1) {
+	if (hasGeneratedGradients(x - 1, y, z) == true) {
 		Chunk chunk = getChunk(x - 1, y, z);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
@@ -81,7 +85,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 		}
 	}
 
-	if (hasGeneratedGradients(x + 1, y, z) == 1) {
+	if (hasGeneratedGradients(x + 1, y, z) == true) {
 		Chunk chunk = getChunk(x + 1, y, z);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
@@ -90,7 +94,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 		}
 	}
 
-	if (hasGeneratedGradients(x, y - 1, z) == 1) {
+	if (hasGeneratedGradients(x, y - 1, z) == true) {
 		Chunk chunk = getChunk(x, y - 1, z);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
@@ -99,7 +103,7 @@ void ChunkManager::setChunk(GLint x, GLint y, GLint z) {
 		}
 	}
 
-	if (hasGeneratedGradients(x, y + 1, z) == 1) {
+	if (hasGeneratedGradients(x, y + 1, z) == true) {
 		Chunk chunk = getChunk(x, y + 1, z);
 		for (i = 0; i < NUM_GRADS; i++) {
 			for (j = 0; j < NUM_GRADS; j++) {
@@ -143,10 +147,10 @@ void ChunkManager::genGradients(GLuint x, GLuint y) {
 		}
 	}
 
-	this->gradients[0][0] = vec2(1.0, 0.0);
-	this->gradients[1][0] = vec2(0.0, 1.0);
-	this->gradients[0][1] = vec2(-1.0, 0.0);
-	this->gradients[1][1] = vec2(0.0, -1.0);
+	this->gradients[0][0] = { 1.0, 0.0 };
+	this->gradients[1][0] = { 0.0, 1.0 };
+	this->gradients[0][1] = { -1.0, 0.0 };
+	this->gradients[1][1] = { 0.0, -1.0 };
 }
 
 void ChunkManager::genGradients3d(GLuint x, GLuint y, GLuint z) {
@@ -174,7 +178,15 @@ vec2 ChunkManager::randomVector(GLfloat length) {
 	return{ x, y };
 }
 
+
+// TODO: Consider Grabbing random vectors from pregenerated vectors;
+/*
+I used to generate 64^3 gradient vectors/chunk, this was extremely slow.
+Now I only generate 8^3, which is now way faster, but grabing vectors from 
+a pregenerated map of 2^8 would greatly increase speed (if it's necessary)
+*/
 vec3 ChunkManager::random3DVector(GLfloat length) {
+
 	random_device rd;
 	uniform_real_distribution<GLdouble> dist{ 0.0, 2.0 * PI };
 	uniform_real_distribution<GLfloat> randomCostheta{ -1.0, 1.0 };
