@@ -40,12 +40,6 @@ Texture::Texture(GLchar * path, GLboolean alpha) {
 	}
 }
 
-Texture::Texture(GLuint id, string name, string type) {
-	this->id = id;
-	this->name = name;
-	this->type = type;
-}
-
 /* MAKE THE MESH/MATERIALS USE THIS INSTEAD OF THE TEXTURE STRUCT IN MESH CLASS*/
 Texture::Texture(GLchar * path, GLboolean alpha, string name) {
 	this->name = name;

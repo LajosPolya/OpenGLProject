@@ -18,7 +18,6 @@ public:
 	Texture(const Texture & toCopy);
 
 	Texture(GLchar * path, GLboolean alpha);
-	Texture(GLuint id, string name, string type);
 
 	/* MAKE THE MESH/MATERIALS USE THIS INSTEAD OF THE TEXTURE STRUCT IN MESH CLASS*/
 	Texture(GLchar * path, GLboolean alpha, string name);

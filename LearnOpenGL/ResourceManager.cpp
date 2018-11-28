@@ -23,18 +23,6 @@ Material * ResourceManager::getMaterial(string path) {
 	
 }
 
-Texture * ResourceManager::getTexture(string path) {
-	auto it = manager.find(path);
-
-	if (it == manager.end()) {
-		return nullptr;
-	}
-	else {
-		Texture * tempText = ((Texture *)it->second);
-		return (Texture*)new Texture(tempText->getTextureID(), tempText->getName(), tempText->getType());
-	}
-}
-
 // TODO: GameOBject is no longer needed here
 TransformImpl * ResourceManager::getTransform(string path, GameObject * gameObject) {
 	auto it = manager.find(path);
