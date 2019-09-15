@@ -1,7 +1,7 @@
 # OpenGLProject
 OpenGL Graphics Engine
 
-I'm writing this project to improve myself as a programer.
+I'm writing this project to improve myself as a programmer.
 
 Key goals :
 
